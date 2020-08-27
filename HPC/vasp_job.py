@@ -10,15 +10,11 @@ def write_vasp_slurm_job(inputfiles_path, job_description, gpu=False):
     # for path_dir in glob.glob(os.path.join(inputfiles_path,'{}s*/'.format(project_name):
     if not os.path.isdir(inputfiles_path):
         raise Exception("The directory {} does not exist".format(inputfiles_path))
-        # print("The directory {} does not exist".format(inputfiles_path))
-        # continue
-    # path = pathlib.PurePath(inputfiles_path)
-    # basename = path.name
 
     basename = os.path.basename(os.path.normpath(inputfiles_path))
 
     outputfile = os.path.join(inputfiles_path, basename + "_vasp_job.sh")
-    # jobname
+
     jobname = basename
 
     script = "#!/bin/bash\n"
@@ -68,7 +64,7 @@ def write_vasp_slurm_job(inputfiles_path, job_description, gpu=False):
 
     # Preparing and moving inputfiles to tmp:
     script += "cp $input $VASP_WORKDIR\n"
-    script += "cd VASP_WORKDIR\n"
+    script += "cd $VASP_WORKDIR\n"
 
     ######################################
     # Section for running the program and cleaning up:
@@ -80,11 +76,10 @@ def write_vasp_slurm_job(inputfiles_path, job_description, gpu=False):
     else:
         script += "srun $HOME/bin/vasp/vasp_std\n"
 
-
     script += "\n\n"
 
-    script += "output=$(ls ${VASP_WORKDIR}/{OUTCAR, XDATCAR, OSZICAR, CONTCAR, DOSCAR, CHGCAR,vasp.out,vasprun.xml}) " \
-              " # Input files from job folder\n "
+    script += "output=$(ls ${VASP_WORKDIR}/{OUTCAR, XDATCAR, OSZICAR, CONTCAR, DOSCAR, CHGCAR,vasp.out,vasprun.xml})" \
+              "# Input files from job folder\n"
 
     script += "cp $output  $SLURM_SUBMIT_DIR/${proj}\n"
 

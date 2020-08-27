@@ -8,10 +8,19 @@ import subprocess
 import numpy as np
 
 
+class Partition(object):
+
+    def __init__(self, name, maxDays):
+        self.name = name
+        self.maxDays = maxDays
+
+
 class ClusterCommunicator(object):
     def __init__(self, hostname, username, password):
+        #self.partition = self.Partition()
         self.client = SSHClient()
-        self.client.load_system_host_keys()
+        #self.client.load_system_host_keys()
+        self.client.set_missing_host_key_policy(paramiko.AutoAddPolicy)
         successful = False
         while not successful:
             try:
@@ -22,9 +31,35 @@ class ClusterCommunicator(object):
                 continue
             successful = True
 
+
+
     def _run_cmd(self, command):
         _, stdout, stderr = self.client.exec_command(command)
         return stdout.read().decode(), stderr.read().decode()
+
+    def get_partition_info(self):
+
+        # create list of partition using sinfo -o "%R %l"
+        #pattern = r"%d+"
+
+        command = 'sinfo -o "%R %l"'
+        #std_out, _ = self._run_cmd(command)
+        #info = std_out.readlines()[1:]
+        _, stdout, stderr = self.client.exec_command(command)
+        print(stdout)
+        info = stdout.readlines()[1:]
+        partitions = []
+
+        for line in info:
+            if len(line.strip()) == 0:
+                continue
+            partition_name = line.split()[0]
+            # if "gpu" in partition_name:
+            #    continue
+            partition_time = int(re.findall(r"\d+", line)[0])
+            partitions.append(Partition(partition_name, partition_time))
+
+        return partitions
 
     def sbatch(self, calc_dir, joblist_file, output_dir):
         std_out, _ = self._run_cmd(f'cd {calc_dir}; sbatch parallel_cheap_protocol.sh {joblist_file} {output_dir}')
