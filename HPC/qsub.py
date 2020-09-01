@@ -1,30 +1,15 @@
 from pathlib import Path
 import os
-import glob
-import zipfile
-import sys
-import re
-import numpy as np
 
-import ase
 from ase.db import connect
-from ase.io import read, jsonio
-from ase.utils import PurePath
 
-from pymatgen import Structure
 from pymatgen.io.ase import AseAtomsAdaptor
-from pymatgen.io.vasp.inputs import Poscar
-from pymatgen.io.vasp.inputs import Potcar
-from pymatgen.io.vasp.inputs import Kpoints
-from pymatgen.io.vasp.inputs import Incar
-from pymatgen.io.vasp.outputs import Vasprun
 from pymatgen.io.vasp.sets import MPRelaxSet
 from pymatgen.io.vasp.sets import MPStaticSet
 
 # ===================================================
 
-from qsub_vasp import write_vasp_slurm_job
-from cluster_communicator import ClusterCommunicator
+from ParamikoTools.qsub_vasp import write_vasp_slurm_job
 
 # ===================================================
 
@@ -75,7 +60,7 @@ job_description = {'time': 1,
                    'ntask': 4,
                    'memory': 4000,
                    'email': None,
-                   'gpu': 1,
+                   'gpu': 0,
                    'account': "def-itamblyn-ac",
                    'project': "Alloys"}
 
@@ -98,10 +83,11 @@ job_description = {'time': 1,
 #
 # print(partitions[-1].maxDays)
 
-# write vasp imput parameter
-relax_set.write_input(output_dir=os.path.join(Job_dir, job_name, 'job'), potcar_spec=False, zip_output=False)
+# write vasp input parameter
 
-write_vasp_slurm_job(os.path.join(Job_dir, job_name), job_description, gpu=False)
+relax_set.write_input(output_dir=os.path.join(Job_dir, job_name, 'input_vasp'), potcar_spec=False, zip_output=False)
+
+write_vasp_slurm_job(os.path.join(Job_dir, job_name), job_description, gpu=0)
 
 # def zipdir(path, ziph):
 #    # ziph is zipfile handle

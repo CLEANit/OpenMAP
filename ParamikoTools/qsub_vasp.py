@@ -1,9 +1,45 @@
 import os
 
 
-def write_vasp_slurm_job(inputfiles_path, job_description, gpu=False):
+def job_descriptor(nb_atoms, job_type):
+    """
+    :param nb_atoms: number of atoms in the system (int)
+    :param job_type: Type of calculation ( energy, relaxation, bandgap)
+    :return: dictionary with job parameter
+    """
+    job_description = {}
+
+    # time, n_cpu, n_gpu,
+
+    return job_description
+
+
+def write_slurm_from_file(inputfiles_path, file):
+    """
+    :param inputfiles_path: path to write the slurm job file
+    :param file: template slurm job file
+    :return:
+    """
+
+    ifile = open(file, "r")
+    script = ifile.readlines()
+    ifile.close()
+    if not os.path.isdir(inputfiles_path):
+        raise Exception("The directory {} does not exist".format(inputfiles_path))
+
+    basename = os.path.basename(os.path.normpath(inputfiles_path))
+
+    outputfile = os.path.join(inputfiles_path, basename + "_vasp_job.sh")
+
+    jobname = basename
+
+    ofile = open(outputfile, "w")
+    ofile.write(script)
+    ofile.close()
+
+def write_slurm_job(inputfiles_path, job_description, gpu=0):
     """"
-    inputfiles_path : path to directory with the input files
+    inputfiles_path : path to write the slurm job file
     job_description : dictionary with the parameters of the job
     gpu : boolean, gpu or not
     """
@@ -21,10 +57,10 @@ def write_vasp_slurm_job(inputfiles_path, job_description, gpu=False):
     script += "#SBATCH --account={}\n".format(job_description["account"])
     script += "#SBATCH --job-name={}\n".format(jobname)
     script += "#SBATCH --time={0}-00:00:00 #d-hh:mm:ss\n".format(job_description["time"])
-    script += "#SBATCH --output=%x-%j.out.log\n"
-    script += "#SBATCH --error==%x-%j.err\n"
+    script += "#SBATCH --output=%x-%j.out\n"
+    script += "#SBATCH --error=%x-%j.err\n"
 
-    if gpu:
+    if int(gpu) > 0:
         script += "#SBATCH --cpus-per-task={0} # number of CPU processes\n".format(job_description["ntask"])
         script += "#SBATCH --gres=gpu:{0} # Number of GPUs (per node) \n".format(job_description["gpu"])
         script += "#SBATCH --mem = {0}M #  memory (per node)\n".format(job_description["memory"])
@@ -47,8 +83,8 @@ def write_vasp_slurm_job(inputfiles_path, job_description, gpu=False):
     # ./vasp_input/POTCAR
     # ./vasp_input/POSCAR
 
-    script += "export proj={} # Name of job folder\n".format('job')
-    script += "input=$(ls ${proj}/{INCAR, KPOINTS, POTCAR, POSCAR})  # Input files from job folder\n"
+    script += "export proj={} # Name of job folder\n".format('vasp_input')
+    script += "input=$(ls ${proj}/{INCAR,KPOINTS,POTCAR,POSCAR})  # Input files from job folder\n"
     script += "\n\n"
     # We load all the default program system settings with module load:
     script += "module --quiet purge\n"
@@ -74,14 +110,17 @@ def write_vasp_slurm_job(inputfiles_path, job_description, gpu=False):
     if gpu:
         script += "mpiexec <VASP>\n"
     else:
-        script += "srun $HOME/bin/vasp/vasp_std\n"
+        script += "time srun $HOME/bin/vasp/vasp_std\n"
 
     script += "\n\n"
 
-    script += "output=$(ls ${VASP_WORKDIR}/{OUTCAR, XDATCAR, OSZICAR, CONTCAR, DOSCAR, CHGCAR,vasp.out,vasprun.xml})" \
+    script += "out=$(ls {OUTCAR,XDATCAR,OSZICAR,CONTCAR,DOSCAR,CHGCAR,vasprun.xml})" \
               "# Input files from job folder\n"
 
-    script += "cp $output  $SLURM_SUBMIT_DIR/${proj}\n"
+    script += " mkdir -p vasp_output\n"
+    #script += "cp $out vasp_output\n"
+    script += "cp * vasp_output\n"
+    script += "cp -r vasp_output  $SLURM_SUBMIT_DIR\n"
 
     # script += "    cp OUTCAR $SLURM_SUBMIT_DIR/${proj}.OUTCAR \n"
     # To zip some of the output might be a good idea!
@@ -89,9 +128,15 @@ def write_vasp_slurm_job(inputfiles_path, job_description, gpu=False):
     # mv $results.gz $submitdir/
 
     script += "cd  $SLURM_SUBMIT_DIR\n"
-    script += "rm -r $VASP_WORKDIR/*\n"
+    script += "mv *.err *.out  vasp_output\n"
+    script += "rm -r $VASP_WORKDIR\n"
     script += "\n\n"
 
+    script += "echo \"Job finished at\" "
+    script += "date\n"
+    script += "++++++++++++++ Job Ended ++++++++++++++\n"
+    script += "exit 0"
+    script += "\n\n"
     ofile = open(outputfile, "w")
     ofile.write(script)
     ofile.close()
