@@ -330,13 +330,13 @@ class RemoteClient:
         status_list = [None for job_sid in jobs]
         while not all(status == 'COMPLETED' for status in status_list):
             status_list = [self.sacct(job.id) for job in jobs]
-            job_ids = [job.id  for job in jobs]
+            job_ids = [job.id for job in jobs]
             for id, status in zip(job_ids, status_list):
                 logger.info(f' {id}:  {status}')
                 # print(status_list)
             time.sleep(300)
         for job in jobs:
-            self.download_file(job.remote_path, local_directory=job.local_path)
+            self.download_file(job.remote_path + 'vasp_output', local_directory=job.local_path)
         logger.info(f'Task completed')
         return None
 

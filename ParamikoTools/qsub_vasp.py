@@ -1,5 +1,5 @@
 import os
-
+job_type = ["DOS", "BS", "Static", "Relaxation"]
 
 def job_descriptor(nb_atoms, job_type):
     """
@@ -32,7 +32,9 @@ def write_slurm_from_file(inputfiles_path, file):
     outputfile = os.path.join(inputfiles_path, basename + "_vasp_job.sh")
 
     jobname = basename
-
+    for line in script:
+        if "#SBATCH --job-name=" in line:
+            line.replace("job_name", jobname)
     ofile = open(outputfile, "w")
     ofile.write(script)
     ofile.close()
@@ -118,8 +120,8 @@ def write_slurm_job(inputfiles_path, job_description, gpu=0):
               "# Input files from job folder\n"
 
     script += " mkdir -p vasp_output\n"
-    #script += "cp $out vasp_output\n"
-    script += "cp * vasp_output\n"
+    script += "cp $out vasp_output\n"
+    #script += "cp * vasp_output\n"
     script += "cp -r vasp_output  $SLURM_SUBMIT_DIR\n"
 
     # script += "    cp OUTCAR $SLURM_SUBMIT_DIR/${proj}.OUTCAR \n"
@@ -130,12 +132,7 @@ def write_slurm_job(inputfiles_path, job_description, gpu=0):
     script += "cd  $SLURM_SUBMIT_DIR\n"
     script += "mv *.err *.out  vasp_output\n"
     script += "rm -r $VASP_WORKDIR\n"
-    script += "\n\n"
 
-    script += "echo \"Job finished at\" "
-    script += "date\n"
-    script += "++++++++++++++ Job Ended ++++++++++++++\n"
-    script += "exit 0"
     script += "\n\n"
     ofile = open(outputfile, "w")
     ofile.write(script)

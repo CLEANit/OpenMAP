@@ -75,7 +75,7 @@ db = connect(os.path.join(data_dir, database))
 # write inputs for calculations
 # ===================================================
 
-sample_list = [58, 78, 89, 65, 46]
+#sample_list = [58, 78, 89, 65, 46]
 job_list = []
 
 
@@ -89,68 +89,13 @@ class JOB(object):
         self.status = status
 
 
-for sample_id in sample_list:
-    atoms = db.get(id=sample_id).toatoms()
-    atoms_list = atoms.get_chemical_symbols()
-    struct = AseAtomsAdaptor.get_structure(atoms)
-
-    # write vasp input with pymatgen
-
-    # Job_descriptor: define job parameter  base on structure,  job type and
-    # write job file
-
-    job_name = project_name + "_{:d}".format(int(sample_id))
-    job_list.append(job_name)
-    Path(os.path.join(local_file_directory, job_name, 'vasp_input')).mkdir(parents=True, exist_ok=True)
-    # === Prepare Input ===
-    # static_set = MPStaticSet(struct)
-    # relax_set = MPRelaxSet(struct)
-    # relax_set.write_input(output_dir=os.path.join(Job_dir, job_name, 'input_vasp'), potcar_spec=False, zip_output=False)
-
-    # POSCAR
-    poscar = Poscar(structure=struct)
-    poscar.write_file(os.path.join(local_file_directory, job_name, 'vasp_input', 'POSCAR'))
-
-    # INCAR
-    incar_dict = {
-        # "ALGO": "Fast",
-        # "GGA": "PE",
-        "PREC": "Accurate",
-        "ISMEAR": 1,
-        "ENCUT": 300,
-        "EDIFF": 1e-06,
-        "ISIF": 3,
-        "IBRION": 2,
-        "NSW": 100,
-        "LORBIT": 11,
-        "SIGMA": 0.05
-    }
-    incar = Incar(incar_dict)
-    incar.write_file(os.path.join(local_file_directory, job_name, 'vasp_input', 'INCAR'))
-
-    # POTCAR
-    potcar = Potcar(symbols=atoms_list, functional='PBE_54')
-    potcar.write_file(os.path.join(local_file_directory, job_name, 'vasp_input', 'POTCAR'))
-
-    # KPOINTS
-    kpoints = Kpoints.monkhorst_automatic(kpts=(8, 8, 8), shift=(0.0, 0.0, 0.0))
-    kpoints.write_file(os.path.join(local_file_directory, job_name, 'vasp_input', 'KPOINT'))
-
-    job_description = {'time': 1,
-                       'ntask': 4,
-                       'memory': 4000,
-                       'email': None,
-                       'gpu': 0,
-                       'account': account}
-
-    qsub_vasp.write_slurm_job(os.path.join(local_file_directory, job_name), job_description)
-
-
-def main():
+def main(sample_list):
     """
     Initialize remote host client and execute actions
 
     """
+
+    master(sample_list)
     remote = client.RemoteClient(host, user, remote_path, local_file_directory, passphrase, ssh_key_filepath)
     make_dir_on_remote(remote)  # make remote dir if not exist
     upload_dir_to_remote(remote)  # upload job dir
@@ -160,10 +105,75 @@ def main():
     jobs = run_job(remote)
     # job_ids = [49700634,  49700739, 49700746, 49700748, 49700749]
     job_monitoring(remote, jobs)  # # monitor job
-
     # download_file_from_remote(remote)
-
+    # results = prepare_results(jobs)  to update the data base
+    objectives = get_objective(jobs)
     remote.disconnect()
+    return objectives
+
+
+
+
+def master(sample_list):
+    """
+    """
+    for sample_id in sample_list:
+        atoms = db.get(id=sample_id).toatoms()
+        # atoms_list = atoms.get_chemical_symbols()
+
+        struct = AseAtomsAdaptor.get_structure(atoms)
+        symbol_set = struct.symbol_set
+
+        # write vasp input with pymatgen
+
+        # Job_descriptor: define job parameter  base on structure,  job type and
+        # write job file
+
+        job_name = project_name + "_{:d}".format(int(sample_id))
+        job_list.append(job_name)
+        Path(os.path.join(local_file_directory, job_name, 'vasp_input')).mkdir(parents=True, exist_ok=True)
+        # === Prepare Input ===
+        # static_set = MPStaticSet(struct)
+        # relax_set = MPRelaxSet(struct)
+        # relax_set.write_input(output_dir=os.path.join(Job_dir, job_name, 'input_vasp'), potcar_spec=False, zip_output=False)
+
+        # POSCAR
+        poscar = Poscar(structure=struct)
+        poscar.write_file(os.path.join(local_file_directory, job_name, 'vasp_input', 'POSCAR'))
+
+        # INCAR
+        incar_dict = {
+            # "ALGO": "Fast",
+            # "GGA": "PE",
+            "PREC": "Accurate",
+            "ISMEAR": 1,
+            "ENCUT": 520,
+            "EDIFF": 1e-06,
+            "ISIF": 3,
+            "IBRION": 2,
+            "NSW": 100,
+            "LORBIT": 11,
+            "SIGMA": 0.05
+        }
+        incar = Incar(incar_dict)
+        incar.write_file(os.path.join(local_file_directory, job_name, 'vasp_input', 'INCAR'))
+
+        # POTCAR
+        potcar = Potcar(symbols=symbol_set, functional='PBE_54')
+        potcar.write_file(os.path.join(local_file_directory, job_name, 'vasp_input', 'POTCAR'))
+
+        # KPOINTS
+        kpoints = Kpoints.monkhorst_automatic(kpts=(4, 4, 4), shift=(0.0, 0.0, 0.0))
+        kpoints.write_file(os.path.join(local_file_directory, job_name, 'vasp_input', 'KPOINT'))
+
+        job_description = {'time': 1,
+                           'ntask': 4,
+                           'memory': 4000,
+                           'email': None,
+                           'gpu': 0,
+                           'account': account}
+
+        qsub_vasp.write_slurm_job(os.path.join(local_file_directory, job_name), job_description)
 
 
 def upload_files_to_remote(remote):
@@ -218,14 +228,41 @@ def run_job(remote):
     for jobb in job_list:
         job_id = remote.sbatch(os.path.join(remote_path, jobb), job_file=jobb + '_vasp_job.sh')
         job_ids.append(job_id)
-        jobs.append(JOB(id=job_id, name=jobb, remote_path=os.path.join(remote_path, jobb,'vasp_output'),
-                             local_path=os.path.join(local_file_directory, jobb), status=None))
+        jobs.append(JOB(id=job_id, name=jobb, remote_path=os.path.join(remote_path, jobb),
+                        local_path=os.path.join(local_file_directory, jobb), status=None))
 
     return jobs
 
 
-def job_monitoring(remote, job_ids):
-    remote.monitor_batch(job_ids)
+def job_monitoring(remote, jobs):
+    remote.monitor_batch(jobs)
 
 
-main()
+def prepare_results(jobs):
+    """ get all of the results of the previous batch ready to be inserted into the DB
+        will return a list of dictionaries
+    """
+    results = []
+    for job in jobs:
+        vrun = Vasprun(filename=os.path.join(job.local_path, 'vasp_output/vasprun.xml'))
+        energy = vrun.final_energy
+        volume = vrun.final_structure.volume
+        abc = vrun.final_structure.lattice.abc
+        mol_dict = {'energy': energy, 'volume': volume, 'abc': abc}
+        results.append(mol_dict)
+
+    return results
+
+
+def get_objective(jobs):
+    objectives = []
+    for job in jobs:
+        vrun = Vasprun(filename=os.path.join(job.local_path, 'vasp_output/vasprun.xml'))
+        composition = vrun.final_structure.composition
+        objective = vrun.final_energy / composition.num_atoms  # what will be our objective??
+        objectives.append(objective)
+    return objectives
+
+
+if __name__ == '__main__':
+    main(sample_list)
