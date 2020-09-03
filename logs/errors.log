@@ -2504,3 +2504,2133 @@
 
 [31m[1mscp.SCPException[0m:[1m scp: /home/ctetsass/projects/rrg-itamblyn-ab/OpenMaps/Alloys/Alloys_68/Alloys_68/vasp_input/INCAR: Disk quota exceeded
 [0m
+[96m09-02-2020 15:06:03[0m | 		[91mERROR[0m: 		[97mTimeout waiting for scp response[0m
+[96m09-02-2020 15:06:03[0m | 		[91mERROR[0m: 		[97mAn error has been caught in function 'upload_dir_to_remote', process 'MainProcess' (1580), thread 'MainThread' (4594302400):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/paramiko/channel.py", line 699, in recv
+    out = self.in_buffer.read(nbytes, self.timeout)
+          │    │         │    │       │    └ 10.0
+          │    │         │    │       └ <paramiko.Channel 3 (open) window=1991260 -> <paramiko.Transport at 0x401c6240 (cipher aes128-ctr, 128 bits) (active; 2 open ...
+          │    │         │    └ 512
+          │    │         └ <function BufferedPipe.read at 0x13c759158>
+          │    └ <paramiko.buffered_pipe.BufferedPipe object at 0x13d640940>
+          └ <paramiko.Channel 3 (open) window=1991260 -> <paramiko.Transport at 0x401c6240 (cipher aes128-ctr, 128 bits) (active; 2 open ...
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/paramiko/buffered_pipe.py", line 164, in read
+    raise PipeTimeout()
+          └ <class 'paramiko.buffered_pipe.PipeTimeout'>
+
+[31m[1mparamiko.buffered_pipe.PipeTimeout[0m
+
+
+[1mDuring handling of the above exception, another exception occurred:[0m
+
+
+[33m[1mTraceback (most recent call last):[0m
+
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 356, in _recv_confirm
+    msg = self.channel.recv(512)
+          │    │       └ <function Channel.recv at 0x13c7610d0>
+          │    └ <paramiko.Channel 3 (open) window=1991260 -> <paramiko.Transport at 0x401c6240 (cipher aes128-ctr, 128 bits) (active; 2 open ...
+          └ <scp.SCPClient object at 0x13d63d0b8>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/paramiko/channel.py", line 701, in recv
+    raise socket.timeout()
+          │      └ <class 'socket.timeout'>
+          └ <module 'socket' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/socket.py'>
+
+[31m[1msocket.timeout[0m
+
+
+[1mDuring handling of the above exception, another exception occurred:[0m
+
+
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/[0m[32m[1mpydevconsole.py[0m", line [33m483[0m, in [35m<module>[0m
+    [1mpydevconsole[0m[35m[1m.[0m[1mstart_client[0m[1m([0m[1mhost[0m[1m,[0m [1mport[0m[1m)[0m
+    [36m│            │            │     └ [0m[36m[1m49568[0m
+    [36m│            │            └ [0m[36m[1m'127.0.0.1'[0m
+    [36m│            └ [0m[36m[1m<function start_client at 0x110ccee18>[0m
+    [36m└ [0m[36m[1m<module 'pydevconsole' from '/Applications/PyCharm.app/Contents/helpers/pydev/pydevconsole.py'>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/[0m[32m[1mpydevconsole.py[0m", line [33m411[0m, in [35mstart_client[0m
+    [1mprocess_exec_queue[0m[1m([0m[1minterpreter[0m[1m)[0m
+    [36m│                  └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x110ce2400>[0m
+    [36m└ [0m[36m[1m<function process_exec_queue at 0x110cceb70>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/[0m[32m[1mpydevconsole.py[0m", line [33m258[0m, in [35mprocess_exec_queue[0m
+    [1mmore[0m [35m[1m=[0m [1minterpreter[0m[35m[1m.[0m[1madd_exec[0m[1m([0m[1mcode_fragment[0m[1m)[0m
+    [36m       │           │        └ [0m[36m[1m<_pydev_bundle.pydev_console_types.CodeFragment object at 0x110df6ac8>[0m
+    [36m       │           └ [0m[36m[1m<function BaseCodeExecutor.add_exec at 0x10fd9c158>[0m
+    [36m       └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x110ce2400>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_code_executor.py[0m", line [33m106[0m, in [35madd_exec[0m
+    [1mmore[0m [35m[1m=[0m [1mself[0m[35m[1m.[0m[1mdo_add_exec[0m[1m([0m[1mcode_fragment[0m[1m)[0m
+    [36m       │    │           └ [0m[36m[1m<_pydev_bundle.pydev_console_types.CodeFragment object at 0x110df6ac8>[0m
+    [36m       │    └ [0m[36m[1m<function InterpreterInterface.do_add_exec at 0x110ccaea0>[0m
+    [36m       └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x110ce2400>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_ipython_console.py[0m", line [33m36[0m, in [35mdo_add_exec[0m
+    [1mres[0m [35m[1m=[0m [1mbool[0m[1m([0m[1mself[0m[35m[1m.[0m[1minterpreter[0m[35m[1m.[0m[1madd_exec[0m[1m([0m[1mcode_fragment[0m[35m[1m.[0m[1mtext[0m[1m)[0m[1m)[0m
+    [36m           │    │           │        │             └ [0m[36m[1m"runfile('/Users/ctetsass/OpenMaps/run_inc.py', wdir='/Users/ctetsass/OpenMaps')\n"[0m
+    [36m           │    │           │        └ [0m[36m[1m<_pydev_bundle.pydev_console_types.CodeFragment object at 0x110df6ac8>[0m
+    [36m           │    │           └ [0m[36m[1m<function _PyDevFrontEnd.add_exec at 0x110ccab70>[0m
+    [36m           │    └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console_011._PyDevFrontEnd object at 0x110ce2518>[0m
+    [36m           └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x110ce2400>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_ipython_console_011.py[0m", line [33m482[0m, in [35madd_exec[0m
+    [1mself[0m[35m[1m.[0m[1mipython[0m[35m[1m.[0m[1mrun_cell[0m[1m([0m[1mline[0m[1m,[0m [1mstore_history[0m[35m[1m=[0m[36m[1mTrue[0m[1m)[0m
+    [36m│    │       │        └ [0m[36m[1m"runfile('/Users/ctetsass/OpenMaps/run_inc.py', wdir='/Users/ctetsass/OpenMaps')\n"[0m
+    [36m│    │       └ [0m[36m[1m<function InteractiveShell.run_cell at 0x1102e20d0>[0m
+    [36m│    └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x110ce2550>[0m
+    [36m└ [0m[36m[1m<_pydev_bundle.pydev_ipython_console_011._PyDevFrontEnd object at 0x110ce2518>[0m
+
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 2867, in run_cell
+    raw_cell, store_history, silent, shell_futures)
+    │         │              │       └ True
+    │         │              └ False
+    │         └ True
+    └ "runfile('/Users/ctetsass/OpenMaps/run_inc.py', wdir='/Users/ctetsass/OpenMaps')\n"
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 2895, in _run_cell
+    return runner(coro)
+           │      └ <coroutine object InteractiveShell.run_cell_async at 0x110d17620>
+           └ <function _pseudo_sync_runner at 0x1102caa60>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/async_helpers.py", line 68, in _pseudo_sync_runner
+    coro.send(None)
+    │    └ <method 'send' of 'coroutine' objects>
+    └ <coroutine object InteractiveShell.run_cell_async at 0x110d17620>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 3072, in run_cell_async
+    interactivity=interactivity, compiler=compiler, result=result)
+                  │                       │                └ <ExecutionResult object at 110df6d30, execution_count=2 error_before_exec=None error_in_exec=None info=<ExecutionInfo object ...
+                  │                       └ <IPython.core.compilerop.CachingCompiler object at 0x110ce2ac8>
+                  └ 'last_expr'
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 3263, in run_ast_nodes
+    if (await self.run_code(code, result,  async_=asy)):
+              │    │        │     │               └ False
+              │    │        │     └ <ExecutionResult object at 110df6d30, execution_count=2 error_before_exec=None error_in_exec=None info=<ExecutionInfo object ...
+              │    │        └ <code object <module> at 0x110daed20, file "<ipython-input-2-f646fd410bee>", line 1>
+              │    └ <function InteractiveShell.run_code at 0x1102e2598>
+              └ <_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x110ce2550>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 3343, in run_code
+    exec(code_obj, self.user_global_ns, self.user_ns)
+         │         │    │               │    └ {'__name__': 'pydev_umd', '__doc__': 'Automatically created module for IPython interactive environment', '__package__': None,...
+         │         │    │               └ <_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x110ce2550>
+         │         │    └ <property object at 0x1102d1728>
+         │         └ <_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x110ce2550>
+         └ <code object <module> at 0x110daed20, file "<ipython-input-2-f646fd410bee>", line 1>
+  File "<ipython-input-2-f646fd410bee>", line 1, in <module>
+    runfile('/Users/ctetsass/OpenMaps/run_inc.py', wdir='/Users/ctetsass/OpenMaps')
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_umd.py[0m", line [33m197[0m, in [35mrunfile[0m
+    [1mpydev_imports[0m[35m[1m.[0m[1mexecfile[0m[1m([0m[1mfilename[0m[1m,[0m [1mglobal_vars[0m[1m,[0m [1mlocal_vars[0m[1m)[0m  [30m[1m# execute the script[0m
+    [36m│             │        │         │            └ [0m[36m[1m{'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': None, '__spec__': None, '__file__': '/Users/ctet...[0m
+    [36m│             │        │         └ [0m[36m[1m{'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': None, '__spec__': None, '__file__': '/Users/ctet...[0m
+    [36m│             │        └ [0m[36m[1m'/Users/ctetsass/OpenMaps/run_inc.py'[0m
+    [36m│             └ [0m[36m[1m<function execfile at 0x10faa5048>[0m
+    [36m└ [0m[36m[1m<module '_pydev_bundle.pydev_imports' from '/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/pydev_imports.py'>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_imps/[0m[32m[1m_pydev_execfile.py[0m", line [33m18[0m, in [35mexecfile[0m
+    [1mexec[0m[1m([0m[1mcompile[0m[1m([0m[1mcontents[0m[35m[1m+[0m[36m"\n"[0m[1m,[0m [1mfile[0m[1m,[0m [36m'exec'[0m[1m)[0m[1m,[0m [1mglob[0m[1m,[0m [1mloc[0m[1m)[0m
+    [36m             │              │              │     └ [0m[36m[1m{'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': None, '__spec__': None, '__file__': '/Users/ctet...[0m
+    [36m             │              │              └ [0m[36m[1m{'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': None, '__spec__': None, '__file__': '/Users/ctet...[0m
+    [36m             │              └ [0m[36m[1m'/Users/ctetsass/OpenMaps/run_inc.py'[0m
+    [36m             └ [0m[36m[1m"#!/usr/bin/env python\n\nimport os, sys\nimport numpy as np\nimport pandas as pd\nimport pickle\nfrom subprocess import Pope...[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mrun_inc.py[0m", line [33m45[0m, in [35m<module>[0m
+    [1mmeasurements[0m [35m[1m=[0m [1mmain[0m[35m[1m.[0m[1mmain[0m[1m([0m[1msample_id_list[0m[1m)[0m
+    [36m               │    │    └ [0m[36m[1m[45, 48, 65, 68, 68][0m
+    [36m               │    └ [0m[36m[1m<function main at 0x13ad1fe18>[0m
+    [36m               └ [0m[36m[1m<module 'main' from '/Users/ctetsass/OpenMaps/main.py'>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mmain.py[0m", line [33m101[0m, in [35mmain[0m
+    [1mupload_dir_to_remote[0m[1m([0m[1mremote[0m[1m)[0m  [30m[1m# upload job dir[0m
+    [36m│                    └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x13b0328d0>[0m
+    [36m└ [0m[36m[1m<function upload_dir_to_remote at 0x13ccb38c8>[0m
+
+> File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mmain.py[0m", line [33m193[0m, in [35mupload_dir_to_remote[0m
+    [1mremote_path[0m[35m[1m=[0m[1mos[0m[35m[1m.[0m[1mpath[0m[35m[1m.[0m[1mjoin[0m[1m([0m[1mremote_path[0m[1m,[0m [1mjob[0m[1m)[0m[1m)[0m
+    [36m            │  │    │    │            └ [0m[36m[1m'Alloys_65'[0m
+    [36m            │  │    │    └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys'[0m
+    [36m            │  │    └ [0m[36m[1m<function join at 0x10823b9d8>[0m
+    [36m            │  └ [0m[36m[1m<module 'posixpath' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/posixpath.py'>[0m
+    [36m            └ [0m[36m[1m<module 'os' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/os.py'>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m139[0m, in [35mdir_upload[0m
+    [35m[1mraise[0m [1merror[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m134[0m, in [35mdir_upload[0m
+    [1mremote_path[0m[35m[1m=[0m[1mremote_path[0m
+    [36m            └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys/Alloys_65'[0m
+
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 164, in put
+    self._send_recursive(files)
+    │    │               └ ['/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Alloys_65']
+    │    └ <function SCPClient._send_recursive at 0x13cc0cc80>
+    └ <scp.SCPClient object at 0x13d63d0b8>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 327, in _send_recursive
+    self._send_files([os.path.join(root, f) for f in fls])
+    │    │            │  │    │    │                 └ ['CHG', 'PCDAT', 'INCAR', 'OSZICAR', 'OUTCAR', 'vasprun.xml', 'DOSCAR', 'WAVECAR', 'CONTCAR', 'POSCAR', 'EIGENVAL', 'POTCAR',...
+    │    │            │  │    │    └ '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Alloys_65/vasp_output'
+    │    │            │  │    └ <function join at 0x10823b9d8>
+    │    │            │  └ <module 'posixpath' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/posixpath.py'>
+    │    │            └ <module 'os' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/os.py'>
+    │    └ <function SCPClient._send_files at 0x13cc0cae8>
+    └ <scp.SCPClient object at 0x13d63d0b8>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 271, in _send_files
+    self._send_file(fl, name, mode, size)
+    │    │          │   │     │     └ 318883
+    │    │          │   │     └ '0640'
+    │    │          │   └ '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Alloys_65/vasp_output/vasprun.xml'
+    │    │          └ <_io.BufferedReader name='/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Alloys_65/vasp_output/vasprun.xml'>
+    │    └ <function SCPClient._send_file at 0x13cc0cb70>
+    └ <scp.SCPClient object at 0x13d63d0b8>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 297, in _send_file
+    self._recv_confirm()
+    │    └ <function SCPClient._recv_confirm at 0x13cc0cea0>
+    └ <scp.SCPClient object at 0x13d63d0b8>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 358, in _recv_confirm
+    raise SCPException('Timeout waiting for scp response')
+          └ <class 'scp.SCPException'>
+
+[31m[1mscp.SCPException[0m:[1m Timeout waiting for scp response[0m
+[96m09-02-2020 15:06:03[0m | 		[91mERROR[0m: 		[97mAn error has been caught in function 'upload_dir_to_remote', process 'MainProcess' (1580), thread 'MainThread' (4594302400):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/[0m[32m[1mpydevconsole.py[0m", line [33m483[0m, in [35m<module>[0m
+    [1mpydevconsole[0m[35m[1m.[0m[1mstart_client[0m[1m([0m[1mhost[0m[1m,[0m [1mport[0m[1m)[0m
+    [36m│            │            │     └ [0m[36m[1m49568[0m
+    [36m│            │            └ [0m[36m[1m'127.0.0.1'[0m
+    [36m│            └ [0m[36m[1m<function start_client at 0x110ccee18>[0m
+    [36m└ [0m[36m[1m<module 'pydevconsole' from '/Applications/PyCharm.app/Contents/helpers/pydev/pydevconsole.py'>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/[0m[32m[1mpydevconsole.py[0m", line [33m411[0m, in [35mstart_client[0m
+    [1mprocess_exec_queue[0m[1m([0m[1minterpreter[0m[1m)[0m
+    [36m│                  └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x110ce2400>[0m
+    [36m└ [0m[36m[1m<function process_exec_queue at 0x110cceb70>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/[0m[32m[1mpydevconsole.py[0m", line [33m258[0m, in [35mprocess_exec_queue[0m
+    [1mmore[0m [35m[1m=[0m [1minterpreter[0m[35m[1m.[0m[1madd_exec[0m[1m([0m[1mcode_fragment[0m[1m)[0m
+    [36m       │           │        └ [0m[36m[1m<_pydev_bundle.pydev_console_types.CodeFragment object at 0x110df6ac8>[0m
+    [36m       │           └ [0m[36m[1m<function BaseCodeExecutor.add_exec at 0x10fd9c158>[0m
+    [36m       └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x110ce2400>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_code_executor.py[0m", line [33m106[0m, in [35madd_exec[0m
+    [1mmore[0m [35m[1m=[0m [1mself[0m[35m[1m.[0m[1mdo_add_exec[0m[1m([0m[1mcode_fragment[0m[1m)[0m
+    [36m       │    │           └ [0m[36m[1m<_pydev_bundle.pydev_console_types.CodeFragment object at 0x110df6ac8>[0m
+    [36m       │    └ [0m[36m[1m<function InterpreterInterface.do_add_exec at 0x110ccaea0>[0m
+    [36m       └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x110ce2400>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_ipython_console.py[0m", line [33m36[0m, in [35mdo_add_exec[0m
+    [1mres[0m [35m[1m=[0m [1mbool[0m[1m([0m[1mself[0m[35m[1m.[0m[1minterpreter[0m[35m[1m.[0m[1madd_exec[0m[1m([0m[1mcode_fragment[0m[35m[1m.[0m[1mtext[0m[1m)[0m[1m)[0m
+    [36m           │    │           │        │             └ [0m[36m[1m"runfile('/Users/ctetsass/OpenMaps/run_inc.py', wdir='/Users/ctetsass/OpenMaps')\n"[0m
+    [36m           │    │           │        └ [0m[36m[1m<_pydev_bundle.pydev_console_types.CodeFragment object at 0x110df6ac8>[0m
+    [36m           │    │           └ [0m[36m[1m<function _PyDevFrontEnd.add_exec at 0x110ccab70>[0m
+    [36m           │    └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console_011._PyDevFrontEnd object at 0x110ce2518>[0m
+    [36m           └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x110ce2400>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_ipython_console_011.py[0m", line [33m482[0m, in [35madd_exec[0m
+    [1mself[0m[35m[1m.[0m[1mipython[0m[35m[1m.[0m[1mrun_cell[0m[1m([0m[1mline[0m[1m,[0m [1mstore_history[0m[35m[1m=[0m[36m[1mTrue[0m[1m)[0m
+    [36m│    │       │        └ [0m[36m[1m"runfile('/Users/ctetsass/OpenMaps/run_inc.py', wdir='/Users/ctetsass/OpenMaps')\n"[0m
+    [36m│    │       └ [0m[36m[1m<function InteractiveShell.run_cell at 0x1102e20d0>[0m
+    [36m│    └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x110ce2550>[0m
+    [36m└ [0m[36m[1m<_pydev_bundle.pydev_ipython_console_011._PyDevFrontEnd object at 0x110ce2518>[0m
+
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 2867, in run_cell
+    raw_cell, store_history, silent, shell_futures)
+    │         │              │       └ True
+    │         │              └ False
+    │         └ True
+    └ "runfile('/Users/ctetsass/OpenMaps/run_inc.py', wdir='/Users/ctetsass/OpenMaps')\n"
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 2895, in _run_cell
+    return runner(coro)
+           │      └ <coroutine object InteractiveShell.run_cell_async at 0x110d17620>
+           └ <function _pseudo_sync_runner at 0x1102caa60>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/async_helpers.py", line 68, in _pseudo_sync_runner
+    coro.send(None)
+    │    └ <method 'send' of 'coroutine' objects>
+    └ <coroutine object InteractiveShell.run_cell_async at 0x110d17620>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 3072, in run_cell_async
+    interactivity=interactivity, compiler=compiler, result=result)
+                  │                       │                └ <ExecutionResult object at 110df6d30, execution_count=2 error_before_exec=None error_in_exec=None info=<ExecutionInfo object ...
+                  │                       └ <IPython.core.compilerop.CachingCompiler object at 0x110ce2ac8>
+                  └ 'last_expr'
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 3263, in run_ast_nodes
+    if (await self.run_code(code, result,  async_=asy)):
+              │    │        │     │               └ False
+              │    │        │     └ <ExecutionResult object at 110df6d30, execution_count=2 error_before_exec=None error_in_exec=None info=<ExecutionInfo object ...
+              │    │        └ <code object <module> at 0x110daed20, file "<ipython-input-2-f646fd410bee>", line 1>
+              │    └ <function InteractiveShell.run_code at 0x1102e2598>
+              └ <_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x110ce2550>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 3343, in run_code
+    exec(code_obj, self.user_global_ns, self.user_ns)
+         │         │    │               │    └ {'__name__': 'pydev_umd', '__doc__': 'Automatically created module for IPython interactive environment', '__package__': None,...
+         │         │    │               └ <_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x110ce2550>
+         │         │    └ <property object at 0x1102d1728>
+         │         └ <_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x110ce2550>
+         └ <code object <module> at 0x110daed20, file "<ipython-input-2-f646fd410bee>", line 1>
+  File "<ipython-input-2-f646fd410bee>", line 1, in <module>
+    runfile('/Users/ctetsass/OpenMaps/run_inc.py', wdir='/Users/ctetsass/OpenMaps')
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_umd.py[0m", line [33m197[0m, in [35mrunfile[0m
+    [1mpydev_imports[0m[35m[1m.[0m[1mexecfile[0m[1m([0m[1mfilename[0m[1m,[0m [1mglobal_vars[0m[1m,[0m [1mlocal_vars[0m[1m)[0m  [30m[1m# execute the script[0m
+    [36m│             │        │         │            └ [0m[36m[1m{'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': None, '__spec__': None, '__file__': '/Users/ctet...[0m
+    [36m│             │        │         └ [0m[36m[1m{'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': None, '__spec__': None, '__file__': '/Users/ctet...[0m
+    [36m│             │        └ [0m[36m[1m'/Users/ctetsass/OpenMaps/run_inc.py'[0m
+    [36m│             └ [0m[36m[1m<function execfile at 0x10faa5048>[0m
+    [36m└ [0m[36m[1m<module '_pydev_bundle.pydev_imports' from '/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/pydev_imports.py'>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_imps/[0m[32m[1m_pydev_execfile.py[0m", line [33m18[0m, in [35mexecfile[0m
+    [1mexec[0m[1m([0m[1mcompile[0m[1m([0m[1mcontents[0m[35m[1m+[0m[36m"\n"[0m[1m,[0m [1mfile[0m[1m,[0m [36m'exec'[0m[1m)[0m[1m,[0m [1mglob[0m[1m,[0m [1mloc[0m[1m)[0m
+    [36m             │              │              │     └ [0m[36m[1m{'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': None, '__spec__': None, '__file__': '/Users/ctet...[0m
+    [36m             │              │              └ [0m[36m[1m{'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': None, '__spec__': None, '__file__': '/Users/ctet...[0m
+    [36m             │              └ [0m[36m[1m'/Users/ctetsass/OpenMaps/run_inc.py'[0m
+    [36m             └ [0m[36m[1m"#!/usr/bin/env python\n\nimport os, sys\nimport numpy as np\nimport pandas as pd\nimport pickle\nfrom subprocess import Pope...[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mrun_inc.py[0m", line [33m45[0m, in [35m<module>[0m
+    [1mmeasurements[0m [35m[1m=[0m [1mmain[0m[35m[1m.[0m[1mmain[0m[1m([0m[1msample_id_list[0m[1m)[0m
+    [36m               │    │    └ [0m[36m[1m[45, 48, 65, 68, 68][0m
+    [36m               │    └ [0m[36m[1m<function main at 0x13ad1fe18>[0m
+    [36m               └ [0m[36m[1m<module 'main' from '/Users/ctetsass/OpenMaps/main.py'>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mmain.py[0m", line [33m101[0m, in [35mmain[0m
+    [1mupload_dir_to_remote[0m[1m([0m[1mremote[0m[1m)[0m  [30m[1m# upload job dir[0m
+    [36m│                    └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x13b0328d0>[0m
+    [36m└ [0m[36m[1m<function upload_dir_to_remote at 0x13ccb38c8>[0m
+
+> File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mmain.py[0m", line [33m193[0m, in [35mupload_dir_to_remote[0m
+    [1mremote_path[0m[35m[1m=[0m[1mos[0m[35m[1m.[0m[1mpath[0m[35m[1m.[0m[1mjoin[0m[1m([0m[1mremote_path[0m[1m,[0m [1mjob[0m[1m)[0m[1m)[0m
+    [36m            │  │    │    │            └ [0m[36m[1m'Alloys_68'[0m
+    [36m            │  │    │    └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys'[0m
+    [36m            │  │    └ [0m[36m[1m<function join at 0x10823b9d8>[0m
+    [36m            │  └ [0m[36m[1m<module 'posixpath' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/posixpath.py'>[0m
+    [36m            └ [0m[36m[1m<module 'os' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/os.py'>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m134[0m, in [35mdir_upload[0m
+    [1mremote_path[0m[35m[1m=[0m[1mremote_path[0m
+    [36m            └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys/Alloys_68'[0m
+
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 157, in put
+    self.sanitize(asbytes(remote_path)))
+    │    │        │       └ '/home/ctetsass/scratch/OpenMaps/Alloys/Alloys_68'
+    │    │        └ <function asbytes at 0x13cc0c400>
+    │    └ <function _sh_quote at 0x13c6929d8>
+    └ <scp.SCPClient object at 0x13d63d0b8>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/paramiko/channel.py", line 72, in _check
+    return func(self, *args, **kwds)
+           │    │      │       └ {}
+           │    │      └ (b'scp -r -t /home/ctetsass/scratch/OpenMaps/Alloys/Alloys_68',)
+           │    └ <paramiko.Channel 3 (closed) -> <paramiko.Transport at 0x401c6240 (cipher aes128-ctr, 128 bits) (active; 2 open channel(s))>>
+           └ <function Channel.exec_command at 0x13c75e158>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/paramiko/channel.py", line 257, in exec_command
+    self._wait_for_event()
+    │    └ <function Channel._wait_for_event at 0x13c762158>
+    └ <paramiko.Channel 3 (closed) -> <paramiko.Transport at 0x401c6240 (cipher aes128-ctr, 128 bits) (active; 2 open channel(s))>>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/paramiko/channel.py", line 1226, in _wait_for_event
+    raise e
+          └ SSHException('Channel closed.',)
+
+[31m[1mparamiko.ssh_exception.SSHException[0m:[1m Channel closed.[0m
+[96m09-02-2020 15:06:53[0m | 		[91mERROR[0m: 		[97mTimeout waiting for scp response[0m
+[96m09-02-2020 15:06:53[0m | 		[91mERROR[0m: 		[97mAn error has been caught in function 'upload_dir_to_remote', process 'MainProcess' (1580), thread 'MainThread' (4594302400):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/paramiko/channel.py", line 699, in recv
+    out = self.in_buffer.read(nbytes, self.timeout)
+          │    │         │    │       │    └ 10.0
+          │    │         │    │       └ <paramiko.Channel 4 (open) window=1994996 -> <paramiko.Transport at 0x401c6240 (cipher aes128-ctr, 128 bits) (active; 2 open ...
+          │    │         │    └ 512
+          │    │         └ <function BufferedPipe.read at 0x13c759158>
+          │    └ <paramiko.buffered_pipe.BufferedPipe object at 0x13d640160>
+          └ <paramiko.Channel 4 (open) window=1994996 -> <paramiko.Transport at 0x401c6240 (cipher aes128-ctr, 128 bits) (active; 2 open ...
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/paramiko/buffered_pipe.py", line 164, in read
+    raise PipeTimeout()
+          └ <class 'paramiko.buffered_pipe.PipeTimeout'>
+
+[31m[1mparamiko.buffered_pipe.PipeTimeout[0m
+
+
+[1mDuring handling of the above exception, another exception occurred:[0m
+
+
+[33m[1mTraceback (most recent call last):[0m
+
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 356, in _recv_confirm
+    msg = self.channel.recv(512)
+          │    │       └ <function Channel.recv at 0x13c7610d0>
+          │    └ <paramiko.Channel 4 (open) window=1994996 -> <paramiko.Transport at 0x401c6240 (cipher aes128-ctr, 128 bits) (active; 2 open ...
+          └ <scp.SCPClient object at 0x13d63d0b8>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/paramiko/channel.py", line 701, in recv
+    raise socket.timeout()
+          │      └ <class 'socket.timeout'>
+          └ <module 'socket' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/socket.py'>
+
+[31m[1msocket.timeout[0m
+
+
+[1mDuring handling of the above exception, another exception occurred:[0m
+
+
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/[0m[32m[1mpydevconsole.py[0m", line [33m483[0m, in [35m<module>[0m
+    [1mpydevconsole[0m[35m[1m.[0m[1mstart_client[0m[1m([0m[1mhost[0m[1m,[0m [1mport[0m[1m)[0m
+    [36m│            │            │     └ [0m[36m[1m49568[0m
+    [36m│            │            └ [0m[36m[1m'127.0.0.1'[0m
+    [36m│            └ [0m[36m[1m<function start_client at 0x110ccee18>[0m
+    [36m└ [0m[36m[1m<module 'pydevconsole' from '/Applications/PyCharm.app/Contents/helpers/pydev/pydevconsole.py'>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/[0m[32m[1mpydevconsole.py[0m", line [33m411[0m, in [35mstart_client[0m
+    [1mprocess_exec_queue[0m[1m([0m[1minterpreter[0m[1m)[0m
+    [36m│                  └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x110ce2400>[0m
+    [36m└ [0m[36m[1m<function process_exec_queue at 0x110cceb70>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/[0m[32m[1mpydevconsole.py[0m", line [33m258[0m, in [35mprocess_exec_queue[0m
+    [1mmore[0m [35m[1m=[0m [1minterpreter[0m[35m[1m.[0m[1madd_exec[0m[1m([0m[1mcode_fragment[0m[1m)[0m
+    [36m       │           │        └ [0m[36m[1m<_pydev_bundle.pydev_console_types.CodeFragment object at 0x110df6ac8>[0m
+    [36m       │           └ [0m[36m[1m<function BaseCodeExecutor.add_exec at 0x10fd9c158>[0m
+    [36m       └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x110ce2400>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_code_executor.py[0m", line [33m106[0m, in [35madd_exec[0m
+    [1mmore[0m [35m[1m=[0m [1mself[0m[35m[1m.[0m[1mdo_add_exec[0m[1m([0m[1mcode_fragment[0m[1m)[0m
+    [36m       │    │           └ [0m[36m[1m<_pydev_bundle.pydev_console_types.CodeFragment object at 0x110df6ac8>[0m
+    [36m       │    └ [0m[36m[1m<function InterpreterInterface.do_add_exec at 0x110ccaea0>[0m
+    [36m       └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x110ce2400>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_ipython_console.py[0m", line [33m36[0m, in [35mdo_add_exec[0m
+    [1mres[0m [35m[1m=[0m [1mbool[0m[1m([0m[1mself[0m[35m[1m.[0m[1minterpreter[0m[35m[1m.[0m[1madd_exec[0m[1m([0m[1mcode_fragment[0m[35m[1m.[0m[1mtext[0m[1m)[0m[1m)[0m
+    [36m           │    │           │        │             └ [0m[36m[1m"runfile('/Users/ctetsass/OpenMaps/run_inc.py', wdir='/Users/ctetsass/OpenMaps')\n"[0m
+    [36m           │    │           │        └ [0m[36m[1m<_pydev_bundle.pydev_console_types.CodeFragment object at 0x110df6ac8>[0m
+    [36m           │    │           └ [0m[36m[1m<function _PyDevFrontEnd.add_exec at 0x110ccab70>[0m
+    [36m           │    └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console_011._PyDevFrontEnd object at 0x110ce2518>[0m
+    [36m           └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x110ce2400>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_ipython_console_011.py[0m", line [33m482[0m, in [35madd_exec[0m
+    [1mself[0m[35m[1m.[0m[1mipython[0m[35m[1m.[0m[1mrun_cell[0m[1m([0m[1mline[0m[1m,[0m [1mstore_history[0m[35m[1m=[0m[36m[1mTrue[0m[1m)[0m
+    [36m│    │       │        └ [0m[36m[1m"runfile('/Users/ctetsass/OpenMaps/run_inc.py', wdir='/Users/ctetsass/OpenMaps')\n"[0m
+    [36m│    │       └ [0m[36m[1m<function InteractiveShell.run_cell at 0x1102e20d0>[0m
+    [36m│    └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x110ce2550>[0m
+    [36m└ [0m[36m[1m<_pydev_bundle.pydev_ipython_console_011._PyDevFrontEnd object at 0x110ce2518>[0m
+
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 2867, in run_cell
+    raw_cell, store_history, silent, shell_futures)
+    │         │              │       └ True
+    │         │              └ False
+    │         └ True
+    └ "runfile('/Users/ctetsass/OpenMaps/run_inc.py', wdir='/Users/ctetsass/OpenMaps')\n"
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 2895, in _run_cell
+    return runner(coro)
+           │      └ <coroutine object InteractiveShell.run_cell_async at 0x110d17620>
+           └ <function _pseudo_sync_runner at 0x1102caa60>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/async_helpers.py", line 68, in _pseudo_sync_runner
+    coro.send(None)
+    │    └ <method 'send' of 'coroutine' objects>
+    └ <coroutine object InteractiveShell.run_cell_async at 0x110d17620>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 3072, in run_cell_async
+    interactivity=interactivity, compiler=compiler, result=result)
+                  │                       │                └ <ExecutionResult object at 110df6d30, execution_count=2 error_before_exec=None error_in_exec=None info=<ExecutionInfo object ...
+                  │                       └ <IPython.core.compilerop.CachingCompiler object at 0x110ce2ac8>
+                  └ 'last_expr'
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 3263, in run_ast_nodes
+    if (await self.run_code(code, result,  async_=asy)):
+              │    │        │     │               └ False
+              │    │        │     └ <ExecutionResult object at 110df6d30, execution_count=2 error_before_exec=None error_in_exec=None info=<ExecutionInfo object ...
+              │    │        └ <code object <module> at 0x110daed20, file "<ipython-input-2-f646fd410bee>", line 1>
+              │    └ <function InteractiveShell.run_code at 0x1102e2598>
+              └ <_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x110ce2550>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 3343, in run_code
+    exec(code_obj, self.user_global_ns, self.user_ns)
+         │         │    │               │    └ {'__name__': 'pydev_umd', '__doc__': 'Automatically created module for IPython interactive environment', '__package__': None,...
+         │         │    │               └ <_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x110ce2550>
+         │         │    └ <property object at 0x1102d1728>
+         │         └ <_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x110ce2550>
+         └ <code object <module> at 0x110daed20, file "<ipython-input-2-f646fd410bee>", line 1>
+  File "<ipython-input-2-f646fd410bee>", line 1, in <module>
+    runfile('/Users/ctetsass/OpenMaps/run_inc.py', wdir='/Users/ctetsass/OpenMaps')
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_umd.py[0m", line [33m197[0m, in [35mrunfile[0m
+    [1mpydev_imports[0m[35m[1m.[0m[1mexecfile[0m[1m([0m[1mfilename[0m[1m,[0m [1mglobal_vars[0m[1m,[0m [1mlocal_vars[0m[1m)[0m  [30m[1m# execute the script[0m
+    [36m│             │        │         │            └ [0m[36m[1m{'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': None, '__spec__': None, '__file__': '/Users/ctet...[0m
+    [36m│             │        │         └ [0m[36m[1m{'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': None, '__spec__': None, '__file__': '/Users/ctet...[0m
+    [36m│             │        └ [0m[36m[1m'/Users/ctetsass/OpenMaps/run_inc.py'[0m
+    [36m│             └ [0m[36m[1m<function execfile at 0x10faa5048>[0m
+    [36m└ [0m[36m[1m<module '_pydev_bundle.pydev_imports' from '/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/pydev_imports.py'>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_imps/[0m[32m[1m_pydev_execfile.py[0m", line [33m18[0m, in [35mexecfile[0m
+    [1mexec[0m[1m([0m[1mcompile[0m[1m([0m[1mcontents[0m[35m[1m+[0m[36m"\n"[0m[1m,[0m [1mfile[0m[1m,[0m [36m'exec'[0m[1m)[0m[1m,[0m [1mglob[0m[1m,[0m [1mloc[0m[1m)[0m
+    [36m             │              │              │     └ [0m[36m[1m{'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': None, '__spec__': None, '__file__': '/Users/ctet...[0m
+    [36m             │              │              └ [0m[36m[1m{'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': None, '__spec__': None, '__file__': '/Users/ctet...[0m
+    [36m             │              └ [0m[36m[1m'/Users/ctetsass/OpenMaps/run_inc.py'[0m
+    [36m             └ [0m[36m[1m"#!/usr/bin/env python\n\nimport os, sys\nimport numpy as np\nimport pandas as pd\nimport pickle\nfrom subprocess import Pope...[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mrun_inc.py[0m", line [33m45[0m, in [35m<module>[0m
+    [1mmeasurements[0m [35m[1m=[0m [1mmain[0m[35m[1m.[0m[1mmain[0m[1m([0m[1msample_id_list[0m[1m)[0m
+    [36m               │    │    └ [0m[36m[1m[45, 48, 65, 68, 68][0m
+    [36m               │    └ [0m[36m[1m<function main at 0x13ad1fe18>[0m
+    [36m               └ [0m[36m[1m<module 'main' from '/Users/ctetsass/OpenMaps/main.py'>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mmain.py[0m", line [33m101[0m, in [35mmain[0m
+    [1mupload_dir_to_remote[0m[1m([0m[1mremote[0m[1m)[0m  [30m[1m# upload job dir[0m
+    [36m│                    └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x13b0328d0>[0m
+    [36m└ [0m[36m[1m<function upload_dir_to_remote at 0x13ccb38c8>[0m
+
+> File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mmain.py[0m", line [33m193[0m, in [35mupload_dir_to_remote[0m
+    [1mremote_path[0m[35m[1m=[0m[1mos[0m[35m[1m.[0m[1mpath[0m[35m[1m.[0m[1mjoin[0m[1m([0m[1mremote_path[0m[1m,[0m [1mjob[0m[1m)[0m[1m)[0m
+    [36m            │  │    │    │            └ [0m[36m[1m'Alloys_68'[0m
+    [36m            │  │    │    └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys'[0m
+    [36m            │  │    └ [0m[36m[1m<function join at 0x10823b9d8>[0m
+    [36m            │  └ [0m[36m[1m<module 'posixpath' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/posixpath.py'>[0m
+    [36m            └ [0m[36m[1m<module 'os' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/os.py'>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m139[0m, in [35mdir_upload[0m
+    [35m[1mraise[0m [1merror[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m134[0m, in [35mdir_upload[0m
+    [1mremote_path[0m[35m[1m=[0m[1mremote_path[0m
+    [36m            └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys/Alloys_68'[0m
+
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 164, in put
+    self._send_recursive(files)
+    │    │               └ ['/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Alloys_68']
+    │    └ <function SCPClient._send_recursive at 0x13cc0cc80>
+    └ <scp.SCPClient object at 0x13d63d0b8>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 327, in _send_recursive
+    self._send_files([os.path.join(root, f) for f in fls])
+    │    │            │  │    │    │                 └ ['INCAR', 'POSCAR', 'POTCAR', 'KPOINT']
+    │    │            │  │    │    └ '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Alloys_68/vasp_input'
+    │    │            │  │    └ <function join at 0x10823b9d8>
+    │    │            │  └ <module 'posixpath' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/posixpath.py'>
+    │    │            └ <module 'os' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/os.py'>
+    │    └ <function SCPClient._send_files at 0x13cc0cae8>
+    └ <scp.SCPClient object at 0x13d63d0b8>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 271, in _send_files
+    self._send_file(fl, name, mode, size)
+    │    │          │   │     │     └ 659211
+    │    │          │   │     └ '0644'
+    │    │          │   └ '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Alloys_68/vasp_input/POTCAR'
+    │    │          └ <_io.BufferedReader name='/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Alloys_68/vasp_input/POTCAR'>
+    │    └ <function SCPClient._send_file at 0x13cc0cb70>
+    └ <scp.SCPClient object at 0x13d63d0b8>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 297, in _send_file
+    self._recv_confirm()
+    │    └ <function SCPClient._recv_confirm at 0x13cc0cea0>
+    └ <scp.SCPClient object at 0x13d63d0b8>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 358, in _recv_confirm
+    raise SCPException('Timeout waiting for scp response')
+          └ <class 'scp.SCPException'>
+
+[31m[1mscp.SCPException[0m:[1m Timeout waiting for scp response[0m
+[96m09-02-2020 15:18:14[0m | 		[91mERROR[0m: 		[97mAn error has been caught in function 'monitor_batch', process 'MainProcess' (1580), thread 'MainThread' (4594302400):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/[0m[32m[1mpydevconsole.py[0m", line [33m483[0m, in [35m<module>[0m
+    [1mpydevconsole[0m[35m[1m.[0m[1mstart_client[0m[1m([0m[1mhost[0m[1m,[0m [1mport[0m[1m)[0m
+    [36m│            │            │     └ [0m[36m[1m49568[0m
+    [36m│            │            └ [0m[36m[1m'127.0.0.1'[0m
+    [36m│            └ [0m[36m[1m<function start_client at 0x110ccee18>[0m
+    [36m└ [0m[36m[1m<module 'pydevconsole' from '/Applications/PyCharm.app/Contents/helpers/pydev/pydevconsole.py'>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/[0m[32m[1mpydevconsole.py[0m", line [33m411[0m, in [35mstart_client[0m
+    [1mprocess_exec_queue[0m[1m([0m[1minterpreter[0m[1m)[0m
+    [36m│                  └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x110ce2400>[0m
+    [36m└ [0m[36m[1m<function process_exec_queue at 0x110cceb70>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/[0m[32m[1mpydevconsole.py[0m", line [33m258[0m, in [35mprocess_exec_queue[0m
+    [1mmore[0m [35m[1m=[0m [1minterpreter[0m[35m[1m.[0m[1madd_exec[0m[1m([0m[1mcode_fragment[0m[1m)[0m
+    [36m       │           │        └ [0m[36m[1m<_pydev_bundle.pydev_console_types.CodeFragment object at 0x110df6ac8>[0m
+    [36m       │           └ [0m[36m[1m<function BaseCodeExecutor.add_exec at 0x10fd9c158>[0m
+    [36m       └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x110ce2400>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_code_executor.py[0m", line [33m106[0m, in [35madd_exec[0m
+    [1mmore[0m [35m[1m=[0m [1mself[0m[35m[1m.[0m[1mdo_add_exec[0m[1m([0m[1mcode_fragment[0m[1m)[0m
+    [36m       │    │           └ [0m[36m[1m<_pydev_bundle.pydev_console_types.CodeFragment object at 0x110df6ac8>[0m
+    [36m       │    └ [0m[36m[1m<function InterpreterInterface.do_add_exec at 0x110ccaea0>[0m
+    [36m       └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x110ce2400>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_ipython_console.py[0m", line [33m36[0m, in [35mdo_add_exec[0m
+    [1mres[0m [35m[1m=[0m [1mbool[0m[1m([0m[1mself[0m[35m[1m.[0m[1minterpreter[0m[35m[1m.[0m[1madd_exec[0m[1m([0m[1mcode_fragment[0m[35m[1m.[0m[1mtext[0m[1m)[0m[1m)[0m
+    [36m           │    │           │        │             └ [0m[36m[1m"runfile('/Users/ctetsass/OpenMaps/run_inc.py', wdir='/Users/ctetsass/OpenMaps')\n"[0m
+    [36m           │    │           │        └ [0m[36m[1m<_pydev_bundle.pydev_console_types.CodeFragment object at 0x110df6ac8>[0m
+    [36m           │    │           └ [0m[36m[1m<function _PyDevFrontEnd.add_exec at 0x110ccab70>[0m
+    [36m           │    └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console_011._PyDevFrontEnd object at 0x110ce2518>[0m
+    [36m           └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x110ce2400>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_ipython_console_011.py[0m", line [33m482[0m, in [35madd_exec[0m
+    [1mself[0m[35m[1m.[0m[1mipython[0m[35m[1m.[0m[1mrun_cell[0m[1m([0m[1mline[0m[1m,[0m [1mstore_history[0m[35m[1m=[0m[36m[1mTrue[0m[1m)[0m
+    [36m│    │       │        └ [0m[36m[1m"runfile('/Users/ctetsass/OpenMaps/run_inc.py', wdir='/Users/ctetsass/OpenMaps')\n"[0m
+    [36m│    │       └ [0m[36m[1m<function InteractiveShell.run_cell at 0x1102e20d0>[0m
+    [36m│    └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x110ce2550>[0m
+    [36m└ [0m[36m[1m<_pydev_bundle.pydev_ipython_console_011._PyDevFrontEnd object at 0x110ce2518>[0m
+
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 2867, in run_cell
+    raw_cell, store_history, silent, shell_futures)
+    │         │              │       └ True
+    │         │              └ False
+    │         └ True
+    └ "runfile('/Users/ctetsass/OpenMaps/run_inc.py', wdir='/Users/ctetsass/OpenMaps')\n"
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 2895, in _run_cell
+    return runner(coro)
+           │      └ <coroutine object InteractiveShell.run_cell_async at 0x110d17620>
+           └ <function _pseudo_sync_runner at 0x1102caa60>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/async_helpers.py", line 68, in _pseudo_sync_runner
+    coro.send(None)
+    │    └ <method 'send' of 'coroutine' objects>
+    └ <coroutine object InteractiveShell.run_cell_async at 0x110d17620>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 3072, in run_cell_async
+    interactivity=interactivity, compiler=compiler, result=result)
+                  │                       │                └ <ExecutionResult object at 110df6d30, execution_count=2 error_before_exec=None error_in_exec=None info=<ExecutionInfo object ...
+                  │                       └ <IPython.core.compilerop.CachingCompiler object at 0x110ce2ac8>
+                  └ 'last_expr'
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 3263, in run_ast_nodes
+    if (await self.run_code(code, result,  async_=asy)):
+              │    │        │     │               └ False
+              │    │        │     └ <ExecutionResult object at 110df6d30, execution_count=2 error_before_exec=None error_in_exec=None info=<ExecutionInfo object ...
+              │    │        └ <code object <module> at 0x110daed20, file "<ipython-input-2-f646fd410bee>", line 1>
+              │    └ <function InteractiveShell.run_code at 0x1102e2598>
+              └ <_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x110ce2550>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 3343, in run_code
+    exec(code_obj, self.user_global_ns, self.user_ns)
+         │         │    │               │    └ {'__name__': 'pydev_umd', '__doc__': 'Automatically created module for IPython interactive environment', '__package__': None,...
+         │         │    │               └ <_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x110ce2550>
+         │         │    └ <property object at 0x1102d1728>
+         │         └ <_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x110ce2550>
+         └ <code object <module> at 0x110daed20, file "<ipython-input-2-f646fd410bee>", line 1>
+  File "<ipython-input-2-f646fd410bee>", line 1, in <module>
+    runfile('/Users/ctetsass/OpenMaps/run_inc.py', wdir='/Users/ctetsass/OpenMaps')
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_umd.py[0m", line [33m197[0m, in [35mrunfile[0m
+    [1mpydev_imports[0m[35m[1m.[0m[1mexecfile[0m[1m([0m[1mfilename[0m[1m,[0m [1mglobal_vars[0m[1m,[0m [1mlocal_vars[0m[1m)[0m  [30m[1m# execute the script[0m
+    [36m│             │        │         │            └ [0m[36m[1m{'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': None, '__spec__': None, '__file__': '/Users/ctet...[0m
+    [36m│             │        │         └ [0m[36m[1m{'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': None, '__spec__': None, '__file__': '/Users/ctet...[0m
+    [36m│             │        └ [0m[36m[1m'/Users/ctetsass/OpenMaps/run_inc.py'[0m
+    [36m│             └ [0m[36m[1m<function execfile at 0x10faa5048>[0m
+    [36m└ [0m[36m[1m<module '_pydev_bundle.pydev_imports' from '/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/pydev_imports.py'>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_imps/[0m[32m[1m_pydev_execfile.py[0m", line [33m18[0m, in [35mexecfile[0m
+    [1mexec[0m[1m([0m[1mcompile[0m[1m([0m[1mcontents[0m[35m[1m+[0m[36m"\n"[0m[1m,[0m [1mfile[0m[1m,[0m [36m'exec'[0m[1m)[0m[1m,[0m [1mglob[0m[1m,[0m [1mloc[0m[1m)[0m
+    [36m             │              │              │     └ [0m[36m[1m{'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': None, '__spec__': None, '__file__': '/Users/ctet...[0m
+    [36m             │              │              └ [0m[36m[1m{'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': None, '__spec__': None, '__file__': '/Users/ctet...[0m
+    [36m             │              └ [0m[36m[1m'/Users/ctetsass/OpenMaps/run_inc.py'[0m
+    [36m             └ [0m[36m[1m"#!/usr/bin/env python\n\nimport os, sys\nimport numpy as np\nimport pandas as pd\nimport pickle\nfrom subprocess import Pope...[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mrun_inc.py[0m", line [33m45[0m, in [35m<module>[0m
+    [1mmeasurements[0m [35m[1m=[0m [1mmain[0m[35m[1m.[0m[1mmain[0m[1m([0m[1msample_id_list[0m[1m)[0m
+    [36m               │    │    └ [0m[36m[1m[45, 48, 65, 68, 68][0m
+    [36m               │    └ [0m[36m[1m<function main at 0x13ad1fe18>[0m
+    [36m               └ [0m[36m[1m<module 'main' from '/Users/ctetsass/OpenMaps/main.py'>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mmain.py[0m", line [33m107[0m, in [35mmain[0m
+    [1mjob_monitoring[0m[1m([0m[1mremote[0m[1m,[0m [1mjobs[0m[1m)[0m  [30m[1m# # monitor job[0m
+    [36m│              │       └ [0m[36m[1m[<main.JOB object at 0x13d4a4048>, <main.JOB object at 0x13d640e48>, <main.JOB object at 0x13d6245c0>, <main.JOB object at 0x...[0m
+    [36m│              └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x13b0328d0>[0m
+    [36m└ [0m[36m[1m<function job_monitoring at 0x13ccb3b70>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mmain.py[0m", line [33m238[0m, in [35mjob_monitoring[0m
+    [1mremote[0m[35m[1m.[0m[1mmonitor_batch[0m[1m([0m[1mjobs[0m[1m)[0m
+    [36m│      │             └ [0m[36m[1m[<main.JOB object at 0x13d4a4048>, <main.JOB object at 0x13d640e48>, <main.JOB object at 0x13d6245c0>, <main.JOB object at 0x...[0m
+    [36m│      └ [0m[36m[1m<function RemoteClient.monitor_batch at 0x13cc769d8>[0m
+    [36m└ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x13b0328d0>[0m
+
+> File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m339[0m, in [35mmonitor_batch[0m
+    [1mself[0m[35m[1m.[0m[1mdownload_file[0m[1m([0m[1mjob[0m[35m[1m.[0m[1mremote_path[0m [35m[1m+[0m [36m'vasp_output'[0m[1m,[0m [1mlocal_directory[0m[35m[1m=[0m[1mjob[0m[35m[1m.[0m[1mlocal_path[0m[1m)[0m
+    [36m│    │             │   │                                            │   └ [0m[36m[1m'/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Alloys_45'[0m
+    [36m│    │             │   │                                            └ [0m[36m[1m<main.JOB object at 0x13d4a4048>[0m
+    [36m│    │             │   └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys/Alloys_45'[0m
+    [36m│    │             └ [0m[36m[1m<main.JOB object at 0x13d4a4048>[0m
+    [36m│    └ [0m[36m[1m<function RemoteClient.download_file at 0x13cc746a8>[0m
+    [36m└ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x13b0328d0>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m192[0m, in [35mdownload_file[0m
+    [1mself[0m[35m[1m.[0m[1mscp[0m[35m[1m.[0m[1mget[0m[1m([0m[1mfile[0m[1m,[0m [1mlocal_directory[0m[1m,[0m [1mrecursive[0m[35m[1m=[0m[36m[1mTrue[0m[1m)[0m
+    [36m│    │   │   │     └ [0m[36m[1m'/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Alloys_45'[0m
+    [36m│    │   │   └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys/Alloys_45vasp_output'[0m
+    [36m│    │   └ [0m[36m[1m<function SCPClient.get at 0x13cc0c8c8>[0m
+    [36m│    └ [0m[36m[1m<scp.SCPClient object at 0x13d63d0b8>[0m
+    [36m└ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x13b0328d0>[0m
+
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 237, in get
+    b' '.join(remote_path))
+              └ [b'/home/ctetsass/scratch/OpenMaps/Alloys/Alloys_45vasp_output']
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/paramiko/channel.py", line 72, in _check
+    return func(self, *args, **kwds)
+           │    │      │       └ {}
+           │    │      └ (b'scp -r -f /home/ctetsass/scratch/OpenMaps/Alloys/Alloys_45vasp_output',)
+           │    └ <paramiko.Channel 4 (closed) -> <paramiko.Transport at 0x401c6240 (cipher aes128-ctr, 128 bits) (active; 2 open channel(s))>>
+           └ <function Channel.exec_command at 0x13c75e158>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/paramiko/channel.py", line 257, in exec_command
+    self._wait_for_event()
+    │    └ <function Channel._wait_for_event at 0x13c762158>
+    └ <paramiko.Channel 4 (closed) -> <paramiko.Transport at 0x401c6240 (cipher aes128-ctr, 128 bits) (active; 2 open channel(s))>>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/paramiko/channel.py", line 1226, in _wait_for_event
+    raise e
+          └ SSHException('Channel closed.',)
+
+[31m[1mparamiko.ssh_exception.SSHException[0m:[1m Channel closed.[0m
+[96m09-02-2020 15:18:15[0m | 		[91mERROR[0m: 		[97mAn error has been caught in function 'monitor_batch', process 'MainProcess' (1580), thread 'MainThread' (4594302400):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/[0m[32m[1mpydevconsole.py[0m", line [33m483[0m, in [35m<module>[0m
+    [1mpydevconsole[0m[35m[1m.[0m[1mstart_client[0m[1m([0m[1mhost[0m[1m,[0m [1mport[0m[1m)[0m
+    [36m│            │            │     └ [0m[36m[1m49568[0m
+    [36m│            │            └ [0m[36m[1m'127.0.0.1'[0m
+    [36m│            └ [0m[36m[1m<function start_client at 0x110ccee18>[0m
+    [36m└ [0m[36m[1m<module 'pydevconsole' from '/Applications/PyCharm.app/Contents/helpers/pydev/pydevconsole.py'>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/[0m[32m[1mpydevconsole.py[0m", line [33m411[0m, in [35mstart_client[0m
+    [1mprocess_exec_queue[0m[1m([0m[1minterpreter[0m[1m)[0m
+    [36m│                  └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x110ce2400>[0m
+    [36m└ [0m[36m[1m<function process_exec_queue at 0x110cceb70>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/[0m[32m[1mpydevconsole.py[0m", line [33m258[0m, in [35mprocess_exec_queue[0m
+    [1mmore[0m [35m[1m=[0m [1minterpreter[0m[35m[1m.[0m[1madd_exec[0m[1m([0m[1mcode_fragment[0m[1m)[0m
+    [36m       │           │        └ [0m[36m[1m<_pydev_bundle.pydev_console_types.CodeFragment object at 0x110df6ac8>[0m
+    [36m       │           └ [0m[36m[1m<function BaseCodeExecutor.add_exec at 0x10fd9c158>[0m
+    [36m       └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x110ce2400>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_code_executor.py[0m", line [33m106[0m, in [35madd_exec[0m
+    [1mmore[0m [35m[1m=[0m [1mself[0m[35m[1m.[0m[1mdo_add_exec[0m[1m([0m[1mcode_fragment[0m[1m)[0m
+    [36m       │    │           └ [0m[36m[1m<_pydev_bundle.pydev_console_types.CodeFragment object at 0x110df6ac8>[0m
+    [36m       │    └ [0m[36m[1m<function InterpreterInterface.do_add_exec at 0x110ccaea0>[0m
+    [36m       └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x110ce2400>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_ipython_console.py[0m", line [33m36[0m, in [35mdo_add_exec[0m
+    [1mres[0m [35m[1m=[0m [1mbool[0m[1m([0m[1mself[0m[35m[1m.[0m[1minterpreter[0m[35m[1m.[0m[1madd_exec[0m[1m([0m[1mcode_fragment[0m[35m[1m.[0m[1mtext[0m[1m)[0m[1m)[0m
+    [36m           │    │           │        │             └ [0m[36m[1m"runfile('/Users/ctetsass/OpenMaps/run_inc.py', wdir='/Users/ctetsass/OpenMaps')\n"[0m
+    [36m           │    │           │        └ [0m[36m[1m<_pydev_bundle.pydev_console_types.CodeFragment object at 0x110df6ac8>[0m
+    [36m           │    │           └ [0m[36m[1m<function _PyDevFrontEnd.add_exec at 0x110ccab70>[0m
+    [36m           │    └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console_011._PyDevFrontEnd object at 0x110ce2518>[0m
+    [36m           └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x110ce2400>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_ipython_console_011.py[0m", line [33m482[0m, in [35madd_exec[0m
+    [1mself[0m[35m[1m.[0m[1mipython[0m[35m[1m.[0m[1mrun_cell[0m[1m([0m[1mline[0m[1m,[0m [1mstore_history[0m[35m[1m=[0m[36m[1mTrue[0m[1m)[0m
+    [36m│    │       │        └ [0m[36m[1m"runfile('/Users/ctetsass/OpenMaps/run_inc.py', wdir='/Users/ctetsass/OpenMaps')\n"[0m
+    [36m│    │       └ [0m[36m[1m<function InteractiveShell.run_cell at 0x1102e20d0>[0m
+    [36m│    └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x110ce2550>[0m
+    [36m└ [0m[36m[1m<_pydev_bundle.pydev_ipython_console_011._PyDevFrontEnd object at 0x110ce2518>[0m
+
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 2867, in run_cell
+    raw_cell, store_history, silent, shell_futures)
+    │         │              │       └ True
+    │         │              └ False
+    │         └ True
+    └ "runfile('/Users/ctetsass/OpenMaps/run_inc.py', wdir='/Users/ctetsass/OpenMaps')\n"
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 2895, in _run_cell
+    return runner(coro)
+           │      └ <coroutine object InteractiveShell.run_cell_async at 0x110d17620>
+           └ <function _pseudo_sync_runner at 0x1102caa60>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/async_helpers.py", line 68, in _pseudo_sync_runner
+    coro.send(None)
+    │    └ <method 'send' of 'coroutine' objects>
+    └ <coroutine object InteractiveShell.run_cell_async at 0x110d17620>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 3072, in run_cell_async
+    interactivity=interactivity, compiler=compiler, result=result)
+                  │                       │                └ <ExecutionResult object at 110df6d30, execution_count=2 error_before_exec=None error_in_exec=None info=<ExecutionInfo object ...
+                  │                       └ <IPython.core.compilerop.CachingCompiler object at 0x110ce2ac8>
+                  └ 'last_expr'
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 3263, in run_ast_nodes
+    if (await self.run_code(code, result,  async_=asy)):
+              │    │        │     │               └ False
+              │    │        │     └ <ExecutionResult object at 110df6d30, execution_count=2 error_before_exec=None error_in_exec=None info=<ExecutionInfo object ...
+              │    │        └ <code object <module> at 0x110daed20, file "<ipython-input-2-f646fd410bee>", line 1>
+              │    └ <function InteractiveShell.run_code at 0x1102e2598>
+              └ <_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x110ce2550>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 3343, in run_code
+    exec(code_obj, self.user_global_ns, self.user_ns)
+         │         │    │               │    └ {'__name__': 'pydev_umd', '__doc__': 'Automatically created module for IPython interactive environment', '__package__': None,...
+         │         │    │               └ <_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x110ce2550>
+         │         │    └ <property object at 0x1102d1728>
+         │         └ <_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x110ce2550>
+         └ <code object <module> at 0x110daed20, file "<ipython-input-2-f646fd410bee>", line 1>
+  File "<ipython-input-2-f646fd410bee>", line 1, in <module>
+    runfile('/Users/ctetsass/OpenMaps/run_inc.py', wdir='/Users/ctetsass/OpenMaps')
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_umd.py[0m", line [33m197[0m, in [35mrunfile[0m
+    [1mpydev_imports[0m[35m[1m.[0m[1mexecfile[0m[1m([0m[1mfilename[0m[1m,[0m [1mglobal_vars[0m[1m,[0m [1mlocal_vars[0m[1m)[0m  [30m[1m# execute the script[0m
+    [36m│             │        │         │            └ [0m[36m[1m{'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': None, '__spec__': None, '__file__': '/Users/ctet...[0m
+    [36m│             │        │         └ [0m[36m[1m{'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': None, '__spec__': None, '__file__': '/Users/ctet...[0m
+    [36m│             │        └ [0m[36m[1m'/Users/ctetsass/OpenMaps/run_inc.py'[0m
+    [36m│             └ [0m[36m[1m<function execfile at 0x10faa5048>[0m
+    [36m└ [0m[36m[1m<module '_pydev_bundle.pydev_imports' from '/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/pydev_imports.py'>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_imps/[0m[32m[1m_pydev_execfile.py[0m", line [33m18[0m, in [35mexecfile[0m
+    [1mexec[0m[1m([0m[1mcompile[0m[1m([0m[1mcontents[0m[35m[1m+[0m[36m"\n"[0m[1m,[0m [1mfile[0m[1m,[0m [36m'exec'[0m[1m)[0m[1m,[0m [1mglob[0m[1m,[0m [1mloc[0m[1m)[0m
+    [36m             │              │              │     └ [0m[36m[1m{'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': None, '__spec__': None, '__file__': '/Users/ctet...[0m
+    [36m             │              │              └ [0m[36m[1m{'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': None, '__spec__': None, '__file__': '/Users/ctet...[0m
+    [36m             │              └ [0m[36m[1m'/Users/ctetsass/OpenMaps/run_inc.py'[0m
+    [36m             └ [0m[36m[1m"#!/usr/bin/env python\n\nimport os, sys\nimport numpy as np\nimport pandas as pd\nimport pickle\nfrom subprocess import Pope...[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mrun_inc.py[0m", line [33m45[0m, in [35m<module>[0m
+    [1mmeasurements[0m [35m[1m=[0m [1mmain[0m[35m[1m.[0m[1mmain[0m[1m([0m[1msample_id_list[0m[1m)[0m
+    [36m               │    │    └ [0m[36m[1m[45, 48, 65, 68, 68][0m
+    [36m               │    └ [0m[36m[1m<function main at 0x13ad1fe18>[0m
+    [36m               └ [0m[36m[1m<module 'main' from '/Users/ctetsass/OpenMaps/main.py'>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mmain.py[0m", line [33m107[0m, in [35mmain[0m
+    [1mjob_monitoring[0m[1m([0m[1mremote[0m[1m,[0m [1mjobs[0m[1m)[0m  [30m[1m# # monitor job[0m
+    [36m│              │       └ [0m[36m[1m[<main.JOB object at 0x13d4a4048>, <main.JOB object at 0x13d640e48>, <main.JOB object at 0x13d6245c0>, <main.JOB object at 0x...[0m
+    [36m│              └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x13b0328d0>[0m
+    [36m└ [0m[36m[1m<function job_monitoring at 0x13ccb3b70>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mmain.py[0m", line [33m238[0m, in [35mjob_monitoring[0m
+    [1mremote[0m[35m[1m.[0m[1mmonitor_batch[0m[1m([0m[1mjobs[0m[1m)[0m
+    [36m│      │             └ [0m[36m[1m[<main.JOB object at 0x13d4a4048>, <main.JOB object at 0x13d640e48>, <main.JOB object at 0x13d6245c0>, <main.JOB object at 0x...[0m
+    [36m│      └ [0m[36m[1m<function RemoteClient.monitor_batch at 0x13cc769d8>[0m
+    [36m└ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x13b0328d0>[0m
+
+> File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m339[0m, in [35mmonitor_batch[0m
+    [1mself[0m[35m[1m.[0m[1mdownload_file[0m[1m([0m[1mjob[0m[35m[1m.[0m[1mremote_path[0m [35m[1m+[0m [36m'vasp_output'[0m[1m,[0m [1mlocal_directory[0m[35m[1m=[0m[1mjob[0m[35m[1m.[0m[1mlocal_path[0m[1m)[0m
+    [36m│    │             │   │                                            │   └ [0m[36m[1m'/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Alloys_48'[0m
+    [36m│    │             │   │                                            └ [0m[36m[1m<main.JOB object at 0x13d640e48>[0m
+    [36m│    │             │   └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys/Alloys_48'[0m
+    [36m│    │             └ [0m[36m[1m<main.JOB object at 0x13d640e48>[0m
+    [36m│    └ [0m[36m[1m<function RemoteClient.download_file at 0x13cc746a8>[0m
+    [36m└ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x13b0328d0>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m192[0m, in [35mdownload_file[0m
+    [1mself[0m[35m[1m.[0m[1mscp[0m[35m[1m.[0m[1mget[0m[1m([0m[1mfile[0m[1m,[0m [1mlocal_directory[0m[1m,[0m [1mrecursive[0m[35m[1m=[0m[36m[1mTrue[0m[1m)[0m
+    [36m│    │   │   │     └ [0m[36m[1m'/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Alloys_48'[0m
+    [36m│    │   │   └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys/Alloys_48vasp_output'[0m
+    [36m│    │   └ [0m[36m[1m<function SCPClient.get at 0x13cc0c8c8>[0m
+    [36m│    └ [0m[36m[1m<scp.SCPClient object at 0x13d63d0b8>[0m
+    [36m└ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x13b0328d0>[0m
+
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 238, in get
+    self._recv_all()
+    │    └ <function SCPClient._recv_all at 0x13cc0cf28>
+    └ <scp.SCPClient object at 0x13d63d0b8>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 388, in _recv_all
+    raise SCPException(asunicode(msg[1:]))
+          │            │         └ b'\x01scp: /home/ctetsass/scratch/OpenMaps/Alloys/Alloys_48vasp_output: No such file or directory'
+          │            └ <function asunicode at 0x13cc0c488>
+          └ <class 'scp.SCPException'>
+
+[31m[1mscp.SCPException[0m:[1m scp: /home/ctetsass/scratch/OpenMaps/Alloys/Alloys_48vasp_output: No such file or directory[0m
+[96m09-02-2020 15:18:15[0m | 		[91mERROR[0m: 		[97mAn error has been caught in function 'monitor_batch', process 'MainProcess' (1580), thread 'MainThread' (4594302400):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/[0m[32m[1mpydevconsole.py[0m", line [33m483[0m, in [35m<module>[0m
+    [1mpydevconsole[0m[35m[1m.[0m[1mstart_client[0m[1m([0m[1mhost[0m[1m,[0m [1mport[0m[1m)[0m
+    [36m│            │            │     └ [0m[36m[1m49568[0m
+    [36m│            │            └ [0m[36m[1m'127.0.0.1'[0m
+    [36m│            └ [0m[36m[1m<function start_client at 0x110ccee18>[0m
+    [36m└ [0m[36m[1m<module 'pydevconsole' from '/Applications/PyCharm.app/Contents/helpers/pydev/pydevconsole.py'>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/[0m[32m[1mpydevconsole.py[0m", line [33m411[0m, in [35mstart_client[0m
+    [1mprocess_exec_queue[0m[1m([0m[1minterpreter[0m[1m)[0m
+    [36m│                  └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x110ce2400>[0m
+    [36m└ [0m[36m[1m<function process_exec_queue at 0x110cceb70>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/[0m[32m[1mpydevconsole.py[0m", line [33m258[0m, in [35mprocess_exec_queue[0m
+    [1mmore[0m [35m[1m=[0m [1minterpreter[0m[35m[1m.[0m[1madd_exec[0m[1m([0m[1mcode_fragment[0m[1m)[0m
+    [36m       │           │        └ [0m[36m[1m<_pydev_bundle.pydev_console_types.CodeFragment object at 0x110df6ac8>[0m
+    [36m       │           └ [0m[36m[1m<function BaseCodeExecutor.add_exec at 0x10fd9c158>[0m
+    [36m       └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x110ce2400>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_code_executor.py[0m", line [33m106[0m, in [35madd_exec[0m
+    [1mmore[0m [35m[1m=[0m [1mself[0m[35m[1m.[0m[1mdo_add_exec[0m[1m([0m[1mcode_fragment[0m[1m)[0m
+    [36m       │    │           └ [0m[36m[1m<_pydev_bundle.pydev_console_types.CodeFragment object at 0x110df6ac8>[0m
+    [36m       │    └ [0m[36m[1m<function InterpreterInterface.do_add_exec at 0x110ccaea0>[0m
+    [36m       └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x110ce2400>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_ipython_console.py[0m", line [33m36[0m, in [35mdo_add_exec[0m
+    [1mres[0m [35m[1m=[0m [1mbool[0m[1m([0m[1mself[0m[35m[1m.[0m[1minterpreter[0m[35m[1m.[0m[1madd_exec[0m[1m([0m[1mcode_fragment[0m[35m[1m.[0m[1mtext[0m[1m)[0m[1m)[0m
+    [36m           │    │           │        │             └ [0m[36m[1m"runfile('/Users/ctetsass/OpenMaps/run_inc.py', wdir='/Users/ctetsass/OpenMaps')\n"[0m
+    [36m           │    │           │        └ [0m[36m[1m<_pydev_bundle.pydev_console_types.CodeFragment object at 0x110df6ac8>[0m
+    [36m           │    │           └ [0m[36m[1m<function _PyDevFrontEnd.add_exec at 0x110ccab70>[0m
+    [36m           │    └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console_011._PyDevFrontEnd object at 0x110ce2518>[0m
+    [36m           └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x110ce2400>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_ipython_console_011.py[0m", line [33m482[0m, in [35madd_exec[0m
+    [1mself[0m[35m[1m.[0m[1mipython[0m[35m[1m.[0m[1mrun_cell[0m[1m([0m[1mline[0m[1m,[0m [1mstore_history[0m[35m[1m=[0m[36m[1mTrue[0m[1m)[0m
+    [36m│    │       │        └ [0m[36m[1m"runfile('/Users/ctetsass/OpenMaps/run_inc.py', wdir='/Users/ctetsass/OpenMaps')\n"[0m
+    [36m│    │       └ [0m[36m[1m<function InteractiveShell.run_cell at 0x1102e20d0>[0m
+    [36m│    └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x110ce2550>[0m
+    [36m└ [0m[36m[1m<_pydev_bundle.pydev_ipython_console_011._PyDevFrontEnd object at 0x110ce2518>[0m
+
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 2867, in run_cell
+    raw_cell, store_history, silent, shell_futures)
+    │         │              │       └ True
+    │         │              └ False
+    │         └ True
+    └ "runfile('/Users/ctetsass/OpenMaps/run_inc.py', wdir='/Users/ctetsass/OpenMaps')\n"
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 2895, in _run_cell
+    return runner(coro)
+           │      └ <coroutine object InteractiveShell.run_cell_async at 0x110d17620>
+           └ <function _pseudo_sync_runner at 0x1102caa60>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/async_helpers.py", line 68, in _pseudo_sync_runner
+    coro.send(None)
+    │    └ <method 'send' of 'coroutine' objects>
+    └ <coroutine object InteractiveShell.run_cell_async at 0x110d17620>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 3072, in run_cell_async
+    interactivity=interactivity, compiler=compiler, result=result)
+                  │                       │                └ <ExecutionResult object at 110df6d30, execution_count=2 error_before_exec=None error_in_exec=None info=<ExecutionInfo object ...
+                  │                       └ <IPython.core.compilerop.CachingCompiler object at 0x110ce2ac8>
+                  └ 'last_expr'
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 3263, in run_ast_nodes
+    if (await self.run_code(code, result,  async_=asy)):
+              │    │        │     │               └ False
+              │    │        │     └ <ExecutionResult object at 110df6d30, execution_count=2 error_before_exec=None error_in_exec=None info=<ExecutionInfo object ...
+              │    │        └ <code object <module> at 0x110daed20, file "<ipython-input-2-f646fd410bee>", line 1>
+              │    └ <function InteractiveShell.run_code at 0x1102e2598>
+              └ <_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x110ce2550>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 3343, in run_code
+    exec(code_obj, self.user_global_ns, self.user_ns)
+         │         │    │               │    └ {'__name__': 'pydev_umd', '__doc__': 'Automatically created module for IPython interactive environment', '__package__': None,...
+         │         │    │               └ <_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x110ce2550>
+         │         │    └ <property object at 0x1102d1728>
+         │         └ <_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x110ce2550>
+         └ <code object <module> at 0x110daed20, file "<ipython-input-2-f646fd410bee>", line 1>
+  File "<ipython-input-2-f646fd410bee>", line 1, in <module>
+    runfile('/Users/ctetsass/OpenMaps/run_inc.py', wdir='/Users/ctetsass/OpenMaps')
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_umd.py[0m", line [33m197[0m, in [35mrunfile[0m
+    [1mpydev_imports[0m[35m[1m.[0m[1mexecfile[0m[1m([0m[1mfilename[0m[1m,[0m [1mglobal_vars[0m[1m,[0m [1mlocal_vars[0m[1m)[0m  [30m[1m# execute the script[0m
+    [36m│             │        │         │            └ [0m[36m[1m{'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': None, '__spec__': None, '__file__': '/Users/ctet...[0m
+    [36m│             │        │         └ [0m[36m[1m{'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': None, '__spec__': None, '__file__': '/Users/ctet...[0m
+    [36m│             │        └ [0m[36m[1m'/Users/ctetsass/OpenMaps/run_inc.py'[0m
+    [36m│             └ [0m[36m[1m<function execfile at 0x10faa5048>[0m
+    [36m└ [0m[36m[1m<module '_pydev_bundle.pydev_imports' from '/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/pydev_imports.py'>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_imps/[0m[32m[1m_pydev_execfile.py[0m", line [33m18[0m, in [35mexecfile[0m
+    [1mexec[0m[1m([0m[1mcompile[0m[1m([0m[1mcontents[0m[35m[1m+[0m[36m"\n"[0m[1m,[0m [1mfile[0m[1m,[0m [36m'exec'[0m[1m)[0m[1m,[0m [1mglob[0m[1m,[0m [1mloc[0m[1m)[0m
+    [36m             │              │              │     └ [0m[36m[1m{'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': None, '__spec__': None, '__file__': '/Users/ctet...[0m
+    [36m             │              │              └ [0m[36m[1m{'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': None, '__spec__': None, '__file__': '/Users/ctet...[0m
+    [36m             │              └ [0m[36m[1m'/Users/ctetsass/OpenMaps/run_inc.py'[0m
+    [36m             └ [0m[36m[1m"#!/usr/bin/env python\n\nimport os, sys\nimport numpy as np\nimport pandas as pd\nimport pickle\nfrom subprocess import Pope...[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mrun_inc.py[0m", line [33m45[0m, in [35m<module>[0m
+    [1mmeasurements[0m [35m[1m=[0m [1mmain[0m[35m[1m.[0m[1mmain[0m[1m([0m[1msample_id_list[0m[1m)[0m
+    [36m               │    │    └ [0m[36m[1m[45, 48, 65, 68, 68][0m
+    [36m               │    └ [0m[36m[1m<function main at 0x13ad1fe18>[0m
+    [36m               └ [0m[36m[1m<module 'main' from '/Users/ctetsass/OpenMaps/main.py'>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mmain.py[0m", line [33m107[0m, in [35mmain[0m
+    [1mjob_monitoring[0m[1m([0m[1mremote[0m[1m,[0m [1mjobs[0m[1m)[0m  [30m[1m# # monitor job[0m
+    [36m│              │       └ [0m[36m[1m[<main.JOB object at 0x13d4a4048>, <main.JOB object at 0x13d640e48>, <main.JOB object at 0x13d6245c0>, <main.JOB object at 0x...[0m
+    [36m│              └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x13b0328d0>[0m
+    [36m└ [0m[36m[1m<function job_monitoring at 0x13ccb3b70>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mmain.py[0m", line [33m238[0m, in [35mjob_monitoring[0m
+    [1mremote[0m[35m[1m.[0m[1mmonitor_batch[0m[1m([0m[1mjobs[0m[1m)[0m
+    [36m│      │             └ [0m[36m[1m[<main.JOB object at 0x13d4a4048>, <main.JOB object at 0x13d640e48>, <main.JOB object at 0x13d6245c0>, <main.JOB object at 0x...[0m
+    [36m│      └ [0m[36m[1m<function RemoteClient.monitor_batch at 0x13cc769d8>[0m
+    [36m└ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x13b0328d0>[0m
+
+> File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m339[0m, in [35mmonitor_batch[0m
+    [1mself[0m[35m[1m.[0m[1mdownload_file[0m[1m([0m[1mjob[0m[35m[1m.[0m[1mremote_path[0m [35m[1m+[0m [36m'vasp_output'[0m[1m,[0m [1mlocal_directory[0m[35m[1m=[0m[1mjob[0m[35m[1m.[0m[1mlocal_path[0m[1m)[0m
+    [36m│    │             │   │                                            │   └ [0m[36m[1m'/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Alloys_65'[0m
+    [36m│    │             │   │                                            └ [0m[36m[1m<main.JOB object at 0x13d6245c0>[0m
+    [36m│    │             │   └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys/Alloys_65'[0m
+    [36m│    │             └ [0m[36m[1m<main.JOB object at 0x13d6245c0>[0m
+    [36m│    └ [0m[36m[1m<function RemoteClient.download_file at 0x13cc746a8>[0m
+    [36m└ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x13b0328d0>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m192[0m, in [35mdownload_file[0m
+    [1mself[0m[35m[1m.[0m[1mscp[0m[35m[1m.[0m[1mget[0m[1m([0m[1mfile[0m[1m,[0m [1mlocal_directory[0m[1m,[0m [1mrecursive[0m[35m[1m=[0m[36m[1mTrue[0m[1m)[0m
+    [36m│    │   │   │     └ [0m[36m[1m'/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Alloys_65'[0m
+    [36m│    │   │   └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys/Alloys_65vasp_output'[0m
+    [36m│    │   └ [0m[36m[1m<function SCPClient.get at 0x13cc0c8c8>[0m
+    [36m│    └ [0m[36m[1m<scp.SCPClient object at 0x13d63d0b8>[0m
+    [36m└ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x13b0328d0>[0m
+
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 237, in get
+    b' '.join(remote_path))
+              └ [b'/home/ctetsass/scratch/OpenMaps/Alloys/Alloys_65vasp_output']
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/paramiko/channel.py", line 71, in _check
+    raise SSHException("Channel is not open")
+          └ <class 'paramiko.ssh_exception.SSHException'>
+
+[31m[1mparamiko.ssh_exception.SSHException[0m:[1m Channel is not open[0m
+[96m09-02-2020 15:18:17[0m | 		[91mERROR[0m: 		[97mAn error has been caught in function 'monitor_batch', process 'MainProcess' (1580), thread 'MainThread' (4594302400):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/[0m[32m[1mpydevconsole.py[0m", line [33m483[0m, in [35m<module>[0m
+    [1mpydevconsole[0m[35m[1m.[0m[1mstart_client[0m[1m([0m[1mhost[0m[1m,[0m [1mport[0m[1m)[0m
+    [36m│            │            │     └ [0m[36m[1m49568[0m
+    [36m│            │            └ [0m[36m[1m'127.0.0.1'[0m
+    [36m│            └ [0m[36m[1m<function start_client at 0x110ccee18>[0m
+    [36m└ [0m[36m[1m<module 'pydevconsole' from '/Applications/PyCharm.app/Contents/helpers/pydev/pydevconsole.py'>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/[0m[32m[1mpydevconsole.py[0m", line [33m411[0m, in [35mstart_client[0m
+    [1mprocess_exec_queue[0m[1m([0m[1minterpreter[0m[1m)[0m
+    [36m│                  └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x110ce2400>[0m
+    [36m└ [0m[36m[1m<function process_exec_queue at 0x110cceb70>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/[0m[32m[1mpydevconsole.py[0m", line [33m258[0m, in [35mprocess_exec_queue[0m
+    [1mmore[0m [35m[1m=[0m [1minterpreter[0m[35m[1m.[0m[1madd_exec[0m[1m([0m[1mcode_fragment[0m[1m)[0m
+    [36m       │           │        └ [0m[36m[1m<_pydev_bundle.pydev_console_types.CodeFragment object at 0x110df6ac8>[0m
+    [36m       │           └ [0m[36m[1m<function BaseCodeExecutor.add_exec at 0x10fd9c158>[0m
+    [36m       └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x110ce2400>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_code_executor.py[0m", line [33m106[0m, in [35madd_exec[0m
+    [1mmore[0m [35m[1m=[0m [1mself[0m[35m[1m.[0m[1mdo_add_exec[0m[1m([0m[1mcode_fragment[0m[1m)[0m
+    [36m       │    │           └ [0m[36m[1m<_pydev_bundle.pydev_console_types.CodeFragment object at 0x110df6ac8>[0m
+    [36m       │    └ [0m[36m[1m<function InterpreterInterface.do_add_exec at 0x110ccaea0>[0m
+    [36m       └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x110ce2400>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_ipython_console.py[0m", line [33m36[0m, in [35mdo_add_exec[0m
+    [1mres[0m [35m[1m=[0m [1mbool[0m[1m([0m[1mself[0m[35m[1m.[0m[1minterpreter[0m[35m[1m.[0m[1madd_exec[0m[1m([0m[1mcode_fragment[0m[35m[1m.[0m[1mtext[0m[1m)[0m[1m)[0m
+    [36m           │    │           │        │             └ [0m[36m[1m"runfile('/Users/ctetsass/OpenMaps/run_inc.py', wdir='/Users/ctetsass/OpenMaps')\n"[0m
+    [36m           │    │           │        └ [0m[36m[1m<_pydev_bundle.pydev_console_types.CodeFragment object at 0x110df6ac8>[0m
+    [36m           │    │           └ [0m[36m[1m<function _PyDevFrontEnd.add_exec at 0x110ccab70>[0m
+    [36m           │    └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console_011._PyDevFrontEnd object at 0x110ce2518>[0m
+    [36m           └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x110ce2400>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_ipython_console_011.py[0m", line [33m482[0m, in [35madd_exec[0m
+    [1mself[0m[35m[1m.[0m[1mipython[0m[35m[1m.[0m[1mrun_cell[0m[1m([0m[1mline[0m[1m,[0m [1mstore_history[0m[35m[1m=[0m[36m[1mTrue[0m[1m)[0m
+    [36m│    │       │        └ [0m[36m[1m"runfile('/Users/ctetsass/OpenMaps/run_inc.py', wdir='/Users/ctetsass/OpenMaps')\n"[0m
+    [36m│    │       └ [0m[36m[1m<function InteractiveShell.run_cell at 0x1102e20d0>[0m
+    [36m│    └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x110ce2550>[0m
+    [36m└ [0m[36m[1m<_pydev_bundle.pydev_ipython_console_011._PyDevFrontEnd object at 0x110ce2518>[0m
+
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 2867, in run_cell
+    raw_cell, store_history, silent, shell_futures)
+    │         │              │       └ True
+    │         │              └ False
+    │         └ True
+    └ "runfile('/Users/ctetsass/OpenMaps/run_inc.py', wdir='/Users/ctetsass/OpenMaps')\n"
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 2895, in _run_cell
+    return runner(coro)
+           │      └ <coroutine object InteractiveShell.run_cell_async at 0x110d17620>
+           └ <function _pseudo_sync_runner at 0x1102caa60>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/async_helpers.py", line 68, in _pseudo_sync_runner
+    coro.send(None)
+    │    └ <method 'send' of 'coroutine' objects>
+    └ <coroutine object InteractiveShell.run_cell_async at 0x110d17620>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 3072, in run_cell_async
+    interactivity=interactivity, compiler=compiler, result=result)
+                  │                       │                └ <ExecutionResult object at 110df6d30, execution_count=2 error_before_exec=None error_in_exec=None info=<ExecutionInfo object ...
+                  │                       └ <IPython.core.compilerop.CachingCompiler object at 0x110ce2ac8>
+                  └ 'last_expr'
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 3263, in run_ast_nodes
+    if (await self.run_code(code, result,  async_=asy)):
+              │    │        │     │               └ False
+              │    │        │     └ <ExecutionResult object at 110df6d30, execution_count=2 error_before_exec=None error_in_exec=None info=<ExecutionInfo object ...
+              │    │        └ <code object <module> at 0x110daed20, file "<ipython-input-2-f646fd410bee>", line 1>
+              │    └ <function InteractiveShell.run_code at 0x1102e2598>
+              └ <_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x110ce2550>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 3343, in run_code
+    exec(code_obj, self.user_global_ns, self.user_ns)
+         │         │    │               │    └ {'__name__': 'pydev_umd', '__doc__': 'Automatically created module for IPython interactive environment', '__package__': None,...
+         │         │    │               └ <_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x110ce2550>
+         │         │    └ <property object at 0x1102d1728>
+         │         └ <_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x110ce2550>
+         └ <code object <module> at 0x110daed20, file "<ipython-input-2-f646fd410bee>", line 1>
+  File "<ipython-input-2-f646fd410bee>", line 1, in <module>
+    runfile('/Users/ctetsass/OpenMaps/run_inc.py', wdir='/Users/ctetsass/OpenMaps')
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_umd.py[0m", line [33m197[0m, in [35mrunfile[0m
+    [1mpydev_imports[0m[35m[1m.[0m[1mexecfile[0m[1m([0m[1mfilename[0m[1m,[0m [1mglobal_vars[0m[1m,[0m [1mlocal_vars[0m[1m)[0m  [30m[1m# execute the script[0m
+    [36m│             │        │         │            └ [0m[36m[1m{'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': None, '__spec__': None, '__file__': '/Users/ctet...[0m
+    [36m│             │        │         └ [0m[36m[1m{'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': None, '__spec__': None, '__file__': '/Users/ctet...[0m
+    [36m│             │        └ [0m[36m[1m'/Users/ctetsass/OpenMaps/run_inc.py'[0m
+    [36m│             └ [0m[36m[1m<function execfile at 0x10faa5048>[0m
+    [36m└ [0m[36m[1m<module '_pydev_bundle.pydev_imports' from '/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/pydev_imports.py'>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_imps/[0m[32m[1m_pydev_execfile.py[0m", line [33m18[0m, in [35mexecfile[0m
+    [1mexec[0m[1m([0m[1mcompile[0m[1m([0m[1mcontents[0m[35m[1m+[0m[36m"\n"[0m[1m,[0m [1mfile[0m[1m,[0m [36m'exec'[0m[1m)[0m[1m,[0m [1mglob[0m[1m,[0m [1mloc[0m[1m)[0m
+    [36m             │              │              │     └ [0m[36m[1m{'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': None, '__spec__': None, '__file__': '/Users/ctet...[0m
+    [36m             │              │              └ [0m[36m[1m{'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': None, '__spec__': None, '__file__': '/Users/ctet...[0m
+    [36m             │              └ [0m[36m[1m'/Users/ctetsass/OpenMaps/run_inc.py'[0m
+    [36m             └ [0m[36m[1m"#!/usr/bin/env python\n\nimport os, sys\nimport numpy as np\nimport pandas as pd\nimport pickle\nfrom subprocess import Pope...[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mrun_inc.py[0m", line [33m45[0m, in [35m<module>[0m
+    [1mmeasurements[0m [35m[1m=[0m [1mmain[0m[35m[1m.[0m[1mmain[0m[1m([0m[1msample_id_list[0m[1m)[0m
+    [36m               │    │    └ [0m[36m[1m[45, 48, 65, 68, 68][0m
+    [36m               │    └ [0m[36m[1m<function main at 0x13ad1fe18>[0m
+    [36m               └ [0m[36m[1m<module 'main' from '/Users/ctetsass/OpenMaps/main.py'>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mmain.py[0m", line [33m107[0m, in [35mmain[0m
+    [1mjob_monitoring[0m[1m([0m[1mremote[0m[1m,[0m [1mjobs[0m[1m)[0m  [30m[1m# # monitor job[0m
+    [36m│              │       └ [0m[36m[1m[<main.JOB object at 0x13d4a4048>, <main.JOB object at 0x13d640e48>, <main.JOB object at 0x13d6245c0>, <main.JOB object at 0x...[0m
+    [36m│              └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x13b0328d0>[0m
+    [36m└ [0m[36m[1m<function job_monitoring at 0x13ccb3b70>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mmain.py[0m", line [33m238[0m, in [35mjob_monitoring[0m
+    [1mremote[0m[35m[1m.[0m[1mmonitor_batch[0m[1m([0m[1mjobs[0m[1m)[0m
+    [36m│      │             └ [0m[36m[1m[<main.JOB object at 0x13d4a4048>, <main.JOB object at 0x13d640e48>, <main.JOB object at 0x13d6245c0>, <main.JOB object at 0x...[0m
+    [36m│      └ [0m[36m[1m<function RemoteClient.monitor_batch at 0x13cc769d8>[0m
+    [36m└ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x13b0328d0>[0m
+
+> File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m339[0m, in [35mmonitor_batch[0m
+    [1mself[0m[35m[1m.[0m[1mdownload_file[0m[1m([0m[1mjob[0m[35m[1m.[0m[1mremote_path[0m [35m[1m+[0m [36m'vasp_output'[0m[1m,[0m [1mlocal_directory[0m[35m[1m=[0m[1mjob[0m[35m[1m.[0m[1mlocal_path[0m[1m)[0m
+    [36m│    │             │   │                                            │   └ [0m[36m[1m'/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Alloys_68'[0m
+    [36m│    │             │   │                                            └ [0m[36m[1m<main.JOB object at 0x13d624588>[0m
+    [36m│    │             │   └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys/Alloys_68'[0m
+    [36m│    │             └ [0m[36m[1m<main.JOB object at 0x13d624588>[0m
+    [36m│    └ [0m[36m[1m<function RemoteClient.download_file at 0x13cc746a8>[0m
+    [36m└ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x13b0328d0>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m192[0m, in [35mdownload_file[0m
+    [1mself[0m[35m[1m.[0m[1mscp[0m[35m[1m.[0m[1mget[0m[1m([0m[1mfile[0m[1m,[0m [1mlocal_directory[0m[1m,[0m [1mrecursive[0m[35m[1m=[0m[36m[1mTrue[0m[1m)[0m
+    [36m│    │   │   │     └ [0m[36m[1m'/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Alloys_68'[0m
+    [36m│    │   │   └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys/Alloys_68vasp_output'[0m
+    [36m│    │   └ [0m[36m[1m<function SCPClient.get at 0x13cc0c8c8>[0m
+    [36m│    └ [0m[36m[1m<scp.SCPClient object at 0x13d63d0b8>[0m
+    [36m└ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x13b0328d0>[0m
+
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 238, in get
+    self._recv_all()
+    │    └ <function SCPClient._recv_all at 0x13cc0cf28>
+    └ <scp.SCPClient object at 0x13d63d0b8>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 388, in _recv_all
+    raise SCPException(asunicode(msg[1:]))
+          │            │         └ b'\x01scp: /home/ctetsass/scratch/OpenMaps/Alloys/Alloys_68vasp_output: No such file or directory'
+          │            └ <function asunicode at 0x13cc0c488>
+          └ <class 'scp.SCPException'>
+
+[31m[1mscp.SCPException[0m:[1m scp: /home/ctetsass/scratch/OpenMaps/Alloys/Alloys_68vasp_output: No such file or directory[0m
+[96m09-02-2020 15:18:19[0m | 		[91mERROR[0m: 		[97mAn error has been caught in function 'monitor_batch', process 'MainProcess' (1580), thread 'MainThread' (4594302400):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/[0m[32m[1mpydevconsole.py[0m", line [33m483[0m, in [35m<module>[0m
+    [1mpydevconsole[0m[35m[1m.[0m[1mstart_client[0m[1m([0m[1mhost[0m[1m,[0m [1mport[0m[1m)[0m
+    [36m│            │            │     └ [0m[36m[1m49568[0m
+    [36m│            │            └ [0m[36m[1m'127.0.0.1'[0m
+    [36m│            └ [0m[36m[1m<function start_client at 0x110ccee18>[0m
+    [36m└ [0m[36m[1m<module 'pydevconsole' from '/Applications/PyCharm.app/Contents/helpers/pydev/pydevconsole.py'>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/[0m[32m[1mpydevconsole.py[0m", line [33m411[0m, in [35mstart_client[0m
+    [1mprocess_exec_queue[0m[1m([0m[1minterpreter[0m[1m)[0m
+    [36m│                  └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x110ce2400>[0m
+    [36m└ [0m[36m[1m<function process_exec_queue at 0x110cceb70>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/[0m[32m[1mpydevconsole.py[0m", line [33m258[0m, in [35mprocess_exec_queue[0m
+    [1mmore[0m [35m[1m=[0m [1minterpreter[0m[35m[1m.[0m[1madd_exec[0m[1m([0m[1mcode_fragment[0m[1m)[0m
+    [36m       │           │        └ [0m[36m[1m<_pydev_bundle.pydev_console_types.CodeFragment object at 0x110df6ac8>[0m
+    [36m       │           └ [0m[36m[1m<function BaseCodeExecutor.add_exec at 0x10fd9c158>[0m
+    [36m       └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x110ce2400>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_code_executor.py[0m", line [33m106[0m, in [35madd_exec[0m
+    [1mmore[0m [35m[1m=[0m [1mself[0m[35m[1m.[0m[1mdo_add_exec[0m[1m([0m[1mcode_fragment[0m[1m)[0m
+    [36m       │    │           └ [0m[36m[1m<_pydev_bundle.pydev_console_types.CodeFragment object at 0x110df6ac8>[0m
+    [36m       │    └ [0m[36m[1m<function InterpreterInterface.do_add_exec at 0x110ccaea0>[0m
+    [36m       └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x110ce2400>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_ipython_console.py[0m", line [33m36[0m, in [35mdo_add_exec[0m
+    [1mres[0m [35m[1m=[0m [1mbool[0m[1m([0m[1mself[0m[35m[1m.[0m[1minterpreter[0m[35m[1m.[0m[1madd_exec[0m[1m([0m[1mcode_fragment[0m[35m[1m.[0m[1mtext[0m[1m)[0m[1m)[0m
+    [36m           │    │           │        │             └ [0m[36m[1m"runfile('/Users/ctetsass/OpenMaps/run_inc.py', wdir='/Users/ctetsass/OpenMaps')\n"[0m
+    [36m           │    │           │        └ [0m[36m[1m<_pydev_bundle.pydev_console_types.CodeFragment object at 0x110df6ac8>[0m
+    [36m           │    │           └ [0m[36m[1m<function _PyDevFrontEnd.add_exec at 0x110ccab70>[0m
+    [36m           │    └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console_011._PyDevFrontEnd object at 0x110ce2518>[0m
+    [36m           └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x110ce2400>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_ipython_console_011.py[0m", line [33m482[0m, in [35madd_exec[0m
+    [1mself[0m[35m[1m.[0m[1mipython[0m[35m[1m.[0m[1mrun_cell[0m[1m([0m[1mline[0m[1m,[0m [1mstore_history[0m[35m[1m=[0m[36m[1mTrue[0m[1m)[0m
+    [36m│    │       │        └ [0m[36m[1m"runfile('/Users/ctetsass/OpenMaps/run_inc.py', wdir='/Users/ctetsass/OpenMaps')\n"[0m
+    [36m│    │       └ [0m[36m[1m<function InteractiveShell.run_cell at 0x1102e20d0>[0m
+    [36m│    └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x110ce2550>[0m
+    [36m└ [0m[36m[1m<_pydev_bundle.pydev_ipython_console_011._PyDevFrontEnd object at 0x110ce2518>[0m
+
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 2867, in run_cell
+    raw_cell, store_history, silent, shell_futures)
+    │         │              │       └ True
+    │         │              └ False
+    │         └ True
+    └ "runfile('/Users/ctetsass/OpenMaps/run_inc.py', wdir='/Users/ctetsass/OpenMaps')\n"
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 2895, in _run_cell
+    return runner(coro)
+           │      └ <coroutine object InteractiveShell.run_cell_async at 0x110d17620>
+           └ <function _pseudo_sync_runner at 0x1102caa60>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/async_helpers.py", line 68, in _pseudo_sync_runner
+    coro.send(None)
+    │    └ <method 'send' of 'coroutine' objects>
+    └ <coroutine object InteractiveShell.run_cell_async at 0x110d17620>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 3072, in run_cell_async
+    interactivity=interactivity, compiler=compiler, result=result)
+                  │                       │                └ <ExecutionResult object at 110df6d30, execution_count=2 error_before_exec=None error_in_exec=None info=<ExecutionInfo object ...
+                  │                       └ <IPython.core.compilerop.CachingCompiler object at 0x110ce2ac8>
+                  └ 'last_expr'
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 3263, in run_ast_nodes
+    if (await self.run_code(code, result,  async_=asy)):
+              │    │        │     │               └ False
+              │    │        │     └ <ExecutionResult object at 110df6d30, execution_count=2 error_before_exec=None error_in_exec=None info=<ExecutionInfo object ...
+              │    │        └ <code object <module> at 0x110daed20, file "<ipython-input-2-f646fd410bee>", line 1>
+              │    └ <function InteractiveShell.run_code at 0x1102e2598>
+              └ <_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x110ce2550>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 3343, in run_code
+    exec(code_obj, self.user_global_ns, self.user_ns)
+         │         │    │               │    └ {'__name__': 'pydev_umd', '__doc__': 'Automatically created module for IPython interactive environment', '__package__': None,...
+         │         │    │               └ <_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x110ce2550>
+         │         │    └ <property object at 0x1102d1728>
+         │         └ <_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x110ce2550>
+         └ <code object <module> at 0x110daed20, file "<ipython-input-2-f646fd410bee>", line 1>
+  File "<ipython-input-2-f646fd410bee>", line 1, in <module>
+    runfile('/Users/ctetsass/OpenMaps/run_inc.py', wdir='/Users/ctetsass/OpenMaps')
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_umd.py[0m", line [33m197[0m, in [35mrunfile[0m
+    [1mpydev_imports[0m[35m[1m.[0m[1mexecfile[0m[1m([0m[1mfilename[0m[1m,[0m [1mglobal_vars[0m[1m,[0m [1mlocal_vars[0m[1m)[0m  [30m[1m# execute the script[0m
+    [36m│             │        │         │            └ [0m[36m[1m{'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': None, '__spec__': None, '__file__': '/Users/ctet...[0m
+    [36m│             │        │         └ [0m[36m[1m{'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': None, '__spec__': None, '__file__': '/Users/ctet...[0m
+    [36m│             │        └ [0m[36m[1m'/Users/ctetsass/OpenMaps/run_inc.py'[0m
+    [36m│             └ [0m[36m[1m<function execfile at 0x10faa5048>[0m
+    [36m└ [0m[36m[1m<module '_pydev_bundle.pydev_imports' from '/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/pydev_imports.py'>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_imps/[0m[32m[1m_pydev_execfile.py[0m", line [33m18[0m, in [35mexecfile[0m
+    [1mexec[0m[1m([0m[1mcompile[0m[1m([0m[1mcontents[0m[35m[1m+[0m[36m"\n"[0m[1m,[0m [1mfile[0m[1m,[0m [36m'exec'[0m[1m)[0m[1m,[0m [1mglob[0m[1m,[0m [1mloc[0m[1m)[0m
+    [36m             │              │              │     └ [0m[36m[1m{'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': None, '__spec__': None, '__file__': '/Users/ctet...[0m
+    [36m             │              │              └ [0m[36m[1m{'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': None, '__spec__': None, '__file__': '/Users/ctet...[0m
+    [36m             │              └ [0m[36m[1m'/Users/ctetsass/OpenMaps/run_inc.py'[0m
+    [36m             └ [0m[36m[1m"#!/usr/bin/env python\n\nimport os, sys\nimport numpy as np\nimport pandas as pd\nimport pickle\nfrom subprocess import Pope...[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mrun_inc.py[0m", line [33m45[0m, in [35m<module>[0m
+    [1mmeasurements[0m [35m[1m=[0m [1mmain[0m[35m[1m.[0m[1mmain[0m[1m([0m[1msample_id_list[0m[1m)[0m
+    [36m               │    │    └ [0m[36m[1m[45, 48, 65, 68, 68][0m
+    [36m               │    └ [0m[36m[1m<function main at 0x13ad1fe18>[0m
+    [36m               └ [0m[36m[1m<module 'main' from '/Users/ctetsass/OpenMaps/main.py'>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mmain.py[0m", line [33m107[0m, in [35mmain[0m
+    [1mjob_monitoring[0m[1m([0m[1mremote[0m[1m,[0m [1mjobs[0m[1m)[0m  [30m[1m# # monitor job[0m
+    [36m│              │       └ [0m[36m[1m[<main.JOB object at 0x13d4a4048>, <main.JOB object at 0x13d640e48>, <main.JOB object at 0x13d6245c0>, <main.JOB object at 0x...[0m
+    [36m│              └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x13b0328d0>[0m
+    [36m└ [0m[36m[1m<function job_monitoring at 0x13ccb3b70>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mmain.py[0m", line [33m238[0m, in [35mjob_monitoring[0m
+    [1mremote[0m[35m[1m.[0m[1mmonitor_batch[0m[1m([0m[1mjobs[0m[1m)[0m
+    [36m│      │             └ [0m[36m[1m[<main.JOB object at 0x13d4a4048>, <main.JOB object at 0x13d640e48>, <main.JOB object at 0x13d6245c0>, <main.JOB object at 0x...[0m
+    [36m│      └ [0m[36m[1m<function RemoteClient.monitor_batch at 0x13cc769d8>[0m
+    [36m└ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x13b0328d0>[0m
+
+> File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m339[0m, in [35mmonitor_batch[0m
+    [1mself[0m[35m[1m.[0m[1mdownload_file[0m[1m([0m[1mjob[0m[35m[1m.[0m[1mremote_path[0m [35m[1m+[0m [36m'vasp_output'[0m[1m,[0m [1mlocal_directory[0m[35m[1m=[0m[1mjob[0m[35m[1m.[0m[1mlocal_path[0m[1m)[0m
+    [36m│    │             │   │                                            │   └ [0m[36m[1m'/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Alloys_68'[0m
+    [36m│    │             │   │                                            └ [0m[36m[1m<main.JOB object at 0x13d6243c8>[0m
+    [36m│    │             │   └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys/Alloys_68'[0m
+    [36m│    │             └ [0m[36m[1m<main.JOB object at 0x13d6243c8>[0m
+    [36m│    └ [0m[36m[1m<function RemoteClient.download_file at 0x13cc746a8>[0m
+    [36m└ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x13b0328d0>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m192[0m, in [35mdownload_file[0m
+    [1mself[0m[35m[1m.[0m[1mscp[0m[35m[1m.[0m[1mget[0m[1m([0m[1mfile[0m[1m,[0m [1mlocal_directory[0m[1m,[0m [1mrecursive[0m[35m[1m=[0m[36m[1mTrue[0m[1m)[0m
+    [36m│    │   │   │     └ [0m[36m[1m'/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Alloys_68'[0m
+    [36m│    │   │   └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys/Alloys_68vasp_output'[0m
+    [36m│    │   └ [0m[36m[1m<function SCPClient.get at 0x13cc0c8c8>[0m
+    [36m│    └ [0m[36m[1m<scp.SCPClient object at 0x13d63d0b8>[0m
+    [36m└ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x13b0328d0>[0m
+
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 238, in get
+    self._recv_all()
+    │    └ <function SCPClient._recv_all at 0x13cc0cf28>
+    └ <scp.SCPClient object at 0x13d63d0b8>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 388, in _recv_all
+    raise SCPException(asunicode(msg[1:]))
+          │            │         └ b'\x01scp: /home/ctetsass/scratch/OpenMaps/Alloys/Alloys_68vasp_output: No such file or directory'
+          │            └ <function asunicode at 0x13cc0c488>
+          └ <class 'scp.SCPException'>
+
+[31m[1mscp.SCPException[0m:[1m scp: /home/ctetsass/scratch/OpenMaps/Alloys/Alloys_68vasp_output: No such file or directory[0m
+[96m09-02-2020 20:27:57[0m | 		[91mERROR[0m: 		[97mAn error has been caught in function 'run_job', process 'MainProcess' (21010), thread 'MainThread' (4486106560):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m./[0m[32m[1mmain.py[0m", line [33m272[0m, in [35m<module>[0m
+    [1mmain[0m[1m([0m[1msample_list[0m[1m)[0m
+    [36m│    └ [0m[36m[1m[58, 78, 89, 65, 46][0m
+    [36m└ [0m[36m[1m<function main at 0x106f8e2f0>[0m
+
+  File "[32m./[0m[32m[1mmain.py[0m", line [33m107[0m, in [35mmain[0m
+    [1mjobs[0m [35m[1m=[0m [1mrun_job[0m[1m([0m[1mremote[0m[1m)[0m
+    [36m       │       └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x1197872e8>[0m
+    [36m       └ [0m[36m[1m<function run_job at 0x1197d5ea0>[0m
+
+> File "[32m./[0m[32m[1mmain.py[0m", line [33m233[0m, in [35mrun_job[0m
+    [1mjob_id[0m [35m[1m=[0m [1mremote[0m[35m[1m.[0m[1msbatch[0m[1m([0m[1mos[0m[35m[1m.[0m[1mpath[0m[35m[1m.[0m[1mjoin[0m[1m([0m[1mremote_path[0m[1m,[0m [1mjobb[0m[1m)[0m[1m,[0m [1mjob_file[0m[35m[1m=[0m[1mjobb[0m [35m[1m+[0m [36m'_vasp_job.sh'[0m[1m)[0m
+    [36m         │      │      │  │    │    │            │               └ [0m[36m[1m'Alloys_58'[0m
+    [36m         │      │      │  │    │    │            └ [0m[36m[1m'Alloys_58'[0m
+    [36m         │      │      │  │    │    └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys'[0m
+    [36m         │      │      │  │    └ [0m[36m[1m<function join at 0x106e48950>[0m
+    [36m         │      │      │  └ [0m[36m[1m<module 'posixpath' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/posixpath.py'>[0m
+    [36m         │      │      └ [0m[36m[1m<module 'os' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/os.py'>[0m
+    [36m         │      └ [0m[36m[1m<function RemoteClient.sbatch at 0x1197a6488>[0m
+    [36m         └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x1197872e8>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m310[0m, in [35msbatch[0m
+    [35m[1mreturn[0m [1mint[0m[1m([0m[1mjob_id[0m[1m)[0m
+    [36m           └ [0m[36m[1m''[0m
+
+[31m[1mValueError[0m:[1m invalid literal for int() with base 10: ''[0m
+[96m09-02-2020 20:32:11[0m | 		[91mERROR[0m: 		[97mAn error has been caught in function 'run_job', process 'MainProcess' (21292), thread 'MainThread' (4584611264):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m./[0m[32m[1mmain.py[0m", line [33m272[0m, in [35m<module>[0m
+    [1mmain[0m[1m([0m[1msample_list[0m[1m)[0m
+    [36m│    └ [0m[36m[1m[58, 78, 89, 65, 46][0m
+    [36m└ [0m[36m[1m<function main at 0x106f772f0>[0m
+
+  File "[32m./[0m[32m[1mmain.py[0m", line [33m107[0m, in [35mmain[0m
+    [1mjobs[0m [35m[1m=[0m [1mrun_job[0m[1m([0m[1mremote[0m[1m)[0m
+    [36m       │       └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x11976f2e8>[0m
+    [36m       └ [0m[36m[1m<function run_job at 0x1197beea0>[0m
+
+> File "[32m./[0m[32m[1mmain.py[0m", line [33m233[0m, in [35mrun_job[0m
+    [1mjob_id[0m [35m[1m=[0m [1mremote[0m[35m[1m.[0m[1msbatch[0m[1m([0m[1mos[0m[35m[1m.[0m[1mpath[0m[35m[1m.[0m[1mjoin[0m[1m([0m[1mremote_path[0m[1m,[0m [1mjobb[0m[1m)[0m[1m,[0m [1mjob_file[0m[35m[1m=[0m[1mjobb[0m [35m[1m+[0m [36m'_vasp_job.sh'[0m[1m)[0m
+    [36m         │      │      │  │    │    │            │               └ [0m[36m[1m'Alloys_58'[0m
+    [36m         │      │      │  │    │    │            └ [0m[36m[1m'Alloys_58'[0m
+    [36m         │      │      │  │    │    └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys'[0m
+    [36m         │      │      │  │    └ [0m[36m[1m<function join at 0x106e31950>[0m
+    [36m         │      │      │  └ [0m[36m[1m<module 'posixpath' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/posixpath.py'>[0m
+    [36m         │      │      └ [0m[36m[1m<module 'os' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/os.py'>[0m
+    [36m         │      └ [0m[36m[1m<function RemoteClient.sbatch at 0x11978f488>[0m
+    [36m         └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x11976f2e8>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m310[0m, in [35msbatch[0m
+    [35m[1mreturn[0m [1mint[0m[1m([0m[1mjob_id[0m[1m)[0m
+    [36m           └ [0m[36m[1m''[0m
+
+[31m[1mValueError[0m:[1m invalid literal for int() with base 10: ''[0m
+[96m09-02-2020 20:33:12[0m | 		[91mERROR[0m: 		[97mAn error has been caught in function 'run_job', process 'MainProcess' (21292), thread 'MainThread' (4584611264):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m./[0m[32m[1mmain.py[0m", line [33m272[0m, in [35m<module>[0m
+    [1mmain[0m[1m([0m[1msample_list[0m[1m)[0m
+    [36m│    └ [0m[36m[1m[58, 78, 89, 65, 46][0m
+    [36m└ [0m[36m[1m<function main at 0x106f772f0>[0m
+
+  File "[32m./[0m[32m[1mmain.py[0m", line [33m107[0m, in [35mmain[0m
+    [1mjobs[0m [35m[1m=[0m [1mrun_job[0m[1m([0m[1mremote[0m[1m)[0m
+    [36m       │       └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x11976f2e8>[0m
+    [36m       └ [0m[36m[1m<function run_job at 0x1197beea0>[0m
+
+> File "[32m./[0m[32m[1mmain.py[0m", line [33m233[0m, in [35mrun_job[0m
+    [1mjob_id[0m [35m[1m=[0m [1mremote[0m[35m[1m.[0m[1msbatch[0m[1m([0m[1mos[0m[35m[1m.[0m[1mpath[0m[35m[1m.[0m[1mjoin[0m[1m([0m[1mremote_path[0m[1m,[0m [1mjobb[0m[1m)[0m[1m,[0m [1mjob_file[0m[35m[1m=[0m[1mjobb[0m [35m[1m+[0m [36m'_vasp_job.sh'[0m[1m)[0m
+    [36m         │      │      │  │    │    │            │               └ [0m[36m[1m'Alloys_78'[0m
+    [36m         │      │      │  │    │    │            └ [0m[36m[1m'Alloys_78'[0m
+    [36m         │      │      │  │    │    └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys'[0m
+    [36m         │      │      │  │    └ [0m[36m[1m<function join at 0x106e31950>[0m
+    [36m         │      │      │  └ [0m[36m[1m<module 'posixpath' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/posixpath.py'>[0m
+    [36m         │      │      └ [0m[36m[1m<module 'os' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/os.py'>[0m
+    [36m         │      └ [0m[36m[1m<function RemoteClient.sbatch at 0x11978f488>[0m
+    [36m         └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x11976f2e8>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m310[0m, in [35msbatch[0m
+    [35m[1mreturn[0m [1mint[0m[1m([0m[1mjob_id[0m[1m)[0m
+    [36m           └ [0m[36m[1m''[0m
+
+[31m[1mValueError[0m:[1m invalid literal for int() with base 10: ''[0m
+[96m09-02-2020 20:34:12[0m | 		[91mERROR[0m: 		[97mAn error has been caught in function 'run_job', process 'MainProcess' (21292), thread 'MainThread' (4584611264):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m./[0m[32m[1mmain.py[0m", line [33m272[0m, in [35m<module>[0m
+    [1mmain[0m[1m([0m[1msample_list[0m[1m)[0m
+    [36m│    └ [0m[36m[1m[58, 78, 89, 65, 46][0m
+    [36m└ [0m[36m[1m<function main at 0x106f772f0>[0m
+
+  File "[32m./[0m[32m[1mmain.py[0m", line [33m107[0m, in [35mmain[0m
+    [1mjobs[0m [35m[1m=[0m [1mrun_job[0m[1m([0m[1mremote[0m[1m)[0m
+    [36m       │       └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x11976f2e8>[0m
+    [36m       └ [0m[36m[1m<function run_job at 0x1197beea0>[0m
+
+> File "[32m./[0m[32m[1mmain.py[0m", line [33m233[0m, in [35mrun_job[0m
+    [1mjob_id[0m [35m[1m=[0m [1mremote[0m[35m[1m.[0m[1msbatch[0m[1m([0m[1mos[0m[35m[1m.[0m[1mpath[0m[35m[1m.[0m[1mjoin[0m[1m([0m[1mremote_path[0m[1m,[0m [1mjobb[0m[1m)[0m[1m,[0m [1mjob_file[0m[35m[1m=[0m[1mjobb[0m [35m[1m+[0m [36m'_vasp_job.sh'[0m[1m)[0m
+    [36m         │      │      │  │    │    │            │               └ [0m[36m[1m'Alloys_89'[0m
+    [36m         │      │      │  │    │    │            └ [0m[36m[1m'Alloys_89'[0m
+    [36m         │      │      │  │    │    └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys'[0m
+    [36m         │      │      │  │    └ [0m[36m[1m<function join at 0x106e31950>[0m
+    [36m         │      │      │  └ [0m[36m[1m<module 'posixpath' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/posixpath.py'>[0m
+    [36m         │      │      └ [0m[36m[1m<module 'os' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/os.py'>[0m
+    [36m         │      └ [0m[36m[1m<function RemoteClient.sbatch at 0x11978f488>[0m
+    [36m         └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x11976f2e8>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m310[0m, in [35msbatch[0m
+    [35m[1mreturn[0m [1mint[0m[1m([0m[1mjob_id[0m[1m)[0m
+    [36m           └ [0m[36m[1m''[0m
+
+[31m[1mValueError[0m:[1m invalid literal for int() with base 10: ''[0m
+[96m09-02-2020 20:35:13[0m | 		[91mERROR[0m: 		[97mAn error has been caught in function 'run_job', process 'MainProcess' (21292), thread 'MainThread' (4584611264):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m./[0m[32m[1mmain.py[0m", line [33m272[0m, in [35m<module>[0m
+    [1mmain[0m[1m([0m[1msample_list[0m[1m)[0m
+    [36m│    └ [0m[36m[1m[58, 78, 89, 65, 46][0m
+    [36m└ [0m[36m[1m<function main at 0x106f772f0>[0m
+
+  File "[32m./[0m[32m[1mmain.py[0m", line [33m107[0m, in [35mmain[0m
+    [1mjobs[0m [35m[1m=[0m [1mrun_job[0m[1m([0m[1mremote[0m[1m)[0m
+    [36m       │       └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x11976f2e8>[0m
+    [36m       └ [0m[36m[1m<function run_job at 0x1197beea0>[0m
+
+> File "[32m./[0m[32m[1mmain.py[0m", line [33m233[0m, in [35mrun_job[0m
+    [1mjob_id[0m [35m[1m=[0m [1mremote[0m[35m[1m.[0m[1msbatch[0m[1m([0m[1mos[0m[35m[1m.[0m[1mpath[0m[35m[1m.[0m[1mjoin[0m[1m([0m[1mremote_path[0m[1m,[0m [1mjobb[0m[1m)[0m[1m,[0m [1mjob_file[0m[35m[1m=[0m[1mjobb[0m [35m[1m+[0m [36m'_vasp_job.sh'[0m[1m)[0m
+    [36m         │      │      │  │    │    │            │               └ [0m[36m[1m'Alloys_65'[0m
+    [36m         │      │      │  │    │    │            └ [0m[36m[1m'Alloys_65'[0m
+    [36m         │      │      │  │    │    └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys'[0m
+    [36m         │      │      │  │    └ [0m[36m[1m<function join at 0x106e31950>[0m
+    [36m         │      │      │  └ [0m[36m[1m<module 'posixpath' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/posixpath.py'>[0m
+    [36m         │      │      └ [0m[36m[1m<module 'os' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/os.py'>[0m
+    [36m         │      └ [0m[36m[1m<function RemoteClient.sbatch at 0x11978f488>[0m
+    [36m         └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x11976f2e8>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m310[0m, in [35msbatch[0m
+    [35m[1mreturn[0m [1mint[0m[1m([0m[1mjob_id[0m[1m)[0m
+    [36m           └ [0m[36m[1m''[0m
+
+[31m[1mValueError[0m:[1m invalid literal for int() with base 10: ''[0m
+[96m09-02-2020 20:36:13[0m | 		[91mERROR[0m: 		[97mAn error has been caught in function 'run_job', process 'MainProcess' (21292), thread 'MainThread' (4584611264):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m./[0m[32m[1mmain.py[0m", line [33m272[0m, in [35m<module>[0m
+    [1mmain[0m[1m([0m[1msample_list[0m[1m)[0m
+    [36m│    └ [0m[36m[1m[58, 78, 89, 65, 46][0m
+    [36m└ [0m[36m[1m<function main at 0x106f772f0>[0m
+
+  File "[32m./[0m[32m[1mmain.py[0m", line [33m107[0m, in [35mmain[0m
+    [1mjobs[0m [35m[1m=[0m [1mrun_job[0m[1m([0m[1mremote[0m[1m)[0m
+    [36m       │       └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x11976f2e8>[0m
+    [36m       └ [0m[36m[1m<function run_job at 0x1197beea0>[0m
+
+> File "[32m./[0m[32m[1mmain.py[0m", line [33m233[0m, in [35mrun_job[0m
+    [1mjob_id[0m [35m[1m=[0m [1mremote[0m[35m[1m.[0m[1msbatch[0m[1m([0m[1mos[0m[35m[1m.[0m[1mpath[0m[35m[1m.[0m[1mjoin[0m[1m([0m[1mremote_path[0m[1m,[0m [1mjobb[0m[1m)[0m[1m,[0m [1mjob_file[0m[35m[1m=[0m[1mjobb[0m [35m[1m+[0m [36m'_vasp_job.sh'[0m[1m)[0m
+    [36m         │      │      │  │    │    │            │               └ [0m[36m[1m'Alloys_46'[0m
+    [36m         │      │      │  │    │    │            └ [0m[36m[1m'Alloys_46'[0m
+    [36m         │      │      │  │    │    └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys'[0m
+    [36m         │      │      │  │    └ [0m[36m[1m<function join at 0x106e31950>[0m
+    [36m         │      │      │  └ [0m[36m[1m<module 'posixpath' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/posixpath.py'>[0m
+    [36m         │      │      └ [0m[36m[1m<module 'os' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/os.py'>[0m
+    [36m         │      └ [0m[36m[1m<function RemoteClient.sbatch at 0x11978f488>[0m
+    [36m         └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x11976f2e8>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m310[0m, in [35msbatch[0m
+    [35m[1mreturn[0m [1mint[0m[1m([0m[1mjob_id[0m[1m)[0m
+    [36m           └ [0m[36m[1m''[0m
+
+[31m[1mValueError[0m:[1m invalid literal for int() with base 10: ''[0m
+[96m09-02-2020 20:36:15[0m | 		[91mERROR[0m: 		[97mAn error has been caught in function 'job_monitoring', process 'MainProcess' (21292), thread 'MainThread' (4584611264):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m./[0m[32m[1mmain.py[0m", line [33m272[0m, in [35m<module>[0m
+    [1mmain[0m[1m([0m[1msample_list[0m[1m)[0m
+    [36m│    └ [0m[36m[1m[58, 78, 89, 65, 46][0m
+    [36m└ [0m[36m[1m<function main at 0x106f772f0>[0m
+
+  File "[32m./[0m[32m[1mmain.py[0m", line [33m109[0m, in [35mmain[0m
+    [1mjob_monitoring[0m[1m([0m[1mremote[0m[1m,[0m [1mjobs[0m[1m)[0m  [30m[1m# # monitor job[0m
+    [36m│              │       └ [0m[36m[1m[<__main__.JOB object at 0x118984358>, <__main__.JOB object at 0x118984438>, <__main__.JOB object at 0x11ba7d0f0>, <__main__....[0m
+    [36m│              └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x11976f2e8>[0m
+    [36m└ [0m[36m[1m<function job_monitoring at 0x1197bef28>[0m
+
+> File "[32m./[0m[32m[1mmain.py[0m", line [33m242[0m, in [35mjob_monitoring[0m
+    [1mremote[0m[35m[1m.[0m[1mmonitor_batch[0m[1m([0m[1mjobs[0m[1m)[0m
+    [36m│      │             └ [0m[36m[1m[<__main__.JOB object at 0x118984358>, <__main__.JOB object at 0x118984438>, <__main__.JOB object at 0x11ba7d0f0>, <__main__....[0m
+    [36m│      └ [0m[36m[1m<function RemoteClient.monitor_batch at 0x11978f8c8>[0m
+    [36m└ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x11976f2e8>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m332[0m, in [35mmonitor_batch[0m
+    [1mstatus_list[0m [35m[1m=[0m [1m[[0m[1mself[0m[35m[1m.[0m[1msacct[0m[1m([0m[1mjob[0m[35m[1m.[0m[1mid[0m[1m)[0m [35m[1mfor[0m [1mjob[0m [35m[1min[0m [1mjobs[0m[1m][0m
+    [36m               │    │                        └ [0m[36m[1m[<__main__.JOB object at 0x118984358>, <__main__.JOB object at 0x118984438>, <__main__.JOB object at 0x11ba7d0f0>, <__main__....[0m
+    [36m               │    └ [0m[36m[1m<function RemoteClient.sacct at 0x11978f730>[0m
+    [36m               └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x11976f2e8>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m332[0m, in [35m<listcomp>[0m
+    [1mstatus_list[0m [35m[1m=[0m [1m[[0m[1mself[0m[35m[1m.[0m[1msacct[0m[1m([0m[1mjob[0m[35m[1m.[0m[1mid[0m[1m)[0m [35m[1mfor[0m [1mjob[0m [35m[1min[0m [1mjobs[0m[1m][0m
+    [36m               │    │     │   │       └ [0m[36m[1m<__main__.JOB object at 0x118984358>[0m
+    [36m               │    │     │   └ [0m[36m[1mNone[0m
+    [36m               │    │     └ [0m[36m[1m<__main__.JOB object at 0x118984358>[0m
+    [36m               │    └ [0m[36m[1m<function RemoteClient.sacct at 0x11978f730>[0m
+    [36m               └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x11976f2e8>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m315[0m, in [35msacct[0m
+    [1mstatus[0m [35m[1m=[0m [1mre[0m[35m[1m.[0m[1msub[0m[1m([0m[36m' +'[0m[1m,[0m [36m' '[0m[1m,[0m [1mstd_out[0m[1m[[0m[34m[1m2[0m[1m][0m[1m)[0m[35m[1m.[0m[1msplit[0m[1m([0m[36m' '[0m[1m)[0m
+    [36m         │  │              └ [0m[36m[1m[''][0m
+    [36m         │  └ [0m[36m[1m<function sub at 0x106f372f0>[0m
+    [36m         └ [0m[36m[1m<module 're' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/re.py'>[0m
+
+[31m[1mIndexError[0m:[1m list index out of range[0m
+[96m09-02-2020 20:39:55[0m | 		[91mERROR[0m: 		[97mAn error has been caught in function 'run_job', process 'MainProcess' (21526), thread 'MainThread' (4596694464):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m./[0m[32m[1mmain.py[0m", line [33m274[0m, in [35m<module>[0m
+    [1mmain[0m[1m([0m[1msample_list[0m[1m)[0m
+    [36m│    └ [0m[36m[1m[58, 78, 89, 65, 46][0m
+    [36m└ [0m[36m[1m<function main at 0x10b93f2f0>[0m
+
+  File "[32m./[0m[32m[1mmain.py[0m", line [33m107[0m, in [35mmain[0m
+    [1mjobs[0m [35m[1m=[0m [1mrun_job[0m[1m([0m[1mremote[0m[1m)[0m
+    [36m       │       └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x11dfdd5f8>[0m
+    [36m       └ [0m[36m[1m<function run_job at 0x11e184ea0>[0m
+
+> File "[32m./[0m[32m[1mmain.py[0m", line [33m235[0m, in [35mrun_job[0m
+    [1mjob_id[0m [35m[1m=[0m [1mremote[0m[35m[1m.[0m[1msbatch[0m[1m([0m[1mos[0m[35m[1m.[0m[1mpath[0m[35m[1m.[0m[1mjoin[0m[1m([0m[1mremote_path[0m[1m,[0m [1mjobb[0m[1m)[0m[1m,[0m [1mjob_file[0m[35m[1m=[0m[1mjobb[0m [35m[1m+[0m [36m'_vasp_job.sh'[0m[1m)[0m
+    [36m         │      │      │  │    │    │            │               └ [0m[36m[1m'Alloys_58'[0m
+    [36m         │      │      │  │    │    │            └ [0m[36m[1m'Alloys_58'[0m
+    [36m         │      │      │  │    │    └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys'[0m
+    [36m         │      │      │  │    └ [0m[36m[1m<function join at 0x10b7f9950>[0m
+    [36m         │      │      │  └ [0m[36m[1m<module 'posixpath' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/posixpath.py'>[0m
+    [36m         │      │      └ [0m[36m[1m<module 'os' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/os.py'>[0m
+    [36m         │      └ [0m[36m[1m<function RemoteClient.sbatch at 0x11e155488>[0m
+    [36m         └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x11dfdd5f8>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m310[0m, in [35msbatch[0m
+    [35m[1mreturn[0m [1mint[0m[1m([0m[1mjob_id[0m[1m)[0m
+    [36m           └ [0m[36m[1m''[0m
+
+[31m[1mValueError[0m:[1m invalid literal for int() with base 10: ''[0m
+[96m09-02-2020 20:39:57[0m | 		[91mERROR[0m: 		[97mAn error has been caught in function 'job_monitoring', process 'MainProcess' (21526), thread 'MainThread' (4596694464):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m./[0m[32m[1mmain.py[0m", line [33m274[0m, in [35m<module>[0m
+    [1mmain[0m[1m([0m[1msample_list[0m[1m)[0m
+    [36m│    └ [0m[36m[1m[58, 78, 89, 65, 46][0m
+    [36m└ [0m[36m[1m<function main at 0x10b93f2f0>[0m
+
+  File "[32m./[0m[32m[1mmain.py[0m", line [33m110[0m, in [35mmain[0m
+    [1mjob_monitoring[0m[1m([0m[1mremote[0m[1m,[0m [1mjobs[0m[1m)[0m  [30m[1m# # monitor job[0m
+    [36m│              │       └ [0m[36m[1m[<__main__.JOB object at 0x11e2a91d0>][0m
+    [36m│              └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x11dfdd5f8>[0m
+    [36m└ [0m[36m[1m<function job_monitoring at 0x11e184f28>[0m
+
+> File "[32m./[0m[32m[1mmain.py[0m", line [33m244[0m, in [35mjob_monitoring[0m
+    [1mremote[0m[35m[1m.[0m[1mmonitor_batch[0m[1m([0m[1mjobs[0m[1m)[0m
+    [36m│      │             └ [0m[36m[1m[<__main__.JOB object at 0x11e2a91d0>][0m
+    [36m│      └ [0m[36m[1m<function RemoteClient.monitor_batch at 0x11e1558c8>[0m
+    [36m└ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x11dfdd5f8>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m332[0m, in [35mmonitor_batch[0m
+    [1mstatus_list[0m [35m[1m=[0m [1m[[0m[1mself[0m[35m[1m.[0m[1msacct[0m[1m([0m[1mjob[0m[35m[1m.[0m[1mid[0m[1m)[0m [35m[1mfor[0m [1mjob[0m [35m[1min[0m [1mjobs[0m[1m][0m
+    [36m               │    │                        └ [0m[36m[1m[<__main__.JOB object at 0x11e2a91d0>][0m
+    [36m               │    └ [0m[36m[1m<function RemoteClient.sacct at 0x11e155730>[0m
+    [36m               └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x11dfdd5f8>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m332[0m, in [35m<listcomp>[0m
+    [1mstatus_list[0m [35m[1m=[0m [1m[[0m[1mself[0m[35m[1m.[0m[1msacct[0m[1m([0m[1mjob[0m[35m[1m.[0m[1mid[0m[1m)[0m [35m[1mfor[0m [1mjob[0m [35m[1min[0m [1mjobs[0m[1m][0m
+    [36m               │    │     │   │       └ [0m[36m[1m<__main__.JOB object at 0x11e2a91d0>[0m
+    [36m               │    │     │   └ [0m[36m[1mNone[0m
+    [36m               │    │     └ [0m[36m[1m<__main__.JOB object at 0x11e2a91d0>[0m
+    [36m               │    └ [0m[36m[1m<function RemoteClient.sacct at 0x11e155730>[0m
+    [36m               └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x11dfdd5f8>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m315[0m, in [35msacct[0m
+    [1mstatus[0m [35m[1m=[0m [1mre[0m[35m[1m.[0m[1msub[0m[1m([0m[36m' +'[0m[1m,[0m [36m' '[0m[1m,[0m [1mstd_out[0m[1m[[0m[34m[1m2[0m[1m][0m[1m)[0m[35m[1m.[0m[1msplit[0m[1m([0m[36m' '[0m[1m)[0m
+    [36m         │  │              └ [0m[36m[1m[''][0m
+    [36m         │  └ [0m[36m[1m<function sub at 0x10b8ff2f0>[0m
+    [36m         └ [0m[36m[1m<module 're' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/re.py'>[0m
+
+[31m[1mIndexError[0m:[1m list index out of range[0m
+[96m09-03-2020 08:33:50[0m | 		[91mERROR[0m: 		[97mTimeout waiting for scp response[0m
+[96m09-03-2020 08:33:50[0m | 		[91mERROR[0m: 		[97mAn error has been caught in function 'upload_dir_to_remote', process 'MainProcess' (58692), thread 'MainThread' (4467219904):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/paramiko/channel.py", line 699, in recv
+    out = self.in_buffer.read(nbytes, self.timeout)
+          │    │         │    │       │    └ 10.0
+          │    │         │    │       └ <paramiko.Channel 1 (open) window=2096053 -> <paramiko.Transport at 0x171da588 (cipher aes128-ctr, 128 bits) (active; 2 open ...
+          │    │         │    └ 512
+          │    │         └ <function BufferedPipe.read at 0x116d15c80>
+          │    └ <paramiko.buffered_pipe.BufferedPipe object at 0x1194f2da0>
+          └ <paramiko.Channel 1 (open) window=2096053 -> <paramiko.Transport at 0x171da588 (cipher aes128-ctr, 128 bits) (active; 2 open ...
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/paramiko/buffered_pipe.py", line 164, in read
+    raise PipeTimeout()
+          └ <class 'paramiko.buffered_pipe.PipeTimeout'>
+
+[31m[1mparamiko.buffered_pipe.PipeTimeout[0m
+
+
+[1mDuring handling of the above exception, another exception occurred:[0m
+
+
+[33m[1mTraceback (most recent call last):[0m
+
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 356, in _recv_confirm
+    msg = self.channel.recv(512)
+          │    │       └ <function Channel.recv at 0x116d1cbf8>
+          │    └ <paramiko.Channel 1 (open) window=2096053 -> <paramiko.Transport at 0x171da588 (cipher aes128-ctr, 128 bits) (active; 2 open ...
+          └ <scp.SCPClient object at 0x1194f2c50>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/paramiko/channel.py", line 701, in recv
+    raise socket.timeout()
+          │      └ <class 'socket.timeout'>
+          └ <module 'socket' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/socket.py'>
+
+[31m[1msocket.timeout[0m
+
+
+[1mDuring handling of the above exception, another exception occurred:[0m
+
+
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m./[0m[32m[1mmain.py[0m", line [33m276[0m, in [35m<module>[0m
+    [1mmain[0m[1m([0m[1msample_list[0m[1m)[0m
+    [36m│    └ [0m[36m[1m[58, 78, 89, 65, 46][0m
+    [36m└ [0m[36m[1m<function main at 0x104979ea0>[0m
+
+  File "[32m./[0m[32m[1mmain.py[0m", line [33m103[0m, in [35mmain[0m
+    [1mupload_dir_to_remote[0m[1m([0m[1mremote[0m[1m,[0m [1mjob_list[0m[1m)[0m  [30m[1m# upload job dir[0m
+    [36m│                    │       └ [0m[36m[1m['Alloys_58'][0m
+    [36m│                    └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x117374240>[0m
+    [36m└ [0m[36m[1m<function upload_dir_to_remote at 0x117383bf8>[0m
+
+> File "[32m./[0m[32m[1mmain.py[0m", line [33m201[0m, in [35mupload_dir_to_remote[0m
+    [1mremote_path[0m[35m[1m=[0m[1mos[0m[35m[1m.[0m[1mpath[0m[35m[1m.[0m[1mjoin[0m[1m([0m[1mremote_path[0m[1m,[0m [1mjob[0m[1m)[0m[1m)[0m
+    [36m            │  │    │    │            └ [0m[36m[1m'Alloys_58'[0m
+    [36m            │  │    │    └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys'[0m
+    [36m            │  │    └ [0m[36m[1m<function join at 0x1049fb950>[0m
+    [36m            │  └ [0m[36m[1m<module 'posixpath' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/posixpath.py'>[0m
+    [36m            └ [0m[36m[1m<module 'os' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/os.py'>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m139[0m, in [35mdir_upload[0m
+    [35m[1mraise[0m [1merror[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m134[0m, in [35mdir_upload[0m
+    [1mremote_path[0m[35m[1m=[0m[1mremote_path[0m
+    [36m            └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys/Alloys_58'[0m
+
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 164, in put
+    self._send_recursive(files)
+    │    │               └ ['/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Alloys_58']
+    │    └ <function SCPClient._send_recursive at 0x1171d9840>
+    └ <scp.SCPClient object at 0x1194f2c50>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 327, in _send_recursive
+    self._send_files([os.path.join(root, f) for f in fls])
+    │    │            │  │    │    │                 └ ['CHG', 'PCDAT', 'Alloys_58-49828326.err', 'INCAR', 'OSZICAR', 'Alloys_58-49829772.err', 'OUTCAR', 'vasprun.xml', 'DOSCAR', '...
+    │    │            │  │    │    └ '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Alloys_58/vasp_output'
+    │    │            │  │    └ <function join at 0x1049fb950>
+    │    │            │  └ <module 'posixpath' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/posixpath.py'>
+    │    │            └ <module 'os' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/os.py'>
+    │    └ <function SCPClient._send_files at 0x1171d96a8>
+    └ <scp.SCPClient object at 0x1194f2c50>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 271, in _send_files
+    self._send_file(fl, name, mode, size)
+    │    │          │   │     │     └ 5227950
+    │    │          │   │     └ '0640'
+    │    │          │   └ '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Alloys_58/vasp_output/CHG'
+    │    │          └ <_io.BufferedReader name='/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Alloys_58/vasp_output/CHG'>
+    │    └ <function SCPClient._send_file at 0x1171d9730>
+    └ <scp.SCPClient object at 0x1194f2c50>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 281, in _send_file
+    self._recv_confirm()
+    │    └ <function SCPClient._recv_confirm at 0x1171d9a60>
+    └ <scp.SCPClient object at 0x1194f2c50>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 358, in _recv_confirm
+    raise SCPException('Timeout waiting for scp response')
+          └ <class 'scp.SCPException'>
+
+[31m[1mscp.SCPException[0m:[1m Timeout waiting for scp response[0m
+[96m09-03-2020 08:34:02[0m | 		[91mERROR[0m: 		[97mTimeout waiting for scp response[0m
+[96m09-03-2020 09:58:23[0m | 		[91mERROR[0m: 		[97mAn error has been caught in function 'monitor_batch', process 'MainProcess' (60630), thread 'MainThread' (4363922880):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/paramiko/channel.py", line 699, in recv
+    out = self.in_buffer.read(nbytes, self.timeout)
+          │    │         │    │       │    └ 10.0
+          │    │         │    │       └ <paramiko.Channel 28 (open) window=2097118 -> <paramiko.Transport at 0x14b66320 (cipher aes128-ctr, 128 bits) (active; 2 open...
+          │    │         │    └ 1024
+          │    │         └ <function BufferedPipe.read at 0x114522c80>
+          │    └ <paramiko.buffered_pipe.BufferedPipe object at 0x116d08128>
+          └ <paramiko.Channel 28 (open) window=2097118 -> <paramiko.Transport at 0x14b66320 (cipher aes128-ctr, 128 bits) (active; 2 open...
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/paramiko/buffered_pipe.py", line 164, in read
+    raise PipeTimeout()
+          └ <class 'paramiko.buffered_pipe.PipeTimeout'>
+
+[31m[1mparamiko.buffered_pipe.PipeTimeout[0m
+
+
+[1mDuring handling of the above exception, another exception occurred:[0m
+
+
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m./[0m[32m[1mmain.py[0m", line [33m278[0m, in [35m<module>[0m
+    [1mmain[0m[1m([0m[1msample_list[0m[1m)[0m
+    [36m│    └ [0m[36m[1m[58, 78, 89, 65, 46][0m
+    [36m└ [0m[36m[1m<function main at 0x10217fea0>[0m
+
+  File "[32m./[0m[32m[1mmain.py[0m", line [33m112[0m, in [35mmain[0m
+    [1mjob_monitoring[0m[1m([0m[1mremote[0m[1m,[0m [1mjobs[0m[1m)[0m  [30m[1m# # monitor job[0m
+    [36m│              │       └ [0m[36m[1m[<__main__.JOB object at 0x116cf6f98>, <__main__.JOB object at 0x116cf6630>, <__main__.JOB object at 0x116d08b38>, <__main__....[0m
+    [36m│              └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x1022b6860>[0m
+    [36m└ [0m[36m[1m<function job_monitoring at 0x114b80510>[0m
+
+  File "[32m./[0m[32m[1mmain.py[0m", line [33m248[0m, in [35mjob_monitoring[0m
+    [1mremote[0m[35m[1m.[0m[1mmonitor_batch[0m[1m([0m[1mjobs[0m[1m)[0m
+    [36m│      │             └ [0m[36m[1m[<__main__.JOB object at 0x116cf6f98>, <__main__.JOB object at 0x116cf6630>, <__main__.JOB object at 0x116d08b38>, <__main__....[0m
+    [36m│      └ [0m[36m[1m<function RemoteClient.monitor_batch at 0x114b60840>[0m
+    [36m└ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x1022b6860>[0m
+
+> File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m355[0m, in [35mmonitor_batch[0m
+    [1mself[0m[35m[1m.[0m[1mdownload_file[0m[1m([0m[1mjob[0m[35m[1m.[0m[1mremote_path[0m [35m[1m+[0m [36m'/'[0m [35m[1m+[0m [1mjob[0m[35m[1m.[0m[1moutput[0m[1m,[0m [1mlocal_directory[0m[35m[1m=[0m[1mjob[0m[35m[1m.[0m[1mlocal_path[0m[1m)[0m
+    [36m│    │             │   │                   │   │                       │   └ [0m[36m[1m'/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Alloys_78'[0m
+    [36m│    │             │   │                   │   │                       └ [0m[36m[1m<__main__.JOB object at 0x116cf6630>[0m
+    [36m│    │             │   │                   │   └ [0m[36m[1m'vasp_output'[0m
+    [36m│    │             │   │                   └ [0m[36m[1m<__main__.JOB object at 0x116cf6630>[0m
+    [36m│    │             │   └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys/Alloys_78'[0m
+    [36m│    │             └ [0m[36m[1m<__main__.JOB object at 0x116cf6630>[0m
+    [36m│    └ [0m[36m[1m<function RemoteClient.download_file at 0x114b5b510>[0m
+    [36m└ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x1022b6860>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m200[0m, in [35mdownload_file[0m
+    [1mself[0m[35m[1m.[0m[1mscp[0m[35m[1m.[0m[1mget[0m[1m([0m[1mfile[0m[1m,[0m [1mlocal_directory[0m[1m,[0m [1mrecursive[0m[35m[1m=[0m[36m[1mTrue[0m[1m)[0m
+    [36m│    │   │   │     └ [0m[36m[1m'/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Alloys_78'[0m
+    [36m│    │   │   └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys/Alloys_78/vasp_output'[0m
+    [36m│    │   └ [0m[36m[1m<function SCPClient.get at 0x1149e3488>[0m
+    [36m│    └ [0m[36m[1m<scp.SCPClient object at 0x116cf64a8>[0m
+    [36m└ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x1022b6860>[0m
+
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 238, in get
+    self._recv_all()
+    │    └ <function SCPClient._recv_all at 0x1149e3ae8>
+    └ <scp.SCPClient object at 0x116cf64a8>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 381, in _recv_all
+    msg = self.channel.recv(1024)
+          │    │       └ <function Channel.recv at 0x114526bf8>
+          │    └ <paramiko.Channel 28 (open) window=2097118 -> <paramiko.Transport at 0x14b66320 (cipher aes128-ctr, 128 bits) (active; 2 open...
+          └ <scp.SCPClient object at 0x116cf64a8>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/paramiko/channel.py", line 701, in recv
+    raise socket.timeout()
+          │      └ <class 'socket.timeout'>
+          └ <module 'socket' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/socket.py'>
+
+[31m[1msocket.timeout[0m
+[96m09-03-2020 09:58:49[0m | 		[91mERROR[0m: 		[97mAn error has been caught in function 'monitor_batch', process 'MainProcess' (60630), thread 'MainThread' (4363922880):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m./[0m[32m[1mmain.py[0m", line [33m278[0m, in [35m<module>[0m
+    [1mmain[0m[1m([0m[1msample_list[0m[1m)[0m
+    [36m│    └ [0m[36m[1m[58, 78, 89, 65, 46][0m
+    [36m└ [0m[36m[1m<function main at 0x10217fea0>[0m
+
+  File "[32m./[0m[32m[1mmain.py[0m", line [33m112[0m, in [35mmain[0m
+    [1mjob_monitoring[0m[1m([0m[1mremote[0m[1m,[0m [1mjobs[0m[1m)[0m  [30m[1m# # monitor job[0m
+    [36m│              │       └ [0m[36m[1m[<__main__.JOB object at 0x116cf6f98>, <__main__.JOB object at 0x116cf6630>, <__main__.JOB object at 0x116d08b38>, <__main__....[0m
+    [36m│              └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x1022b6860>[0m
+    [36m└ [0m[36m[1m<function job_monitoring at 0x114b80510>[0m
+
+  File "[32m./[0m[32m[1mmain.py[0m", line [33m248[0m, in [35mjob_monitoring[0m
+    [1mremote[0m[35m[1m.[0m[1mmonitor_batch[0m[1m([0m[1mjobs[0m[1m)[0m
+    [36m│      │             └ [0m[36m[1m[<__main__.JOB object at 0x116cf6f98>, <__main__.JOB object at 0x116cf6630>, <__main__.JOB object at 0x116d08b38>, <__main__....[0m
+    [36m│      └ [0m[36m[1m<function RemoteClient.monitor_batch at 0x114b60840>[0m
+    [36m└ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x1022b6860>[0m
+
+> File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m355[0m, in [35mmonitor_batch[0m
+    [1mself[0m[35m[1m.[0m[1mdownload_file[0m[1m([0m[1mjob[0m[35m[1m.[0m[1mremote_path[0m [35m[1m+[0m [36m'/'[0m [35m[1m+[0m [1mjob[0m[35m[1m.[0m[1moutput[0m[1m,[0m [1mlocal_directory[0m[35m[1m=[0m[1mjob[0m[35m[1m.[0m[1mlocal_path[0m[1m)[0m
+    [36m│    │             │   │                   │   │                       │   └ [0m[36m[1m'/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Alloys_89'[0m
+    [36m│    │             │   │                   │   │                       └ [0m[36m[1m<__main__.JOB object at 0x116d08b38>[0m
+    [36m│    │             │   │                   │   └ [0m[36m[1m'vasp_output'[0m
+    [36m│    │             │   │                   └ [0m[36m[1m<__main__.JOB object at 0x116d08b38>[0m
+    [36m│    │             │   └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys/Alloys_89'[0m
+    [36m│    │             └ [0m[36m[1m<__main__.JOB object at 0x116d08b38>[0m
+    [36m│    └ [0m[36m[1m<function RemoteClient.download_file at 0x114b5b510>[0m
+    [36m└ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x1022b6860>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m200[0m, in [35mdownload_file[0m
+    [1mself[0m[35m[1m.[0m[1mscp[0m[35m[1m.[0m[1mget[0m[1m([0m[1mfile[0m[1m,[0m [1mlocal_directory[0m[1m,[0m [1mrecursive[0m[35m[1m=[0m[36m[1mTrue[0m[1m)[0m
+    [36m│    │   │   │     └ [0m[36m[1m'/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Alloys_89'[0m
+    [36m│    │   │   └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys/Alloys_89/vasp_output'[0m
+    [36m│    │   └ [0m[36m[1m<function SCPClient.get at 0x1149e3488>[0m
+    [36m│    └ [0m[36m[1m<scp.SCPClient object at 0x116cf64a8>[0m
+    [36m└ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x1022b6860>[0m
+
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 237, in get
+    b' '.join(remote_path))
+              └ [b'/home/ctetsass/scratch/OpenMaps/Alloys/Alloys_89/vasp_output']
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/paramiko/channel.py", line 72, in _check
+    return func(self, *args, **kwds)
+           │    │      │       └ {}
+           │    │      └ (b'scp -r -f /home/ctetsass/scratch/OpenMaps/Alloys/Alloys_89/vasp_output',)
+           │    └ <paramiko.Channel 28 (closed) -> <paramiko.Transport at 0x14b66320 (cipher aes128-ctr, 128 bits) (active; 2 open channel(s))>>
+           └ <function Channel.exec_command at 0x114525c80>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/paramiko/channel.py", line 257, in exec_command
+    self._wait_for_event()
+    │    └ <function Channel._wait_for_event at 0x114527c80>
+    └ <paramiko.Channel 28 (closed) -> <paramiko.Transport at 0x14b66320 (cipher aes128-ctr, 128 bits) (active; 2 open channel(s))>>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/paramiko/channel.py", line 1226, in _wait_for_event
+    raise e
+          └ SSHException('Channel closed.',)
+
+[31m[1mparamiko.ssh_exception.SSHException[0m:[1m Channel closed.[0m
+[96m09-03-2020 09:59:21[0m | 		[91mERROR[0m: 		[97mAn error has been caught in function 'monitor_batch', process 'MainProcess' (60630), thread 'MainThread' (4363922880):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/paramiko/channel.py", line 699, in recv
+    out = self.in_buffer.read(nbytes, self.timeout)
+          │    │         │    │       │    └ 10.0
+          │    │         │    │       └ <paramiko.Channel 33 (open) window=2097142 -> <paramiko.Transport at 0x14b66320 (cipher aes128-ctr, 128 bits) (active; 2 open...
+          │    │         │    └ 1024
+          │    │         └ <function BufferedPipe.read at 0x114522c80>
+          │    └ <paramiko.buffered_pipe.BufferedPipe object at 0x114cafcf8>
+          └ <paramiko.Channel 33 (open) window=2097142 -> <paramiko.Transport at 0x14b66320 (cipher aes128-ctr, 128 bits) (active; 2 open...
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/paramiko/buffered_pipe.py", line 164, in read
+    raise PipeTimeout()
+          └ <class 'paramiko.buffered_pipe.PipeTimeout'>
+
+[31m[1mparamiko.buffered_pipe.PipeTimeout[0m
+
+
+[1mDuring handling of the above exception, another exception occurred:[0m
+
+
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m./[0m[32m[1mmain.py[0m", line [33m278[0m, in [35m<module>[0m
+    [1mmain[0m[1m([0m[1msample_list[0m[1m)[0m
+    [36m│    └ [0m[36m[1m[58, 78, 89, 65, 46][0m
+    [36m└ [0m[36m[1m<function main at 0x10217fea0>[0m
+
+  File "[32m./[0m[32m[1mmain.py[0m", line [33m112[0m, in [35mmain[0m
+    [1mjob_monitoring[0m[1m([0m[1mremote[0m[1m,[0m [1mjobs[0m[1m)[0m  [30m[1m# # monitor job[0m
+    [36m│              │       └ [0m[36m[1m[<__main__.JOB object at 0x116cf6f98>, <__main__.JOB object at 0x116cf6630>, <__main__.JOB object at 0x116d08b38>, <__main__....[0m
+    [36m│              └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x1022b6860>[0m
+    [36m└ [0m[36m[1m<function job_monitoring at 0x114b80510>[0m
+
+  File "[32m./[0m[32m[1mmain.py[0m", line [33m248[0m, in [35mjob_monitoring[0m
+    [1mremote[0m[35m[1m.[0m[1mmonitor_batch[0m[1m([0m[1mjobs[0m[1m)[0m
+    [36m│      │             └ [0m[36m[1m[<__main__.JOB object at 0x116cf6f98>, <__main__.JOB object at 0x116cf6630>, <__main__.JOB object at 0x116d08b38>, <__main__....[0m
+    [36m│      └ [0m[36m[1m<function RemoteClient.monitor_batch at 0x114b60840>[0m
+    [36m└ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x1022b6860>[0m
+
+> File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m355[0m, in [35mmonitor_batch[0m
+    [1mself[0m[35m[1m.[0m[1mdownload_file[0m[1m([0m[1mjob[0m[35m[1m.[0m[1mremote_path[0m [35m[1m+[0m [36m'/'[0m [35m[1m+[0m [1mjob[0m[35m[1m.[0m[1moutput[0m[1m,[0m [1mlocal_directory[0m[35m[1m=[0m[1mjob[0m[35m[1m.[0m[1mlocal_path[0m[1m)[0m
+    [36m│    │             │   │                   │   │                       │   └ [0m[36m[1m'/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Alloys_46'[0m
+    [36m│    │             │   │                   │   │                       └ [0m[36m[1m<__main__.JOB object at 0x116d10828>[0m
+    [36m│    │             │   │                   │   └ [0m[36m[1m'vasp_output'[0m
+    [36m│    │             │   │                   └ [0m[36m[1m<__main__.JOB object at 0x116d10828>[0m
+    [36m│    │             │   └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys/Alloys_46'[0m
+    [36m│    │             └ [0m[36m[1m<__main__.JOB object at 0x116d10828>[0m
+    [36m│    └ [0m[36m[1m<function RemoteClient.download_file at 0x114b5b510>[0m
+    [36m└ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x1022b6860>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m200[0m, in [35mdownload_file[0m
+    [1mself[0m[35m[1m.[0m[1mscp[0m[35m[1m.[0m[1mget[0m[1m([0m[1mfile[0m[1m,[0m [1mlocal_directory[0m[1m,[0m [1mrecursive[0m[35m[1m=[0m[36m[1mTrue[0m[1m)[0m
+    [36m│    │   │   │     └ [0m[36m[1m'/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Alloys_46'[0m
+    [36m│    │   │   └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys/Alloys_46/vasp_output'[0m
+    [36m│    │   └ [0m[36m[1m<function SCPClient.get at 0x1149e3488>[0m
+    [36m│    └ [0m[36m[1m<scp.SCPClient object at 0x116cf64a8>[0m
+    [36m└ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x1022b6860>[0m
+
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 238, in get
+    self._recv_all()
+    │    └ <function SCPClient._recv_all at 0x1149e3ae8>
+    └ <scp.SCPClient object at 0x116cf64a8>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 381, in _recv_all
+    msg = self.channel.recv(1024)
+          │    │       └ <function Channel.recv at 0x114526bf8>
+          │    └ <paramiko.Channel 33 (open) window=2097142 -> <paramiko.Transport at 0x14b66320 (cipher aes128-ctr, 128 bits) (active; 2 open...
+          └ <scp.SCPClient object at 0x116cf64a8>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/paramiko/channel.py", line 701, in recv
+    raise socket.timeout()
+          │      └ <class 'socket.timeout'>
+          └ <module 'socket' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/socket.py'>
+
+[31m[1msocket.timeout[0m
+[96m09-03-2020 10:52:03[0m | 		[91mERROR[0m: 		[97mTimeout waiting for scp response[0m
+[96m09-03-2020 10:52:03[0m | 		[91mERROR[0m: 		[97mAn error has been caught in function 'upload_dir_to_remote', process 'MainProcess' (61950), thread 'MainThread' (4498025920):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/paramiko/channel.py", line 699, in recv
+    out = self.in_buffer.read(nbytes, self.timeout)
+          │    │         │    │       │    └ 10.0
+          │    │         │    │       └ <paramiko.Channel 1 (open) window=2097093 -> <paramiko.Transport at 0x3cb00550 (cipher aes128-ctr, 128 bits) (active; 2 open ...
+          │    │         │    └ 512
+          │    │         └ <function BufferedPipe.read at 0x13bdadd08>
+          │    └ <paramiko.buffered_pipe.BufferedPipe object at 0x13cda1cc0>
+          └ <paramiko.Channel 1 (open) window=2097093 -> <paramiko.Transport at 0x3cb00550 (cipher aes128-ctr, 128 bits) (active; 2 open ...
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/paramiko/buffered_pipe.py", line 164, in read
+    raise PipeTimeout()
+          └ <class 'paramiko.buffered_pipe.PipeTimeout'>
+
+[31m[1mparamiko.buffered_pipe.PipeTimeout[0m
+
+
+[1mDuring handling of the above exception, another exception occurred:[0m
+
+
+[33m[1mTraceback (most recent call last):[0m
+
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 356, in _recv_confirm
+    msg = self.channel.recv(512)
+          │    │       └ <function Channel.recv at 0x13bdb8c80>
+          │    └ <paramiko.Channel 1 (open) window=2097093 -> <paramiko.Transport at 0x3cb00550 (cipher aes128-ctr, 128 bits) (active; 2 open ...
+          └ <scp.SCPClient object at 0x13cda1b70>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/paramiko/channel.py", line 701, in recv
+    raise socket.timeout()
+          │      └ <class 'socket.timeout'>
+          └ <module 'socket' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/socket.py'>
+
+[31m[1msocket.timeout[0m
+
+
+[1mDuring handling of the above exception, another exception occurred:[0m
+
+
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m[0m[32m[1mrun_inc.py[0m", line [33m45[0m, in [35m<module>[0m
+    [1mmeasurements[0m [35m[1m=[0m [1mmain[0m[35m[1m.[0m[1mmain[0m[1m([0m[1msample_id_list[0m[1m)[0m
+    [36m               │    │    └ [0m[36m[1m[45, 48, 65, 68, 68][0m
+    [36m               │    └ [0m[36m[1m<function main at 0x13a2c0730>[0m
+    [36m               └ [0m[36m[1m<module 'main' from '/Users/ctetsass/OpenMaps/main.py'>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mmain.py[0m", line [33m104[0m, in [35mmain[0m
+    [1mupload_dir_to_remote[0m[1m([0m[1mremote[0m[1m,[0m [1mjob_list[0m[1m)[0m  [30m[1m# upload job dir[0m
+    [36m│                    │       └ [0m[36m[1m['Alloys_45', 'Alloys_48', 'Alloys_65', 'Alloys_68', 'Alloys_68'][0m
+    [36m│                    └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x13a5e0d30>[0m
+    [36m└ [0m[36m[1m<function upload_dir_to_remote at 0x13c4ecea0>[0m
+
+> File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mmain.py[0m", line [33m203[0m, in [35mupload_dir_to_remote[0m
+    [1mremote_path[0m[35m[1m=[0m[1mos[0m[35m[1m.[0m[1mpath[0m[35m[1m.[0m[1mjoin[0m[1m([0m[1mremote_path[0m[1m,[0m [1mjob[0m[1m)[0m[1m)[0m
+    [36m            │  │    │    │            └ [0m[36m[1m'Alloys_45'[0m
+    [36m            │  │    │    └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys'[0m
+    [36m            │  │    └ [0m[36m[1m<function join at 0x108b93158>[0m
+    [36m            │  └ [0m[36m[1m<module 'posixpath' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/posixpath.py'>[0m
+    [36m            └ [0m[36m[1m<module 'os' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/os.py'>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m147[0m, in [35mdir_upload[0m
+    [35m[1mraise[0m [1merror[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m142[0m, in [35mdir_upload[0m
+    [1mremote_path[0m[35m[1m=[0m[1mremote_path[0m
+    [36m            └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys/Alloys_45'[0m
+
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 164, in put
+    self._send_recursive(files)
+    │    │               └ ['/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Alloys_45']
+    │    └ <function SCPClient._send_recursive at 0x13c26f8c8>
+    └ <scp.SCPClient object at 0x13cda1b70>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 327, in _send_recursive
+    self._send_files([os.path.join(root, f) for f in fls])
+    │    │            │  │    │    │                 └ ['INCAR', 'POSCAR', 'POTCAR', 'KPOINT']
+    │    │            │  │    │    └ '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Alloys_45/vasp_input'
+    │    │            │  │    └ <function join at 0x108b93158>
+    │    │            │  └ <module 'posixpath' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/posixpath.py'>
+    │    │            └ <module 'os' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/os.py'>
+    │    └ <function SCPClient._send_files at 0x13c26f730>
+    └ <scp.SCPClient object at 0x13cda1b70>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 271, in _send_files
+    self._send_file(fl, name, mode, size)
+    │    │          │   │     │     └ 42
+    │    │          │   │     └ '0644'
+    │    │          │   └ '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Alloys_45/vasp_input/KPOINT'
+    │    │          └ <_io.BufferedReader name='/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Alloys_45/vasp_input/KPOINT'>
+    │    └ <function SCPClient._send_file at 0x13c26f7b8>
+    └ <scp.SCPClient object at 0x13cda1b70>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 297, in _send_file
+    self._recv_confirm()
+    │    └ <function SCPClient._recv_confirm at 0x13c26fae8>
+    └ <scp.SCPClient object at 0x13cda1b70>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 358, in _recv_confirm
+    raise SCPException('Timeout waiting for scp response')
+          └ <class 'scp.SCPException'>
+
+[31m[1mscp.SCPException[0m:[1m Timeout waiting for scp response[0m
+[96m09-03-2020 10:52:03[0m | 		[91mERROR[0m: 		[97mAn error has been caught in function 'upload_dir_to_remote', process 'MainProcess' (61950), thread 'MainThread' (4498025920):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m[0m[32m[1mrun_inc.py[0m", line [33m45[0m, in [35m<module>[0m
+    [1mmeasurements[0m [35m[1m=[0m [1mmain[0m[35m[1m.[0m[1mmain[0m[1m([0m[1msample_id_list[0m[1m)[0m
+    [36m               │    │    └ [0m[36m[1m[45, 48, 65, 68, 68][0m
+    [36m               │    └ [0m[36m[1m<function main at 0x13a2c0730>[0m
+    [36m               └ [0m[36m[1m<module 'main' from '/Users/ctetsass/OpenMaps/main.py'>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mmain.py[0m", line [33m104[0m, in [35mmain[0m
+    [1mupload_dir_to_remote[0m[1m([0m[1mremote[0m[1m,[0m [1mjob_list[0m[1m)[0m  [30m[1m# upload job dir[0m
+    [36m│                    │       └ [0m[36m[1m['Alloys_45', 'Alloys_48', 'Alloys_65', 'Alloys_68', 'Alloys_68'][0m
+    [36m│                    └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x13a5e0d30>[0m
+    [36m└ [0m[36m[1m<function upload_dir_to_remote at 0x13c4ecea0>[0m
+
+> File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mmain.py[0m", line [33m203[0m, in [35mupload_dir_to_remote[0m
+    [1mremote_path[0m[35m[1m=[0m[1mos[0m[35m[1m.[0m[1mpath[0m[35m[1m.[0m[1mjoin[0m[1m([0m[1mremote_path[0m[1m,[0m [1mjob[0m[1m)[0m[1m)[0m
+    [36m            │  │    │    │            └ [0m[36m[1m'Alloys_48'[0m
+    [36m            │  │    │    └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys'[0m
+    [36m            │  │    └ [0m[36m[1m<function join at 0x108b93158>[0m
+    [36m            │  └ [0m[36m[1m<module 'posixpath' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/posixpath.py'>[0m
+    [36m            └ [0m[36m[1m<module 'os' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/os.py'>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m142[0m, in [35mdir_upload[0m
+    [1mremote_path[0m[35m[1m=[0m[1mremote_path[0m
+    [36m            └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys/Alloys_48'[0m
+
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 157, in put
+    self.sanitize(asbytes(remote_path)))
+    │    │        │       └ '/home/ctetsass/scratch/OpenMaps/Alloys/Alloys_48'
+    │    │        └ <function asbytes at 0x13c26f048>
+    │    └ <function _sh_quote at 0x13bceb598>
+    └ <scp.SCPClient object at 0x13cda1b70>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/paramiko/channel.py", line 72, in _check
+    return func(self, *args, **kwds)
+           │    │      │       └ {}
+           │    │      └ (b'scp -r -t /home/ctetsass/scratch/OpenMaps/Alloys/Alloys_48',)
+           │    └ <paramiko.Channel 1 (closed) -> <paramiko.Transport at 0x3cb00550 (cipher aes128-ctr, 128 bits) (active; 2 open channel(s))>>
+           └ <function Channel.exec_command at 0x13bdb6d08>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/paramiko/channel.py", line 257, in exec_command
+    self._wait_for_event()
+    │    └ <function Channel._wait_for_event at 0x13bdbad08>
+    └ <paramiko.Channel 1 (closed) -> <paramiko.Transport at 0x3cb00550 (cipher aes128-ctr, 128 bits) (active; 2 open channel(s))>>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/paramiko/channel.py", line 1226, in _wait_for_event
+    raise e
+          └ SSHException('Channel closed.',)
+
+[31m[1mparamiko.ssh_exception.SSHException[0m:[1m Channel closed.[0m
+[96m09-03-2020 10:52:15[0m | 		[91mERROR[0m: 		[97mTimeout waiting for scp response[0m
+[96m09-03-2020 10:52:15[0m | 		[91mERROR[0m: 		[97mAn error has been caught in function 'upload_dir_to_remote', process 'MainProcess' (61950), thread 'MainThread' (4498025920):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/paramiko/channel.py", line 699, in recv
+    out = self.in_buffer.read(nbytes, self.timeout)
+          │    │         │    │       │    └ 10.0
+          │    │         │    │       └ <paramiko.Channel 2 (open) window=2096901 -> <paramiko.Transport at 0x3cb00550 (cipher aes128-ctr, 128 bits) (active; 3 open ...
+          │    │         │    └ 512
+          │    │         └ <function BufferedPipe.read at 0x13bdadd08>
+          │    └ <paramiko.buffered_pipe.BufferedPipe object at 0x13cd680f0>
+          └ <paramiko.Channel 2 (open) window=2096901 -> <paramiko.Transport at 0x3cb00550 (cipher aes128-ctr, 128 bits) (active; 3 open ...
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/paramiko/buffered_pipe.py", line 164, in read
+    raise PipeTimeout()
+          └ <class 'paramiko.buffered_pipe.PipeTimeout'>
+
+[31m[1mparamiko.buffered_pipe.PipeTimeout[0m
+
+
+[1mDuring handling of the above exception, another exception occurred:[0m
+
+
+[33m[1mTraceback (most recent call last):[0m
+
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 356, in _recv_confirm
+    msg = self.channel.recv(512)
+          │    │       └ <function Channel.recv at 0x13bdb8c80>
+          │    └ <paramiko.Channel 2 (open) window=2096901 -> <paramiko.Transport at 0x3cb00550 (cipher aes128-ctr, 128 bits) (active; 3 open ...
+          └ <scp.SCPClient object at 0x13cda1b70>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/paramiko/channel.py", line 701, in recv
+    raise socket.timeout()
+          │      └ <class 'socket.timeout'>
+          └ <module 'socket' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/socket.py'>
+
+[31m[1msocket.timeout[0m
+
+
+[1mDuring handling of the above exception, another exception occurred:[0m
+
+
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m[0m[32m[1mrun_inc.py[0m", line [33m45[0m, in [35m<module>[0m
+    [1mmeasurements[0m [35m[1m=[0m [1mmain[0m[35m[1m.[0m[1mmain[0m[1m([0m[1msample_id_list[0m[1m)[0m
+    [36m               │    │    └ [0m[36m[1m[45, 48, 65, 68, 68][0m
+    [36m               │    └ [0m[36m[1m<function main at 0x13a2c0730>[0m
+    [36m               └ [0m[36m[1m<module 'main' from '/Users/ctetsass/OpenMaps/main.py'>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mmain.py[0m", line [33m104[0m, in [35mmain[0m
+    [1mupload_dir_to_remote[0m[1m([0m[1mremote[0m[1m,[0m [1mjob_list[0m[1m)[0m  [30m[1m# upload job dir[0m
+    [36m│                    │       └ [0m[36m[1m['Alloys_45', 'Alloys_48', 'Alloys_65', 'Alloys_68', 'Alloys_68'][0m
+    [36m│                    └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x13a5e0d30>[0m
+    [36m└ [0m[36m[1m<function upload_dir_to_remote at 0x13c4ecea0>[0m
+
+> File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mmain.py[0m", line [33m203[0m, in [35mupload_dir_to_remote[0m
+    [1mremote_path[0m[35m[1m=[0m[1mos[0m[35m[1m.[0m[1mpath[0m[35m[1m.[0m[1mjoin[0m[1m([0m[1mremote_path[0m[1m,[0m [1mjob[0m[1m)[0m[1m)[0m
+    [36m            │  │    │    │            └ [0m[36m[1m'Alloys_65'[0m
+    [36m            │  │    │    └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys'[0m
+    [36m            │  │    └ [0m[36m[1m<function join at 0x108b93158>[0m
+    [36m            │  └ [0m[36m[1m<module 'posixpath' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/posixpath.py'>[0m
+    [36m            └ [0m[36m[1m<module 'os' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/os.py'>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m147[0m, in [35mdir_upload[0m
+    [35m[1mraise[0m [1merror[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m142[0m, in [35mdir_upload[0m
+    [1mremote_path[0m[35m[1m=[0m[1mremote_path[0m
+    [36m            └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys/Alloys_65'[0m
+
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 164, in put
+    self._send_recursive(files)
+    │    │               └ ['/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Alloys_65']
+    │    └ <function SCPClient._send_recursive at 0x13c26f8c8>
+    └ <scp.SCPClient object at 0x13cda1b70>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 327, in _send_recursive
+    self._send_files([os.path.join(root, f) for f in fls])
+    │    │            │  │    │    │                 └ ['CHG', 'PCDAT', 'INCAR', 'OSZICAR', 'Alloys_65-49856674.err', 'OUTCAR', 'vasprun.xml', 'DOSCAR', 'WAVECAR', 'Alloys_65-49856...
+    │    │            │  │    │    └ '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Alloys_65/vasp_output'
+    │    │            │  │    └ <function join at 0x108b93158>
+    │    │            │  └ <module 'posixpath' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/posixpath.py'>
+    │    │            └ <module 'os' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/os.py'>
+    │    └ <function SCPClient._send_files at 0x13c26f730>
+    └ <scp.SCPClient object at 0x13cda1b70>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 271, in _send_files
+    self._send_file(fl, name, mode, size)
+    │    │          │   │     │     └ 234
+    │    │          │   │     └ '0640'
+    │    │          │   └ '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Alloys_65/vasp_output/PCDAT'
+    │    │          └ <_io.BufferedReader name='/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Alloys_65/vasp_output/PCDAT'>
+    │    └ <function SCPClient._send_file at 0x13c26f7b8>
+    └ <scp.SCPClient object at 0x13cda1b70>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 297, in _send_file
+    self._recv_confirm()
+    │    └ <function SCPClient._recv_confirm at 0x13c26fae8>
+    └ <scp.SCPClient object at 0x13cda1b70>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 358, in _recv_confirm
+    raise SCPException('Timeout waiting for scp response')
+          └ <class 'scp.SCPException'>
+
+[31m[1mscp.SCPException[0m:[1m Timeout waiting for scp response[0m
+[96m09-03-2020 10:52:15[0m | 		[91mERROR[0m: 		[97mAn error has been caught in function 'upload_dir_to_remote', process 'MainProcess' (61950), thread 'MainThread' (4498025920):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m[0m[32m[1mrun_inc.py[0m", line [33m45[0m, in [35m<module>[0m
+    [1mmeasurements[0m [35m[1m=[0m [1mmain[0m[35m[1m.[0m[1mmain[0m[1m([0m[1msample_id_list[0m[1m)[0m
+    [36m               │    │    └ [0m[36m[1m[45, 48, 65, 68, 68][0m
+    [36m               │    └ [0m[36m[1m<function main at 0x13a2c0730>[0m
+    [36m               └ [0m[36m[1m<module 'main' from '/Users/ctetsass/OpenMaps/main.py'>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mmain.py[0m", line [33m104[0m, in [35mmain[0m
+    [1mupload_dir_to_remote[0m[1m([0m[1mremote[0m[1m,[0m [1mjob_list[0m[1m)[0m  [30m[1m# upload job dir[0m
+    [36m│                    │       └ [0m[36m[1m['Alloys_45', 'Alloys_48', 'Alloys_65', 'Alloys_68', 'Alloys_68'][0m
+    [36m│                    └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x13a5e0d30>[0m
+    [36m└ [0m[36m[1m<function upload_dir_to_remote at 0x13c4ecea0>[0m
+
+> File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mmain.py[0m", line [33m203[0m, in [35mupload_dir_to_remote[0m
+    [1mremote_path[0m[35m[1m=[0m[1mos[0m[35m[1m.[0m[1mpath[0m[35m[1m.[0m[1mjoin[0m[1m([0m[1mremote_path[0m[1m,[0m [1mjob[0m[1m)[0m[1m)[0m
+    [36m            │  │    │    │            └ [0m[36m[1m'Alloys_68'[0m
+    [36m            │  │    │    └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys'[0m
+    [36m            │  │    └ [0m[36m[1m<function join at 0x108b93158>[0m
+    [36m            │  └ [0m[36m[1m<module 'posixpath' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/posixpath.py'>[0m
+    [36m            └ [0m[36m[1m<module 'os' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/os.py'>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m142[0m, in [35mdir_upload[0m
+    [1mremote_path[0m[35m[1m=[0m[1mremote_path[0m
+    [36m            └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys/Alloys_68'[0m
+
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/scp.py", line 157, in put
+    self.sanitize(asbytes(remote_path)))
+    │    │        │       └ '/home/ctetsass/scratch/OpenMaps/Alloys/Alloys_68'
+    │    │        └ <function asbytes at 0x13c26f048>
+    │    └ <function _sh_quote at 0x13bceb598>
+    └ <scp.SCPClient object at 0x13cda1b70>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/paramiko/channel.py", line 72, in _check
+    return func(self, *args, **kwds)
+           │    │      │       └ {}
+           │    │      └ (b'scp -r -t /home/ctetsass/scratch/OpenMaps/Alloys/Alloys_68',)
+           │    └ <paramiko.Channel 2 (closed) -> <paramiko.Transport at 0x3cb00550 (cipher aes128-ctr, 128 bits) (active; 3 open channel(s))>>
+           └ <function Channel.exec_command at 0x13bdb6d08>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/paramiko/channel.py", line 257, in exec_command
+    self._wait_for_event()
+    │    └ <function Channel._wait_for_event at 0x13bdbad08>
+    └ <paramiko.Channel 2 (closed) -> <paramiko.Transport at 0x3cb00550 (cipher aes128-ctr, 128 bits) (active; 3 open channel(s))>>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/paramiko/channel.py", line 1226, in _wait_for_event
+    raise e
+          └ SSHException('Channel closed.',)
+
+[31m[1mparamiko.ssh_exception.SSHException[0m:[1m Channel closed.[0m
+[96m09-03-2020 10:52:22[0m | 		[91mERROR[0m: 		[97mAn error has been caught in function 'run_job', process 'MainProcess' (61950), thread 'MainThread' (4498025920):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m[0m[32m[1mrun_inc.py[0m", line [33m45[0m, in [35m<module>[0m
+    [1mmeasurements[0m [35m[1m=[0m [1mmain[0m[35m[1m.[0m[1mmain[0m[1m([0m[1msample_id_list[0m[1m)[0m
+    [36m               │    │    └ [0m[36m[1m[45, 48, 65, 68, 68][0m
+    [36m               │    └ [0m[36m[1m<function main at 0x13a2c0730>[0m
+    [36m               └ [0m[36m[1m<module 'main' from '/Users/ctetsass/OpenMaps/main.py'>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mmain.py[0m", line [33m109[0m, in [35mmain[0m
+    [1mjobs[0m [35m[1m=[0m [1mrun_job[0m[1m([0m[1mremote[0m[1m)[0m
+    [36m       │       └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x13a5e0d30>[0m
+    [36m       └ [0m[36m[1m<function run_job at 0x13c4f00d0>[0m
+
+> File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mmain.py[0m", line [33m239[0m, in [35mrun_job[0m
+    [1mjob_id[0m [35m[1m=[0m [1mremote[0m[35m[1m.[0m[1msbatch[0m[1m([0m[1mos[0m[35m[1m.[0m[1mpath[0m[35m[1m.[0m[1mjoin[0m[1m([0m[1mremote_path[0m[1m,[0m [1mjobb[0m[1m)[0m[1m,[0m [1mjob_file[0m[35m[1m=[0m[1mjobb[0m [35m[1m+[0m [36m'_vasp_job.sh'[0m[1m)[0m
+    [36m         │      │      │  │    │    │            │               └ [0m[36m[1m'Alloys_48'[0m
+    [36m         │      │      │  │    │    │            └ [0m[36m[1m'Alloys_48'[0m
+    [36m         │      │      │  │    │    └ [0m[36m[1m'/home/ctetsass/scratch/OpenMaps/Alloys'[0m
+    [36m         │      │      │  │    └ [0m[36m[1m<function join at 0x108b93158>[0m
+    [36m         │      │      │  └ [0m[36m[1m<module 'posixpath' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/posixpath.py'>[0m
+    [36m         │      │      └ [0m[36m[1m<module 'os' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/os.py'>[0m
+    [36m         │      └ [0m[36m[1m<function RemoteClient.sbatch at 0x13c3ac048>[0m
+    [36m         └ [0m[36m[1m<ParamikoTools.client.RemoteClient object at 0x13a5e0d30>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1mclient.py[0m", line [33m318[0m, in [35msbatch[0m
+    [35m[1mreturn[0m [1mint[0m[1m([0m[1mjob_id[0m[1m)[0m
+    [36m           └ [0m[36m[1m''[0m
+
+[31m[1mValueError[0m:[1m invalid literal for int() with base 10: ''[0m

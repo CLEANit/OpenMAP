@@ -16,7 +16,7 @@ import main
 # ==============================================================================
 
 NUM_TOTAL = 100  # len of the data base
-BUDGET = 20  # how many experiment you want to perform
+BUDGET = 50  # how many experiment you want to perform
 CONFIG_FILE = 'config.json'
 BATCH_SIZE = 5
 #seed = int(sys.argv[1])

@@ -1,3 +1,7 @@
+#!/usr/bin/env python
+
+__author__ = 'Conrard TETSASSI'
+
 import os
 job_type = ["DOS", "BS", "Static", "Relaxation"]
 
@@ -120,8 +124,8 @@ def write_slurm_job(inputfiles_path, job_description, gpu=0):
               "# Input files from job folder\n"
 
     script += " mkdir -p vasp_output\n"
-    script += "cp $out vasp_output\n"
-    #script += "cp * vasp_output\n"
+    #script += "cp $out vasp_output\n"
+    script += "cp * vasp_output\n"
     script += "cp -r vasp_output  $SLURM_SUBMIT_DIR\n"
 
     # script += "    cp OUTCAR $SLURM_SUBMIT_DIR/${proj}.OUTCAR \n"

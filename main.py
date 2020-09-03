@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 """Script entry point."""
 
 # from paramiko_tutorial import main
@@ -7,7 +9,7 @@
 
 from pathlib import Path
 import os
-
+import pickle
 import ase
 from ase.db import connect
 from ase.io import read, jsonio
@@ -26,6 +28,7 @@ from pymatgen.io.vasp.sets import MPStaticSet
 from ParamikoTools import client  # RemoteClient
 from ParamikoTools import files  # fetch_local_files
 from ParamikoTools import qsub_vasp
+from ParamikoTools.log import logger
 
 from config_remote_client import (
     host,
@@ -75,18 +78,18 @@ db = connect(os.path.join(data_dir, database))
 # write inputs for calculations
 # ===================================================
 
-#sample_list = [58, 78, 89, 65, 46]
+# sample_list = [58, 78, 89, 65, 46]
 job_list = []
 
 
 class JOB(object):
 
-    def __init__(self, id=None, name=None, remote_path=None, local_path=None, status=None):
+    def __init__(self, id=None, name=None, remote_path=None, local_path=None, output=None):
         self.id = id
         self.name = name
         self.remote_path = remote_path
         self.local_path = local_path
-        self.status = status
+        self.output = output
 
 
 def main(sample_list):
@@ -95,25 +98,29 @@ def main(sample_list):
 
     """
 
-    master(sample_list)
+    job_list = master(sample_list)
     remote = client.RemoteClient(host, user, remote_path, local_file_directory, passphrase, ssh_key_filepath)
     make_dir_on_remote(remote)  # make remote dir if not exist
-    upload_dir_to_remote(remote)  # upload job dir
-    # upload_files_to_remote(remote)
-    # execute_command_on_remote(remote) # run job
-    # job_ids = []
+    upload_dir_to_remote(remote, job_list)  # upload job dir
+    # # upload_files_to_remote(remote)
+    # # execute_command_on_remote(remote) # run job
+    # # job_ids = []
+
     jobs = run_job(remote)
-    # job_ids = [49700634,  49700739, 49700746, 49700748, 49700749]
+    pickle.dump(jobs, open("jobs.pkl", "wb"))
+    # # job_ids = [49700634,  49700739, 49700746, 49700748, 49700749]
     job_monitoring(remote, jobs)  # # monitor job
-    # download_file_from_remote(remote)
-    # results = prepare_results(jobs)  to update the data base
+    # # download_file_from_remote(remote)
+    # # results = prepare_results(jobs)  to update the data base
+    jobs = pickle.load(open("jobs.pkl", "rb"))
     objectives = get_objective(jobs)
+
+    print(f"Objectives : {objectives}")
     remote.disconnect()
     return objectives
 
 
-
-
+@logger.catch
 def master(sample_list):
     """
     """
@@ -159,7 +166,18 @@ def master(sample_list):
         incar.write_file(os.path.join(local_file_directory, job_name, 'vasp_input', 'INCAR'))
 
         # POTCAR
-        potcar = Potcar(symbols=symbol_set, functional='PBE_54')
+
+        # metals = ['Al', 'Au', 'Cu', 'Ag', 'Pd', 'Pt', 'Ni']
+
+        basis_sets = {"Al": 'Al_GW',
+                      "Au": 'Au_GW',
+                      "Cu": 'Cu_GW',
+                      "Ag": 'Ag_GW',
+                      "Pd": 'Pd_GW',
+                      "Pt": 'Pt_GW',
+                      "Ni": 'Ni_GW'}
+        basis_set = [basis_sets[element] for element in symbol_set]
+        potcar = Potcar(symbols=basis_set, functional='PBE_54')
         potcar.write_file(os.path.join(local_file_directory, job_name, 'vasp_input', 'POTCAR'))
 
         # KPOINTS
@@ -175,6 +193,9 @@ def master(sample_list):
 
         qsub_vasp.write_slurm_job(os.path.join(local_file_directory, job_name), job_description)
 
+        logger.info(f'Create job  {job_name} on local host')
+    return job_list
+
 
 def upload_files_to_remote(remote):
     """
@@ -184,7 +205,7 @@ def upload_files_to_remote(remote):
     remote.bulk_upload(local_files)
 
 
-def upload_dir_to_remote(remote):
+def upload_dir_to_remote(remote, job_list):
     """
     Upload directory to remote via SCP.
     """
@@ -209,12 +230,12 @@ def make_dir_on_remote(remote):
     remote.mkdir_p(os.path.join(remote_path))
 
 
-def execute_command_on_remote(remote):
-    """
-    Execute UNIX command on the remote host.
-    """
-
-    return remote.execute_command([f'cd {job_directory};sbatch {job_file}'])
+# def execute_command_on_remote(remote):
+#     """
+#     Execute UNIX command on the remote host.
+#     """
+#
+#     return remote.execute_command([f'cd {job_directory};sbatch {job_file}'])
 
 
 def run_job(remote):
@@ -229,7 +250,7 @@ def run_job(remote):
         job_id = remote.sbatch(os.path.join(remote_path, jobb), job_file=jobb + '_vasp_job.sh')
         job_ids.append(job_id)
         jobs.append(JOB(id=job_id, name=jobb, remote_path=os.path.join(remote_path, jobb),
-                        local_path=os.path.join(local_file_directory, jobb), status=None))
+                        local_path=os.path.join(local_file_directory, jobb), output='vasp_output'))
 
     return jobs
 
@@ -257,10 +278,14 @@ def prepare_results(jobs):
 def get_objective(jobs):
     objectives = []
     for job in jobs:
-        vrun = Vasprun(filename=os.path.join(job.local_path, 'vasp_output/vasprun.xml'))
-        composition = vrun.final_structure.composition
-        objective = vrun.final_energy / composition.num_atoms  # what will be our objective??
-        objectives.append(objective)
+        if os.path.isfile(os.path.join(job.local_path, 'vasp_output/vasprun.xml')):
+            vrun = Vasprun(filename=os.path.join(job.local_path, 'vasp_output/vasprun.xml'))
+            composition = vrun.final_structure.composition
+            objective = vrun.final_energy / composition.num_atoms  # what will be our objective??
+            objectives.append(objective)
+        else:
+            objectives.append(None)
+            continue
     return objectives
 
 

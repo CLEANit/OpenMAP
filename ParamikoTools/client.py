@@ -1,3 +1,7 @@
+#!/usr/bin/env python
+
+__author__ = 'Conrard TETSASSI'
+
 """Client to handle connections and actions executed against a remote host."""
 from os import system
 from paramiko import SSHClient, AutoAddPolicy, RSAKey, SFTPClient
@@ -15,6 +19,7 @@ import re
 def progress4(filename, size, sent, peername):
     sys.stdout.write("({}:{}) {}\'s progress: {:.2f}% \r".format(peername[0], peername[1],
                                                                  filename, float(sent) / float(size) * 100))
+    sys.stdout.write("\n")
 
 
 class Partition(object):
@@ -22,6 +27,15 @@ class Partition(object):
     def __init__(self, name, maxDays):
         self.name = name
         self.maxDays = maxDays
+
+
+def countdown(sleeptime):
+    for remaining in range(sleeptime, 0, -1):
+        sys.stdout.write("\r")
+        sys.stdout.write("{:4d} seconds remaining before next refresh.".format(remaining))
+        sys.stdout.flush()
+        time.sleep(1)
+    sys.stdout.write("\n")
 
 
 class RemoteClient:
@@ -327,16 +341,27 @@ class RemoteClient:
 
     @logger.catch
     def monitor_batch(self, jobs):
+        """
+        :param jobs: class with job information
+        :return:
+        """
         status_list = [None for job_sid in jobs]
         while not all(status == 'COMPLETED' for status in status_list):
             status_list = [self.sacct(job.id) for job in jobs]
             job_ids = [job.id for job in jobs]
             for id, status in zip(job_ids, status_list):
                 logger.info(f' {id}:  {status}')
-                # print(status_list)
-            time.sleep(300)
+            #
+            #if all(status == 'COMPLETED' for status in status_list):
+            #    continue
+            #else:
+            sleeptime = 120
+            countdown(sleeptime)
         for job in jobs:
-            self.download_file(job.remote_path + 'vasp_output', local_directory=job.local_path)
+            self.download_file(job.remote_path + '/' + job.output, local_directory=job.local_path)
+        #for job in jobs:
+        #    self.clean_file(job.remote_path)
+        #    logger.info(f'file: {job.name}  Cleaned on {self.host}')
         logger.info(f'Task completed')
         return None
 
@@ -346,6 +371,12 @@ class RemoteClient:
             user = self.user
         std_out, _ = self.execute_command(f'squeue --start -u  {user} ')
         return std_out
+
+    @logger.catch
+    def clean_file(self, file):
+        std_out, _ = self.execute_command(f'rm -rf {file} ')
+        #logger.info(f'file: {file}  Cleaned')
+        return None
 
 # Check utilization of group allocation
 # sacct
