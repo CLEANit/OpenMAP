@@ -16,11 +16,11 @@ import main
 # ==============================================================================
 
 NUM_TOTAL = 100  # len of the data base
-BUDGET = 50  # how many experiment you want to perform
+BUDGET = 20  # how many experiment you want to perform
 CONFIG_FILE = 'config.json'
-BATCH_SIZE = 5
+BATCH_SIZE = 10
 #seed = int(sys.argv[1])
-seed = int(0)
+seed = int(841)
 
 
 # initialize descriptor

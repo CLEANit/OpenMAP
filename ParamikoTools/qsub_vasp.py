@@ -3,7 +3,9 @@
 __author__ = 'Conrard TETSASSI'
 
 import os
-job_type = ["DOS", "BS", "Static", "Relaxation"]
+
+job_types = ["DOS", "BS", "Static", "Relaxation"]
+
 
 def job_descriptor(nb_atoms, job_type):
     """
@@ -42,6 +44,7 @@ def write_slurm_from_file(inputfiles_path, file):
     ofile = open(outputfile, "w")
     ofile.write(script)
     ofile.close()
+
 
 def write_slurm_job(inputfiles_path, job_description, gpu=0):
     """"
@@ -120,11 +123,19 @@ def write_slurm_job(inputfiles_path, job_description, gpu=0):
 
     script += "\n\n"
 
+    script += "cp  CONTCAR POSCAR\n"
     script += "out=$(ls {OUTCAR,XDATCAR,OSZICAR,CONTCAR,DOSCAR,CHGCAR,vasprun.xml})" \
               "# Input files from job folder\n"
 
+    script += "rm -f $out\n"
+    script += "sed -i 's/ISIF = 3/ISIF = 2/'g INCAR\n"
+    script += "time srun $HOME/bin/vasp/vasp_std\n"
+    script += "cp  CONTCAR POSCAR\n"
+    script += "rm -f $out\n"
+    script += "sed -i 's/ISMEAR = 1/ISMEAR = -5/'g INCAR\n"
+    script += "time srun $HOME/bin/vasp/vasp_std\n"
     script += " mkdir -p vasp_output\n"
-    #script += "cp $out vasp_output\n"
+    # script += "cp $out vasp_output\n"
     script += "cp * vasp_output\n"
     script += "cp -r vasp_output  $SLURM_SUBMIT_DIR\n"
 

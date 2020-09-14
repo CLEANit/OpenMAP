@@ -17,7 +17,7 @@ load_dotenv(os.path.join(basedir, '.env'))
 
 project_name = 'Alloys'
 host = 'cedar.computecanada.ca' # ('REMOTE_HOST')
-account = 'def-itamblyn-ac'
+account = 'rrg-mkarttu-ab'
 user = 'ctetsass' # ('REMOTE_USERNAME') getpass.getuser()
 ssh_key_filepath = '~/.ssh/id_rsa' # ('SSH_KEY')
 remote_path = os.path.join('/home/ctetsass/scratch/OpenMaps', project_name)  # ('REMOTE_PATH')

@@ -14,7 +14,7 @@ import ase
 from ase.db import connect
 from ase.io import read, jsonio
 from ase.utils import PurePath
-
+import subprocess
 from pymatgen import Structure
 from pymatgen.io.ase import AseAtomsAdaptor
 from pymatgen.io.vasp.inputs import Poscar
@@ -29,6 +29,10 @@ from ParamikoTools import client  # RemoteClient
 from ParamikoTools import files  # fetch_local_files
 from ParamikoTools import qsub_vasp
 from ParamikoTools.log import logger
+import numpy as np
+
+from Tools import Parser
+from Tools import Properties
 
 from config_remote_client import (
     host,
@@ -58,9 +62,10 @@ Path(local_file_directory).mkdir(parents=True, exist_ok=True)
 
 
 data_dir = os.path.join('/Users/ctetsass/Calculation_NRC/OpenMAPs', 'Data', project_name)
+#database = 'Ag-Pd-to-be-calculated.db'
 database = 'fcc_alloys.db'
-
 db = connect(os.path.join(data_dir, database))
+
 
 # ===================================================
 # Generate descriptor (id from data base): extra properties from data base
@@ -79,7 +84,7 @@ db = connect(os.path.join(data_dir, database))
 # ===================================================
 
 # sample_list = [58, 78, 89, 65, 46]
-job_list = []
+# job_list = []
 
 
 class JOB(object):
@@ -92,40 +97,52 @@ class JOB(object):
         self.output = output
 
 
-def main(sample_list):
+def main(sample_list=None):
     """
     Initialize remote host client and execute actions
 
     """
+    job_list = []
 
-    job_list = master(sample_list)
-    remote = client.RemoteClient(host, user, remote_path, local_file_directory, passphrase, ssh_key_filepath)
-    make_dir_on_remote(remote)  # make remote dir if not exist
-    upload_dir_to_remote(remote, job_list)  # upload job dir
-    # # upload_files_to_remote(remote)
-    # # execute_command_on_remote(remote) # run job
-    # # job_ids = []
-
-    jobs = run_job(remote)
-    pickle.dump(jobs, open("jobs.pkl", "wb"))
-    # # job_ids = [49700634,  49700739, 49700746, 49700748, 49700749]
-    job_monitoring(remote, jobs)  # # monitor job
-    # # download_file_from_remote(remote)
-    # # results = prepare_results(jobs)  to update the data base
-    jobs = pickle.load(open("jobs.pkl", "rb"))
-    objectives = get_objective(jobs)
-
-    print(f"Objectives : {objectives}")
-    remote.disconnect()
-    return objectives
+    # job_list = master(sample_list)
+    # remote = client.RemoteClient(host, user, remote_path, local_file_directory, passphrase, ssh_key_filepath)
+    # make_dir_on_remote(remote)  # make remote dir if not exist
+    # upload_dir_to_remote(remote, job_list)  # upload job dir
+    # # # upload_files_to_remote(remote)
+    # # # execute_command_on_remote(remote) # run job
+    # # # job_ids = []
+    #
+    # jobs = run_job(remote, job_list)
+    # pickle.dump(jobs, open("jobs.pkl", "wb"))
+    # # # job_ids = [49700634,  49700739, 49700746, 49700748, 49700749]
+    # job_monitoring(remote, jobs)  # # monitor job
+    # # # download_file_from_remote(remote)
+    # # # results = prepare_results(jobs)  to update the data base
+    # #jobs = pickle.load(open("jobs.pkl", "rb"))
+    # objective = get_objective(jobs)
+    #
+    # # print(f"Objectives : {objectives}")
+    # # for job in jobs:
+    # #    subprocess.call(f'rm -rf  {job["local_path"]}', shell=True)
+    # remote.disconnect()
+    # return objective
+    file_path = os.path.join('/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/AgPd', 'AgPd_{}'.format(1), 'vasp_output/vasprun.xml')
+    file = Parser.parse_file(file_path)
+    prop = Properties.Property(file)
+    final_energy = prop.get_property('final_energy')
+    print(final_energy)
+    return final_energy
 
 
 @logger.catch
 def master(sample_list):
     """
+    :param sample_list: list of  system to compute
+    :return: list of job file to be submitted
     """
+    job_list = []
     for sample_id in sample_list:
-        atoms = db.get(id=sample_id).toatoms()
+        atoms = db.get(id=int(sample_id)).toatoms()
         # atoms_list = atoms.get_chemical_symbols()
 
         struct = AseAtomsAdaptor.get_structure(atoms)
@@ -135,7 +152,6 @@ def master(sample_list):
 
         # Job_descriptor: define job parameter  base on structure,  job type and
         # write job file
-
         job_name = project_name + "_{:d}".format(int(sample_id))
         job_list.append(job_name)
         Path(os.path.join(local_file_directory, job_name, 'vasp_input')).mkdir(parents=True, exist_ok=True)
@@ -154,7 +170,7 @@ def master(sample_list):
             # "GGA": "PE",
             "PREC": "Accurate",
             "ISMEAR": 1,
-            "ENCUT": 520,
+            "ENCUT": 384,
             "EDIFF": 1e-06,
             "ISIF": 3,
             "IBRION": 2,
@@ -181,12 +197,12 @@ def master(sample_list):
         potcar.write_file(os.path.join(local_file_directory, job_name, 'vasp_input', 'POTCAR'))
 
         # KPOINTS
-        kpoints = Kpoints.monkhorst_automatic(kpts=(4, 4, 4), shift=(0.0, 0.0, 0.0))
+        kpoints = Kpoints.monkhorst_automatic(kpts=(8, 8, 8), shift=(0.0, 0.0, 0.0))
         kpoints.write_file(os.path.join(local_file_directory, job_name, 'vasp_input', 'KPOINT'))
 
         job_description = {'time': 1,
                            'ntask': 4,
-                           'memory': 4000,
+                           'memory': 8000,
                            'email': None,
                            'gpu': 0,
                            'account': account}
@@ -210,6 +226,10 @@ def upload_dir_to_remote(remote, job_list):
     Upload directory to remote via SCP.
     """
     for job in job_list:
+
+        if not os.path.isdir(os.path.join(local_file_directory, job)):
+            print(f"The file {os.path.join(local_file_directory, job)} does not exist")
+            continue
         remote.dir_upload(os.path.join(local_file_directory, job),
                           remote_path=os.path.join(remote_path, job))
 
@@ -218,8 +238,12 @@ def download_file_from_remote(remote):
     """
     Upload directory to remote via SCP.
     """
+    for i in range(631):
+        remote_path = os.path.join('/home/ctetsass/scratch/OpenMaps/AgPd', 'AgPd_{}'.format(i + 1), 'vasp_output')
+        local_path = os.path.join('/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/AgPd', 'AgPd_{}'.format(i + 1))
 
-    remote.download_file(remote_path + '/Alloys_00002', local_file_directory)
+    # remote.download_file(remote_path + '/Alloys_00002', local_file_directory)
+        remote.download_file(remote_path, local_directory=local_path)
 
 
 def make_dir_on_remote(remote):
@@ -238,19 +262,18 @@ def make_dir_on_remote(remote):
 #     return remote.execute_command([f'cd {job_directory};sbatch {job_file}'])
 
 
-def run_job(remote):
+def run_job(remote, job_list):
     """
     Execute UNIX command on the remote host.
     """
-
     jobs = []
     job_ids = []
 
     for jobb in job_list:
         job_id = remote.sbatch(os.path.join(remote_path, jobb), job_file=jobb + '_vasp_job.sh')
         job_ids.append(job_id)
-        jobs.append(JOB(id=job_id, name=jobb, remote_path=os.path.join(remote_path, jobb),
-                        local_path=os.path.join(local_file_directory, jobb), output='vasp_output'))
+        jobs.append({"id": job_id, "name": jobb, "remote_path": os.path.join(remote_path, jobb),
+                     "local_path": os.path.join(local_file_directory, jobb), "output": 'vasp_output'})
 
     return jobs
 
@@ -265,7 +288,7 @@ def prepare_results(jobs):
     """
     results = []
     for job in jobs:
-        vrun = Vasprun(filename=os.path.join(job.local_path, 'vasp_output/vasprun.xml'))
+        vrun = Vasprun(filename=os.path.join(job["local_path"], 'vasp_output/vasprun.xml'))
         energy = vrun.final_energy
         volume = vrun.final_structure.volume
         abc = vrun.final_structure.lattice.abc
@@ -278,16 +301,46 @@ def prepare_results(jobs):
 def get_objective(jobs):
     objectives = []
     for job in jobs:
-        if os.path.isfile(os.path.join(job.local_path, 'vasp_output/vasprun.xml')):
-            vrun = Vasprun(filename=os.path.join(job.local_path, 'vasp_output/vasprun.xml'))
-            composition = vrun.final_structure.composition
-            objective = vrun.final_energy / composition.num_atoms  # what will be our objective??
-            objectives.append(objective)
+        if os.path.isfile(os.path.join(job["local_path"], 'vasp_output/vasprun.xml')):
+            try:
+                vrun = Vasprun(filename=os.path.join(job["local_path"], 'vasp_output/vasprun.xml'))
+                composition = vrun.final_structure.composition
+                objective = vrun.final_energy / composition.num_atoms  # what will be our objective??
+                objectives.append(objective)
+            except:
+                print("Unable to read  {}".format(os.path.join(job["local_path"], 'vasp_output/vasprun.xml')))
+                objectives.append(None)
+                continue
+
         else:
+            print("The file {} does not exist".format(os.path.join(job["local_path"], 'vasp_output/vasprun.xml')))
             objectives.append(None)
             continue
     return objectives
 
 
+# Yield successive n-sized
+# chunks from l.
+def divide_chunks(l, n):
+    # looping till length l
+    for i in range(0, len(l), n):
+        yield l[i:i + n]
+
+
+# How many elements each
+
+
+# list should have
+# n = 10
+#
+# my_list = np.arange(1, 632)
+#
+# sample_lists = list(divide_chunks(my_list, n))
+#
+# for sample_list in sample_lists:
+#     #print(list(sample_list))
+#     main(list(sample_list))
 if __name__ == '__main__':
-    main(sample_list)
+    main()
+
+

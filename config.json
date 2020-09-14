@@ -3,13 +3,13 @@
 		"auto_desc_gen": "False",
 		"parallel":      "True",
 		"boosted":       "False",
-		"sampling_strategies": 5,
+		"sampling_strategies": 10,
 		"random_seed": 0
 	},
 	"parameters": [
 			{"name": "alloys", "type": "categorical", "size": 1, "category_details": "CatDetails/cat_details_Alloys.pkl"}
 	],
 	"objectives": [
-			{"name": "energy", "goal": "maximize"}
+			{"name": "energy", "goal": "minimize"}
 		]
 }

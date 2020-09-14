@@ -19,7 +19,7 @@ import re
 def progress4(filename, size, sent, peername):
     sys.stdout.write("({}:{}) {}\'s progress: {:.2f}% \r".format(peername[0], peername[1],
                                                                  filename, float(sent) / float(size) * 100))
-    sys.stdout.write("\n")
+
 
 
 class Partition(object):
@@ -109,7 +109,8 @@ class RemoteClient:
                     )
                 self.sftp = self.client.open_sftp()
                 # if not self.client.get_transport().active:
-                self.scp = SCPClient(self.client.get_transport(), progress4=progress4)
+                #self.scp = SCPClient(self.client.get_transport(), progress4=progress4)
+                self.scp = SCPClient(self.client.get_transport())
             except AuthenticationException as error:
                 logger.error(f'Authentication failed: did you remember to create an SSH key? {error}')
                 raise error
@@ -342,25 +343,31 @@ class RemoteClient:
     @logger.catch
     def monitor_batch(self, jobs):
         """
-        :param jobs: class with job information
+        :param jobs: list of dictionary with job information
         :return:
         """
-        status_list = [None for job_sid in jobs]
+        status_list = [None for job in jobs]
         while not all(status == 'COMPLETED' for status in status_list):
-            status_list = [self.sacct(job.id) for job in jobs]
-            job_ids = [job.id for job in jobs]
+            status_list = [self.sacct(job["id"]) for job in jobs]
+            job_ids = [job["id"] for job in jobs]
             for id, status in zip(job_ids, status_list):
                 logger.info(f' {id}:  {status}')
             #
-            #if all(status == 'COMPLETED' for status in status_list):
-            #    continue
-            #else:
-            sleeptime = 120
-            countdown(sleeptime)
+            if all(status == 'COMPLETED' for status in status_list):
+                logger.info(f' All Jobs COMPLETED')
+                continue
+            else:
+                sleeptime = 120
+                countdown(sleeptime)
         for job in jobs:
-            self.download_file(job.remote_path + '/' + job.output, local_directory=job.local_path)
+            if not self.check_remote_dir(job["remote_path"]):
+                print(f'The file {job["remote_path"]} does not exist')
+                continue
+            self.download_file(job["remote_path"] + '/' + job["output"], local_directory=job["local_path"])
+            self.clean_dir(job["remote_path"])
+            logger.info(f'Job:  {job["name"]}  Cleaned on {self.host}')
         #for job in jobs:
-        #    self.clean_file(job.remote_path)
+        #    self.clean_dir(job.remote_path)
         #    logger.info(f'file: {job.name}  Cleaned on {self.host}')
         logger.info(f'Task completed')
         return None
@@ -374,8 +381,14 @@ class RemoteClient:
 
     @logger.catch
     def clean_file(self, file):
+        std_out, _ = self.execute_command(f'rm -f {file} ')
+        logger.info(f'file: {file}  Cleaned')
+        return None
+
+    @logger.catch
+    def clean_dir(self, file):
         std_out, _ = self.execute_command(f'rm -rf {file} ')
-        #logger.info(f'file: {file}  Cleaned')
+        # logger.info(f'file: {file}  Cleaned')
         return None
 
 # Check utilization of group allocation
