@@ -3,7 +3,7 @@
 		"auto_desc_gen": "False",
 		"parallel":      "True",
 		"boosted":       "False",
-		"sampling_strategies": 10,
+		"sampling_strategies": 5,
 		"random_seed": 0
 	},
 	"parameters": [

@@ -28,7 +28,9 @@ from pymatgen.io.vasp.sets import MPStaticSet
 from ParamikoTools import client  # RemoteClient
 from ParamikoTools import files  # fetch_local_files
 from ParamikoTools import qsub_vasp
+from ParamikoTools import aws
 from ParamikoTools.log import logger
+
 import numpy as np
 
 from Tools import Parser
@@ -61,9 +63,31 @@ Path(local_file_directory).mkdir(parents=True, exist_ok=True)
 # ===================================================
 
 
-data_dir = os.path.join('/Users/ctetsass/Calculation_NRC/OpenMAPs', 'Data', project_name)
-#database = 'Ag-Pd-to-be-calculated.db'
+# data_dir = os.path.join(local_file_directory, 'Data', project_name)
+data_dir = os.path.join(local_file_directory, 'Data')
+os.makedirs(data_dir, exist_ok=True)
+# database = 'Ag-Pd-to-be-calculated.db'
 database = 'fcc_alloys.db'
+bucket_name = 'alloys'
+
+
+@logger.catch
+def download_file_from_AWS(bucket, key, filename):
+    logger.info(f'Connecting to  AWS  BUCKET: {bucket}')
+    aws.download_file(bucket, key, filename)
+    logger.info(f'Finished  downloading: [{key}] from AWS')
+
+
+@logger.catch
+def upload_file_to_AWS(bucket, key, filename):
+    logger.info(f'Connecting to  AWS  BUCKET: {bucket}')
+    aws.upload_file(bucket, key, filename)
+    logger.info(f'Finished  uploading: [{key}] to AWS')
+
+
+download_file_from_AWS(bucket_name, database, os.path.join(data_dir, database))
+
+
 db = connect(os.path.join(data_dir, database))
 
 
@@ -83,7 +107,7 @@ db = connect(os.path.join(data_dir, database))
 # write inputs for calculations
 # ===================================================
 
-# sample_list = [58, 78, 89, 65, 46]
+#sample_list = [58, 78]
 # job_list = []
 
 
@@ -103,35 +127,28 @@ def main(sample_list=None):
 
     """
     job_list = []
-
-    # job_list = master(sample_list)
-    # remote = client.RemoteClient(host, user, remote_path, local_file_directory, passphrase, ssh_key_filepath)
-    # make_dir_on_remote(remote)  # make remote dir if not exist
-    # upload_dir_to_remote(remote, job_list)  # upload job dir
+    job_list = master(sample_list)
+    remote = client.RemoteClient(host, user, remote_path, local_file_directory, passphrase, ssh_key_filepath)
+    make_dir_on_remote(remote)  # make remote dir if not exist
+    upload_dir_to_remote(remote, job_list)  # upload job dir
     # # # upload_files_to_remote(remote)
     # # # execute_command_on_remote(remote) # run job
     # # # job_ids = []
     #
-    # jobs = run_job(remote, job_list)
-    # pickle.dump(jobs, open("jobs.pkl", "wb"))
-    # # # job_ids = [49700634,  49700739, 49700746, 49700748, 49700749]
-    # job_monitoring(remote, jobs)  # # monitor job
+    jobs = run_job(remote, job_list)
+    pickle.dump(jobs, open("jobs.pkl", "wb"))
+    # # job_ids = [49700634,  49700739, 49700746, 49700748, 49700749]
+    job_monitoring(remote, jobs)  # # monitor job
     # # # download_file_from_remote(remote)
     # # # results = prepare_results(jobs)  to update the data base
     # #jobs = pickle.load(open("jobs.pkl", "rb"))
-    # objective = get_objective(jobs)
+    objective = get_objective(jobs, "energy_per_atom")
     #
     # # print(f"Objectives : {objectives}")
     # # for job in jobs:
     # #    subprocess.call(f'rm -rf  {job["local_path"]}', shell=True)
-    # remote.disconnect()
-    # return objective
-    file_path = os.path.join('/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/AgPd', 'AgPd_{}'.format(1), 'vasp_output/vasprun.xml')
-    file = Parser.parse_file(file_path)
-    prop = Properties.Property(file)
-    final_energy = prop.get_property('final_energy')
-    print(final_energy)
-    return final_energy
+    remote.disconnect()
+    return objective
 
 
 @logger.catch
@@ -242,7 +259,7 @@ def download_file_from_remote(remote):
         remote_path = os.path.join('/home/ctetsass/scratch/OpenMaps/AgPd', 'AgPd_{}'.format(i + 1), 'vasp_output')
         local_path = os.path.join('/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/AgPd', 'AgPd_{}'.format(i + 1))
 
-    # remote.download_file(remote_path + '/Alloys_00002', local_file_directory)
+        # remote.download_file(remote_path + '/Alloys_00002', local_file_directory)
         remote.download_file(remote_path, local_directory=local_path)
 
 
@@ -298,22 +315,25 @@ def prepare_results(jobs):
     return results
 
 
-def get_objective(jobs):
+def get_objective(jobs, prop_name):
     objectives = []
     for job in jobs:
-        if os.path.isfile(os.path.join(job["local_path"], 'vasp_output/vasprun.xml')):
+
+        file_path = os.path.join(job["local_path"], 'vasp_output/vasprun.xml')
+
+        if os.path.isfile(file_path):
             try:
-                vrun = Vasprun(filename=os.path.join(job["local_path"], 'vasp_output/vasprun.xml'))
-                composition = vrun.final_structure.composition
-                objective = vrun.final_energy / composition.num_atoms  # what will be our objective??
+                file = Parser.parse_file(file_path)
+                prop = Properties.Property(file)
+                objective = prop.get_property(prop_name)
                 objectives.append(objective)
             except:
-                print("Unable to read  {}".format(os.path.join(job["local_path"], 'vasp_output/vasprun.xml')))
+                print("Unable to read  {}".format(file_path))
                 objectives.append(None)
                 continue
 
         else:
-            print("The file {} does not exist".format(os.path.join(job["local_path"], 'vasp_output/vasprun.xml')))
+            print("The file {} does not exist".format(file_path))
             objectives.append(None)
             continue
     return objectives
@@ -341,6 +361,5 @@ def divide_chunks(l, n):
 #     #print(list(sample_list))
 #     main(list(sample_list))
 if __name__ == '__main__':
+    #download_file_from_AWS(bucket_name, database, os.path.join(data_dir, database))
     main()
-
-
