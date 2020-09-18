@@ -2854,3 +2854,307 @@
           └ <class 'scp.SCPException'>
 
 [31m[1mscp.SCPException[0m:[1m scp: /home/ctetsass/scratch/OpenMaps/Alloys/Alloys_46vasp_output: No such file or directory[0m
+[96m09-14-2020 15:02:32[0m | 		[91mERROR[0m: 		[97mAn error has been caught in function '<module>', process 'MainProcess' (95003), thread 'MainThread' (4622466496):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/[0m[32m[1mpydevconsole.py[0m", line [33m483[0m, in [35m<module>[0m
+    [1mpydevconsole[0m[35m[1m.[0m[1mstart_client[0m[1m([0m[1mhost[0m[1m,[0m [1mport[0m[1m)[0m
+    [36m│            │            │     └ [0m[36m[1m54100[0m
+    [36m│            │            └ [0m[36m[1m'127.0.0.1'[0m
+    [36m│            └ [0m[36m[1m<function start_client at 0x115069ea0>[0m
+    [36m└ [0m[36m[1m<module 'pydevconsole' from '/Applications/PyCharm.app/Contents/helpers/pydev/pydevconsole.py'>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/[0m[32m[1mpydevconsole.py[0m", line [33m411[0m, in [35mstart_client[0m
+    [1mprocess_exec_queue[0m[1m([0m[1minterpreter[0m[1m)[0m
+    [36m│                  └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x11507a588>[0m
+    [36m└ [0m[36m[1m<function process_exec_queue at 0x115069bf8>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/[0m[32m[1mpydevconsole.py[0m", line [33m258[0m, in [35mprocess_exec_queue[0m
+    [1mmore[0m [35m[1m=[0m [1minterpreter[0m[35m[1m.[0m[1madd_exec[0m[1m([0m[1mcode_fragment[0m[1m)[0m
+    [36m       │           │        └ [0m[36m[1m<_pydev_bundle.pydev_console_types.CodeFragment object at 0x120343208>[0m
+    [36m       │           └ [0m[36m[1m<function BaseCodeExecutor.add_exec at 0x1141951e0>[0m
+    [36m       └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x11507a588>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_code_executor.py[0m", line [33m106[0m, in [35madd_exec[0m
+    [1mmore[0m [35m[1m=[0m [1mself[0m[35m[1m.[0m[1mdo_add_exec[0m[1m([0m[1mcode_fragment[0m[1m)[0m
+    [36m       │    │           └ [0m[36m[1m<_pydev_bundle.pydev_console_types.CodeFragment object at 0x120343208>[0m
+    [36m       │    └ [0m[36m[1m<function InterpreterInterface.do_add_exec at 0x115067f28>[0m
+    [36m       └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x11507a588>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_ipython_console.py[0m", line [33m36[0m, in [35mdo_add_exec[0m
+    [1mres[0m [35m[1m=[0m [1mbool[0m[1m([0m[1mself[0m[35m[1m.[0m[1minterpreter[0m[35m[1m.[0m[1madd_exec[0m[1m([0m[1mcode_fragment[0m[35m[1m.[0m[1mtext[0m[1m)[0m[1m)[0m
+    [36m           │    │           │        │             └ [0m[36m[1m"runfile('/Users/ctetsass/OpenMaps/main.py', wdir='/Users/ctetsass/OpenMaps/HPC')\n"[0m
+    [36m           │    │           │        └ [0m[36m[1m<_pydev_bundle.pydev_console_types.CodeFragment object at 0x120343208>[0m
+    [36m           │    │           └ [0m[36m[1m<function _PyDevFrontEnd.add_exec at 0x115067bf8>[0m
+    [36m           │    └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console_011._PyDevFrontEnd object at 0x11507a6a0>[0m
+    [36m           └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x11507a588>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_ipython_console_011.py[0m", line [33m482[0m, in [35madd_exec[0m
+    [1mself[0m[35m[1m.[0m[1mipython[0m[35m[1m.[0m[1mrun_cell[0m[1m([0m[1mline[0m[1m,[0m [1mstore_history[0m[35m[1m=[0m[36m[1mTrue[0m[1m)[0m
+    [36m│    │       │        └ [0m[36m[1m"runfile('/Users/ctetsass/OpenMaps/main.py', wdir='/Users/ctetsass/OpenMaps/HPC')\n"[0m
+    [36m│    │       └ [0m[36m[1m<function InteractiveShell.run_cell at 0x11467c158>[0m
+    [36m│    └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x11507a6d8>[0m
+    [36m└ [0m[36m[1m<_pydev_bundle.pydev_ipython_console_011._PyDevFrontEnd object at 0x11507a6a0>[0m
+
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 2867, in run_cell
+    raw_cell, store_history, silent, shell_futures)
+    │         │              │       └ True
+    │         │              └ False
+    │         └ True
+    └ "runfile('/Users/ctetsass/OpenMaps/main.py', wdir='/Users/ctetsass/OpenMaps/HPC')\n"
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 2895, in _run_cell
+    return runner(coro)
+           │      └ <coroutine object InteractiveShell.run_cell_async at 0x12026c8e0>
+           └ <function _pseudo_sync_runner at 0x114664ae8>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/async_helpers.py", line 68, in _pseudo_sync_runner
+    coro.send(None)
+    │    └ <method 'send' of 'coroutine' objects>
+    └ <coroutine object InteractiveShell.run_cell_async at 0x12026c8e0>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 3072, in run_cell_async
+    interactivity=interactivity, compiler=compiler, result=result)
+                  │                       │                └ <ExecutionResult object at 12030f748, execution_count=11 error_before_exec=None error_in_exec=None info=<ExecutionInfo object...
+                  │                       └ <IPython.core.compilerop.CachingCompiler object at 0x11507a710>
+                  └ 'last_expr'
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 3263, in run_ast_nodes
+    if (await self.run_code(code, result,  async_=asy)):
+              │    │        │     │               └ False
+              │    │        │     └ <ExecutionResult object at 12030f748, execution_count=11 error_before_exec=None error_in_exec=None info=<ExecutionInfo object...
+              │    │        └ <code object <module> at 0x1202fc5d0, file "<ipython-input-11-ca6e77233f4a>", line 1>
+              │    └ <function InteractiveShell.run_code at 0x11467c620>
+              └ <_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x11507a6d8>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 3343, in run_code
+    exec(code_obj, self.user_global_ns, self.user_ns)
+         │         │    │               │    └ {'__name__': '__main__', '__doc__': 'Script entry point.', '__package__': None, '__loader__': None, '__spec__': None, '__buil...
+         │         │    │               └ <_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x11507a6d8>
+         │         │    └ <property object at 0x11466b778>
+         │         └ <_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x11507a6d8>
+         └ <code object <module> at 0x1202fc5d0, file "<ipython-input-11-ca6e77233f4a>", line 1>
+  File "<ipython-input-11-ca6e77233f4a>", line 1, in <module>
+    runfile('/Users/ctetsass/OpenMaps/main.py', wdir='/Users/ctetsass/OpenMaps/HPC')
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_umd.py[0m", line [33m197[0m, in [35mrunfile[0m
+    [1mpydev_imports[0m[35m[1m.[0m[1mexecfile[0m[1m([0m[1mfilename[0m[1m,[0m [1mglobal_vars[0m[1m,[0m [1mlocal_vars[0m[1m)[0m  [30m[1m# execute the script[0m
+    [36m│             │        │         │            └ [0m[36m[1m{'__name__': '__main__', '__doc__': 'Script entry point.', '__package__': None, '__loader__': None, '__spec__': None, '__file...[0m
+    [36m│             │        │         └ [0m[36m[1m{'__name__': '__main__', '__doc__': 'Script entry point.', '__package__': None, '__loader__': None, '__spec__': None, '__file...[0m
+    [36m│             │        └ [0m[36m[1m'/Users/ctetsass/OpenMaps/main.py'[0m
+    [36m│             └ [0m[36m[1m<function execfile at 0x113e3f048>[0m
+    [36m└ [0m[36m[1m<module '_pydev_bundle.pydev_imports' from '/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/pydev_imports.py'>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_imps/[0m[32m[1m_pydev_execfile.py[0m", line [33m18[0m, in [35mexecfile[0m
+    [1mexec[0m[1m([0m[1mcompile[0m[1m([0m[1mcontents[0m[35m[1m+[0m[36m"\n"[0m[1m,[0m [1mfile[0m[1m,[0m [36m'exec'[0m[1m)[0m[1m,[0m [1mglob[0m[1m,[0m [1mloc[0m[1m)[0m
+    [36m             │              │              │     └ [0m[36m[1m{'__name__': '__main__', '__doc__': 'Script entry point.', '__package__': None, '__loader__': None, '__spec__': None, '__file...[0m
+    [36m             │              │              └ [0m[36m[1m{'__name__': '__main__', '__doc__': 'Script entry point.', '__package__': None, '__loader__': None, '__spec__': None, '__file...[0m
+    [36m             │              └ [0m[36m[1m'/Users/ctetsass/OpenMaps/main.py'[0m
+    [36m             └ [0m[36m[1m'#!/usr/bin/env python\n\n"""Script entry point."""\n\n# from paramiko_tutorial import main\n#\n# if __name__ == \'__main__\'...[0m
+
+> File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mmain.py[0m", line [33m361[0m, in [35m<module>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mmain.py[0m", line [33m77[0m, in [35mdownload_file_from_AWS[0m
+    [30m[1m# Take a  sample ( n systems )[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1maws.py[0m", line [33m23[0m, in [35mdownload_file[0m
+    [1ms3[0m[35m[1m.[0m[1mBucket[0m[1m([0m[1mbucket_name[0m[1m)[0m[35m[1m.[0m[1mdownload_file[0m[1m([0m[1mKey[0m[35m[1m=[0m[1mkey[0m[1m,[0m [1mFilename[0m[35m[1m=[0m[1mfilename[0m[1m)[0m
+    [36m│  │      │                              │             └ [0m[36m[1m'/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data/Alloys'[0m
+    [36m│  │      │                              └ [0m[36m[1m'fcc_alloys.db'[0m
+    [36m│  │      └ [0m[36m[1m'alloys'[0m
+    [36m│  └ [0m[36m[1m<function ResourceFactory._create_class_partial.<locals>.create_resource at 0x120eda620>[0m
+    [36m└ [0m[36m[1ms3.ServiceResource()[0m
+
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/boto3/s3/inject.py", line 246, in bucket_download_file
+    ExtraArgs=ExtraArgs, Callback=Callback, Config=Config)
+              │                   │                └ None
+              │                   └ None
+              └ None
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/boto3/s3/inject.py", line 172, in download_file
+    extra_args=ExtraArgs, callback=Callback)
+               │                   └ None
+               └ None
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/boto3/s3/transfer.py", line 307, in download_file
+    future.result()
+    │      └ <function TransferFuture.result at 0x120e56730>
+    └ <s3transfer.futures.TransferFuture object at 0x121b82da0>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/futures.py", line 106, in result
+    return self._coordinator.result()
+           │    │            └ <function TransferCoordinator.result at 0x120e700d0>
+           │    └ TransferCoordinator(transfer_id=0)
+           └ <s3transfer.futures.TransferFuture object at 0x121b82da0>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/futures.py", line 265, in result
+    raise self._exception
+          │    └ IsADirectoryError(21, 'Is a directory')
+          └ TransferCoordinator(transfer_id=0)
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/tasks.py", line 126, in __call__
+    return self._execute_main(kwargs)
+           │    │             └ {'fileobj': <s3transfer.utils.DeferredOpenFile object at 0x121b63ac8>, 'final_filename': '/Users/ctetsass/Calculation_NRC/Ope...
+           │    └ <function Task._execute_main at 0x120e73f28>
+           └ IORenameFileTask(transfer_id=0, {'final_filename': '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data/Alloys'})
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/tasks.py", line 150, in _execute_main
+    return_value = self._main(**kwargs)
+                   │    │       └ {'fileobj': <s3transfer.utils.DeferredOpenFile object at 0x121b63ac8>, 'final_filename': '/Users/ctetsass/Calculation_NRC/Ope...
+                   │    └ <function IORenameFileTask._main at 0x120e899d8>
+                   └ IORenameFileTask(transfer_id=0, {'final_filename': '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data/Alloys'})
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/download.py", line 601, in _main
+    osutil.rename_file(fileobj.name, final_filename)
+    │      │           │       │     └ '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data/Alloys'
+    │      │           │       └ <property object at 0x120e5b4f8>
+    │      │           └ <s3transfer.utils.DeferredOpenFile object at 0x121b63ac8>
+    │      └ <function OSUtils.rename_file at 0x120e5e8c8>
+    └ <s3transfer.utils.OSUtils object at 0x121b82470>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/utils.py", line 273, in rename_file
+    rename_file(current_filename, new_filename)
+    │           │                 └ '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data/Alloys'
+    │           └ '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data/Alloys.C4D92FFb'
+    └ <built-in function rename>
+
+[31m[1mIsADirectoryError[0m:[1m [Errno 21] Is a directory: '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data/Alloys.C4D92FFb' -> '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data/Alloys'[0m
+[96m09-14-2020 15:39:39[0m | 		[91mERROR[0m: 		[97mAn error has been caught in function '<module>', process 'MainProcess' (95003), thread 'MainThread' (4622466496):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/[0m[32m[1mpydevconsole.py[0m", line [33m483[0m, in [35m<module>[0m
+    [1mpydevconsole[0m[35m[1m.[0m[1mstart_client[0m[1m([0m[1mhost[0m[1m,[0m [1mport[0m[1m)[0m
+    [36m│            │            │     └ [0m[36m[1m54100[0m
+    [36m│            │            └ [0m[36m[1m'127.0.0.1'[0m
+    [36m│            └ [0m[36m[1m<function start_client at 0x115069ea0>[0m
+    [36m└ [0m[36m[1m<module 'pydevconsole' from '/Applications/PyCharm.app/Contents/helpers/pydev/pydevconsole.py'>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/[0m[32m[1mpydevconsole.py[0m", line [33m411[0m, in [35mstart_client[0m
+    [1mprocess_exec_queue[0m[1m([0m[1minterpreter[0m[1m)[0m
+    [36m│                  └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x11507a588>[0m
+    [36m└ [0m[36m[1m<function process_exec_queue at 0x115069bf8>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/[0m[32m[1mpydevconsole.py[0m", line [33m258[0m, in [35mprocess_exec_queue[0m
+    [1mmore[0m [35m[1m=[0m [1minterpreter[0m[35m[1m.[0m[1madd_exec[0m[1m([0m[1mcode_fragment[0m[1m)[0m
+    [36m       │           │        └ [0m[36m[1m<_pydev_bundle.pydev_console_types.CodeFragment object at 0x121ad6e80>[0m
+    [36m       │           └ [0m[36m[1m<function BaseCodeExecutor.add_exec at 0x1141951e0>[0m
+    [36m       └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x11507a588>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_code_executor.py[0m", line [33m106[0m, in [35madd_exec[0m
+    [1mmore[0m [35m[1m=[0m [1mself[0m[35m[1m.[0m[1mdo_add_exec[0m[1m([0m[1mcode_fragment[0m[1m)[0m
+    [36m       │    │           └ [0m[36m[1m<_pydev_bundle.pydev_console_types.CodeFragment object at 0x121ad6e80>[0m
+    [36m       │    └ [0m[36m[1m<function InterpreterInterface.do_add_exec at 0x115067f28>[0m
+    [36m       └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x11507a588>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_ipython_console.py[0m", line [33m36[0m, in [35mdo_add_exec[0m
+    [1mres[0m [35m[1m=[0m [1mbool[0m[1m([0m[1mself[0m[35m[1m.[0m[1minterpreter[0m[35m[1m.[0m[1madd_exec[0m[1m([0m[1mcode_fragment[0m[35m[1m.[0m[1mtext[0m[1m)[0m[1m)[0m
+    [36m           │    │           │        │             └ [0m[36m[1m"runfile('/Users/ctetsass/OpenMaps/main.py', wdir='/Users/ctetsass/OpenMaps/HPC')\n"[0m
+    [36m           │    │           │        └ [0m[36m[1m<_pydev_bundle.pydev_console_types.CodeFragment object at 0x121ad6e80>[0m
+    [36m           │    │           └ [0m[36m[1m<function _PyDevFrontEnd.add_exec at 0x115067bf8>[0m
+    [36m           │    └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console_011._PyDevFrontEnd object at 0x11507a6a0>[0m
+    [36m           └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console.InterpreterInterface object at 0x11507a588>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_ipython_console_011.py[0m", line [33m482[0m, in [35madd_exec[0m
+    [1mself[0m[35m[1m.[0m[1mipython[0m[35m[1m.[0m[1mrun_cell[0m[1m([0m[1mline[0m[1m,[0m [1mstore_history[0m[35m[1m=[0m[36m[1mTrue[0m[1m)[0m
+    [36m│    │       │        └ [0m[36m[1m"runfile('/Users/ctetsass/OpenMaps/main.py', wdir='/Users/ctetsass/OpenMaps/HPC')\n"[0m
+    [36m│    │       └ [0m[36m[1m<function InteractiveShell.run_cell at 0x11467c158>[0m
+    [36m│    └ [0m[36m[1m<_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x11507a6d8>[0m
+    [36m└ [0m[36m[1m<_pydev_bundle.pydev_ipython_console_011._PyDevFrontEnd object at 0x11507a6a0>[0m
+
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 2867, in run_cell
+    raw_cell, store_history, silent, shell_futures)
+    │         │              │       └ True
+    │         │              └ False
+    │         └ True
+    └ "runfile('/Users/ctetsass/OpenMaps/main.py', wdir='/Users/ctetsass/OpenMaps/HPC')\n"
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 2895, in _run_cell
+    return runner(coro)
+           │      └ <coroutine object InteractiveShell.run_cell_async at 0x1202eea40>
+           └ <function _pseudo_sync_runner at 0x114664ae8>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/async_helpers.py", line 68, in _pseudo_sync_runner
+    coro.send(None)
+    │    └ <method 'send' of 'coroutine' objects>
+    └ <coroutine object InteractiveShell.run_cell_async at 0x1202eea40>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 3072, in run_cell_async
+    interactivity=interactivity, compiler=compiler, result=result)
+                  │                       │                └ <ExecutionResult object at 12030f6d8, execution_count=12 error_before_exec=None error_in_exec=None info=<ExecutionInfo object...
+                  │                       └ <IPython.core.compilerop.CachingCompiler object at 0x11507a710>
+                  └ 'last_expr'
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 3263, in run_ast_nodes
+    if (await self.run_code(code, result,  async_=asy)):
+              │    │        │     │               └ False
+              │    │        │     └ <ExecutionResult object at 12030f6d8, execution_count=12 error_before_exec=None error_in_exec=None info=<ExecutionInfo object...
+              │    │        └ <code object <module> at 0x121ba9420, file "<ipython-input-12-ca6e77233f4a>", line 1>
+              │    └ <function InteractiveShell.run_code at 0x11467c620>
+              └ <_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x11507a6d8>
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py", line 3343, in run_code
+    exec(code_obj, self.user_global_ns, self.user_ns)
+         │         │    │               │    └ {'__name__': '__main__', '__doc__': 'Script entry point.', '__package__': None, '__loader__': None, '__spec__': None, '__buil...
+         │         │    │               └ <_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x11507a6d8>
+         │         │    └ <property object at 0x11466b778>
+         │         └ <_pydev_bundle.pydev_ipython_console_011.PyDevTerminalInteractiveShell object at 0x11507a6d8>
+         └ <code object <module> at 0x121ba9420, file "<ipython-input-12-ca6e77233f4a>", line 1>
+  File "<ipython-input-12-ca6e77233f4a>", line 1, in <module>
+    runfile('/Users/ctetsass/OpenMaps/main.py', wdir='/Users/ctetsass/OpenMaps/HPC')
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/[0m[32m[1mpydev_umd.py[0m", line [33m197[0m, in [35mrunfile[0m
+    [1mpydev_imports[0m[35m[1m.[0m[1mexecfile[0m[1m([0m[1mfilename[0m[1m,[0m [1mglobal_vars[0m[1m,[0m [1mlocal_vars[0m[1m)[0m  [30m[1m# execute the script[0m
+    [36m│             │        │         │            └ [0m[36m[1m{'__name__': '__main__', '__doc__': 'Script entry point.', '__package__': None, '__loader__': None, '__spec__': None, '__file...[0m
+    [36m│             │        │         └ [0m[36m[1m{'__name__': '__main__', '__doc__': 'Script entry point.', '__package__': None, '__loader__': None, '__spec__': None, '__file...[0m
+    [36m│             │        └ [0m[36m[1m'/Users/ctetsass/OpenMaps/main.py'[0m
+    [36m│             └ [0m[36m[1m<function execfile at 0x113e3f048>[0m
+    [36m└ [0m[36m[1m<module '_pydev_bundle.pydev_imports' from '/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_bundle/pydev_imports.py'>[0m
+
+  File "[32m/Applications/PyCharm.app/Contents/helpers/pydev/_pydev_imps/[0m[32m[1m_pydev_execfile.py[0m", line [33m18[0m, in [35mexecfile[0m
+    [1mexec[0m[1m([0m[1mcompile[0m[1m([0m[1mcontents[0m[35m[1m+[0m[36m"\n"[0m[1m,[0m [1mfile[0m[1m,[0m [36m'exec'[0m[1m)[0m[1m,[0m [1mglob[0m[1m,[0m [1mloc[0m[1m)[0m
+    [36m             │              │              │     └ [0m[36m[1m{'__name__': '__main__', '__doc__': 'Script entry point.', '__package__': None, '__loader__': None, '__spec__': None, '__file...[0m
+    [36m             │              │              └ [0m[36m[1m{'__name__': '__main__', '__doc__': 'Script entry point.', '__package__': None, '__loader__': None, '__spec__': None, '__file...[0m
+    [36m             │              └ [0m[36m[1m'/Users/ctetsass/OpenMaps/main.py'[0m
+    [36m             └ [0m[36m[1m'#!/usr/bin/env python\n\n"""Script entry point."""\n\n# from paramiko_tutorial import main\n#\n# if __name__ == \'__main__\'...[0m
+
+> File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mmain.py[0m", line [33m364[0m, in [35m<module>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/[0m[32m[1mmain.py[0m", line [33m77[0m, in [35mdownload_file_from_AWS[0m
+    [30m[1m# Take a  sample ( n systems )[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1maws.py[0m", line [33m23[0m, in [35mdownload_file[0m
+    [1ms3[0m[35m[1m.[0m[1mBucket[0m[1m([0m[1mbucket_name[0m[1m)[0m[35m[1m.[0m[1mdownload_file[0m[1m([0m[1mKey[0m[35m[1m=[0m[1mkey[0m[1m,[0m [1mFilename[0m[35m[1m=[0m[1mfilename[0m[1m)[0m
+    [36m│  │      │                              │             └ [0m[36m[1m'/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'[0m
+    [36m│  │      │                              └ [0m[36m[1m'fcc_alloys.db'[0m
+    [36m│  │      └ [0m[36m[1m'alloys'[0m
+    [36m│  └ [0m[36m[1m<function ResourceFactory._create_class_partial.<locals>.create_resource at 0x120eda620>[0m
+    [36m└ [0m[36m[1ms3.ServiceResource()[0m
+
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/boto3/s3/inject.py", line 246, in bucket_download_file
+    ExtraArgs=ExtraArgs, Callback=Callback, Config=Config)
+              │                   │                └ None
+              │                   └ None
+              └ None
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/boto3/s3/inject.py", line 172, in download_file
+    extra_args=ExtraArgs, callback=Callback)
+               │                   └ None
+               └ None
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/boto3/s3/transfer.py", line 307, in download_file
+    future.result()
+    │      └ <function TransferFuture.result at 0x120e56730>
+    └ <s3transfer.futures.TransferFuture object at 0x121b82ef0>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/futures.py", line 106, in result
+    return self._coordinator.result()
+           │    │            └ <function TransferCoordinator.result at 0x120e700d0>
+           │    └ TransferCoordinator(transfer_id=0)
+           └ <s3transfer.futures.TransferFuture object at 0x121b82ef0>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/futures.py", line 265, in result
+    raise self._exception
+          │    └ IsADirectoryError(21, 'Is a directory')
+          └ TransferCoordinator(transfer_id=0)
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/tasks.py", line 126, in __call__
+    return self._execute_main(kwargs)
+           │    │             └ {'fileobj': <s3transfer.utils.DeferredOpenFile object at 0x121b63198>, 'final_filename': '/Users/ctetsass/Calculation_NRC/Ope...
+           │    └ <function Task._execute_main at 0x120e73f28>
+           └ IORenameFileTask(transfer_id=0, {'final_filename': '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'})
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/tasks.py", line 150, in _execute_main
+    return_value = self._main(**kwargs)
+                   │    │       └ {'fileobj': <s3transfer.utils.DeferredOpenFile object at 0x121b63198>, 'final_filename': '/Users/ctetsass/Calculation_NRC/Ope...
+                   │    └ <function IORenameFileTask._main at 0x120e899d8>
+                   └ IORenameFileTask(transfer_id=0, {'final_filename': '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'})
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/download.py", line 601, in _main
+    osutil.rename_file(fileobj.name, final_filename)
+    │      │           │       │     └ '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'
+    │      │           │       └ <property object at 0x120e5b4f8>
+    │      │           └ <s3transfer.utils.DeferredOpenFile object at 0x121b63198>
+    │      └ <function OSUtils.rename_file at 0x120e5e8c8>
+    └ <s3transfer.utils.OSUtils object at 0x121b82048>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/utils.py", line 273, in rename_file
+    rename_file(current_filename, new_filename)
+    │           │                 └ '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'
+    │           └ '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data.ebB7CDAE'
+    └ <built-in function rename>
+
+[31m[1mIsADirectoryError[0m:[1m [Errno 21] Is a directory: '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data.ebB7CDAE' -> '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'[0m

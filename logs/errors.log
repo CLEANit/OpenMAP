@@ -19349,3 +19349,452 @@
     [36m         └ [0m[36m[1m<module 're' from '/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/re.py'>[0m
 
 [31m[1mIndexError[0m:[1m list index out of range[0m
+[96m09-14-2020 15:15:17[0m | 		[91mERROR[0m: 		[97mAn error has been caught in function '<module>', process 'MainProcess' (14783), thread 'MainThread' (4543413696):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+> File "[32m[0m[32m[1mmain.py[0m", line [33m362[0m, in [35m<module>[0m
+    [1mdownload_file_from_AWS[0m[1m([0m[1mbucket_name[0m[1m,[0m [1mdatabase[0m[1m,[0m [1mdata_dir[0m[1m)[0m
+    [36m│                      │            │         └ [0m[36m[1m'/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'[0m
+    [36m│                      │            └ [0m[36m[1m'fcc_alloys.db'[0m
+    [36m│                      └ [0m[36m[1m'alloys'[0m
+    [36m└ [0m[36m[1m<function download_file_from_AWS at 0x119133268>[0m
+
+  File "[32m[0m[32m[1mmain.py[0m", line [33m77[0m, in [35mdownload_file_from_AWS[0m
+    [1maws[0m[35m[1m.[0m[1mdownload_file[0m[1m([0m[1mbucket_name[0m[1m,[0m [1mkey[0m[1m,[0m [1mfilename[0m[1m)[0m
+    [36m│   │             │            │    └ [0m[36m[1m'/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'[0m
+    [36m│   │             │            └ [0m[36m[1m'fcc_alloys.db'[0m
+    [36m│   │             └ [0m[36m[1m'alloys'[0m
+    [36m│   └ [0m[36m[1m<function download_file at 0x119da99d8>[0m
+    [36m└ [0m[36m[1m<module 'ParamikoTools.aws' from '/Users/ctetsass/OpenMaps/ParamikoTools/aws.py'>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1maws.py[0m", line [33m23[0m, in [35mdownload_file[0m
+    [1ms3[0m[35m[1m.[0m[1mBucket[0m[1m([0m[1mbucket_name[0m[1m)[0m[35m[1m.[0m[1mdownload_file[0m[1m([0m[1mKey[0m[35m[1m=[0m[1mkey[0m[1m,[0m [1mFilename[0m[35m[1m=[0m[1mfilename[0m[1m)[0m
+    [36m│  │      │                              │             └ [0m[36m[1m'/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'[0m
+    [36m│  │      │                              └ [0m[36m[1m'fcc_alloys.db'[0m
+    [36m│  │      └ [0m[36m[1m'alloys'[0m
+    [36m│  └ [0m[36m[1m<function ResourceFactory._create_class_partial.<locals>.create_resource at 0x119114378>[0m
+    [36m└ [0m[36m[1ms3.ServiceResource()[0m
+
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/boto3/s3/inject.py", line 246, in bucket_download_file
+    ExtraArgs=ExtraArgs, Callback=Callback, Config=Config)
+              │                   │                └ None
+              │                   └ None
+              └ None
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/boto3/s3/inject.py", line 172, in download_file
+    extra_args=ExtraArgs, callback=Callback)
+               │                   └ None
+               └ None
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/boto3/s3/transfer.py", line 307, in download_file
+    future.result()
+    │      └ <function TransferFuture.result at 0x1190a9488>
+    └ <s3transfer.futures.TransferFuture object at 0x119e60fd0>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/futures.py", line 106, in result
+    return self._coordinator.result()
+           │    │            └ <function TransferCoordinator.result at 0x1190a9d90>
+           │    └ TransferCoordinator(transfer_id=0)
+           └ <s3transfer.futures.TransferFuture object at 0x119e60fd0>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/futures.py", line 265, in result
+    raise self._exception
+          │    └ IsADirectoryError(21, 'Is a directory')
+          └ TransferCoordinator(transfer_id=0)
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/tasks.py", line 126, in __call__
+    return self._execute_main(kwargs)
+           │    │             └ {'fileobj': <s3transfer.utils.DeferredOpenFile object at 0x119e344e0>, 'final_filename': '/Users/ctetsass/Calculation_NRC/Ope...
+           │    └ <function Task._execute_main at 0x1190aec80>
+           └ IORenameFileTask(transfer_id=0, {'final_filename': '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'})
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/tasks.py", line 150, in _execute_main
+    return_value = self._main(**kwargs)
+                   │    │       └ {'fileobj': <s3transfer.utils.DeferredOpenFile object at 0x119e344e0>, 'final_filename': '/Users/ctetsass/Calculation_NRC/Ope...
+                   │    └ <function IORenameFileTask._main at 0x1190c3730>
+                   └ IORenameFileTask(transfer_id=0, {'final_filename': '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'})
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/download.py", line 601, in _main
+    osutil.rename_file(fileobj.name, final_filename)
+    │      │           │       │     └ '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'
+    │      │           │       └ <property object at 0x119092db8>
+    │      │           └ <s3transfer.utils.DeferredOpenFile object at 0x119e344e0>
+    │      └ <function OSUtils.rename_file at 0x119098620>
+    └ <s3transfer.utils.OSUtils object at 0x119e606a0>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/utils.py", line 273, in rename_file
+    rename_file(current_filename, new_filename)
+    │           │                 └ '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'
+    │           └ '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data.2fEECc03'
+    └ <built-in function rename>
+
+[31m[1mIsADirectoryError[0m:[1m [Errno 21] Is a directory: '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data.2fEECc03' -> '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'[0m
+[96m09-14-2020 15:24:13[0m | 		[91mERROR[0m: 		[97mAn error has been caught in function '<module>', process 'MainProcess' (14942), thread 'MainThread' (4414954944):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+> File "[32m[0m[32m[1mmain.py[0m", line [33m362[0m, in [35m<module>[0m
+    [1mdownload_file_from_AWS[0m[1m([0m[1mbucket_name[0m[1m,[0m [1mdatabase[0m[1m,[0m [1mdata_dir[0m[1m)[0m
+    [36m│                      │            │         └ [0m[36m[1m'/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'[0m
+    [36m│                      │            └ [0m[36m[1m'fcc_alloys.db'[0m
+    [36m│                      └ [0m[36m[1m'alloys'[0m
+    [36m└ [0m[36m[1m<function download_file_from_AWS at 0x11a107268>[0m
+
+  File "[32m[0m[32m[1mmain.py[0m", line [33m77[0m, in [35mdownload_file_from_AWS[0m
+    [1maws[0m[35m[1m.[0m[1mdownload_file[0m[1m([0m[1mbucket[0m[1m,[0m [1mkey[0m[1m,[0m [1mfilename[0m[1m)[0m
+    [36m│   │             │       │    └ [0m[36m[1m'/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'[0m
+    [36m│   │             │       └ [0m[36m[1m'fcc_alloys.db'[0m
+    [36m│   │             └ [0m[36m[1m'alloys'[0m
+    [36m│   └ [0m[36m[1m<function download_file at 0x11ad6b9d8>[0m
+    [36m└ [0m[36m[1m<module 'ParamikoTools.aws' from '/Users/ctetsass/OpenMaps/ParamikoTools/aws.py'>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1maws.py[0m", line [33m23[0m, in [35mdownload_file[0m
+    [1ms3[0m[35m[1m.[0m[1mBucket[0m[1m([0m[1mbucket[0m[1m)[0m[35m[1m.[0m[1mdownload_file[0m[1m([0m[1mKey[0m[35m[1m=[0m[1mkey[0m[1m,[0m [1mFilename[0m[35m[1m=[0m[1mfilename[0m[1m)[0m
+    [36m│  │      │                         │             └ [0m[36m[1m'/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'[0m
+    [36m│  │      │                         └ [0m[36m[1m'fcc_alloys.db'[0m
+    [36m│  │      └ [0m[36m[1m'alloys'[0m
+    [36m│  └ [0m[36m[1m<function ResourceFactory._create_class_partial.<locals>.create_resource at 0x11a0ea378>[0m
+    [36m└ [0m[36m[1ms3.ServiceResource()[0m
+
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/boto3/s3/inject.py", line 246, in bucket_download_file
+    ExtraArgs=ExtraArgs, Callback=Callback, Config=Config)
+              │                   │                └ None
+              │                   └ None
+              └ None
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/boto3/s3/inject.py", line 172, in download_file
+    extra_args=ExtraArgs, callback=Callback)
+               │                   └ None
+               └ None
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/boto3/s3/transfer.py", line 307, in download_file
+    future.result()
+    │      └ <function TransferFuture.result at 0x11a081488>
+    └ <s3transfer.futures.TransferFuture object at 0x11ae26208>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/futures.py", line 106, in result
+    return self._coordinator.result()
+           │    │            └ <function TransferCoordinator.result at 0x11a081d90>
+           │    └ TransferCoordinator(transfer_id=0)
+           └ <s3transfer.futures.TransferFuture object at 0x11ae26208>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/futures.py", line 265, in result
+    raise self._exception
+          │    └ IsADirectoryError(21, 'Is a directory')
+          └ TransferCoordinator(transfer_id=0)
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/tasks.py", line 126, in __call__
+    return self._execute_main(kwargs)
+           │    │             └ {'fileobj': <s3transfer.utils.DeferredOpenFile object at 0x11adf7668>, 'final_filename': '/Users/ctetsass/Calculation_NRC/Ope...
+           │    └ <function Task._execute_main at 0x11a086c80>
+           └ IORenameFileTask(transfer_id=0, {'final_filename': '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'})
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/tasks.py", line 150, in _execute_main
+    return_value = self._main(**kwargs)
+                   │    │       └ {'fileobj': <s3transfer.utils.DeferredOpenFile object at 0x11adf7668>, 'final_filename': '/Users/ctetsass/Calculation_NRC/Ope...
+                   │    └ <function IORenameFileTask._main at 0x11a099730>
+                   └ IORenameFileTask(transfer_id=0, {'final_filename': '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'})
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/download.py", line 601, in _main
+    osutil.rename_file(fileobj.name, final_filename)
+    │      │           │       │     └ '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'
+    │      │           │       └ <property object at 0x11a069f98>
+    │      │           └ <s3transfer.utils.DeferredOpenFile object at 0x11adf7668>
+    │      └ <function OSUtils.rename_file at 0x11a070620>
+    └ <s3transfer.utils.OSUtils object at 0x11ae1e898>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/utils.py", line 273, in rename_file
+    rename_file(current_filename, new_filename)
+    │           │                 └ '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'
+    │           └ '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data.FE99Abb2'
+    └ <built-in function rename>
+
+[31m[1mIsADirectoryError[0m:[1m [Errno 21] Is a directory: '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data.FE99Abb2' -> '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'[0m
+[96m09-14-2020 15:39:56[0m | 		[91mERROR[0m: 		[97mAn error has been caught in function '<module>', process 'MainProcess' (15235), thread 'MainThread' (4551425472):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+> File "[32m[0m[32m[1mmain.py[0m", line [33m364[0m, in [35m<module>[0m
+    [1mdownload_file_from_AWS[0m[1m([0m[1mbucket_name[0m[1m,[0m [1mdatabase[0m[1m,[0m [1mdata_dir[0m[1m)[0m
+    [36m│                      │            │         └ [0m[36m[1m'/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'[0m
+    [36m│                      │            └ [0m[36m[1m'fcc_alloys.db'[0m
+    [36m│                      └ [0m[36m[1m'alloys'[0m
+    [36m└ [0m[36m[1m<function download_file_from_AWS at 0x121dc7268>[0m
+
+  File "[32m[0m[32m[1mmain.py[0m", line [33m77[0m, in [35mdownload_file_from_AWS[0m
+    [1maws[0m[35m[1m.[0m[1mdownload_file[0m[1m([0m[1mbucket[0m[1m,[0m [1mkey[0m[1m,[0m [1mfilename[0m[1m)[0m
+    [36m│   │             │       │    └ [0m[36m[1m'/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'[0m
+    [36m│   │             │       └ [0m[36m[1m'fcc_alloys.db'[0m
+    [36m│   │             └ [0m[36m[1m'alloys'[0m
+    [36m│   └ [0m[36m[1m<function download_file at 0x122a2a9d8>[0m
+    [36m└ [0m[36m[1m<module 'ParamikoTools.aws' from '/Users/ctetsass/OpenMaps/ParamikoTools/aws.py'>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1maws.py[0m", line [33m23[0m, in [35mdownload_file[0m
+    [1ms3[0m[35m[1m.[0m[1mBucket[0m[1m([0m[1mbucket[0m[1m)[0m[35m[1m.[0m[1mdownload_file[0m[1m([0m[1mKey[0m[35m[1m=[0m[1mkey[0m[1m,[0m [1mFilename[0m[35m[1m=[0m[1mfilename[0m[1m)[0m
+    [36m│  │      │                         │             └ [0m[36m[1m'/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'[0m
+    [36m│  │      │                         └ [0m[36m[1m'fcc_alloys.db'[0m
+    [36m│  │      └ [0m[36m[1m'alloys'[0m
+    [36m│  └ [0m[36m[1m<function ResourceFactory._create_class_partial.<locals>.create_resource at 0x121da8378>[0m
+    [36m└ [0m[36m[1ms3.ServiceResource()[0m
+
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/boto3/s3/inject.py", line 246, in bucket_download_file
+    ExtraArgs=ExtraArgs, Callback=Callback, Config=Config)
+              │                   │                └ None
+              │                   └ None
+              └ None
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/boto3/s3/inject.py", line 172, in download_file
+    extra_args=ExtraArgs, callback=Callback)
+               │                   └ None
+               └ None
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/boto3/s3/transfer.py", line 307, in download_file
+    future.result()
+    │      └ <function TransferFuture.result at 0x121d3f488>
+    └ <s3transfer.futures.TransferFuture object at 0x122adf2b0>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/futures.py", line 106, in result
+    return self._coordinator.result()
+           │    │            └ <function TransferCoordinator.result at 0x121d3fd90>
+           │    └ TransferCoordinator(transfer_id=0)
+           └ <s3transfer.futures.TransferFuture object at 0x122adf2b0>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/futures.py", line 265, in result
+    raise self._exception
+          │    └ IsADirectoryError(21, 'Is a directory')
+          └ TransferCoordinator(transfer_id=0)
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/tasks.py", line 126, in __call__
+    return self._execute_main(kwargs)
+           │    │             └ {'fileobj': <s3transfer.utils.DeferredOpenFile object at 0x122acdb38>, 'final_filename': '/Users/ctetsass/Calculation_NRC/Ope...
+           │    └ <function Task._execute_main at 0x121d44c80>
+           └ IORenameFileTask(transfer_id=0, {'final_filename': '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'})
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/tasks.py", line 150, in _execute_main
+    return_value = self._main(**kwargs)
+                   │    │       └ {'fileobj': <s3transfer.utils.DeferredOpenFile object at 0x122acdb38>, 'final_filename': '/Users/ctetsass/Calculation_NRC/Ope...
+                   │    └ <function IORenameFileTask._main at 0x121d57730>
+                   └ IORenameFileTask(transfer_id=0, {'final_filename': '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'})
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/download.py", line 601, in _main
+    osutil.rename_file(fileobj.name, final_filename)
+    │      │           │       │     └ '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'
+    │      │           │       └ <property object at 0x121d26f48>
+    │      │           └ <s3transfer.utils.DeferredOpenFile object at 0x122acdb38>
+    │      └ <function OSUtils.rename_file at 0x121d2d620>
+    └ <s3transfer.utils.OSUtils object at 0x122ad39b0>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/utils.py", line 273, in rename_file
+    rename_file(current_filename, new_filename)
+    │           │                 └ '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'
+    │           └ '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data.1240Fc47'
+    └ <built-in function rename>
+
+[31m[1mIsADirectoryError[0m:[1m [Errno 21] Is a directory: '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data.1240Fc47' -> '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'[0m
+[96m09-14-2020 15:40:48[0m | 		[91mERROR[0m: 		[97mAn error has been caught in function '<module>', process 'MainProcess' (15289), thread 'MainThread' (4363857344):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+> File "[32m[0m[32m[1mmain.py[0m", line [33m364[0m, in [35m<module>[0m
+    [1mdownload_file_from_AWS[0m[1m([0m[1mbucket_name[0m[1m,[0m [1mdatabase[0m[1m,[0m [1mdata_dir[0m[1m)[0m
+    [36m│                      │            │         └ [0m[36m[1m'/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'[0m
+    [36m│                      │            └ [0m[36m[1m'fcc_alloys.db'[0m
+    [36m│                      └ [0m[36m[1m'alloys'[0m
+    [36m└ [0m[36m[1m<function download_file_from_AWS at 0x116a39268>[0m
+
+  File "[32m[0m[32m[1mmain.py[0m", line [33m77[0m, in [35mdownload_file_from_AWS[0m
+    [1maws[0m[35m[1m.[0m[1mdownload_file[0m[1m([0m[1mbucket[0m[1m,[0m [1mkey[0m[1m,[0m [1mfilename[0m[1m)[0m
+    [36m│   │             │       │    └ [0m[36m[1m'/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'[0m
+    [36m│   │             │       └ [0m[36m[1m'fcc_alloys.db'[0m
+    [36m│   │             └ [0m[36m[1m'alloys'[0m
+    [36m│   └ [0m[36m[1m<function download_file at 0x1176aa9d8>[0m
+    [36m└ [0m[36m[1m<module 'ParamikoTools.aws' from '/Users/ctetsass/OpenMaps/ParamikoTools/aws.py'>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1maws.py[0m", line [33m23[0m, in [35mdownload_file[0m
+    [1ms3[0m[35m[1m.[0m[1mBucket[0m[1m([0m[1mbucket[0m[1m)[0m[35m[1m.[0m[1mdownload_file[0m[1m([0m[1mKey[0m[35m[1m=[0m[1mkey[0m[1m,[0m [1mFilename[0m[35m[1m=[0m[1mfilename[0m[1m)[0m
+    [36m│  │      │                         │             └ [0m[36m[1m'/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'[0m
+    [36m│  │      │                         └ [0m[36m[1m'fcc_alloys.db'[0m
+    [36m│  │      └ [0m[36m[1m'alloys'[0m
+    [36m│  └ [0m[36m[1m<function ResourceFactory._create_class_partial.<locals>.create_resource at 0x116a1a378>[0m
+    [36m└ [0m[36m[1ms3.ServiceResource()[0m
+
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/boto3/s3/inject.py", line 246, in bucket_download_file
+    ExtraArgs=ExtraArgs, Callback=Callback, Config=Config)
+              │                   │                └ None
+              │                   └ None
+              └ None
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/boto3/s3/inject.py", line 172, in download_file
+    extra_args=ExtraArgs, callback=Callback)
+               │                   └ None
+               └ None
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/boto3/s3/transfer.py", line 307, in download_file
+    future.result()
+    │      └ <function TransferFuture.result at 0x1169b1488>
+    └ <s3transfer.futures.TransferFuture object at 0x11774e6d8>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/futures.py", line 106, in result
+    return self._coordinator.result()
+           │    │            └ <function TransferCoordinator.result at 0x1169b1d90>
+           │    └ TransferCoordinator(transfer_id=0)
+           └ <s3transfer.futures.TransferFuture object at 0x11774e6d8>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/futures.py", line 265, in result
+    raise self._exception
+          │    └ IsADirectoryError(21, 'Is a directory')
+          └ TransferCoordinator(transfer_id=0)
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/tasks.py", line 126, in __call__
+    return self._execute_main(kwargs)
+           │    │             └ {'fileobj': <s3transfer.utils.DeferredOpenFile object at 0x1177365c0>, 'final_filename': '/Users/ctetsass/Calculation_NRC/Ope...
+           │    └ <function Task._execute_main at 0x1169b6c80>
+           └ IORenameFileTask(transfer_id=0, {'final_filename': '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'})
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/tasks.py", line 150, in _execute_main
+    return_value = self._main(**kwargs)
+                   │    │       └ {'fileobj': <s3transfer.utils.DeferredOpenFile object at 0x1177365c0>, 'final_filename': '/Users/ctetsass/Calculation_NRC/Ope...
+                   │    └ <function IORenameFileTask._main at 0x1169c9730>
+                   └ IORenameFileTask(transfer_id=0, {'final_filename': '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'})
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/download.py", line 601, in _main
+    osutil.rename_file(fileobj.name, final_filename)
+    │      │           │       │     └ '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'
+    │      │           │       └ <property object at 0x116998e58>
+    │      │           └ <s3transfer.utils.DeferredOpenFile object at 0x1177365c0>
+    │      └ <function OSUtils.rename_file at 0x11699f620>
+    └ <s3transfer.utils.OSUtils object at 0x117736dd8>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/utils.py", line 273, in rename_file
+    rename_file(current_filename, new_filename)
+    │           │                 └ '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'
+    │           └ '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data.f16d3Af2'
+    └ <built-in function rename>
+
+[31m[1mIsADirectoryError[0m:[1m [Errno 21] Is a directory: '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data.f16d3Af2' -> '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'[0m
+[96m09-14-2020 15:43:34[0m | 		[91mERROR[0m: 		[97mAn error has been caught in function '<module>', process 'MainProcess' (15393), thread 'MainThread' (4571438528):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+> File "[32m[0m[32m[1mmain.py[0m", line [33m364[0m, in [35m<module>[0m
+    [1mdownload_file_from_AWS[0m[1m([0m[1mbucket_name[0m[1m,[0m [1mdatabase[0m[1m,[0m [1mdata_dir[0m[1m)[0m
+    [36m│                      │            │         └ [0m[36m[1m'/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'[0m
+    [36m│                      │            └ [0m[36m[1m'fcc_alloys.db'[0m
+    [36m│                      └ [0m[36m[1m'alloys'[0m
+    [36m└ [0m[36m[1m<function download_file_from_AWS at 0x11a1c29d8>[0m
+
+  File "[32m[0m[32m[1mmain.py[0m", line [33m77[0m, in [35mdownload_file_from_AWS[0m
+    [1maws[0m[35m[1m.[0m[1mdownload_file[0m[1m([0m[1mbucket[0m[1m,[0m [1mkey[0m[1m,[0m [1mfilename[0m[1m)[0m
+    [36m│   │             │       │    └ [0m[36m[1m'/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'[0m
+    [36m│   │             │       └ [0m[36m[1m'fcc_alloys.db'[0m
+    [36m│   │             └ [0m[36m[1m'alloys'[0m
+    [36m│   └ [0m[36m[1m<function download_file at 0x11ae1b598>[0m
+    [36m└ [0m[36m[1m<module 'ParamikoTools.aws' from '/Users/ctetsass/OpenMaps/ParamikoTools/aws.py'>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1maws.py[0m", line [33m23[0m, in [35mdownload_file[0m
+    [1ms3[0m[35m[1m.[0m[1mBucket[0m[1m([0m[1mbucket[0m[1m)[0m[35m[1m.[0m[1mdownload_file[0m[1m([0m[1mKey[0m[35m[1m=[0m[1mkey[0m[1m,[0m [1mFilename[0m[35m[1m=[0m[1mfilename[0m[1m)[0m
+    [36m│  │      │                         │             └ [0m[36m[1m'/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'[0m
+    [36m│  │      │                         └ [0m[36m[1m'fcc_alloys.db'[0m
+    [36m│  │      └ [0m[36m[1m'alloys'[0m
+    [36m│  └ [0m[36m[1m<function ResourceFactory._create_class_partial.<locals>.create_resource at 0x11a1aeae8>[0m
+    [36m└ [0m[36m[1ms3.ServiceResource()[0m
+
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/boto3/s3/inject.py", line 246, in bucket_download_file
+    ExtraArgs=ExtraArgs, Callback=Callback, Config=Config)
+              │                   │                └ None
+              │                   └ None
+              └ None
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/boto3/s3/inject.py", line 172, in download_file
+    extra_args=ExtraArgs, callback=Callback)
+               │                   └ None
+               └ None
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/boto3/s3/transfer.py", line 307, in download_file
+    future.result()
+    │      └ <function TransferFuture.result at 0x11a13bbf8>
+    └ <s3transfer.futures.TransferFuture object at 0x11aecd668>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/futures.py", line 106, in result
+    return self._coordinator.result()
+           │    │            └ <function TransferCoordinator.result at 0x11a147598>
+           │    └ TransferCoordinator(transfer_id=0)
+           └ <s3transfer.futures.TransferFuture object at 0x11aecd668>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/futures.py", line 265, in result
+    raise self._exception
+          │    └ IsADirectoryError(21, 'Is a directory')
+          └ TransferCoordinator(transfer_id=0)
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/tasks.py", line 126, in __call__
+    return self._execute_main(kwargs)
+           │    │             └ {'fileobj': <s3transfer.utils.DeferredOpenFile object at 0x11aeb55c0>, 'final_filename': '/Users/ctetsass/Calculation_NRC/Ope...
+           │    └ <function Task._execute_main at 0x11a15e488>
+           └ IORenameFileTask(transfer_id=0, {'final_filename': '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'})
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/tasks.py", line 150, in _execute_main
+    return_value = self._main(**kwargs)
+                   │    │       └ {'fileobj': <s3transfer.utils.DeferredOpenFile object at 0x11aeb55c0>, 'final_filename': '/Users/ctetsass/Calculation_NRC/Ope...
+                   │    └ <function IORenameFileTask._main at 0x11a160ea0>
+                   └ IORenameFileTask(transfer_id=0, {'final_filename': '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'})
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/download.py", line 601, in _main
+    osutil.rename_file(fileobj.name, final_filename)
+    │      │           │       │     └ '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'
+    │      │           │       └ <property object at 0x11a12eb88>
+    │      │           └ <s3transfer.utils.DeferredOpenFile object at 0x11aeb55c0>
+    │      └ <function OSUtils.rename_file at 0x11a134d90>
+    └ <s3transfer.utils.OSUtils object at 0x11aeb5cf8>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/utils.py", line 273, in rename_file
+    rename_file(current_filename, new_filename)
+    │           │                 └ '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'
+    │           └ '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data.AFE65F7c'
+    └ <built-in function rename>
+
+[31m[1mIsADirectoryError[0m:[1m [Errno 21] Is a directory: '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data.AFE65F7c' -> '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'[0m
+[96m09-14-2020 15:47:11[0m | 		[91mERROR[0m: 		[97mAn error has been caught in function '<module>', process 'MainProcess' (15434), thread 'MainThread' (4648992192):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+> File "[32m[0m[32m[1mmain.py[0m", line [33m364[0m, in [35m<module>[0m
+    [1mdownload_file_from_AWS[0m[1m([0m[1mbucket_name[0m[1m,[0m [1mdatabase[0m[1m,[0m [1mdata_dir[0m[1m)[0m
+    [36m│                      │            │         └ [0m[36m[1m'/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'[0m
+    [36m│                      │            └ [0m[36m[1m'fcc_alloys.db'[0m
+    [36m│                      └ [0m[36m[1m'alloys'[0m
+    [36m└ [0m[36m[1m<function download_file_from_AWS at 0x119cfe9d8>[0m
+
+  File "[32m[0m[32m[1mmain.py[0m", line [33m77[0m, in [35mdownload_file_from_AWS[0m
+    [1maws[0m[35m[1m.[0m[1mdownload_file[0m[1m([0m[1mbucket[0m[1m,[0m [1mkey[0m[1m,[0m [1mfilename[0m[1m)[0m
+    [36m│   │             │       │    └ [0m[36m[1m'/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'[0m
+    [36m│   │             │       └ [0m[36m[1m'fcc_alloys.db'[0m
+    [36m│   │             └ [0m[36m[1m'alloys'[0m
+    [36m│   └ [0m[36m[1m<function download_file at 0x11a95b598>[0m
+    [36m└ [0m[36m[1m<module 'ParamikoTools.aws' from '/Users/ctetsass/OpenMaps/ParamikoTools/aws.py'>[0m
+
+  File "[32m/Users/ctetsass/OpenMaps/ParamikoTools/[0m[32m[1maws.py[0m", line [33m23[0m, in [35mdownload_file[0m
+    [1ms3[0m[35m[1m.[0m[1mBucket[0m[1m([0m[1mbucket[0m[1m)[0m[35m[1m.[0m[1mdownload_file[0m[1m([0m[1mKey[0m[35m[1m=[0m[1mkey[0m[1m,[0m [1mFilename[0m[35m[1m=[0m[1mfilename[0m[1m)[0m
+    [36m│  │      │                         │             └ [0m[36m[1m'/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'[0m
+    [36m│  │      │                         └ [0m[36m[1m'fcc_alloys.db'[0m
+    [36m│  │      └ [0m[36m[1m'alloys'[0m
+    [36m│  └ [0m[36m[1m<function ResourceFactory._create_class_partial.<locals>.create_resource at 0x119ceaae8>[0m
+    [36m└ [0m[36m[1ms3.ServiceResource()[0m
+
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/boto3/s3/inject.py", line 246, in bucket_download_file
+    ExtraArgs=ExtraArgs, Callback=Callback, Config=Config)
+              │                   │                └ None
+              │                   └ None
+              └ None
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/boto3/s3/inject.py", line 172, in download_file
+    extra_args=ExtraArgs, callback=Callback)
+               │                   └ None
+               └ None
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/boto3/s3/transfer.py", line 307, in download_file
+    future.result()
+    │      └ <function TransferFuture.result at 0x119c76bf8>
+    └ <s3transfer.futures.TransferFuture object at 0x11aa0d588>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/futures.py", line 106, in result
+    return self._coordinator.result()
+           │    │            └ <function TransferCoordinator.result at 0x119c83598>
+           │    └ TransferCoordinator(transfer_id=0)
+           └ <s3transfer.futures.TransferFuture object at 0x11aa0d588>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/futures.py", line 265, in result
+    raise self._exception
+          │    └ IsADirectoryError(21, 'Is a directory')
+          └ TransferCoordinator(transfer_id=0)
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/tasks.py", line 126, in __call__
+    return self._execute_main(kwargs)
+           │    │             └ {'fileobj': <s3transfer.utils.DeferredOpenFile object at 0x11a9f54e0>, 'final_filename': '/Users/ctetsass/Calculation_NRC/Ope...
+           │    └ <function Task._execute_main at 0x119c9a488>
+           └ IORenameFileTask(transfer_id=0, {'final_filename': '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'})
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/tasks.py", line 150, in _execute_main
+    return_value = self._main(**kwargs)
+                   │    │       └ {'fileobj': <s3transfer.utils.DeferredOpenFile object at 0x11a9f54e0>, 'final_filename': '/Users/ctetsass/Calculation_NRC/Ope...
+                   │    └ <function IORenameFileTask._main at 0x119c9cea0>
+                   └ IORenameFileTask(transfer_id=0, {'final_filename': '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'})
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/download.py", line 601, in _main
+    osutil.rename_file(fileobj.name, final_filename)
+    │      │           │       │     └ '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'
+    │      │           │       └ <property object at 0x119c6ab88>
+    │      │           └ <s3transfer.utils.DeferredOpenFile object at 0x11a9f54e0>
+    │      └ <function OSUtils.rename_file at 0x119c70d90>
+    └ <s3transfer.utils.OSUtils object at 0x11a9f5cf8>
+  File "/Users/ctetsass/Library/Python/3.6/lib/python/site-packages/s3transfer/utils.py", line 273, in rename_file
+    rename_file(current_filename, new_filename)
+    │           │                 └ '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'
+    │           └ '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data.Dc0dDA6a'
+    └ <built-in function rename>
+
+[31m[1mIsADirectoryError[0m:[1m [Errno 21] Is a directory: '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data.Dc0dDA6a' -> '/Users/ctetsass/Calculation_NRC/OpenMAPs/HPC_Job/Alloys/Data'[0m
+[96m09-14-2020 15:50:31[0m | 		[91mERROR[0m: 		[97mAn error has been caught in function 'main', process 'MainProcess' (15510), thread 'MainThread' (4695649728):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m[0m[32m[1mmain.py[0m", line [33m366[0m, in [35m<module>[0m
+    [1mmain[0m[1m([0m[1m)[0m
+    [36m└ [0m[36m[1m<function main at 0x11d6416a8>[0m
+
+> File "[32m[0m[32m[1mmain.py[0m", line [33m131[0m, in [35mmain[0m
+    [1mjob_list[0m [35m[1m=[0m [1mmaster[0m[1m([0m[1msample_list[0m[1m)[0m
+    [36m           │      └ [0m[36m[1mNone[0m
+    [36m           └ [0m[36m[1m<function master at 0x11d69a1e0>[0m
+
+  File "[32m[0m[32m[1mmain.py[0m", line [33m162[0m, in [35mmaster[0m
+    [35m[1mfor[0m [1msample_id[0m [35m[1min[0m [1msample_list[0m[1m:[0m
+    [36m                 └ [0m[36m[1mNone[0m
+
+[31m[1mTypeError[0m:[1m 'NoneType' object is not iterable[0m
