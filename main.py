@@ -10,28 +10,19 @@
 from pathlib import Path
 import os
 import pickle
-import ase
 from ase.db import connect
-from ase.io import read, jsonio
-from ase.utils import PurePath
-import subprocess
-from pymatgen import Structure
 from pymatgen.io.ase import AseAtomsAdaptor
 from pymatgen.io.vasp.inputs import Poscar
 from pymatgen.io.vasp.inputs import Potcar
 from pymatgen.io.vasp.inputs import Kpoints
 from pymatgen.io.vasp.inputs import Incar
 from pymatgen.io.vasp.outputs import Vasprun
-from pymatgen.io.vasp.sets import MPRelaxSet
-from pymatgen.io.vasp.sets import MPStaticSet
 
 from ParamikoTools import client  # RemoteClient
 from ParamikoTools import files  # fetch_local_files
 from ParamikoTools import qsub_vasp
-from ParamikoTools import aws
+from AWS import aws_sql
 from ParamikoTools.log import logger
-
-import numpy as np
 
 from Tools import Parser
 from Tools import Properties
@@ -74,14 +65,14 @@ bucket_name = 'alloys'
 @logger.catch
 def download_file_from_AWS(bucket, key, filename):
     logger.info(f'Connecting to  AWS  BUCKET: {bucket}')
-    aws.download_file(bucket, key, filename)
+    aws_sql.download_file(bucket, key, filename)
     logger.info(f'Finished  downloading: [{key}] from AWS')
 
 
 @logger.catch
 def upload_file_to_AWS(bucket, key, filename):
     logger.info(f'Connecting to  AWS  BUCKET: {bucket}')
-    aws.upload_file(bucket, key, filename)
+    aws_sql.upload_file(bucket, key, filename)
     logger.info(f'Finished  uploading: [{key}] to AWS')
 
 
