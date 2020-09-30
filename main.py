@@ -21,7 +21,7 @@ from pymatgen.io.vasp.outputs import Vasprun
 from ParamikoTools import client  # RemoteClient
 from ParamikoTools import files  # fetch_local_files
 from ParamikoTools import qsub_vasp
-from AWS import aws_sql
+from AWS import sql_wrapper
 from ParamikoTools.log import logger
 
 from Tools import Parser
@@ -65,14 +65,14 @@ bucket_name = 'alloys'
 @logger.catch
 def download_file_from_AWS(bucket, key, filename):
     logger.info(f'Connecting to  AWS  BUCKET: {bucket}')
-    aws_sql.download_file(bucket, key, filename)
+    sql_wrapper.download_file(bucket, key, filename)
     logger.info(f'Finished  downloading: [{key}] from AWS')
 
 
 @logger.catch
 def upload_file_to_AWS(bucket, key, filename):
     logger.info(f'Connecting to  AWS  BUCKET: {bucket}')
-    aws_sql.upload_file(bucket, key, filename)
+    sql_wrapper.upload_file(bucket, key, filename)
     logger.info(f'Finished  uploading: [{key}] to AWS')
 
 

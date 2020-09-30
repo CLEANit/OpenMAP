@@ -7,6 +7,7 @@ import pickle
 import json
 import yaml
 from subprocess import Popen
+from AWS import sql_wrapper  # RemoteDB
 from category_writer import CategoryWriter
 from ChemOs.phoenics_inc import gryffin as Gryffin
 import argparse
@@ -66,13 +67,13 @@ parser.add_argument('--config3',
                     action='store',
                     help='the path to  Data Base config file')
 
-parser.add_argument('-f',
-                    dest='features',
-                    #type=str,
-                    default=[],
-                    action='store',
-                    required=True,
-                    help='List of predictor to include in the model')
+# parser.add_argument('-f',
+#                     dest='features',
+#                     #type=str,
+#                     default=[],
+#                     action='store',
+#                     required=True,
+#                     help='List of predictor to include in the model')
 
 # parser.add_argument('-B', action='append_const', dest='const_collection',
 #                     const='value-2-to-append',
@@ -87,24 +88,38 @@ args = parser.parse_args()
 
 #NUM_TOTAL = 100  # len of the data base
 BUDGET = args.budget  # how many experiment you want to perform
+ChemOs_CONFIG = args.ChemOs
 ChemOs_CONFIG_FILE =  json.load(open(args.ChemOs, 'r').read())
-HPC_CONFIG_FILE = yaml.safe_load(open(args.HPC).read())
-DataBase_CONFIG_FILE = yaml.safe_load(open(args.DataBase).read())
+HPC_CONFIG = yaml.safe_load(open(args.HPC).read())
+DataBase_CONFIG= yaml.safe_load(open(args.DataBase).read())
 #BATCH_SIZE = args.batch_size
 # params = yaml.safe_load(open("Tools/data/miedema.yml").read())
 seed = args.seed
 
+
+# download data from Aws
+
+aws =  sql_wrapper.RemoteDB(DataBase_CONFIG['host'],
+                            DataBase_CONFIG['user'],
+                            DataBase_CONFIG['dbname'],
+                            DataBase_CONFIG['password'])
+
+
+data_df = aws.load_table_to_pandas(DataBase_CONFIG['tablename'])
+
 # initialize descriptor
-json_file = json.load(open(ChemOs_CONFIG_FILE, 'r').read())
-data_df = None
-features = args.features
 
-BATCH_SIZE = ChemOs_CONFIG_FILE.get('general')["sampling_strategies"]
+features = DataBase_CONFIG['features']
 
-parameter_name = ChemOs_CONFIG_FILE.get('parameters')["name"]
-objective_name = ChemOs_CONFIG_FILE.get("objectives")['name']
+BATCH_SIZE = ChemOs_CONFIG.get('general')["sampling_strategies"]
+
+parameter_name = ChemOs_CONFIG.get('parameters')["name"]
+objective_name = ChemOs_CONFIG.get("objectives")['name']
 category_writer = CategoryWriter(parameter_name, features)
-struct_id = 'id'
+struct_id = DataBase_CONFIG['structure_id']
+
+
+
 # generate_descriptors
 category_writer.generate_descriptors(data_df, struct_id=struct_id)
 
