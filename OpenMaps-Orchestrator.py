@@ -104,8 +104,18 @@ aws =  sql_wrapper.RemoteDB(DataBase_CONFIG['host'],
                             DataBase_CONFIG['dbname'],
                             DataBase_CONFIG['password'])
 
+# need a dictionnary with project and BD and Table
 
-data_df = aws.load_table_to_pandas(DataBase_CONFIG['tablename'])
+
+# check bd and table
+if not aws.checkDbExists(DB_NAME=DataBase_CONFIG['dbname']):
+    aws.create_database(DB_NAME=DataBase_CONFIG['dbname'])
+
+if not aws.checkTableExists(DataBase_CONFIG['tablename']):
+    data_df = fetch_data_online()
+    aws.df_to_sql(data_df,DataBase_CONFIG['tablename'])
+else:
+    data_df = aws.load_table_to_pandas(DataBase_CONFIG['tablename'])
 
 # initialize descriptor
 
