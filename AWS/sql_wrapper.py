@@ -20,8 +20,8 @@ from ase import Atoms
 
 import sys
 
-# from ParamikoTools.log import logger
-logger = logging.getLogger(__name__)
+from ParamikoTools.log import logger
+#logger = logging.getLogger(__name__)
 
 
 # try:
@@ -78,12 +78,33 @@ class RemoteDB:
         if self.conn:
             self.conn.close()
 
-    def checkTableExists(self, tablename, dbcon=None):
+    def checkDbExists(self,  DB_NAME=None, dbcon=None):
+        if dbcon is None:
+            self.conn = self._connect()
+            dbcon = self.conn
+        self.cursor = dbcon.cursor()
+
+        if DB_NAME is None:
+            DB_NAME = self.dbname
+
+        self.cursor.execute("SHOW DATABASES")
+
+        db_list = [name[0] for name in self.cursor]
+        if DB_NAME in db_list:
+            self.cursor.close()
+            return True
+
+        self.cursor.close()
+        return False
+
+    def checkTableExists(self, tablename, DB_NAME=None, dbcon=None):
         """
         :param tablename:
         :param dbcon:
         :return:
         """
+        if DB_NAME is None:
+            DB_NAME = self.dbname
 
         if dbcon is None:
             self.conn = self._connect()
@@ -99,7 +120,38 @@ class RemoteDB:
         dbcur.close()
         return False
 
-    def create_table(self, table_name, table_description,  dbcon=None, drop=False):
+    def create_database(self, DB_NAME=None, dbcon=None):
+        if dbcon is None:
+            self.conn = self._connect()
+            dbcon = self.conn
+        self.cursor = dbcon.cursor()
+        if DB_NAME is None:
+            DB_NAME = self.dbname
+
+        try:
+            self.cursor.execute(
+                "CREATE DATABASE {} DEFAULT CHARACTER SET 'utf8'".format(DB_NAME))
+        except mysql.connector.Error as err:
+            logger.info(" {}".format(err))
+            #print(" {}".format(err))
+            exit(0)
+
+        try:
+            self.cursor.execute("USE {}".format(DB_NAME))
+        except mysql.connector.Error as err:
+            logger.info("Database {} does not exists.".format(DB_NAME))
+            #print("Database {} does not exists.".format(DB_NAME))
+            if err.errno == errorcode.ER_BAD_DB_ERROR:
+                create_database(self.cursor)
+                #print("Database {} created successfully.".format(DB_NAME))
+                logger.info("Database {} created successfully.".format(DB_NAME))
+                dbcon.database = DB_NAME
+            else:
+                logger.error(f' {err}')
+                #print(err)
+                exit(1)
+
+    def create_table(self, table_name, table_description,DB_NAME=None,  dbcon=None, drop=False):
         """
         :param table_name:
         :param table_description:
@@ -111,6 +163,9 @@ class RemoteDB:
             self.conn = self._connect()
             dbcon = self.conn
         self.cursor = dbcon.cursor()
+
+        if DB_NAME is None:
+            DB_NAME = self.dbname
 
         try:
             logger.info("Creating table [{}]: ".format(table_name))
@@ -129,6 +184,25 @@ class RemoteDB:
 
         self.cursor.close()
             # dbcon.close()
+    def df_to_sql(self, df, tablename, dbcon=None):
+        if dbcon is None:
+            self.conn = self._connect()
+            dbcon = self.conn
+
+        try:
+            df.to_sql(name=tablename,
+                      con=dbcon,
+                      schema=None,
+                      if_exists='append',
+                      index=True, # It means index of DataFrame will save. Set False to ignore the index of DataFrame.
+                      index_label=None,# Depend on index.
+                      chunksize=None,  # Just means chunksize. If DataFrame is big will need this parameter.
+                      dtype=None,  # Set the columns type of sql table.
+                      method=None,  # Unstable. Ignore it.
+            )
+            logger.info(f"data frame [{df}] write to sql table [{tablename}] ")
+        except mysql.connector.Error as err:
+            logger.error(f' {err.msg}')
 
     def load_table_to_pandas(self, tablename, dbcon=None):
         """
