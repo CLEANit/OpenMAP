@@ -10,8 +10,13 @@ from subprocess import Popen
 from AWS import sql_wrapper  # RemoteDB
 from category_writer import CategoryWriter
 from ChemOs.phoenics_inc import gryffin as Gryffin
+from Fetch_data_online import FetchData
 import argparse
 import getpass
+
+from pymatgen import Composition
+from matminer.featurizers.composition import ElementFraction
+
 
 # ===============================================================================
 # from .generate_descriptors import generate_descriptors
@@ -55,7 +60,7 @@ parser.add_argument('--config2',
                     metavar='path',
                     dest='HPC',
                     type=str,
-                    default='./Configuration/HPC_config',
+                    default='./Configuration/HPC_config.yml',
                     action='store',
                     help='the path to  HPC config file')
 
@@ -63,9 +68,18 @@ parser.add_argument('--config3',
                     metavar='path',
                     dest='DataBase',
                     type=str,
-                    default='./Configuration/DataBase_config',
+                    default='./Configuration/DataBase_config.yml',
                     action='store',
                     help='the path to  Data Base config file')
+
+parser.add_argument('--query',
+                    metavar='path',
+                    dest='query',
+                    type=str,
+                    default='./Configuration/Query.yml',
+                    action='store',
+                    help='the path to  query file')
+
 
 # parser.add_argument('-f',
 #                     dest='features',
@@ -88,10 +102,11 @@ args = parser.parse_args()
 
 #NUM_TOTAL = 100  # len of the data base
 BUDGET = args.budget  # how many experiment you want to perform
-ChemOs_CONFIG = args.ChemOs
-ChemOs_CONFIG_FILE =  json.load(open(args.ChemOs, 'r').read())
+ChemOs_CONFIG_FILE = args.ChemOs
+ChemOs_CONFIG =  json.load(open(args.ChemOs, 'r'))
 HPC_CONFIG = yaml.safe_load(open(args.HPC).read())
 DataBase_CONFIG= yaml.safe_load(open(args.DataBase).read())
+query = yaml.safe_load(open(args.query).read())
 #BATCH_SIZE = args.batch_size
 # params = yaml.safe_load(open("Tools/data/miedema.yml").read())
 seed = args.seed
@@ -99,8 +114,10 @@ seed = args.seed
 
 # download data from Aws
 
+print(DataBase_CONFIG['port'], type(DataBase_CONFIG['port']))
 aws =  sql_wrapper.RemoteDB(DataBase_CONFIG['host'],
                             DataBase_CONFIG['user'],
+                            DataBase_CONFIG['port'],
                             DataBase_CONFIG['dbname'],
                             DataBase_CONFIG['password'])
 
@@ -111,20 +128,48 @@ aws =  sql_wrapper.RemoteDB(DataBase_CONFIG['host'],
 if not aws.checkDbExists(DB_NAME=DataBase_CONFIG['dbname']):
     aws.create_database(DB_NAME=DataBase_CONFIG['dbname'])
 
+
+
 if not aws.checkTableExists(DataBase_CONFIG['tablename']):
-    data_df = fetch_data_online()
+    fetchdata = FetchData(query['criteria'], query['properties'])
+    data_df = fetchdata.fetch_MP() # fetch data on Materials Project
+    #data_df.rename(columns={'full_formula':'formula'})
+
+    #aws.df_to_sqltable(data_df,DataBase_CONFIG['tablename'])
     aws.df_to_sql(data_df,DataBase_CONFIG['tablename'])
+
 else:
-    data_df = aws.load_table_to_pandas(DataBase_CONFIG['tablename'])
+    pass
+    #data_df = aws.load_table_to_pandas(DataBase_CONFIG['tablename'])
+    data_df = aws.read_table_to_df(DataBase_CONFIG['tablename'])
+
+
 
 # initialize descriptor
+df = data_df.copy()
+df.insert(2, 'composition', df.apply(lambda x: Composition(x['full_formula']), axis=1))
+ef = ElementFraction()
+df = ef.featurize_dataframe(df, "composition")
+#drop colunm with std == 0
+threshold = 0.0
+df =df.drop(df.std()[df.std() == threshold].index.values, axis=1)
 
-features = DataBase_CONFIG['features']
+to_drop = ['map_id','material_id' , 'total_magnetization', 'composition', 'full_formula']
 
-BATCH_SIZE = ChemOs_CONFIG.get('general')["sampling_strategies"]
+features = [prop for prop in data_df.columns.tolist() if prop not in to_drop]
 
-parameter_name = ChemOs_CONFIG.get('parameters')["name"]
-objective_name = ChemOs_CONFIG.get("objectives")['name']
+
+
+#features = DataBase_CONFIG['features']
+
+
+
+
+
+BATCH_SIZE = ChemOs_CONFIG.get('general')['sampling_strategies']
+
+parameter_name = ChemOs_CONFIG.get('parameters')[0]["name"]
+objective_name = ChemOs_CONFIG.get("objectives")[0]['name']
 category_writer = CategoryWriter(parameter_name, features)
 struct_id = DataBase_CONFIG['structure_id']
 
@@ -138,22 +183,22 @@ category_writer.write_categories(home_dir='./', with_descriptors=False)
 
 # initialize Gryffin
 gryffin = Gryffin.Phoenics(ChemOs_CONFIG_FILE, random_seed=seed)
-
-# main loop
-evaluations = 0
-observations = []
-while evaluations < BUDGET:
-    samples = gryffin.recommend(observations=observations)
-    print(samples)
-    new_observations = []
-    sample_id_list = [int(sample[parameter_name][0]) for sample in samples]
-    measurements = main.main(sample_id_list)
-    for sample, measurement in zip(samples, measurements):
-        sample[objective_name] = measurement
-        new_observations.append(sample)
-    #
-    print('new observations : ', new_observations)
-    observations.extend(new_observations)
-    pickle.dump(observations, open(f'runs/gryf_{seed}.pkl', 'wb'))
-    evaluations += BATCH_SIZE
-    print('EVALUATIONS : ', evaluations)
+#
+# # main loop
+# evaluations = 0
+# observations = []
+# while evaluations < BUDGET:
+#     samples = gryffin.recommend(observations=observations)
+#     print(samples)
+#     new_observations = []
+#     sample_id_list = [int(sample[parameter_name][0]) for sample in samples]
+#     measurements = main.main(sample_id_list)
+#     for sample, measurement in zip(samples, measurements):
+#         sample[objective_name] = measurement
+#         new_observations.append(sample)
+#     #
+#     print('new observations : ', new_observations)
+#     observations.extend(new_observations)
+#     pickle.dump(observations, open(f'runs/gryf_{seed}.pkl', 'wb'))
+#     evaluations += BATCH_SIZE
+#     print('EVALUATIONS : ', evaluations)
