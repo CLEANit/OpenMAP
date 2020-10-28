@@ -98,6 +98,7 @@ class RemoteClient:
                         # password=self.passphrase  # ,
                         # timeout=5000
                     )
+
                 else:
                     self.client.connect(
                         self.host,
@@ -111,6 +112,8 @@ class RemoteClient:
                 # if not self.client.get_transport().active:
                 #self.scp = SCPClient(self.client.get_transport(), progress4=progress4)
                 self.scp = SCPClient(self.client.get_transport())
+
+                logger.info(f'Connection established to {self.host}')
             except AuthenticationException as error:
                 logger.error(f'Authentication failed: did you remember to create an SSH key? {error}')
                 raise error
@@ -153,7 +156,7 @@ class RemoteClient:
             logger.error(error)
             raise error
         finally:
-            logger.info(f'Finished uploading {os.path.basename(dir)} to {self.host}')
+            logger.info(f' [{os.path.basename(dir)}] uploaded to {self.host}')
             # return upload
 
     @logger.catch
@@ -166,7 +169,7 @@ class RemoteClient:
         """
         self.conn = self._connect()
         uploads = [self._upload_single_file(file) for file in files]
-        logger.info(f'+++ Finished uploading {len(uploads)} --files  to {self.host} +++')
+        logger.info(f' All the {len(uploads)}  files  uploaded to {self.host} +++')
 
     def _upload_single_file(self, file):
         """Upload a single file to a remote directory."""
@@ -182,7 +185,7 @@ class RemoteClient:
             logger.error(error)
             raise error
         finally:
-            logger.info(f'+++  Finished uploading {file} --to-- {self.host} +++')
+            logger.info(f'[{file}]  uploaded to  {self.host} ')
             return upload
 
     @logger.catch
@@ -196,7 +199,7 @@ class RemoteClient:
         """
         self.conn = self._connect()
         download = [self.scp.get(file0, dest0) for file0, dest0 in files]
-        logger.info(f'+++ Finished downloading {len(download)} --files on -- {os.path.basename(self.local_path)} +++')
+        logger.info(f' {len(download)} downloaded from {os.path.basename(self.local_path)}')
 
     @logger.catch
     def download_file(self, file, local_directory=None):
@@ -205,7 +208,7 @@ class RemoteClient:
         if local_directory is None:
             local_directory = self.local_directory
         self.scp.get(file, local_directory, recursive=True)
-        logger.info(f' +++  Finished downloading  {file} --from-- {self.host} +++')
+        logger.info(f' [{file}] downloaded  from {self.host}')
 
     @logger.catch
     def execute_commands(self, commands):
@@ -272,7 +275,7 @@ class RemoteClient:
             self.mkdir_p(dirname)  # make parent directories
             self.sftp.mkdir(basename)  # sub-directory missing, so created it
             self.sftp.chdir(basename)
-            logger.info(f' Created new dir /{basename} on {self.host} ')
+            logger.info(f' Creation of  dir [{basename}] terminated  on {self.host} ')
             return True
 
     @logger.catch

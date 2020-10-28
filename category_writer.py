@@ -19,7 +19,7 @@ class CategoryWriter(object):
         self.desc_names = {self.project_name: self.descriptors}
         self.param_names = [self.project_name]
 
-    def generate_descriptors(self, df, features=None, struct_id='id', json_name=None):
+    def generate_descriptors(self, df, features=None, struct_id='map_id', json_name=None):
         """
         :param json_name: name of file to return
         :param df: pandas dataframe with features

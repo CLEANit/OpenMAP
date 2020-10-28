@@ -3,15 +3,12 @@ import pandas as pd
 from ParamikoTools.log import logger
 
 
-
-
 class FetchData(object):
-
-    def __init__(self, queries, properties):
-        self.queries = queries
+    def __init__(self, criteria, properties):
+        self.criteria = criteria
         self.properties = properties
 
-    def fetch_data_MP(self):
+    def fetch_MP(self):
         """
         Fetch data on Materials project
         :return:
@@ -19,7 +16,8 @@ class FetchData(object):
         mpr = MPRester()
         all_prop = mpr.supported_properties
         props = [prop for prop in self.properties if prop in all_prop]
-        for query in self.queries:
+        props .append('full_formula')
+        for query in self.criteria:
             try:
                 data = mpr.get_data(query)
                 data_df = pd.DataFrame.from_dict(data)
@@ -30,6 +28,6 @@ class FetchData(object):
 
         df = df[props]
         mp_ids = df['material_id'].to_list()
-        df.insert(0, "map-id", mp_ids)
+        df.insert(0, "map_id", mp_ids)
 
         return df

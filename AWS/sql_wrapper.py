@@ -12,12 +12,12 @@ import pandas as pd
 import pymysql
 import numpy as np
 import getpass
-import sqlalchemy
+import  sqlalchemy
 import pickle
 import mysql.connector
 from mysql.connector import errorcode
 from ase import Atoms
-
+from configparser import ConfigParser
 import sys
 
 from ParamikoTools.log import logger
@@ -55,12 +55,13 @@ class RemoteDB:
 
         if self.conn is None:
             try:
-                logger.info(" Opening connection to   AWS-MySQL  [{}] database : {}".format(self.dbname))
+                logger.info(" Opening connection to   AWS   database")
                 self.conn = mysql.connector.connect(host=self.host,
                                                     user=self.user,
                                                     port=self.port,
                                                     password=self.password,
                                                     database=self.dbname)
+                logger.info("Connection established to   AWS:    database  [{}]".format(self.dbname))
             except mysql.connector.Error as error:
                 logger.error("Authentication to  AWS-MySQL table failed  : {}".format(error))
                 raise error
@@ -111,13 +112,14 @@ class RemoteDB:
             dbcon = self.conn
         self.cursor = dbcon.cursor()
 
-        self.cursor.execute("""SELECT COUNT(*)FROM 
-        information_schema.tablesWHERE table_name = '{0}' """.format(tablename.replace('\'', '\'\'')))
+        self.cursor.execute("SELECT COUNT(*) FROM information_schema.tables WHERE table_name = '{0}'".format(tablename.replace('\'', '\'\'')))
         if self.cursor.fetchone()[0] == 1:
             self.cursor.close()
+            logger.info(" Table [{}] found in the database [{}]".format(tablename,DB_NAME ))
             return True
 
-        dbcur.close()
+        self.cursor.close()
+        logger.info(" Table [{}] not found in the database [{}]".format(tablename, DB_NAME))
         return False
 
     def create_database(self, DB_NAME=None, dbcon=None):
@@ -184,25 +186,156 @@ class RemoteDB:
 
         self.cursor.close()
             # dbcon.close()
+
+
+
+
     def df_to_sql(self, df, tablename, dbcon=None):
+
+        if dbcon is None:
+            self.conn = self._connect()
+            dbcon = self.conn
+
+        engine = sqlalchemy.create_engine("mysql+pymysql://{user}:{pw}@{host}/{db}".format(host=self.host, db=self.dbname,
+                                                                                           user=self.user, pw=self.password))
+
+
+        try:
+            logger.info(f" Writing  [{tablename}] table  to AWS")
+            df.to_sql(name=tablename,
+                      con=engine,
+                      if_exists='append',
+                      index=False, # It means index of DataFrame will save. Set False to ignore the index of DataFrame.
+                      chunksize=1000)  # Just means chunksize. If DataFrame is big will need this param
+
+        except ValueError as vx:
+            logger.error(f"{vx}")
+
+        except Exception as ex:
+            logger.error(f"{ex}")
+
+        else:
+            logger.info(f" Table {tablename} created successfully")
+
+        finally:
+            self.cursor.close()
+
+
+
+    def insert_Dataframe_to_DB(self,df, tablename, dbcon=None):
+        if dbcon is None:
+            self.conn = self._connect()
+            dbcon = self.conn
+        self.cursor = dbcon.cursor()
+
+        # creating column list for insertion
+        cols = "`,`".join([str(i) for i in df.columns.tolist()])
+
+        # Insert DataFrame recrds one by one.
+        for i, row in df.iterrows():
+            sql = f"INSERT INTO `{tablename}` (`" + cols + "`) VALUES (" + "%s," * (len(row) - 1) + "%s)"
+            self.cursor.execute(sql, tuple(row))
+
+            # the connection is not necesserly autocommitted(pymysql, mysql-connection)  , so we must commit to save our changes
+        try:
+            dbcon.commit()
+        except:
+            pass
+        finally:
+            self.cursor.close()
+
+    def df_to_sqltable(self,  df, tablename,DB_NAME=None,  dbcon=None, drop=False):
+
+        colms = ['`'+i+'`' for i in df.columns.tolist()]
+        types = [str(df[col].dtypes) for col in df.columns.tolist()]
+        #if isinstance(row[prop], (np.ndarray, np.generic)):
+        for i, typ in enumerate(types):
+            if typ == 'object':
+                types[i] = 'varchar(255)'
+            elif typ == 'float64' or 'float32':
+                types[i] = 'FLOAT' # 'DECIMAL(12, 6)'
+            elif typ == 'int64' or 'int32':
+                types[i] = 'INT'
+
+        if dbcon is None:
+            self.conn = self._connect()
+            dbcon = self.conn
+        self.cursor = dbcon.cursor()
+
+        if DB_NAME is None:
+            DB_NAME = self.dbname
+
+        description =  [" ".join([i,j]) for i, j in zip(colms, types)]
+
+        description = ",".join([str(i) for i in description])
+        sql = f"CREATE TABLE {tablename}  (" + description + ")"
+
+        try:
+            logger.info("Creating table [{}]: ".format(tablename))
+            self.cursor.execute(sql)
+
+            # creating column list for insertion
+            cols = "`,`".join([str(i) for i in df.columns.tolist()])
+
+            # Insert DataFrame recrds one by one.
+            for i, row in df.iterrows():
+                sql = f"INSERT INTO `{tablename}` (`" + cols + "`) VALUES (" + "%s," * (len(row) - 1) + "%s)"
+                self.cursor.execute(sql, tuple(row))
+            try:
+                dbcon.commit()
+            except:
+                pass
+
+            logger.info(" Table [{}] has been successfully created ".format(tablename))
+        except mysql.connector.Error as err:
+            if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:
+                if drop:
+                    logger.info("Dropping table [{}]: ".format(table_name))
+                    self.cursor.execute("DROP TABLE IF EXISTS {}".format(tablename))
+                    self.cursor.execute(f" CREATE TABLE {tablename}  (" + description + ")}")
+
+                    # creating column list for insertion
+                    cols = "`,`".join([str(i) for i in df.columns.tolist()])
+
+                    # Insert DataFrame recrds one by one.
+                    for i, row in df.iterrows():
+                        sql = f"INSERT INTO `{tablename}` (`" + cols + "`) VALUES (" + "%s," * (len(row) - 1) + "%s)"
+                        self.cursor.execute(sql, tuple(row))
+                    try:
+                        dbcon.commit()
+                    except:
+                        pass
+
+                    logger.info(" Table [{}] has been successfully created ".format(tablename))
+                else:
+                    logger.error(f' Table [{tablename}] already exists.')
+            else:
+                logger.error(f' {err.msg}')
+
+
+        self.cursor.close()
+            # dbcon.close()
+
+
+    def read_table_to_df(self, tablename, dbcon=None):
         if dbcon is None:
             self.conn = self._connect()
             dbcon = self.conn
 
         try:
-            df.to_sql(name=tablename,
-                      con=dbcon,
-                      schema=None,
-                      if_exists='append',
-                      index=True, # It means index of DataFrame will save. Set False to ignore the index of DataFrame.
-                      index_label=None,# Depend on index.
-                      chunksize=None,  # Just means chunksize. If DataFrame is big will need this parameter.
-                      dtype=None,  # Set the columns type of sql table.
-                      method=None,  # Unstable. Ignore it.
-            )
-            logger.info(f"data frame [{df}] write to sql table [{tablename}] ")
-        except mysql.connector.Error as err:
-            logger.error(f' {err.msg}')
+            pandas_df = pd.read_sql("SELECT * FROM  {}".format(tablename), dbcon)
+        except ValueError as vx:
+            logger.error(f"{vx}")
+
+        except Exception as ex:
+            logger.error(f"{ex}")
+
+        else:
+            logger.info(f" Table {tablename} loaded successfully to  Dataframe")
+
+        finally:
+            self.cursor.close()
+        return   pandas_df
 
     def load_table_to_pandas(self, tablename, dbcon=None):
         """
