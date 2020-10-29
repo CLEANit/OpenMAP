@@ -4,27 +4,18 @@
 #from __future__ import print_function
 
 
-
-import os, sys
-import numpy as np
-import pandas as pd
-import pickle
 import json
 import yaml
-from subprocess import Popen
-from AWS import sql_wrapper  # RemoteDB
-from category_writer import CategoryWriter
-from ChemOs.phoenics_inc import gryffin as Gryffin
-from Fetch_data_online import FetchData
+from openmaps.AWS import sql_wrapper  # RemoteDB
+from openmaps.Tools.category_writer import CategoryWriter
+from openmaps.Tools.Fetch_data_online import FetchData
 import argparse
-import getpass
 
 from pymatgen import Composition
 from matminer.featurizers.composition import ElementFraction
 
 
 # ===============================================================================
-from tests import OpenMapsTestCase
 
 #TestCase =  OpenMapsTestCase()
 #TestCase.test_requirements()
@@ -191,10 +182,10 @@ id_colm = DataBase_CONFIG['id_colm']
 category_writer.generate_descriptors(data_df, id_colm=id_colm)
 
 # initialize category writer
-category_writer.write_categories(home_dir='./', with_descriptors=False)
+category_writer.write_categories(home_dir='../', with_descriptors=False)
 
 # initialize Gryffin
-gryffin = Gryffin.Phoenics(ChemOs_CONFIG_FILE, random_seed=seed)
+gryffin = gryffin.Phoenics(ChemOs_CONFIG_FILE, random_seed=seed)
 #
 # # main loop
 # evaluations = 0

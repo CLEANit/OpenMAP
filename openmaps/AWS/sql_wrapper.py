@@ -3,24 +3,17 @@
 
 __author__ = 'Conrard TETSASSI'
 
-
-import json
 import logging
 
-import os
 import pandas as pd
-import pymysql
-import numpy as np
 import getpass
 import  sqlalchemy
 import pickle
 import mysql.connector
 from mysql.connector import errorcode
 from ase import Atoms
-from configparser import ConfigParser
-import sys
 
-from ParamikoTools.log import logger
+from openmaps.ParamikoTools.log import logger
 #logger = logging.getLogger(__name__)
 
 

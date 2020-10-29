@@ -1,6 +1,5 @@
 from pymatgen import MPRester
 import pandas as pd
-from ParamikoTools.log import logger
 
 
 class FetchData(object):
