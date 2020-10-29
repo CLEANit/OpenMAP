@@ -18,14 +18,12 @@ from pymatgen.io.vasp.inputs import Kpoints
 from pymatgen.io.vasp.inputs import Incar
 from pymatgen.io.vasp.outputs import Vasprun
 
-from ParamikoTools import client  # RemoteClient
-from ParamikoTools import files  # fetch_local_files
-from ParamikoTools import qsub_vasp
-from AWS import sql_wrapper
-from ParamikoTools.log import logger
+from openmaps.ParamikoTools import client, files, qsub_vasp
+from openmaps.AWS import sql_wrapper
+from openmaps.ParamikoTools.log import logger
 
-from Tools import Parser
-from Tools import Properties
+from openmaps.Tools import Parser
+from openmaps.Tools import Properties
 
 from config_remote_client import (
     host,

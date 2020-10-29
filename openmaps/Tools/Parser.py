@@ -1,4 +1,4 @@
-from Tools import PyVasp
+from openmaps.Tools import PyVasp
 
 import os.path
 

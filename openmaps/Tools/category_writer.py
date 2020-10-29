@@ -5,7 +5,7 @@ import copy
 import json
 import pickle
 import numpy as np
-from ParamikoTools.log import logger
+from openmaps.ParamikoTools.log import logger
 
 # =================================================================
 
