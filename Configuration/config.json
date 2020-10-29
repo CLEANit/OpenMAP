@@ -7,9 +7,9 @@
 		"random_seed": 0
 	},
 	"parameters": [
-			{"name": "AgPd", "type": "categorical", "size": 1, "category_details": "CatDetails/cat_details_AgPd.pkl"}
+			{"name": "metal_oxyde", "type": "categorical", "size": 1, "category_details": "CatDetails/cat_details_metal_oxyde.pkl"}
 	],
 	"objectives": [
-			{"name": "energy", "goal": "minimize"}
+			{"name": "magnetization", "goal": "maximize"}
 		]
 }

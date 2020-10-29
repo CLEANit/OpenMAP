@@ -4,7 +4,7 @@
 import json
 
 
-def generate_descriptors(json_name, df, features, struct_id='id'):
+def generate_descriptors(json_name, df, features, struct_id='map_id'):
     """
     :param json_name: name of file to return
     :param df: pandas dataframe with features

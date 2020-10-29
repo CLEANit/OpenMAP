@@ -5,7 +5,7 @@ import copy
 import json
 import pickle
 import numpy as np
-
+from ParamikoTools.log import logger
 
 # =================================================================
 
@@ -19,12 +19,12 @@ class CategoryWriter(object):
         self.desc_names = {self.project_name: self.descriptors}
         self.param_names = [self.project_name]
 
-    def generate_descriptors(self, df, features=None, struct_id='map_id', json_name=None):
+    def generate_descriptors(self, df, id_colm='map_id', features=None, json_name=None):
         """
         :param json_name: name of file to return
         :param df: pandas dataframe with features
         :param features: list of features
-        :param struct_id: name of column  with molecule id
+        :param id_colm: name of column  with molecule id
         :return: json file with descriptors
         """
         if features is None:
@@ -38,13 +38,18 @@ class CategoryWriter(object):
             data = {}
             for feature in features:
                 data[feature] = row[feature]
-            descriptors[row[struct_id]] = data
+            descriptors[row[id_colm]] = data
 
         with open('{}.json'.format(json_name), 'w') as fp:
             json.dump(descriptors, fp, indent=6)
 
+        if len(descriptors) !=0:
+            logger.info(f'Descriptors generated')
+
+
     def write_categories(self, home_dir, with_descriptors=True):
         self.json_file = json.loads(open('{}.json'.format(self.project_name), 'r').read())
+        logger.info(' File [{}.json] have been written  '.format(self.project_name))
         self.opts = {self.project_name: self.json_file}
         for param_name in self.param_names:
             opt_list = []
@@ -60,10 +65,11 @@ class CategoryWriter(object):
             if not os.path.isdir(dir_name):
                 os.mkdir(dir_name)
 
-            cat_details_file = '{}cat_details_{}.pkl'.format(dir_name, param_name)
+            cat_details_file = '{}/cat_details_{}.pkl'.format(dir_name, param_name)
             with open(cat_details_file, 'wb') as content:
                 pickle.dump(opt_list, content)
 
+            logger.info(f'Categories detail file [{dir_name}/cat_details_{param_name}.pkl]  have been written')
 
 # =================================================================
 

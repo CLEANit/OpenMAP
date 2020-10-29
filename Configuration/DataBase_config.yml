@@ -1,0 +1,8 @@
+host: "rds-mysql-alloys.c2jdmok5sewf.us-east-2.rds.amazonaws.com"
+port: 3306
+dbname: "Oxygen_Evolution_Catalysts"
+user: "ase_aws"
+password: "soraya09"
+tablename: "metal_oxyde"
+#features: ['Ag', 'Pd'] # list of features to include in the model
+structure_id : 'map_id' # name of the column with the structure id
