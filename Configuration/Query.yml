@@ -1,0 +1,3 @@
+criteria: ["Mn-O", "Ni-O", "Co-O", "Fe-O", "Pb-O", "Ir-0", "Ni-Fe-O",  "Co-Ni-Mg-O"]
+properties: ['material_id','full_formula', 'energy_per_atom', 'band_gap', 'density', 'oxide_type','total_magnetization']
+target: 'magnetization'

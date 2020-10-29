@@ -1,4 +1,9 @@
 #!/usr/bin/env python
+#from __future__ import absolute_import
+#from __future__ import division
+#from __future__ import print_function
+
+
 
 import os, sys
 import numpy as np
@@ -19,9 +24,10 @@ from matminer.featurizers.composition import ElementFraction
 
 
 # ===============================================================================
-# from .generate_descriptors import generate_descriptors
-#import main
+from tests import OpenMapsTestCase
 
+#TestCase =  OpenMapsTestCase()
+#TestCase.test_requirements()
 # ==============================================================================
 
 # ===============================================================================
@@ -52,7 +58,7 @@ parser.add_argument('--config1',
                     metavar='path',
                     dest='ChemOs',
                     type=str,
-                    default='./Configuration/ChemOs_config.json',
+                    default='./Configuration/config.json',
                     action='store',
                     help='the path to  ChemOs config file')
 
@@ -143,16 +149,22 @@ else:
     #data_df = aws.load_table_to_pandas(DataBase_CONFIG['tablename'])
     data_df = aws.read_table_to_df(DataBase_CONFIG['tablename'])
 
+#create target colunm in the data base
 
+
+def featurizing_composition(data_df, formula='full_formula',threshold=0.0):
+    """
+    composition: pymatgen composition packge
+    """
+    df = data_df.copy()
+    ef = ElementFraction()
+    df.insert(2, 'composition', df.apply(lambda x: Composition(x[formula]), axis=1))
+    df = ef.featurize_dataframe(df, "composition")
+    df=df.drop(df.std()[df.std() <= threshold].index.values, axis=1)
+    return df
 
 # initialize descriptor
-df = data_df.copy()
-df.insert(2, 'composition', df.apply(lambda x: Composition(x['full_formula']), axis=1))
-ef = ElementFraction()
-df = ef.featurize_dataframe(df, "composition")
-#drop colunm with std == 0
-threshold = 0.0
-df =df.drop(df.std()[df.std() == threshold].index.values, axis=1)
+df = featurizing_composition(data_df, formula='full_formula',threshold=0.0)
 
 to_drop = ['map_id','material_id' , 'total_magnetization', 'composition', 'full_formula']
 
@@ -171,12 +183,12 @@ BATCH_SIZE = ChemOs_CONFIG.get('general')['sampling_strategies']
 parameter_name = ChemOs_CONFIG.get('parameters')[0]["name"]
 objective_name = ChemOs_CONFIG.get("objectives")[0]['name']
 category_writer = CategoryWriter(parameter_name, features)
-struct_id = DataBase_CONFIG['structure_id']
+id_colm = DataBase_CONFIG['id_colm']
 
 
 
 # generate_descriptors
-category_writer.generate_descriptors(data_df, struct_id=struct_id)
+category_writer.generate_descriptors(data_df, id_colm=id_colm)
 
 # initialize category writer
 category_writer.write_categories(home_dir='./', with_descriptors=False)

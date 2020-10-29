@@ -55,13 +55,13 @@ class RemoteDB:
 
         if self.conn is None:
             try:
-                logger.info(" Opening connection to   AWS   database")
+                logger.info("Opening connection to AWS database")
                 self.conn = mysql.connector.connect(host=self.host,
                                                     user=self.user,
                                                     port=self.port,
                                                     password=self.password,
                                                     database=self.dbname)
-                logger.info("Connection established to   AWS:    database  [{}]".format(self.dbname))
+                logger.info("Connection established to AWS:    database  [{}]".format(self.dbname))
             except mysql.connector.Error as error:
                 logger.error("Authentication to  AWS-MySQL table failed  : {}".format(error))
                 raise error
@@ -115,11 +115,11 @@ class RemoteDB:
         self.cursor.execute("SELECT COUNT(*) FROM information_schema.tables WHERE table_name = '{0}'".format(tablename.replace('\'', '\'\'')))
         if self.cursor.fetchone()[0] == 1:
             self.cursor.close()
-            logger.info(" Table [{}] found in the database [{}]".format(tablename,DB_NAME ))
+            logger.info("Table [{}] found in the database [{}]".format(tablename,DB_NAME ))
             return True
 
         self.cursor.close()
-        logger.info(" Table [{}] not found in the database [{}]".format(tablename, DB_NAME))
+        logger.info("Table [{}] not found in the database [{}]".format(tablename, DB_NAME))
         return False
 
     def create_database(self, DB_NAME=None, dbcon=None):
@@ -178,9 +178,9 @@ class RemoteDB:
                     logger.info("Dropping table [{}]: ".format(table_name))
                     self.cursor.execute("DROP TABLE IF EXISTS {}".format(table_name))
                 else:
-                    logger.error(f' Table [{table_name}] already exists.')
+                    logger.error(f'Table [{table_name}] already exists.')
             else:
-                logger.error(f' {err.msg}')
+                logger.error(f'{err.msg}')
         else:
             logger.info("Table  created ")
 
@@ -191,6 +191,13 @@ class RemoteDB:
 
 
     def df_to_sql(self, df, tablename, dbcon=None):
+        """
+        use the sqlalchemy package to upload a Dataframe
+        :param df: Dataframe
+        :param tablename:
+        :param dbcon:
+        :return:
+        """
 
         if dbcon is None:
             self.conn = self._connect()
@@ -201,7 +208,7 @@ class RemoteDB:
 
 
         try:
-            logger.info(f" Writing  [{tablename}] table  to AWS")
+            logger.info(f"Writing  [{tablename}] table  to AWS")
             df.to_sql(name=tablename,
                       con=engine,
                       if_exists='append',
@@ -215,7 +222,7 @@ class RemoteDB:
             logger.error(f"{ex}")
 
         else:
-            logger.info(f" Table {tablename} created successfully")
+            logger.info(f"Table {tablename} created successfully")
 
         finally:
             self.cursor.close()
@@ -245,6 +252,14 @@ class RemoteDB:
             self.cursor.close()
 
     def df_to_sqltable(self,  df, tablename,DB_NAME=None,  dbcon=None, drop=False):
+        """
+        :param df: DataFrame to upload
+        :param tablename: name of the table
+        :param DB_NAME:
+        :param dbcon:
+        :param drop: drop the table if exists
+        :return:
+        """
 
         colms = ['`'+i+'`' for i in df.columns.tolist()]
         types = [str(df[col].dtypes) for col in df.columns.tolist()]
@@ -286,7 +301,7 @@ class RemoteDB:
             except:
                 pass
 
-            logger.info(" Table [{}] has been successfully created ".format(tablename))
+            logger.info("Table [{}] has been  created  successfully".format(tablename))
         except mysql.connector.Error as err:
             if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:
                 if drop:
@@ -306,9 +321,9 @@ class RemoteDB:
                     except:
                         pass
 
-                    logger.info(" Table [{}] has been successfully created ".format(tablename))
+                    logger.info("Table [{}] has been  created successfully".format(tablename))
                 else:
-                    logger.error(f' Table [{tablename}] already exists.')
+                    logger.error(f'Table [{tablename}] already exists.')
             else:
                 logger.error(f' {err.msg}')
 
@@ -331,7 +346,7 @@ class RemoteDB:
             logger.error(f"{ex}")
 
         else:
-            logger.info(f" Table {tablename} loaded successfully to  Dataframe")
+            logger.info(f"Table {tablename} loaded successfully to  Dataframe")
 
         finally:
             self.cursor.close()
@@ -367,12 +382,15 @@ class RemoteDB:
         if dbcon is None:
             self.conn = self._connect()
             dbcon = self.conn
-
-        self.cursor = dbcon.cursor()
-        sql_select_query = "select * from  {}".format(tablename)
-        self.cursor.execute(sql_select_query)
-        field_names = [i[0] for i in cursor.description]
-        self.cursor.close()
+        try :
+            self.cursor = dbcon.cursor()
+            sql_select_query = "select * from  {}".format(tablename)
+            self.cursor.execute(sql_select_query)
+            field_names = [i[0] for i in cursor.description]
+        except Exception as ex:
+            logger.error(f"{ex}")
+        finally:
+            self.cursor.close()
         return field_names
 
     def get_structrure(self, tablename, struc_id, dbcon=None):
@@ -404,3 +422,97 @@ class RemoteDB:
             atms.append(atm)
         self.cursor.close()
         return atms
+
+    def get_value(self, tablename, colname, id_col, struc_id, dbcon=None):
+        """
+        :param tablename: name of the table
+        :param colname: column to check
+        :param id_col: name of the column with structure id
+        :param struc_id: id of the structure == row
+        :param dbcon: connection to db
+        :return: return value of column [colname] at row [struc_id]
+        """
+        if dbcon is None:
+            self.conn = self._connect()
+            dbcon = self.conn
+
+
+        try:
+            self.cursor = dbcon.cursor()
+            sql_select_query = f"select {colname} from  {tablename} where {id_col} ={struc_id} "
+            self.cursor.execute(sql_select_query)
+            record = self.cursor.fetchall()
+            return record[0][0]
+        except Exception as ex:
+            logger.error(f"{ex}")
+        finally:
+            self.cursor.close()
+
+
+    def add_column(self,tablename, colname, coltype, dbcon=None):
+        """
+        add column in a table
+        :param tablename:
+        :param colname:
+        :param coltype: type off the colunm to add
+        :param dbcon:
+        :return:
+        """
+
+        if dbcon is None:
+            self.conn = self._connect()
+            dbcon = self.conn
+        try:
+            self.cursor = dbcon.cursor()
+            sql = f'ALTER TABLE  {tablename} ADD {colname} {coltype}'
+            self.execute(sql)
+            logging.info(f'Table [{tablename}] altered with column [{colname}]')
+        except Exception as ex:
+            logger.error(f"{ex}")
+        finally:
+            self.cursor.close()
+
+    def drop_column(self,tablename, colname, dbcon=None):
+        """
+        drop a column in a table
+        :param tablename:
+        :param colname:
+        :param dbcon:
+        :return:
+        """
+
+        if dbcon is None:
+            self.conn = self._connect()
+            dbcon = self.conn
+        try:
+            self.cursor = dbcon.cursor()
+            sql = f'ALTER TABLE  {tablename} DROP COLUMN  {colname}'
+            self.execute(sql)
+            logging.info(f' column [{colname}] in table [{tablename}]')
+        except Exception as ex:
+            logger.error(f"{ex}")
+        finally:
+            self.cursor.close()
+
+    def insert_value(self,tablename, colname, val,id_col, struc_id, dbcon=None):
+        """
+        :param tablename:
+        :param colname:
+        :param val:
+        :param id_col:
+        :param struc_id:
+        :param dbcon:
+        :return:
+        """
+
+        if dbcon is None:
+            self.conn = self._connect()
+            dbcon = self.conn
+        try:
+            self.cursor = dbcon.cursor()
+            sql = f'UPDATE   {tablename} SET  {colname}= {val} WHERE {id_col}={struc_id}'
+            self.cursor.execute(sql)
+        except Exception as ex:
+            logger.error(f"{ex}")
+        finally:
+            self.cursor.close()
