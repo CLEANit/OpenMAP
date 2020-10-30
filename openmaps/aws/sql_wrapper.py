@@ -1,7 +1,8 @@
 
-#!/usr/bin/env python
-
+__version__='0.1'
 __author__ = 'Conrard TETSASSI'
+__maintainer__='Conrard TETSASSI'
+
 
 import logging
 
@@ -13,7 +14,7 @@ import mysql.connector
 from mysql.connector import errorcode
 from ase import Atoms
 
-from openmaps.ParamikoTools.log import logger
+from openmaps.computing.log import logger
 #logger = logging.getLogger(__name__)
 
 
@@ -48,15 +49,15 @@ class RemoteDB:
 
         if self.conn is None:
             try:
-                logger.info("Opening connection to AWS database")
+                logger.info("Opening connection to aws database")
                 self.conn = mysql.connector.connect(host=self.host,
                                                     user=self.user,
                                                     port=self.port,
                                                     password=self.password,
                                                     database=self.dbname)
-                logger.info("Connection established to AWS:    database  [{}]".format(self.dbname))
+                logger.info("Connection established to aws:    database  [{}]".format(self.dbname))
             except mysql.connector.Error as error:
-                logger.error("Authentication to  AWS-MySQL table failed  : {}".format(error))
+                logger.error("Authentication to  aws-MySQL table failed  : {}".format(error))
                 raise error
             except TimeoutError as e:
                 logger.error(f'Timeout.. trying again.')
@@ -201,7 +202,7 @@ class RemoteDB:
 
 
         try:
-            logger.info(f"Writing  [{tablename}] table  to AWS")
+            logger.info(f"Writing  [{tablename}] table  to aws")
             df.to_sql(name=tablename,
                       con=engine,
                       if_exists='append',

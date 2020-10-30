@@ -6,14 +6,15 @@
 
 import json
 import yaml
-from openmaps.AWS import sql_wrapper  # RemoteDB
-from openmaps.Tools.category_writer import CategoryWriter
-from openmaps.Tools.Fetch_data_online import FetchData
+from aws import sql_wrapper  # RemoteDB
+from core.category_writer import CategoryWriter
+from core.Fetch_data_online import FetchData
 import argparse
 
 from pymatgen import Composition
 from matminer.featurizers.composition import ElementFraction
 
+from ChemOs.phoenics_inc import gryffin as Gryffin
 
 # ===============================================================================
 
@@ -49,7 +50,7 @@ parser.add_argument('--config1',
                     metavar='path',
                     dest='ChemOs',
                     type=str,
-                    default='./Configuration/config.json',
+                    default='./configuration/config.json',
                     action='store',
                     help='the path to  ChemOs config file')
 
@@ -57,7 +58,7 @@ parser.add_argument('--config2',
                     metavar='path',
                     dest='HPC',
                     type=str,
-                    default='./Configuration/HPC_config.yml',
+                    default='./configuration/HPC_config.yml',
                     action='store',
                     help='the path to  HPC config file')
 
@@ -65,7 +66,7 @@ parser.add_argument('--config3',
                     metavar='path',
                     dest='DataBase',
                     type=str,
-                    default='./Configuration/DataBase_config.yml',
+                    default='./configuration/DataBase_config.yml',
                     action='store',
                     help='the path to  Data Base config file')
 
@@ -73,7 +74,7 @@ parser.add_argument('--query',
                     metavar='path',
                     dest='query',
                     type=str,
-                    default='./Configuration/Query.yml',
+                    default='./configuration/Query.yml',
                     action='store',
                     help='the path to  query file')
 
@@ -105,7 +106,7 @@ HPC_CONFIG = yaml.safe_load(open(args.HPC).read())
 DataBase_CONFIG= yaml.safe_load(open(args.DataBase).read())
 query = yaml.safe_load(open(args.query).read())
 #BATCH_SIZE = args.batch_size
-# params = yaml.safe_load(open("Tools/data/miedema.yml").read())
+# params = yaml.safe_load(open("core/data/miedema.yml").read())
 seed = args.seed
 
 
@@ -185,7 +186,7 @@ category_writer.generate_descriptors(data_df, id_colm=id_colm)
 category_writer.write_categories(home_dir='../', with_descriptors=False)
 
 # initialize Gryffin
-gryffin = gryffin.Phoenics(ChemOs_CONFIG_FILE, random_seed=seed)
+gryffin = Gryffin.Phoenics(ChemOs_CONFIG_FILE, random_seed=seed)
 #
 # # main loop
 # evaluations = 0

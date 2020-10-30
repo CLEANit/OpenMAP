@@ -1,4 +1,4 @@
-from openmaps.Tools import PyVasp
+from openmaps.core import pyvasp
 
 import os.path
 
@@ -21,10 +21,10 @@ def parse_file(filename):
         pass
 
     elif ext == ".xml":
-        file = PyVasp.Vasp(filename)
+        file = pyvasp.Vasp(filename)
 
     elif filename == 'OUTCAR':
-        file = PyVasp.Vasp(filename)
+        file = pyvasp.Vasp(filename)
 
     if file is None:
         raise Exception("Error in parse_file for file ['%s']" % filename)

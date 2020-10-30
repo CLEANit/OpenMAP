@@ -3,8 +3,9 @@
 
 #python_version >= 3.6
 pip >= 20.2.4
+
 scipy>=1.4.1
-#pytest >=
+pytest >=6.1.2
 numpy >=1.19.2
 ase>=3.20.1
 pymatgen >=2020.9.14
@@ -25,5 +26,14 @@ pyyaml>=5.3.1
 tensorflow-probability>=0.7
 
 
+flake8-quotes>=3.2.0
+flake8>=3.8.4
+autopep8 >=1.5.4
+sphinx>=3.2.1
+sphinxcontrib-programoutput>=0.16
+
+setuptools>=49.2.0
+prompt_toolkit>=3.0.8
+#h5py
 
 

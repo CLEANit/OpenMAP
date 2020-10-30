@@ -1,0 +1,26 @@
+# allocation1:
+    #   host: hostname
+    #   key: key needed for identifying allocation
+    #   users:
+    #       - user1
+    #       - user2
+    # allocation2: ...
+    
+cedar:
+  host: cedar.computecanada.ca
+  key: ''
+  users: []
+
+graham:
+  host: graham.computecanada.ca
+  key: ''
+  users: []
+niagara:
+  host: niagara.computecanada.ca
+  key: ''
+  users: []
+orca:
+  host: orca.computecanada.ca
+  key: ''
+  users: []
+
