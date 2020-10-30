@@ -1,0 +1,20 @@
+# user1:
+    #   hostname1:
+    #       run_path:/where/to/run/on/host1
+    #       username: usernameonhost1
+    #   hostname2: 
+    #       run_path:/where/to/run/on/host2
+    #       username: usernameonhost2
+    # user2:
+    #   hostname1: ...
+    
+alz6518:
+  josquin:
+    run_path: /home/alz6518/oqmd_autorun
+    username: alz6518
+  palestrina:
+    run_path: /home/alz6518/oqmd_autorun
+    username: alz6518
+  quest:
+    run_path: /home/alz6518/oqmd_autorun
+    username: alz6518

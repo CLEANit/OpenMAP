@@ -13,11 +13,11 @@ Running the tests
 
 Running the code
     Run the usage_demo function in a command window or individual functions in
-    the Python shell to make calls to your AWS account.
+    the Python shell to make calls to your aws account.
     For instructions on running the code, see the README.
 
 Additional information
-    Running this code might result in charges to your AWS account.
+    Running this code might result in charges to your aws account.
 """
 
 import json
@@ -28,7 +28,7 @@ import uuid
 
 from botocore.exceptions import ClientError
 
-from openmaps.AWS import bucket_wrapper
+from openmaps.aws import bucket_wrapper
 
 logger = logging.getLogger(__name__)
 
@@ -214,7 +214,7 @@ def empty_bucket(bucket):
 
 def put_acl(bucket, object_key, email):
     """
-    Applies an ACL to an object that grants read access to an AWS user identified
+    Applies an ACL to an object that grants read access to an aws user identified
     by email address.
 
     Usage is shown in usage_demo at the end of this module.
@@ -308,7 +308,7 @@ def usage_demo():
             print("Couldn't apply the ACL to the object because the specified "
                   "email is for a test user who does not exist. For this request to "
                   "succeed, you must replace the user email with one for an "
-                  "actual AWS user.")
+                  "actual aws user.")
         else:
             raise
 
@@ -320,7 +320,7 @@ def usage_demo():
 
 
 def main():
-    go = input("Running the usage demonstration uses your default AWS account "
+    go = input("Running the usage demonstration uses your default aws account "
                "credentials and might incur charges on your account. Do you want "
                "to continue (y/n)? ")
     if go.lower() == 'y':

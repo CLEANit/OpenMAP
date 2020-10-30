@@ -9,7 +9,7 @@ from pymatgen.io.vasp.sets import MPStaticSet
 
 # ===================================================
 
-from openmaps.ParamikoTools.qsub_vasp import write_vasp_slurm_job
+from openmaps.computing.qsub_vasp import write_vasp_slurm_job
 
 # ===================================================
 

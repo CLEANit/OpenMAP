@@ -1,0 +1,1 @@
+#git+ssh://https://github.com/CLEANit/OpenMaps.git

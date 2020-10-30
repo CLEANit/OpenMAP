@@ -1,0 +1,18 @@
+Metadata-Version: 1.0
+Name: nachos
+Version: 0.1
+Summary: 
+NACHOS: numerical differentiation code
+
+Home-page: UNKNOWN
+Author: Conrard TETSASSI
+Author-email: ConrardGiresse.TetsassiFeugmo@nrc-cnrc.gc.ca
+License: UNKNOWN
+Description-Content-Type: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: Environment :: Scientific
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3

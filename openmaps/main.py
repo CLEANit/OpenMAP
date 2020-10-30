@@ -18,12 +18,12 @@ from pymatgen.io.vasp.inputs import Kpoints
 from pymatgen.io.vasp.inputs import Incar
 from pymatgen.io.vasp.outputs import Vasprun
 
-from openmaps.ParamikoTools import client, files, qsub_vasp
-from openmaps.AWS import sql_wrapper
-from openmaps.ParamikoTools.log import logger
+from openmaps.computing import client, files, qsub_vasp
+from openmaps.aws import sql_wrapper
+from openmaps.computing.log import logger
 
-from openmaps.Tools import Parser
-from openmaps.Tools import Properties
+from openmaps.core import parser
+from openmaps.core import properties
 
 from config_remote_client import (
     host,
@@ -312,8 +312,8 @@ def get_objective(jobs, prop_name):
 
         if os.path.isfile(file_path):
             try:
-                file = Parser.parse_file(file_path)
-                prop = Properties.Property(file)
+                file = parser.parse_file(file_path)
+                prop = properties.Property(file)
                 objective = prop.get_property(prop_name)
                 objectives.append(objective)
             except:

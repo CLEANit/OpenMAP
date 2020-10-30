@@ -13,11 +13,11 @@ Running the tests
 
 Running the code
     Run the usage_demo function in a command window or individual functions in
-    the Python shell to make calls to your AWS account.
+    the Python shell to make calls to your aws account.
     For instructions on running the code, see the README.
 
 Additional information
-    Running this code might result in charges to your AWS account.
+    Running this code might result in charges to your aws account.
 """
 
 import json
@@ -144,7 +144,7 @@ def delete_bucket(bucket):
 
 def grant_log_delivery_access(bucket_name):
     """
-    Grant the AWS Log Delivery group write access to the specified bucket so that
+    Grant the aws Log Delivery group write access to the specified bucket so that
     Amazon S3 can deliver access logs to the bucket. This is the only recommended
     use of an S3 bucket ACL.
 
@@ -382,7 +382,7 @@ def delete_lifecycle_configuration(bucket_name):
 def generate_presigned_post(bucket_name, object_key, expires_in):
     """
     Generate a presigned Amazon S3 POST request to upload a file.
-    A presigned POST can be used for a limited time to let someone without an AWS
+    A presigned POST can be used for a limited time to let someone without an aws
     account upload a file to a bucket.
 
     Usage is shown in usage_demo at the end of this module.
@@ -410,7 +410,7 @@ def generate_presigned_url(bucket_name, client_method, method_parameters,
     """
     Generate a presigned Amazon S3 URL that can be used to perform an action on
     a bucket. A presigned URL can be used for a limited time to let someone without
-    an AWS account perform an action.
+    an aws account perform an action.
 
     Usage is shown in usage_demo at the end of this module.
 
@@ -478,7 +478,7 @@ def usage_demo():
         'Id': str(uuid.uuid1()),
         'Statement': [{
             'Effect': 'Allow',
-            'Principal': {'AWS': 'arn:aws:iam::111122223333:user/Martha'},
+            'Principal': {'aws': 'arn:aws:iam::111122223333:user/Martha'},
             'Action': [
                 's3:GetObject',
                 's3:ListBucket'
@@ -498,7 +498,7 @@ def usage_demo():
         if error.response['Error']['Code'] == 'MalformedPolicy':
             print("Couldn't put the policy because the specified principal user does "
                   "not exist. For this request to succeed, you must replace the user "
-                  "ARN with an actual AWS user.")
+                  "ARN with an actual aws user.")
         else:
             raise
 
@@ -533,7 +533,7 @@ def usage_demo():
 
 
 def main():
-    go = input("Running the usage demonstration uses your default AWS account "
+    go = input("Running the usage demonstration uses your default aws account "
                "credentials and might incur charges on your account. Do you want "
                "to continue (y/n)? ")
     if go.lower() == 'y':
