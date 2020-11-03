@@ -1,0 +1,3 @@
+   Account      User        JobID               Start                 End  AllocCPUS    Elapsed                      AllocTRES    CPUTime     AveRSS     MaxRSS MaxRSSTask MaxRSSNode        NodeList ExitCode                State
+---------- --------- ------------ ------------------- ------------------- ---------- ---------- ------------------------------ ---------- ---------- ---------- ---------- ---------- --------------- -------- --------------------
+rrg-mkart+  ctetsass 54071355                 Unknown             Unknown          4   00:00:00                                  00:00:00                                               None assigned      0:0              PENDING
