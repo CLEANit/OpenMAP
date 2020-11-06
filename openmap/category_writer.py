@@ -51,11 +51,11 @@ class CategoryWriter(object):
             json.dump(descriptors, fp, indent=6)
 
         if len(descriptors) != 0:
-            logger.info(f'Descriptors generated')
+            logger.info(f'Generation of descriptors completed')
 
     def write_categories(self, home_dir, with_descriptors=True):
         self.json_file = json.loads(open('{}.json'.format(self.project_name), 'r').read())
-        logger.info(' File [{}.json] have been written  '.format(self.project_name))
+        logger.info('The file [{}.json] has been created successfully'.format(self.project_name))
         self.opts = {self.project_name: self.json_file}
         for param_name in self.param_names:
             opt_list = []
@@ -75,7 +75,7 @@ class CategoryWriter(object):
             with open(cat_details_file, 'wb') as content:
                 pickle.dump(opt_list, content)
 
-            logger.info(f'Categories detail file [{dir_name}/cat_details_{param_name}.pkl]  have been written')
+            logger.info(f'The file[{dir_name}/cat_details_{param_name}.pkl]  has been created successfully')
 
 
 # =================================================================

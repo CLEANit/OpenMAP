@@ -2,7 +2,7 @@ import numpy as np
 from pymatgen.io.vasp.outputs import Vasprun
 
 
-# from core import Constants
+# from analysis import Constants
 
 class Vasp(object):
     """

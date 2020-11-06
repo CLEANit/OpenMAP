@@ -5,4 +5,4 @@ user: "ase_aws"
 password: "soraya09"
 tablename: "metal_oxyde"
 #features: ['Ag', 'Pd'] # list of features to include in the model
-structure_id : 'map_id' # name of the column with the structure id
+id_colm : 'map_id' # name of the column with the structure id

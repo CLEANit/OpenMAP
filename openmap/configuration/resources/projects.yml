@@ -10,15 +10,13 @@
     
 OER:
   allocations:
-  - nigara
-  - cedar
-  - graham
+    - def-itamblyn-ac
+    - def-mkarttu
+    - rrg-mkarttu-ab
   priority: 1
   users: []
 HEA:
   allocations:
-  - nigara
-  - cedar
-  - graham
+  - rrg-itamblyn-ab
   priority: 0
   users: []

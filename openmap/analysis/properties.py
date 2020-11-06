@@ -7,6 +7,48 @@ from pymatgen.io.vasp.outputs import Outcar
 PROPERTIES = ["final_energy", "volume", "energy_per_atom"]
 
 
+def prepare_results(jobs):
+    """ get all of the results of the previous batch ready to be inserted into the DB
+        will return a list of dictionaries
+    """
+    results = []
+    for job in jobs:
+        vrun = Vasprun(filename=os.path.join(job["local_path"], 'vasp_output/vasprun.xml'))
+        energy = vrun.final_energy
+        volume = vrun.final_structure.volume
+        abc = vrun.final_structure.lattice.abc
+        mol_dict = {'energy': energy, 'volume': volume, 'abc': abc}
+        results.append(mol_dict)
+
+    return results
+
+
+def get_objective(jobs, prop_name):
+    objectives = []
+    for job in jobs:
+
+        file_path = os.path.join(job["local_path"], 'vasp_output/vasprun.xml')
+
+        if os.path.isfile(file_path):
+            try:
+                file = parser.parse_file(file_path)
+                prop = properties.Property(file)
+                objective = prop.get_property(prop_name)
+                objectives.append(objective)
+            except:
+                print("Unable to read  {}".format(file_path))
+                objectives.append(None)
+                continue
+
+        else:
+            print("The file {} does not exist".format(file_path))
+            objectives.append(None)
+            continue
+    return objectives
+
+
+
+
 def get_property_names(name):
     """
     param:name:either usual name or operator name of a property
@@ -68,3 +110,5 @@ class ListProperty(object):
             props[key] = self.properties[key].get_property(name)
 
         return props
+
+

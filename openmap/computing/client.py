@@ -173,7 +173,7 @@ class RemoteClient:
         """
         self.conn = self._connect()
         uploads = [self._upload_single_file(file) for file in files]
-        logger.info(f' All the {len(uploads)}  files  uploaded to {self.host} +++')
+        logger.info(f'All the {len(uploads)}  files  uploaded to {self.host} +++')
 
     def _upload_single_file(self, file):
         """Upload a single file to a remote directory."""
@@ -212,7 +212,7 @@ class RemoteClient:
         if local_directory is None:
             local_directory = self.local_directory
         self.scp.get(file, local_directory, recursive=True)
-        logger.info(f' [{file}] downloaded  from {self.host}')
+        logger.info(f'[{file}] downloaded  from {self.host}')
 
     @logger.catch
     def execute_commands(self, commands):
@@ -279,7 +279,7 @@ class RemoteClient:
             self.mkdir_p(dirname)  # make parent directories
             self.sftp.mkdir(basename)  # sub-directory missing, so created it
             self.sftp.chdir(basename)
-            logger.info(f' Creation of  dir [{basename}] terminated  on {self.host} ')
+            logger.info(f'Successfully   created  dir [{basename}]   on {self.host} ')
             return True
 
     @logger.catch
@@ -370,7 +370,7 @@ class RemoteClient:
                 logger.info(f' {id}:  {status}')
             #
             if all(status == 'COMPLETED' for status in status_list):
-                logger.info(f' All Jobs COMPLETED')
+                logger.info(f'All Jobs COMPLETED')
                 continue
             else:
                 sleeptime = 120
@@ -420,7 +420,7 @@ class RemoteClient:
         State: COMPLETED (exit code 0)
         Cores: 1
         CPU Utilized: 00:15:55
-        CPU Efficiency: 17.04% of 01:33:23 core-walltime
+        CPU Efficiency: 17.04% of 01:33:23 analysis-walltime
         Job Wall-clock time: 01:33:23
         Memory Utilized: 446.20 MB
         Memory Efficiency: 8.71% of 5.00 GiB

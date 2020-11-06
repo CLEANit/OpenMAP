@@ -1,8 +1,7 @@
 import yaml
 import os, os.path
 from .inputs import *
-from qmpy import INSTALL_PATH
-
+from openmap import INSTALL_PATH
 vs_path = os.path.dirname(os.path.abspath(__file__))
 thubbards = yaml.safe_load(open(vs_path + "/hubbards.yml").read())
 hubbards = {}

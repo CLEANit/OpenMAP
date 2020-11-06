@@ -20,9 +20,9 @@ def job_descriptor(nb_atoms, job_type):
     return job_description
 
 
-def write_slurm_from_file(inputfiles_path, file):
+def write_slurm_from_file(input_path, file):
     """
-    :param inputfiles_path: path to write the slurm job file
+    :param input_path: path to write the slurm job file
     :param file: template slurm job file
     :return:
     """
@@ -30,12 +30,12 @@ def write_slurm_from_file(inputfiles_path, file):
     ifile = open(file, "r")
     script = ifile.readlines()
     ifile.close()
-    if not os.path.isdir(inputfiles_path):
-        raise Exception("The directory {} does not exist".format(inputfiles_path))
+    if not os.path.isdir(input_path):
+        raise Exception("The directory {} does not exist".format(input_path))
 
-    basename = os.path.basename(os.path.normpath(inputfiles_path))
+    basename = os.path.basename(os.path.normpath(input_path))
 
-    outputfile = os.path.join(inputfiles_path, basename + "_vasp_job.sh")
+    outputfile = os.path.join(input_path, basename + "_vasp_job.sh")
 
     jobname = basename
     for line in script:
@@ -46,19 +46,21 @@ def write_slurm_from_file(inputfiles_path, file):
     ofile.close()
 
 
-def write_slurm_job(inputfiles_path, job_description, gpu=0):
+def write_slurm_job(input_path, job_description, gpu=0):
     """"
     inputfiles_path : path to write the slurm job file
     job_description : dictionary with the parameters of the job
     gpu : boolean, gpu or not
     """
     # for path_dir in glob.glob(os.path.join(inputfiles_path,'{}s*/'.format(project_name):
-    if not os.path.isdir(inputfiles_path):
-        raise Exception("The directory {} does not exist".format(inputfiles_path))
+    if not os.path.isdir(input_path):
+        raise Exception("The directory {} does not exist".format(input_path))
 
-    basename = os.path.basename(os.path.normpath(inputfiles_path))
+    basename = os.path.basename(os.path.normpath(input_path))
 
-    outputfile = os.path.join(inputfiles_path, basename + "_vasp_job.sh")
+    outputfile = os.path.join(input_path, basename + "_vasp_job.sh")
+
+    aws_file = os.path.join(input_path, basename + "_aws_job.py")
 
     jobname = basename
 
@@ -93,6 +95,7 @@ def write_slurm_job(inputfiles_path, job_description, gpu=0):
     # ./vasp_input/POSCAR
 
     script += "export proj={} # Name of job folder\n".format('vasp_input')
+    script += "tar xvf {}".format('vasp_input')
     script += "input=$(ls ${proj}/{INCAR,KPOINTS,POTCAR,POSCAR})  # Input files from job folder\n"
     script += "\n\n"
     # We load all the default program system settings with module load:
@@ -119,7 +122,7 @@ def write_slurm_job(inputfiles_path, job_description, gpu=0):
     if gpu:
         script += "mpiexec <VASP>\n"
     else:
-        script += "time srun $HOME/bin/vasp/vasp_std\n"
+        script += "time srun {}\n".format(job_description["binary"])
 
     script += "\n\n"
 
@@ -133,20 +136,23 @@ def write_slurm_job(inputfiles_path, job_description, gpu=0):
     script += "cp  CONTCAR POSCAR\n"
     script += "rm -f $out\n"
     script += "sed -i 's/ISMEAR = 1/ISMEAR = -5/'g INCAR\n"
-    script += "time srun $HOME/bin/vasp/vasp_std\n"
+    script += "time srun {}\n".format(job_description["binary"])
     script += " mkdir -p vasp_output\n"
     # script += "cp $out vasp_output\n"
     script += "cp * vasp_output\n"
-    script += "cp -r vasp_output  $SLURM_SUBMIT_DIR\n"
-
+    script += "tar - czvf  vasp_output.tar.gz vasp_output\n"
+    script += "cp -r vasp_output.tar.gz  $SLURM_SUBMIT_DIR\n"
     # script += "    cp OUTCAR $SLURM_SUBMIT_DIR/${proj}.OUTCAR \n"
     # To zip some of the output might be a good idea!
     # gzip results.gz OUTCAR
     # mv $results.gz $submitdir/
 
     script += "cd  $SLURM_SUBMIT_DIR\n"
-    script += "mv *.err *.out  vasp_output\n"
+    #script += "mv *.err *.out  vasp_output\n"
     script += "rm -r $VASP_WORKDIR\n"
+    script += "\n\n"
+    script += "source ~/ENV_PYTHON/bin/activate\n"
+    script += "python  {}\n".format(aws_file)
 
     script += "\n\n"
     ofile = open(outputfile, "w")
