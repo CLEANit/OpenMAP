@@ -8,13 +8,8 @@
     # user2:
     #   hostname1: ...
     
-alz6518:
-  josquin:
-    run_path: /home/alz6518/oqmd_autorun
-    username: alz6518
-  palestrina:
-    run_path: /home/alz6518/oqmd_autorun
-    username: alz6518
-  quest:
-    run_path: /home/alz6518/oqmd_autorun
-    username: alz6518
+ctetsass:
+  cedar:
+    run_path: /home/ctetsass/scratch
+    username: ctetsass
+

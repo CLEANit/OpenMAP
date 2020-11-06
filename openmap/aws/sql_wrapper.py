@@ -3,7 +3,7 @@ import logging
 
 import pandas as pd
 import getpass
-import  sqlalchemy
+import sqlalchemy
 import pickle
 import mysql.connector
 from mysql.connector import errorcode
@@ -501,3 +501,35 @@ class RemoteDB:
             logger.error(f"{ex}")
         finally:
             self.cursor.close()
+
+    @logger.catch
+    def monitor_batch(self, jobs):
+        """
+        :param jobs: list of dictionary with job information
+        :return:
+        """
+        status_list = [None for job in jobs]
+        while not all(status == 'COMPLETED' for status in status_list):
+            status_list = [self.sacct(job["id"]) for job in jobs]
+            job_ids = [job["id"] for job in jobs]
+            for id, status in zip(job_ids, status_list):
+                logger.info(f' {id}:  {status}')
+            #
+            if all(status == 'COMPLETED' for status in status_list):
+                logger.info(f'All Jobs COMPLETED')
+                continue
+            else:
+                sleeptime = 120
+                countdown(sleeptime)
+        for job in jobs:
+            if not self.check_remote_dir(job["remote_path"]):
+                print(f'The file {job["remote_path"]} does not exist')
+                continue
+            self.download_file(job["remote_path"] + '/' + job["output"], local_directory=job["local_path"])
+            self.clean_dir(job["remote_path"])
+            logger.info(f'Job:  {job["name"]}  Cleaned on {self.host}')
+        # for job in jobs:
+        #    self.clean_dir(job.remote_path)
+        #    logger.info(f'file: {job.name}  Cleaned on {self.host}')
+        logger.info(f'Task completed')
+        return None

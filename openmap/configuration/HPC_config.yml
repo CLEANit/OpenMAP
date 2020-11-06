@@ -2,7 +2,7 @@ host: "cedar.computecanada.ca" # ('REMOTE_HOST')
 user: "ctetsass" # ('REMOTE_USERNAME') getpass.getuser()
 account: "rrg-mkarttu-ab"
 ssh_key_filepath: "~/.ssh/id_rsa" # ('SSH_KEY')
-#remote_path: "os.path.join('/home/ctetsass/scratch/OpenMap', project_name)"  # ('REMOTE_PATH')
+#remote_path: "os.path.join('/home/ctetsass/scratch/OpenMaps', project_name)"  # ('REMOTE_PATH')
 remote_path: "$SCRATCH"
 passphrase: "Gastipard_Isaro" # getpass.getpass()
 #passphrase = None

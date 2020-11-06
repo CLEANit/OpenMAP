@@ -15,7 +15,7 @@ for pkg in parse_requirements('requirements.txt', session=session):
 
 setup(
     name='openmap',
-    packages=['openmap', 'openmap.core', 'openmap.computing', 'openmap.aws'],
+    packages=['openmap', 'openmap.analysis', 'openmap.computing', 'openmap.aws'],
     version=openmap.__version__,
     author=openmap.__author__,
     author_email=openmap.__email__,

@@ -1,4 +1,4 @@
-from openmap.core import pyvasp
+from openmap.analysis import pyvasp
 
 import os.path
 

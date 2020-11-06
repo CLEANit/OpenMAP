@@ -1,0 +1,39 @@
+import os
+import mysql.connector
+from mysql.connector import errorcode
+
+host="@host"
+port=@port
+dbname="@dbname"
+user="@user"
+password="@password"
+
+connection =  mysql.connector.connect(host=host,
+                                user=user,
+                                port=port,
+                                password=password,
+                                database=dbname)
+
+tablename="@tablename"
+colname="@colname"
+val=@val
+id_col="@id_col"
+struc_id="@struc_id"
+
+
+
+
+
+def insert_value(tablename, colname, val, id_col, struc_id, dbcon=connection):
+    try:
+        self.cursor = dbcon.cursor()
+        sql = f'UPDATE   {tablename} SET  {colname}= {val} WHERE {id_col}={struc_id}'
+        self.cursor.execute(sql)
+    except Exception as ex:
+        logger.error(f"{ex}")
+    finally:
+        self.cursor.close()
+
+
+
+
