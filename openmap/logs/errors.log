@@ -5,3 +5,101 @@
 [SQL: INSERT INTO metal_oxyde (map_id, material_id, pretty_formula, elements, nelements, energy_per_atom, band_gap, density, oxide_type, total_magnetization) VALUES (%(map_id)s, %(material_id)s, %(pretty_formula)s, %(elements)s, %(nelements)s, %(energy_per_atom)s, %(band_gap)s, %(density)s, %(oxide_type)s, %(total_magnetization)s)]
 [parameters: ({'map_id': 'mvc-844', 'material_id': 'mvc-844', 'pretty_formula': 'Mn2O3', 'elements': ['Mn', 'O'], 'nelements': 2, 'energy_per_atom': -7.3406941675, 'band_gap': 0.0, 'density': 4.382243548995705, 'oxide_type': 'oxide', 'total_magnetization': 8.000000025}, {'map_id': 'mp-766493', 'material_id': 'mp-766493', 'pretty_formula': 'Mn21O40', 'elements': ['Mn', 'O'], 'nelements': 2, 'energy_per_atom': -7.160613557540983, 'band_gap': 0.0, 'density': 4.151273859551081, 'oxide_type': 'oxide', 'total_magnetization': 66.9503328}, {'map_id': 'mp-755489', 'material_id': 'mp-755489', 'pretty_formula': 'MnO2', 'elements': ['Mn', 'O'], 'nelements': 2, 'energy_per_atom': -7.114962356666666, 'band_gap': 0.8803000000000001, 'density': 4.48262523662879, 'oxide_type': 'oxide', 'total_magnetization': 3.0000000125}, {'map_id': 'mp-1221945', 'material_id': 'mp-1221945', 'pretty_formula': 'Mn8O17', 'elements': ['Mn', 'O'], 'nelements': 2, 'energy_per_atom': -6.9339155424, 'band_gap': 0.4111, 'density': 4.107996444443779, 'oxide_type': 'oxide', 'total_magnetization': 26.0000001}, {'map_id': 'mvc-6353', 'material_id': 'mvc-6353', 'pretty_formula': 'MnO2', 'elements': ['Mn', 'O'], 'nelements': 2, 'energy_per_atom': -6.898135588541667, 'band_gap': 0.0, 'density': 4.108121265524473, 'oxide_type': 'oxide', 'total_magnetization': 3.00000000625}, {'map_id': 'mvc-5444', 'material_id': 'mvc-5444', 'pretty_formula': 'MnO2', 'elements': ['Mn', 'O'], 'nelements': 2, 'energy_per_atom': -7.047743835833334, 'band_gap': 0.0, 'density': 4.125804352092269, 'oxide_type': 'oxide', 'total_magnetization': 3.0000000083333336}, {'map_id': 'mp-778470', 'material_id': 'mp-778470', 'pretty_formula': 'Mn2O3', 'elements': ['Mn', 'O'], 'nelements': 2, 'energy_per_atom': -7.4892511417500005, 'band_gap': 0.0, 'density': 4.442862741381253, 'oxide_type': 'oxide', 'total_magnetization': 8.000083396875}, {'map_id': 'mp-1279979', 'material_id': 'mp-1279979', 'pretty_formula': 'MnO2', 'elements': ['Mn', 'O'], 'nelements': 2, 'energy_per_atom': -7.13045736, 'band_gap': 1.9372000000000003, 'density': 2.7966437080467568, 'oxide_type': 'oxide', 'total_magnetization': 2.9997434}  ... displaying 10 of 321 total bound parameter sets ...  {'map_id': 'mp-1035281', 'material_id': 'mp-1035281', 'pretty_formula': 'Mg14CoNiO16', 'elements': ['Co', 'Mg', 'Ni', 'O'], 'nelements': 4, 'energy_per_atom': -5.9259530765625, 'band_gap': 2.0385, 'density': 3.8551661320009853, 'oxide_type': 'oxide', 'total_magnetization': 1.0088771}, {'map_id': 'mp-1037175', 'material_id': 'mp-1037175', 'pretty_formula': 'Mg30CoNiO32', 'elements': ['Co', 'Mg', 'Ni', 'O'], 'nelements': 4, 'energy_per_atom': -5.95612836265625, 'band_gap': 2.7986000000000004, 'density': 3.6632758576956985, 'oxide_type': 'oxide', 'total_magnetization': 1.0429446})]
 (Background on this error at: http://sqlalche.me/e/13/e3q8)[0m
+[96m11-16-2020 17:16:52[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m'RemoteDB' object has no attribute 'execute'[0m
+[96m11-16-2020 17:16:54[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-16-2020 17:16:54[0m |         [96morchestrator[0m -         [96m__main__[0m | 		[91mERROR[0m: 		[97mAn error has been caught in function '<module>', process 'MainProcess' (243346), thread 'MainThread' (140699419137856):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+> File "[32m/home/ctetsass/OpenMaps/openmap/[0m[32m[1morchestrator.py[0m", line [33m198[0m, in [35m<module>[0m
+    [1mjob_paths[0m [35m[1m=[0m [1minputgenerator[0m[35m[1m.[0m[1mvasp_input_from_structure[0m[1m([0m[1msample_id_list[0m[1m,[0m [1mstructures[0m[1m,[0m [1mobjective_name[0m[1m)[0m
+    [36m            │              │                         │               │           └ [0m[36m[1m'total_magnetization'[0m
+    [36m            │              │                         │               └ [0m[36m[1m[Structure Summary[0m
+    [36m            │              │                         │                 [0m[36m[1mLattice[0m
+    [36m            │              │                         │                 [0m[36m[1m    abc : 5.6100384986608605 5.6100384986608605 8.551685[0m
+    [36m            │              │                         │                 [0m[36m[1m angles : 90.0 90.0 120.00000588073264[0m
+    [36m            │              │                         │                 [0m[36m[1m v...[0m
+    [36m            │              │                         └ [0m[36m[1m['mp-755508'][0m
+    [36m            │              └ [0m[36m[1m<function InputGenerator.vasp_input_from_structure at 0x7ff6cd616d30>[0m
+    [36m            └ [0m[36m[1m<openmap.computing.input_generator.InputGenerator object at 0x7ff6cc34fa00>[0m
+
+  File "[32m/home/ctetsass/OpenMaps/openmap/computing/[0m[32m[1minput_generator.py[0m", line [33m52[0m, in [35mvasp_input_from_structure[0m
+    [1msetting_file[0m [35m[1m=[0m [1mvasp_calculations[0m[1m[[0m[1mproperties[0m[1m][0m
+    [36m               │                 └ [0m[36m[1m'total_magnetization'[0m
+    [36m               └ [0m[36m[1m{'static': 'static', 'relaxation': 'relaxation', 'magnetization': 'magmom'}[0m
+
+[31m[1mKeyError[0m:[1m 'total_magnetization'[0m
+[96m11-16-2020 17:20:20[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m'RemoteDB' object has no attribute 'execute'[0m
+[96m11-16-2020 17:20:21[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-16-2020 17:20:22[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-16-2020 17:27:16[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m'RemoteDB' object has no attribute 'execute'[0m
+[96m11-16-2020 17:27:17[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-16-2020 17:27:18[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-16-2020 17:28:24[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m'RemoteDB' object has no attribute 'execute'[0m
+[96m11-16-2020 17:28:25[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-16-2020 17:28:25[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-16-2020 17:29:38[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m'RemoteDB' object has no attribute 'execute'[0m
+[96m11-16-2020 17:29:39[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-16-2020 17:29:39[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-16-2020 17:42:25[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m'RemoteDB' object has no attribute 'execute'[0m
+[96m11-16-2020 17:42:30[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-16-2020 17:42:30[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-16-2020 17:44:07[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m'RemoteDB' object has no attribute 'execute'[0m
+[96m11-16-2020 17:44:08[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-16-2020 17:44:08[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-16-2020 17:51:56[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m'RemoteDB' object has no attribute 'execute'[0m
+[96m11-16-2020 17:51:57[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-16-2020 17:51:57[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-16-2020 17:53:14[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m'RemoteDB' object has no attribute 'execute'[0m
+[96m11-16-2020 17:53:14[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-16-2020 17:53:14[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-16-2020 17:54:09[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m'RemoteDB' object has no attribute 'execute'[0m
+[96m11-16-2020 17:54:10[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-16-2020 17:54:10[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-16-2020 17:54:40[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m'RemoteDB' object has no attribute 'execute'[0m
+[96m11-16-2020 17:54:41[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-16-2020 17:54:41[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-16-2020 17:58:04[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m'RemoteDB' object has no attribute 'execute'[0m
+[96m11-16-2020 17:58:04[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-16-2020 17:58:04[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-16-2020 18:00:00[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m'RemoteDB' object has no attribute 'execute'[0m
+[96m11-16-2020 18:00:00[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-16-2020 18:00:00[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-16-2020 18:28:23[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m'RemoteDB' object has no attribute 'execute'[0m
+[96m11-16-2020 18:28:24[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-16-2020 18:28:24[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-16-2020 18:28:44[0m |         [96mjob[0m -         [96mopenmap.computing.job[0m | 		[91mERROR[0m: 		[97mAn error has been caught in function 'run_job', process 'MainProcess' (259808), thread 'MainThread' (140174771042112):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/home/ctetsass/OpenMaps/openmap/[0m[32m[1morchestrator.py[0m", line [33m266[0m, in [35m<module>[0m
+    [1mjobs[0m [35m[1m=[0m [1mjob_manager[0m[35m[1m.[0m[1mrun_job[0m[1m([0m[1mremote[0m[1m,[0m [1mcomputing_list[0m[1m)[0m
+    [36m       │           │       │       └ [0m[36m[1m['mp-1220143', 'mp-530050'][0m
+    [36m       │           │       └ [0m[36m[1m<openmap.computing.client.RemoteClient object at 0x7f7ca43e6d90>[0m
+    [36m       │           └ [0m[36m[1m<function JobManager.run_job at 0x7f7ca59d3a60>[0m
+    [36m       └ [0m[36m[1m<openmap.computing.job.JobManager object at 0x7f7ca9637880>[0m
+
+> File "[32m/home/ctetsass/OpenMaps/openmap/computing/[0m[32m[1mjob.py[0m", line [33m87[0m, in [35mrun_job[0m
+    [1mjob_id[0m [35m[1m=[0m [1mremote[0m[35m[1m.[0m[1msbatch[0m[1m([0m[1mos[0m[35m[1m.[0m[1mpath[0m[35m[1m.[0m[1mjoin[0m[1m([0m[1mself[0m[35m[1m.[0m[1mremote_path[0m[1m,[0m [1mjobb[0m[1m)[0m[1m,[0m [1mjob_file[0m[35m[1m=[0m[1mjobb[0m [35m[1m+[0m [36m'_vasp_job.sh'[0m[1m)[0m
+    [36m         │      │      │  │    │    │    │            │               └ [0m[36m[1m'mp-530050'[0m
+    [36m         │      │      │  │    │    │    │            └ [0m[36m[1m'mp-530050'[0m
+    [36m         │      │      │  │    │    │    └ [0m[36m[1m'/home/ctetsass/scratch/MAPS/metal_oxyde'[0m
+    [36m         │      │      │  │    │    └ [0m[36m[1m<openmap.computing.job.JobManager object at 0x7f7ca9637880>[0m
+    [36m         │      │      │  │    └ [0m[36m[1m<function join at 0x7f7cfb0818b0>[0m
+    [36m         │      │      │  └ [0m[36m[1m<module 'posixpath' from '/home/ctetsass/anaconda3/lib/python3.8/posixpath.py'>[0m
+    [36m         │      │      └ [0m[36m[1m<module 'os' from '/home/ctetsass/anaconda3/lib/python3.8/os.py'>[0m
+    [36m         │      └ [0m[36m[1m<function RemoteClient.sbatch at 0x7f7ca59c38b0>[0m
+    [36m         └ [0m[36m[1m<openmap.computing.client.RemoteClient object at 0x7f7ca43e6d90>[0m
+
+  File "[32m/home/ctetsass/OpenMaps/openmap/computing/[0m[32m[1mclient.py[0m", line [33m332[0m, in [35msbatch[0m
+    [35m[1mreturn[0m [1mint[0m[1m([0m[1mjob_id[0m[1m)[0m
+    [36m           └ [0m[36m[1m''[0m
+
+[31m[1mValueError[0m:[1m invalid literal for int() with base 10: ''[0m
+[96m11-16-2020 18:28:44[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-16-2020 18:28:44[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-17-2020 09:21:11[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m'RemoteDB' object has no attribute 'execute'[0m
+[96m11-17-2020 09:32:15[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m'RemoteDB' object has no attribute 'execute'[0m
+[96m11-17-2020 09:47:59[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m'RemoteDB' object has no attribute 'execute'[0m
+[96m11-17-2020 09:49:06[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m'RemoteDB' object has no attribute 'execute'[0m
+[96m11-17-2020 09:56:22[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m'RemoteDB' object has no attribute 'execute'[0m
+[96m11-17-2020 09:57:26[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m'RemoteDB' object has no attribute 'execute'[0m
+[96m11-17-2020 10:10:39[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1060 (42S21): Duplicate column name 'metal_oxyde'[0m

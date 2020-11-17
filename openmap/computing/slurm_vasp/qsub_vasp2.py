@@ -8,7 +8,7 @@ __status__ = 'Development'
 
 import os
 
-job_types = ["DOS", "BS", "Static", "Relaxation", "Magnetization"]
+job_types = ["DOS", "BS", "Static", "Relaxation"]
 
 
 def job_descriptor(nb_atoms, job_type):
@@ -130,33 +130,18 @@ def write_slurm_job(input_path, job_description, gpu=0):
 
     script += "\n\n"
 
-    script += "cp  CONTCAR POSCAR\n"
     script += "out=$(ls {OUTCAR,XDATCAR,OSZICAR,CONTCAR,DOSCAR,CHGCAR,vasprun.xml})" \
               "# Input files from job folder\n"
-
-    script += "rm -f $out\n"
-    script += "sed -i 's/ISIF = 3/ISIF = 2/'g INCAR\n"
-    script += "time srun $HOME/bin/vasp/vasp_std\n"
-    script += "cp  CONTCAR POSCAR\n"
-    script += "rm -f $out\n"
-    script += "sed -i 's/ISMEAR = 1/ISMEAR = -5/'g INCAR\n"
-    script += "time srun {}\n".format(job_description["binary"])
     script += " mkdir -p vasp_output\n"
-    # script += "cp $out vasp_output\n"
-    script += "cp * vasp_output\n"
-    script += "tar - czvf  vasp_output.tar.gz vasp_output\n"
-    script += "cp -r vasp_output.tar.gz  $SLURM_SUBMIT_DIR\n"
-    # script += "    cp OUTCAR $SLURM_SUBMIT_DIR/${proj}.OUTCAR \n"
-    # To zip some of the output might be a good idea!
-    # gzip results.gz OUTCAR
-    # mv $results.gz $submitdir/
 
+    script += "cp * vasp_output\n"
+    script += "cp -r vasp_output/  $SLURM_SUBMIT_D"
     script += "cd  $SLURM_SUBMIT_DIR\n"
     #script += "mv *.err *.out  vasp_output\n"
     script += "rm -r $VASP_WORKDIR\n"
     script += "\n\n"
     script += "source ~/ENV_PYTHON/bin/activate\n"
-    script += "python  campaign_objective {} \n".format(job_description["campaign_name"])
+    script += "python  campaign_objective.py {} \n".format(job_description["campaign_name"])
     script += "python  {}\n".format(aws_file)
 
     script += "\n\n"

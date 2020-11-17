@@ -1,0 +1,81 @@
+#!/usr/bin/env python
+import os
+import sys
+from openmap.analysis import parser
+from openmap.analysis.properties import Property
+from pymatgen.io.vasp.outputs import Vasprun
+from pymatgen.io.vasp.outputs import BSVasprun
+from pymatgen.io.vasp.outputs import Outcar
+import yaml
+import argparse
+import pathlib
+from openmap.computing.log import logger
+#logger = logging.getLogger(__name__)
+__version__ = '0.1'
+__author__ = 'Conrard TETSASSI'
+__maintainer__ = 'Conrard TETSASSI'
+__email__ = 'giresse.feugmo@gmail.com'
+__status__ = 'Development'
+
+# parser = argparse.ArgumentParser(description='Automated  Optimizer')
+# # parser.add_argument('integers', metavar='N', type=int, nargs='+',
+# #                    help='an integer for the accumulator')
+# parser.add_argument('--prop',
+#                     dest='property',
+#                     type=str,
+#                     default='',
+#                     action='store',
+#                     # required=True,
+#                     help='objective of the campaign')
+# args = parser.parse_args()
+
+
+
+def prepare_results(path):
+    """ get all of the results of the previous batch ready to be inserted into the DB
+        will return a list of dictionaries
+    """
+
+    vrun = Vasprun(filename=os.path.join(path, 'vasp_output/vasprun.xml'))
+    energy = vrun.final_energy
+    volume = vrun.final_structure.volume
+    abc = vrun.final_structure.lattice.abc
+    mol_dict = {'energy': energy, 'volume': volume, 'abc': abc}
+    mol_dict
+
+    return mol_dict
+
+
+def get_objective(prop_name, file_path):
+    objectives = []
+
+
+    try:
+        file = parser.parse_file(file_path)
+        prop = Property(file)
+        objectiv = prop.get_property(prop_name)
+    except OSError as err:
+        logger.error("OS error: {0}".format(err))
+        objectiv = None
+    except Exception as err:
+        logger.error("Exception error: {0}".format(err))
+        objectiv = None
+    except:
+        logger.error("Unable to read  {}".format(file_path))
+        objectiv = None
+        pass
+
+
+    return objectiv
+
+if __name__=='__main__':
+    # loc = os.path.dirname(os.path.abspath(__file__))
+    # loc = os.path.abspath(os.getcwd())
+    # loc = pathlib.Path(__file__).parent.absolute() ## For the directory of the script being run:
+    loc = pathlib.Path().absolute() ## For the current working directory:
+    prop_name = sys.argv[1]
+    objective = {}
+    logger.info(f' Successfully evaluated the [{prop_name}]')
+    objective['prop_name'] = get_objective(prop_name, os.path.join(loc, 'vasp_output'))
+    with open('objective.yml', 'w') as outfile:
+        yaml.dump(objective, outfile, default_flow_style=False)

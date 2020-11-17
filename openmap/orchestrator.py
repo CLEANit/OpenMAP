@@ -6,22 +6,24 @@ from openmap.aws import sql_wrapper, aws_hcp
 from openmap.category_writer import CategoryWriter
 from openmap.online_wrapper import FetchData
 import argparse
+import pickle
 import h5py
 from pymatgen import Composition
 from matminer.featurizers.composition import ElementFraction
 from pymatgen import MPRester
-from ChemOs.phoenics_inc import gryffin as Gryffin
+from optimizer.phoenics_inc import gryffin as Gryffin
 
 from openmap.computing.input_generator import InputGenerator
 from openmap.computing.job import JobManager
 from openmap.computing import client
-from openmap.computing.slurm_vasp import qsub_vasp
+from openmap.computing.slurm_vasp import qsub_vasp2
 from pathlib import Path
+import numpy as np
 
 __version__ = '0.1'
 __author__ = 'Conrard TETSASSI'
 __maintainer__ = 'Conrard TETSASSI'
-__email__ = 'ConrardGiresse.TetsassiFeugmo@nrc-cnrc.gc.ca'
+__email__ = 'giresse.feugmo@gmail.com'
 __status__ = 'Developments'
 
 # ===============================================================================
@@ -90,14 +92,12 @@ ChemOs_CONFIG_FILE = './configuration/ChemOs_config.json'
 
 seed = args.seed
 
-
 BATCH_SIZE = ChemOs_CONFIG.get('general')['sampling_strategies']
 
 campaign_name = ChemOs_CONFIG.get('parameters')[0]["name"]
 objective_name = ChemOs_CONFIG.get("objectives")[0]['name']
 
 id_colm = DataBase_CONFIG['id_colm']
-
 
 # download data from Aws
 
@@ -117,7 +117,7 @@ if not aws.checkDbExists(DB_NAME=DataBase_CONFIG['dbname']):
 
 if not aws.checkTableExists(DataBase_CONFIG['tablename']):
     fetchdata = FetchData(Query['criteria'], Query['properties'])
-    data_df = fetchdata.wrap_mp()  # fetch data on Materials Project
+    data_df = fetchdata.wrap_mp  # fetch data on Materials Project
     # data_df.rename(columns={'full_formula':'formula'})
 
     # aws.df_to_sqltable(data_df,DataBase_CONFIG['tablename'])
@@ -128,10 +128,13 @@ else:
     # data_df = aws.load_table_to_pandas(DataBase_CONFIG['tablename'])
     data_df = aws.read_table_to_df(DataBase_CONFIG['tablename'])
 
+# create target colunm in the destination table
 
-# create target colunm in the data base
-#aws.add_column(DataBase_CONFIG['tablename'], objective_name, 'FLOAT')
+if not aws.checkColumnExists(DataBase_CONFIG['tablename'], campaign_name):
+    aws.add_column(DataBase_CONFIG['tablename'], campaign_name, 'FLOAT')
 
+
+# Create Descriptors from composition
 def featurizing_composition(data_df, formula='full_formula', threshold=0.0):
     """
     composition: pymatgen composition packge
@@ -147,7 +150,7 @@ def featurizing_composition(data_df, formula='full_formula', threshold=0.0):
 # initialize descriptor
 df = featurizing_composition(data_df, formula='full_formula', threshold=0.0)
 
-to_drop = ['map_id', 'material_id', 'total_magnetization', 'composition', 'full_formula']
+to_drop = ['map_id', 'material_id',  'composition', 'full_formula']
 
 features = [prop for prop in data_df.columns.tolist() if prop not in to_drop]
 
@@ -176,99 +179,126 @@ evaluations = 0
 observations = []
 workdir = os.path.join(str(Path.home()), 'MAPS', campaign_name)
 inputgenerator = InputGenerator(local_path=workdir, software='vasp')
+
+# remove the file  h5file if exit
+h5file = 'runs/jobs.h5'
+if Path(h5file).is_file():
+    Path(h5file).unlink()
 while evaluations < BUDGET:
+
+
     # 1 take a sample
     samples = gryffin.recommend(observations=observations)
 
     new_observations = []
     sample_id_list = [sample[campaign_name][0] for sample in samples]
 
-    # 2 load structure from materials project
-    structures = [mpr.get_structure_by_material_id(idx) for idx in sample_id_list]
+    # 2 check the objective for each system in the sample
+    measurements = [aws.get_value(DataBase_CONFIG['tablename'], campaign_name, id_colm, idx) for idx in sample_id_list]
+    computing_idx = [i for i in range(len(measurements))if measurements[i] is None]
 
-    # 3 generate input
+    if len(computing_idx) == 0:
+        for sample, measurement in zip(samples, measurements):
+            sample[objective_name] = measurement
+            new_observations.append(sample)
+        #
+        print('new observations : ', new_observations)
+        observations.extend(new_observations)
+        pickle.dump(observations, open(f'runs/gryf_{seed}.pkl', 'wb'))
+        evaluations += BATCH_SIZE
+        print('EVALUATIONS : ', evaluations)
+    else:
+        computing_list = [sample_id_list[i] for i in computing_idx]
 
-    job_paths = inputgenerator.vasp_input_from_structure(sample_id_list, structures, objective_name)
+        # 3 load structure from materials project
+        structures = [mpr.get_structure_by_material_id(idx) for idx in computing_list]
 
-    account = OpenMap_project['allocations'][0]  # ['def-itamblyn-ac', 'def-mkarttu', 'rrg-mkarttu-ab']
-    allocation = allocations[account]
+        # 4 generate input
 
-    host = hosts[allocation['host']]
+        job_paths = inputgenerator.vasp_input_from_structure(computing_list, structures, objective_name)
 
-    job_description = {'time': 1,
-                       'ntask': 4,
-                       'memory': 8000,
-                       'email': None,
-                       'gpu': 0,
-                       'account': account,
-                       'binary': host['binaries']['vasp_serial']}
+        account = OpenMap_project['allocations'][0]  # ['def-itamblyn-ac', 'def-mkarttu', 'rrg-mkarttu-ab']
+        allocation = allocations[account]
 
-    job_manager = JobManager(campaign_name=campaign_name, local_path=workdir, remote_path=host['sub_text'])
-    # write slurm file and file to update result on aws
-    for job, sample in zip(job_paths, sample_id_list):
-        qsub_vasp.write_slurm_job(job, job_description)
-        #aws.write_slurm_job(job, job_description)
+        host = hosts[allocation['host']]
 
-        checkWords = ("@host",
-                      "@port",
-                      "@dbname",
-                      "@user",
-                      "@password",
-                      "@tablename",
-                      "@colname",
-                      "@val",
-                      "@id_col",
-                      "@struc_id")
-        repWords = (DataBase_CONFIG['host'],
-                    str(DataBase_CONFIG['port']),
-                    DataBase_CONFIG['dbname'],
-                    DataBase_CONFIG['user'],
-                    DataBase_CONFIG['password'],
-                    DataBase_CONFIG['tablename'],
-                    objective_name,
-                    "1",
-                    id_colm,
-                    sample)
+        job_description = {'time': 1,
+                           'ntask': 4,
+                           'memory': 8000,
+                           'email': None,
+                           'gpu': 0,
+                           'account': account,
+                           'binary': host['binaries']['vasp_serial'],
+                           'campaign_name': campaign_name}
 
-        job_manager.write_slurm_aws(aws_hcp, job, checkWords, repWords)
-    # 4 upload input on HPC
+        job_manager = JobManager(campaign_name=campaign_name, local_path=workdir, remote_path=host['sub_text'])
+
+        # write submission file (slurm) and module to update result on aws (python)
+
+        for job, sample in zip(job_paths, sample_id_list):
+            qsub_vasp2.write_slurm_job(job, job_description)
+            # aws.write_slurm_job(job, job_description)
+
+            checkWords = ("@host",
+                          "@port",
+                          "@dbname",
+                          "@user",
+                          "@password",
+                          "@tablename",
+                          "@colname",
+                          # "@val",
+                          "@id_col",
+                          "@struc_id")
+            repWords = (DataBase_CONFIG['host'],
+                        str(DataBase_CONFIG['port']),
+                        DataBase_CONFIG['dbname'],
+                        DataBase_CONFIG['user'],
+                        DataBase_CONFIG['password'],
+                        DataBase_CONFIG['tablename'],
+                        objective_name,
+                        # "@objective",
+                        id_colm,
+                        sample)
+
+            job_manager.write_slurm_aws(aws_hcp, job, checkWords, repWords)
+        # 4 upload input on HPC
+
+            remote = client.RemoteClient(host=host['hostname'],
+                                         user=allocation['users'],
+                                         remote_path=host['sub_text'],
+                                         local_path=os.path.join(str(Path.home()), 'MAPS', campaign_name),
+                                         passphrase=allocation['passphrase'],
+                                         ssh_key_filepath=allocation['key'])
+
+            job_manager.upload_dir_to_remote(remote, sample_id_list)  # upload job dir
+
+        # 5 submit job
+
+            jobs = job_manager.run_job(remote, computing_list)
+
+            job_manager.save_dict_to_hdf5(jobs, h5file)
+            #jobs_dict = job_manager.load_dict_from_hdf5(h5file)
+        # hf = h5py.File('runs/job.h5', 'w')
+
+        # remote.disconnect()
+        # 6 check db (aws) if jobs  are completed
+            computing_results = aws.monitoring(computing_list, DataBase_CONFIG['tablename'],
+                                               campaign_name, id_colm, sleeptime=1200, dbcon=None)
+
+            for idx, result in zip(computing_idx, computing_results):
+                measurements[idx] = result
+        # 7 Extract computed objective from aws table
 
 
-    remote = client.RemoteClient(host=host['hostname'],
-                                 user=allocation['users'],
-                                 remote_path=host['sub_text'],
-                                 local_path=os.path.join(str(Path.home()), 'MAPS', campaign_name),
-                                 passphrase=allocation['passphrase'],
-                                 ssh_key_filepath=allocation['key'])
 
 
-    job_manager.upload_dir_to_remote(remote, sample_id_list)  # upload job dir
-
-    # jobs = run_job(remote, sample_id_list)
-    # pickle.dump(jobs, open("jobs.pkl", "wb")
-
-    # 5 submit job
-    # hf = h5py.File('runs/job.h5', 'w')
-
-    remote.disconnect()
-    # 6 sheck db (aws) jobs  are completed
-
-    # 7 download output
-
-    # 8 compute objective
-
-    # 9 update database
-
-    # 10 go to #1
-
-    # 3 feed the structure into HPC job runner
-    # measurements = main.main(sample_id_list)
-    # for sample, measurement in zip(samples, measurements):
-    #     sample[objective_name] = measurement
-    #     new_observations.append(sample)
-    # #
-    # print('new observations : ', new_observations)
-    # observations.extend(new_observations)
-    # pickle.dump(observations, open(f'runs/gryf_{seed}.pkl', 'wb'))
-    evaluations += BATCH_SIZE
-    print('EVALUATIONS : ', evaluations)
+            for sample, measurement in zip(samples, measurements):
+                sample[objective_name] = measurement
+                new_observations.append(sample)
+            #
+            print('new observations : ', new_observations)
+            observations.extend(new_observations)
+            pickle.dump(observations, open(f'runs/gryf_{seed}.pkl', 'wb'))
+            evaluations += BATCH_SIZE
+            print('EVALUATIONS : ', evaluations)
+        # 10 go to #1

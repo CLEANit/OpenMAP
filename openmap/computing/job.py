@@ -10,7 +10,11 @@ from openmap.computing import files
 from openmap.computing import client
 from openmap.analysis import parser
 from openmap.analysis import properties
-
+__version__ = '0.1'
+__author__ = 'Conrard TETSASSI'
+__maintainer__ = 'Conrard TETSASSI'
+__email__ = 'giresse.feugmo@gmail.com'
+__status__ = 'Development'
 
 class JobProfile(object):
 
@@ -76,21 +80,21 @@ class JobManager(object):
         """
         Execute UNIX command on the remote host.
         """
-        jobs = []
+        jobs =  {}
         job_ids = []
 
         for jobb in job_list:
             job_id = remote.sbatch(os.path.join(self.remote_path, jobb), job_file=jobb + '_vasp_job.sh')
             job_ids.append(job_id)
-            jobs.append({"id": job_id, "name": jobb, "remote_path": os.path.join(self.remote_path, jobb),
-                         "local_path": os.path.join(self.local_path, jobb), "output": 'vasp_output'})
+            jobs[jobb]={"id": job_id, "name": jobb, "remote_path": os.path.join(self.remote_path, jobb),
+                         "local_path": os.path.join(self.local_path, jobb)}
 
         return jobs
 
-    def job_monitoring(self, remote, jobs):
-        remote.monitor_batch(jobs)
+    # def job_monitoring(self, remote, jobs):
+    #     remote.monitor_batch(jobs)
 
-    def write_slurm_aws(self, script, input_path,checkWords, repWords):
+    def write_slurm_aws(self, script, input_path, checkWords, repWords):
 
         if not os.path.isdir(input_path):
             raise Exception("The directory {} does not exist".format(input_path))
@@ -98,7 +102,7 @@ class JobManager(object):
         basename = os.path.basename(os.path.normpath(input_path))
 
 
-        outputfile = os.path.join(input_path, basename + "_aws_job.py")
+        outputfile = os.path.join(input_path, basename + "_aws.py")
 
         jobname = basename
         ofile = open(outputfile, "w")
@@ -107,3 +111,45 @@ class JobManager(object):
                 line = line.replace(check, rep)
             ofile.write(line)
         ofile.close()
+
+    def save_dict_to_hdf5(self, dic, filename):
+        """
+        'a' Read/write if exists, create otherwise
+        ....
+        """
+
+        with h5py.File(filename, 'a') as h5file:
+            self._recursively_save_dict_contents_to_group(h5file, '/', dic)
+
+
+
+    def _recursively_save_dict_contents_to_group(self,h5file, path, dic):
+        """
+        ....
+        """
+        for key, item in dic.items():
+            if isinstance(item, (np.ndarray, np.int64, np.float64, str, bytes)):
+                h5file[path + key] = item
+            elif isinstance(item, dict):
+                self._recursively_save_dict_contents_to_group(h5file, path + key + '/', item)
+            else:
+                raise ValueError('Cannot save %s type'%type(item))
+
+    def load_dict_from_hdf5(self, filename):
+        """
+        ....
+        """
+        with h5py.File(filename, 'r') as h5file:
+            return self._recursively_load_dict_contents_from_group(h5file, '/')
+
+    def _recursively_load_dict_contents_from_group(self,h5file, path):
+        """
+        ....
+        """
+        ans = {}
+        for key, item in h5file[path].items():
+            if isinstance(item, h5py._hl.dataset.Dataset):
+                ans[key] = item[()] # item.value
+            elif isinstance(item, h5py._hl.group.Group):
+                ans[key] = self._recursively_load_dict_contents_from_group(h5file, path + key + '/')
+        return ans

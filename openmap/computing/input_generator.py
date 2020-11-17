@@ -16,6 +16,7 @@ import copy
 import shutil
 vasp_calculations = {"static": 'static',
                      "relaxation": 'relaxation',
+                     'total_magnetization': 'magmom',
                      'magnetization': 'magmom'}
 
 
@@ -36,12 +37,11 @@ class InputGenerator(object):
     def make_workdir(self):
 
         try:
-            Path(self.local_path).mkdir(parents=True, exist_ok=True)
-        except OSError as e:
-            if 'already exists' in e:
-                logger.info(f'Working directory {self.local_path} already exists')
-            else:
-                logger.error(f'{e}')
+            Path(self.local_path).mkdir(parents=True, exist_ok=False)
+        except FileExistsError:
+            logger.info(f'Working directory [{self.local_path}] already exists')
+        #else OSError as e :
+         #       logger.error(f'{e}')
         else:
             logger.info(f'Working directory [{self.local_path}] created successfully')
         #
@@ -74,7 +74,7 @@ class InputGenerator(object):
             poscar.write_file(os.path.join(input_dir, 'POSCAR'))
             incar.write_file(os.path.join(input_dir, 'INCAR'))
             potcar.write_file(os.path.join(input_dir, 'POTCAR'))
-            kpoints.write_file(os.path.join(input_dir, 'KPOINT'))
+            kpoints.write_file(os.path.join(input_dir, 'KPOINTS'))
             shutil.make_archive(input_dir, 'tar', os.path.join(self.local_path, job_name))
             shutil.rmtree(input_dir, ignore_errors=True)
             input_path.append(os.path.join(self.local_path, job_name))
