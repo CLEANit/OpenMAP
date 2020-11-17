@@ -1,6 +1,7 @@
 
 import logging
-
+import sys
+import time
 import pandas as pd
 import getpass
 import sqlalchemy
@@ -12,13 +13,20 @@ from ase import Atoms
 from openmap.computing.log import logger
 #logger = logging.getLogger(__name__)
 
-
 __version__ = '0.1'
 __author__ = 'Conrard TETSASSI'
 __maintainer__ = 'Conrard TETSASSI'
-__email__ = 'ConrardGiresse.TetsassiFeugmo@nrc-cnrc.gc.ca'
+__email__ = 'giresse.feugmo@gmail.com'
 __status__ = 'Development'
 
+
+def countdown(sleeptime):
+    for remaining in range(sleeptime, 0, -1):
+        sys.stdout.write("\r")
+        sys.stdout.write("{:4d} seconds remaining before next refresh.".format(remaining))
+        sys.stdout.flush()
+        time.sleep(1)
+    sys.stdout.write("\n")
 
 class RemoteDB:
     """Client to interact with a sql data base on aws """
@@ -32,7 +40,9 @@ class RemoteDB:
         self.conn = None
         self.cursor = None
 
-    # @logger.catch
+
+
+    @logger.catch
     def _connect(self):
         """Open connection to remote database server. """
         if self.password is None:
@@ -106,6 +116,30 @@ class RemoteDB:
         self.cursor.close()
         logger.info("Table [{}] not found in the database [{}]".format(tablename, DB_NAME))
         return False
+    def checkColumnExists(self, tablename, colname,  dbcon=None):
+        """
+        :param tablename:
+        :param dbcon:
+        :return:
+        """
+
+
+        if dbcon is None:
+            self.conn = self._connect()
+            dbcon = self.conn
+        self.cursor = dbcon.cursor()
+
+        try:
+            sql = f"SHOW columns FROM {tablename}"
+            self.cursor.execute(sql)
+            colnames = [column[0] for column in self.cursor.fetchall()]
+            self.cursor.close()
+            if colname in colnames:
+                return True
+            return False
+        except Exception as err:
+            logger.error(f' {err}')
+            #exit(1)
 
     def create_database(self, DB_NAME=None, dbcon=None):
         if dbcon is None:
@@ -121,7 +155,7 @@ class RemoteDB:
         except mysql.connector.Error as err:
             logger.info(" {}".format(err))
             #print(" {}".format(err))
-            exit(0)
+            #exit(0)
 
         try:
             self.cursor.execute("USE {}".format(DB_NAME))
@@ -129,14 +163,14 @@ class RemoteDB:
             logger.info("Database {} does not exists.".format(DB_NAME))
             #print("Database {} does not exists.".format(DB_NAME))
             if err.errno == errorcode.ER_BAD_DB_ERROR:
-                create_database(self.cursor)
+                #create_database(self.cursor)
                 #print("Database {} created successfully.".format(DB_NAME))
                 logger.info("Database {} created successfully.".format(DB_NAME))
                 dbcon.database = DB_NAME
             else:
                 logger.error(f' {err}')
                 #print(err)
-                exit(1)
+                #exit(1)
 
     def create_table(self, table_name, table_description,DB_NAME=None,  dbcon=None, drop=False):
         """
@@ -215,6 +249,7 @@ class RemoteDB:
 
 
     def insert_Dataframe_to_DB(self,df, tablename, dbcon=None):
+        """ Insert a entire data frame into sql table"""
         if dbcon is None:
             self.conn = self._connect()
             dbcon = self.conn
@@ -364,58 +399,88 @@ class RemoteDB:
         return pandas_df
 
     def get_columns_name(self, table_name, dbcon=None):
+        """
+
+        :param table_name:
+        :param dbcon:
+        :return: Column Names
+        """
         if dbcon is None:
             self.conn = self._connect()
             dbcon = self.conn
         try :
             self.cursor = dbcon.cursor()
-            sql_select_query = "select * from  {}".format(tablename)
+            sql_select_query = "select * from  {}".format(table_name)
             self.cursor.execute(sql_select_query)
-            field_names = [i[0] for i in cursor.description]
+            field_names = [i[0] for i in self.cursor.description]
         except Exception as ex:
             logger.error(f"{ex}")
         finally:
             self.cursor.close()
         return field_names
 
-    def get_structrure(self, tablename, struc_id, dbcon=None):
-        """
-        :param tablename:
-        :param struc_id: list of id to fecth
-        :param dbcon:
-        :return: return a list of Ase Atoms class
-        """
+    # def get_value(self,tablename, colame, id_col,rowname, dbcon=None):
+    #     """
+    #
+    #     :param tablename:
+    #     :param colame:
+    #     :param rowname:
+    #     :param dbcon:
+    #     :return: the value  value of colame/rowname,
+    #     """
+    #     if dbcon is None:
+    #         self.conn = self._connect()
+    #         dbcon = self.conn
+    #     try:
+    #         self.cursor = dbcon.cursor()
+    #         sql = f"SELECT {colame} FROM {tablename} WHERE  {id_col}={rowname}"
+    #         self.cursor.execute(sql)
+    #         myresult = self.cursor.fetchall()
+    #     except Exception as ex:
+    #         logger.error(f"{ex}")
+    #     finally:
+    #         self.cursor.close()
+    #     return myresult
 
-        if dbcon is None:
-            self.conn = self._connect()
-            dbcon = self.conn
 
-        field_names = self.get_columns_name(table_name, dbcon)
+    # def get_structrure(self, tablename, struc_id, dbcon=None):
+    #     """
+    #     :param tablename:
+    #     :param struc_id: list of id to fecth
+    #     :param dbcon:
+    #     :return: return a list of Ase Atoms class
+    #     """
+    #
+    #     if dbcon is None:
+    #         self.conn = self._connect()
+    #         dbcon = self.conn
+    #
+    #     field_names = self.get_columns_name(tablename, dbcon)
+    #
+    #     self.cursor = dbcon.cursor()
+    #     atms = []
+    #     sql_select_query = "select * from  {} where id = %s".format(tablename)
+    #     for struc in struc_id:
+    #         self.cursor.execute(sql_select_query, (struc_id,))
+    #         record = self.cursor.fetchall()
+    #         numbers = pickle.loads(record[0][field_names.index('numbers')])
+    #         positions = pickle.loads(record[0][field_names.index('positions')])
+    #         cell = pickle.loads(record[0][field_names.index('cell')])
+    #         #pbc = pickle.loads(record[0][field_names.index('pbc')])
+    #
+    #         atm = Atoms(numbers=numbers, positions=positions, cell=cell)
+    #         atms.append(atm)
+    #     self.cursor.close()
+    #     return atms
 
-        self.cursor = dbcon.cursor()
-        atms = []
-        sql_select_query = "select * from  {} where id = %s".format(tablename)
-        for struc in struc_id:
-            self.cursor.execute(sql_select_query, (struc_id,))
-            record = self.cursor.fetchall()
-            numbers = pickle.loads(record[0][field_names.index('numbers')])
-            positions = pickle.loads(record[0][field_names.index('positions')])
-            cell = pickle.loads(record[0][field_names.index('cell')])
-            #pbc = pickle.loads(record[0][field_names.index('pbc')])
-
-            atm = Atoms(numbers=numbers, positions=positions, cell=cell)
-            atms.append(atm)
-        self.cursor.close()
-        return atms
-
-    def get_value(self, tablename, colname, id_col, struc_id, dbcon=None):
+    def get_value(self, tablename, colname, id_col, rowname, dbcon=None):
         """
         :param tablename: name of the table
         :param colname: column to check
         :param id_col: name of the column with structure id
-        :param struc_id: id of the structure == row
+        :param rowname: id of the structure == row
         :param dbcon: connection to db
-        :return: return value of column [colname] at row [struc_id]
+        :return: return value of column [colname] at row [rowname]
         """
         if dbcon is None:
             self.conn = self._connect()
@@ -424,7 +489,7 @@ class RemoteDB:
 
         try:
             self.cursor = dbcon.cursor()
-            sql_select_query = f"select {colname} from  {tablename} where {id_col} ={struc_id} "
+            sql_select_query = f"select {colname} from  {tablename} where {id_col} ={rowname} "
             self.cursor.execute(sql_select_query)
             record = self.cursor.fetchall()
             return record[0][0]
@@ -450,7 +515,7 @@ class RemoteDB:
         try:
             self.cursor = dbcon.cursor()
             sql = f'ALTER TABLE  {tablename} ADD {colname} {coltype}'
-            self.execute(sql)
+            self.cursor.execute(sql)
             logging.info(f'Table [{tablename}] altered with column [{colname}]')
         except Exception as ex:
             logger.error(f"{ex}")
@@ -472,7 +537,7 @@ class RemoteDB:
         try:
             self.cursor = dbcon.cursor()
             sql = f'ALTER TABLE  {tablename} DROP COLUMN  {colname}'
-            self.execute(sql)
+            self.cursor.execute(sql)
             logging.info(f' column [{colname}] in table [{tablename}]')
         except Exception as ex:
             logger.error(f"{ex}")
@@ -503,33 +568,27 @@ class RemoteDB:
             self.cursor.close()
 
     @logger.catch
-    def monitor_batch(self, jobs):
+    def monitoring(self, jobs, tablename, colname, id_col, sleeptime = 120, dbcon=None):
         """
         :param jobs: list of dictionary with job information
         :return:
         """
+
+
         status_list = [None for job in jobs]
-        while not all(status == 'COMPLETED' for status in status_list):
-            status_list = [self.sacct(job["id"]) for job in jobs]
-            job_ids = [job["id"] for job in jobs]
-            for id, status in zip(job_ids, status_list):
-                logger.info(f' {id}:  {status}')
+        while not all(status is not None for status in status_list):
+
+            status_list = [self.get_value(tablename, colname, id_col, idx) for idx in jobs]
+            for idx, status in zip(jobs, status_list):
+                if status is not None:
+                    logger.info(f'{idx}: COMPLETED')
+                else:
+                    logger.info(f'{idx}: PENDING')
             #
-            if all(status == 'COMPLETED' for status in status_list):
+            if all(status is not None for status in status_list):
                 logger.info(f'All Jobs COMPLETED')
                 continue
             else:
-                sleeptime = 120
                 countdown(sleeptime)
-        for job in jobs:
-            if not self.check_remote_dir(job["remote_path"]):
-                print(f'The file {job["remote_path"]} does not exist')
-                continue
-            self.download_file(job["remote_path"] + '/' + job["output"], local_directory=job["local_path"])
-            self.clean_dir(job["remote_path"])
-            logger.info(f'Job:  {job["name"]}  Cleaned on {self.host}')
-        # for job in jobs:
-        #    self.clean_dir(job.remote_path)
-        #    logger.info(f'file: {job.name}  Cleaned on {self.host}')
-        logger.info(f'Task completed')
-        return None
+
+        return status_list

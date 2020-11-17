@@ -17,6 +17,7 @@ def create_logger():
         colorize=True,
         level="INFO",
         format="<light-cyan>{time:MM-DD-YYYY HH:mm:ss}</light-cyan> | \
+        <light-cyan>{name}</light-cyan> | \
 		<light-green>{level}</light-green>: \
 		<light-white>{message}</light-white>"
     )
@@ -27,6 +28,8 @@ def create_logger():
         rotation="200 MB",
         catch=True,
         format="<light-cyan>{time:MM-DD-YYYY HH:mm:ss}</light-cyan> | \
+        <light-cyan>{module}</light-cyan> - \
+        <light-cyan>{name}</light-cyan> | \
 		<light-red>{level}</light-red>: \
 		<light-white>{message}</light-white>"
     )

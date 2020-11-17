@@ -1,10 +1,14 @@
 #!/usr/bin/env python
 
+__version__ = '0.1'
 __author__ = 'Conrard TETSASSI'
+__maintainer__ = 'Conrard TETSASSI'
+__email__ = 'giresse.feugmo@gmail.com'
+__status__ = 'Development'
 
 import os
 
-job_types = ["DOS", "BS", "Static", "Relaxation"]
+job_types = ["DOS", "BS", "Static", "Relaxation", "Magnetization"]
 
 
 def job_descriptor(nb_atoms, job_type):
@@ -60,7 +64,7 @@ def write_slurm_job(input_path, job_description, gpu=0):
 
     outputfile = os.path.join(input_path, basename + "_vasp_job.sh")
 
-    aws_file = os.path.join(input_path, basename + "_aws_job.py")
+    aws_file = os.path.join(basename + "_aws.py")
 
     jobname = basename
 
@@ -95,7 +99,7 @@ def write_slurm_job(input_path, job_description, gpu=0):
     # ./vasp_input/POSCAR
 
     script += "export proj={} # Name of job folder\n".format('vasp_input')
-    script += "tar xvf {}".format('vasp_input')
+    script += "tar xvf {}.tar\n".format('vasp_input')
     script += "input=$(ls ${proj}/{INCAR,KPOINTS,POTCAR,POSCAR})  # Input files from job folder\n"
     script += "\n\n"
     # We load all the default program system settings with module load:
@@ -152,6 +156,7 @@ def write_slurm_job(input_path, job_description, gpu=0):
     script += "rm -r $VASP_WORKDIR\n"
     script += "\n\n"
     script += "source ~/ENV_PYTHON/bin/activate\n"
+    script += "python  campaign_objective {} \n".format(job_description["campaign_name"])
     script += "python  {}\n".format(aws_file)
 
     script += "\n\n"

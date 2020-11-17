@@ -13,6 +13,7 @@ class FetchData(object):
         self.criteria = criteria
         self.properties = properties
 
+    @property
     def wrap_mp(self):
         """
         Fetch data on Materials project
