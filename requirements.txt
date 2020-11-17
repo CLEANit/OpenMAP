@@ -33,6 +33,6 @@ sphinxcontrib-programoutput>=0.16
 
 setuptools>=49.2.0
 prompt_toolkit>=3.0.8
-#h5py
+h5py>=2.10.0
 
 
