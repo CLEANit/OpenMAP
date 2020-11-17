@@ -22,6 +22,15 @@ def create_logger():
 		<light-white>{message}</light-white>"
     )
     custom_logger.add(
+        stdout,
+        colorize=True,
+        level="WARNING",
+        format="<light-cyan>{time:MM-DD-YYYY HH:mm:ss}</light-cyan> | \
+                <light-cyan>{name}</light-cyan> | \
+        		<light-green>{level}</light-green>: \
+        		<light-white>{message}</light-white>"
+    )
+    custom_logger.add(
         'logs/errors.log',
         colorize=True,
         level="ERROR",

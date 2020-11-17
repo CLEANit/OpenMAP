@@ -66,21 +66,21 @@ except ImportError:
     FOUND_ASE = False
     logger.warning("Failed to import ASE")
 
-try:
-    import pymatgen
-
-    FOUND_PMG = True
-except ImportError:
-    FOUND_PMG = False
-    logger.warning("Failed to import pymatgen")
-
-try:
-    import tensorflow
-
-    FOUND_TF = True
-except ImportError:
-    FOUND_TF = False
-    logger.warning("Failed to import tensorflow")
+# try:
+#     import pymatgen
+#
+#     FOUND_PMG = True
+# except ImportError:
+#     FOUND_PMG = False
+#     logger.warning("Failed to import pymatgen")
+#
+# try:
+#     import tensorflow
+#
+#     FOUND_TF = True
+# except ImportError:
+#     FOUND_TF = False
+#     logger.warning("Failed to import tensorflow")
 
 
 
