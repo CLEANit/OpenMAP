@@ -10,6 +10,7 @@ import unittest
 from pathlib import Path
 
 import pkg_resources
+from uncertainties.umath_core import derivatives
 
 _REQUIREMENTS_PATH = Path(__file__).parent.with_name("requirements.txt")
 

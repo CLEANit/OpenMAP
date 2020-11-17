@@ -36,6 +36,14 @@ def create_logger():
 		<light-white>{message}</light-white>"
     )
     custom_logger.add(
+        stdout,
+        colorize=True,
+        level="WARNING",
+        format="<light-cyan>{time:MM-DD-YYYY HH:mm:ss}</light-cyan> | \
+    		<light-green>{level}</light-green>: \
+    		<light-white>{message}</light-white>"
+    )
+    custom_logger.add(
         'logs/errors.log',
         colorize=True,
         level="ERROR",
@@ -56,7 +64,7 @@ try:
     FOUND_ASE = True
 except ImportError:
     FOUND_ASE = False
-    logger.warn("Failed to import ASE")
+    logger.warning("Failed to import ASE")
 
 try:
     import pymatgen
@@ -64,7 +72,7 @@ try:
     FOUND_PMG = True
 except ImportError:
     FOUND_PMG = False
-    logger.warn("Failed to import pymatgen")
+    logger.warning("Failed to import pymatgen")
 
 try:
     import tensorflow
@@ -72,7 +80,7 @@ try:
     FOUND_TF = True
 except ImportError:
     FOUND_TF = False
-    logger.warn("Failed to import tensorflow")
+    logger.warning("Failed to import tensorflow")
 
 
 
