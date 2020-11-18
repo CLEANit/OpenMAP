@@ -38,7 +38,7 @@ def create_logger():
         catch=True,
         format="<light-cyan>{time:MM-DD-YYYY HH:mm:ss}</light-cyan> | \
         <light-cyan>{module}</light-cyan> - \
-        <light-cyan>{name}</light-cyan> | \
+        <light-cyan>{name}</light-cyan> |  \
 		<light-red>{level}</light-red>: \
 		<light-white>{message}</light-white>"
     )

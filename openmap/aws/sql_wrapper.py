@@ -489,7 +489,7 @@ class RemoteDB:
 
         try:
             self.cursor = dbcon.cursor()
-            sql_select_query = f"select {colname} from  {tablename} where {id_col} ={rowname} "
+            sql_select_query = f"select {colname} from  {tablename} where {id_col} ='{rowname}' "
             self.cursor.execute(sql_select_query)
             record = self.cursor.fetchall()
             return record[0][0]
@@ -560,7 +560,7 @@ class RemoteDB:
             dbcon = self.conn
         try:
             self.cursor = dbcon.cursor()
-            sql = f'UPDATE   {tablename} SET  {colname}= {val} WHERE {id_col}={struc_id}'
+            sql = f"UPDATE   {tablename} SET  {colname}= {val} WHERE {id_col}='{struc_id}'"
             self.cursor.execute(sql)
         except Exception as ex:
             logger.error(f"{ex}")

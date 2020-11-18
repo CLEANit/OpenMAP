@@ -1,5 +1,5 @@
 from setuptools import setup
-from pip.download import PipSession
+from pip._internal.download import PipSession
 from pip.req import parse_requirements
 
 import openmap
@@ -15,7 +15,7 @@ for pkg in parse_requirements('requirements.txt', session=session):
 
 setup(
     name='openmap',
-    packages=['openmap', 'openmap.analysis', 'openmap.computing', 'openmap.aws'],
+    packages=['openmap', 'campaign_objective', 'openmap.analysis', 'openmap.computing', 'openmap.aws'],
     version=openmap.__version__,
     author=openmap.__author__,
     author_email=openmap.__email__,
