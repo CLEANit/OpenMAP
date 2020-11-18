@@ -47,7 +47,7 @@ parser.add_argument('--seed', metavar='N', action='store', dest='seed', type=int
 parser.add_argument('--budget',
                     dest='budget',
                     type=int,
-                    default=2,
+                    default=4,
                     action='store',
                     # const='value-to-store',
                     help='how many experiment you want to perform')
@@ -87,7 +87,7 @@ except:
 
 # NUM_TOTAL =   # len of the data base
 BUDGET = args.budget  # how many experiment you want to perform
-ChemOs_CONFIG_FILE = './configuration/ChemOs_config.json'
+ChemOs_CONFIG_FILE = 'configuration/Optimizer_config.json'
 
 # BATCH_SIZE = args.batch_size
 
@@ -186,28 +186,30 @@ h5file = 'runs/jobs.h5'
 if Path(h5file).is_file():
     Path(h5file).unlink()
 while evaluations < BUDGET:
-
+    samples = []
     # 1 take a sample
     samples = gryffin.recommend(observations=observations)
 
     new_observations = []
+    sample_id_list = []
     sample_id_list = [sample[campaign_name][0] for sample in samples]
 
     # 2 check the objective for each system in the sample
     measurements = [aws.get_value(DataBase_CONFIG['tablename'], objective_name, id_colm, idx) for idx in sample_id_list]
     computing_idx = [i for i in range(len(measurements)) if measurements[i] is None]
 
-    if len(computing_idx) == 0:
-        for sample, measurement in zip(samples, measurements):
-            sample[objective_name] = measurement
-            new_observations.append(sample)
-        #
-        print('new observations : ', new_observations)
-        observations.extend(new_observations)
-        pickle.dump(observations, open(f'runs/gryf_{seed}.pkl', 'wb'))
-        evaluations += BATCH_SIZE
-        print('EVALUATIONS : ', evaluations)
-    else:
+    # if len(computing_idx) == 0:
+    #     for sample, measurement in zip(samples, measurements):
+    #         sample[objective_name] = measurement
+    #         new_observations.append(sample)
+    #     #
+    #     print('new observations : ', new_observations)
+    #     observations.extend(new_observations)
+    #     pickle.dump(observations, open(f'runs/gryf_{seed}.pkl', 'wb'))
+    #     evaluations += BATCH_SIZE
+    #     print('EVALUATIONS : ', evaluations)
+    if len(computing_idx) != 0:
+        computing_list = []
         computing_list = [sample_id_list[i] for i in computing_idx]
 
         # 3 load structure from materials project
@@ -223,7 +225,7 @@ while evaluations < BUDGET:
         host = hosts[allocation['host']]
 
         job_description = {'time': 1,
-                           'ntask': 4,
+                           'ntask': 2,
                            'memory': 8000,
                            'email': None,
                            'gpu': 0,
@@ -235,8 +237,8 @@ while evaluations < BUDGET:
 
         # write submission file (slurm) and module to update result on aws (python)
 
-        for job, sample in zip(job_paths, sample_id_list):
-            qsub_vasp2.write_slurm_job(job, job_description)
+        for path, sample in zip(job_paths, computing_list):
+            qsub_vasp2.write_slurm_job(path, job_description)
             # aws.write_slurm_job(job, job_description)
 
             checkWords = ("@host",
@@ -260,42 +262,43 @@ while evaluations < BUDGET:
                         id_colm,
                         sample)
 
-            job_manager.write_slurm_aws(aws_hcp, job, checkWords, repWords)
+            job_manager.write_slurm_aws(aws_hcp, path, checkWords, repWords)
             # # 4 upload input on HPC
 
-            remote = client.RemoteClient(host=host['hostname'],
-                                         user=allocation['users'],
-                                         remote_path=host['sub_text'],
-                                         local_path=os.path.join(str(Path.home()), 'MAPS', campaign_name),
-                                         passphrase=allocation['passphrase'],
-                                         ssh_key_filepath=allocation['key'])
+        remote = client.RemoteClient(host=host['hostname'],
+                                     user=allocation['users'],
+                                     remote_path=host['sub_text'],
+                                     local_path=os.path.join(str(Path.home()), 'MAPS', campaign_name),
+                                     passphrase=allocation['passphrase'],
+                                     ssh_key_filepath=allocation['key'])
+        # 5 submit job
+        jobs = {}
+        for path, sample in zip(job_paths, computing_list):
+            job_manager.upload_dir_to_remote(remote, sample)  # upload job dir
+            jobs[sample] = job_manager.run_job(remote, sample)
 
-            job_manager.upload_dir_to_remote(remote, sample_id_list)  # upload job dir
-
-            # 5 submit job
-
-            jobs = job_manager.run_job(remote, computing_list)
-
-            job_manager.save_dict_to_hdf5(jobs, h5file)
+        remote.disconnect()
+        job_manager.save_dict_to_hdf5(jobs, h5file)
             # jobs_dict = job_manager.load_dict_from_hdf5(h5file)
             # hf = h5py.File('runs/job.h5', 'w')
 
-            # remote.disconnect()
+
             # 6 check db (aws) if jobs  are completed
-            computing_results = aws.monitoring(computing_list, DataBase_CONFIG['tablename'],
-                                               campaign_name, id_colm, sleeptime=1200, dbcon=None)
+        computing_results = aws.monitoring(computing_list, DataBase_CONFIG['tablename'],
+                                           campaign_name, id_colm, sleeptime=300, dbcon=None)
 
-            for idx, result in zip(computing_idx, computing_results):
-                measurements[idx] = result
-            # 7 Extract computed objective from aws table
 
-            for sample, measurement in zip(samples, measurements):
-                sample[objective_name] = measurement
-                new_observations.append(sample)
-            #
-            print('new observations : ', new_observations)
-            observations.extend(new_observations)
-            pickle.dump(observations, open(f'runs/gryf_{seed}.pkl', 'wb'))
-            evaluations += BATCH_SIZE
-            print('EVALUATIONS : ', evaluations)
-        # # # 10 go to #1
+    for idx, result in zip(computing_idx, computing_results):
+        measurements[idx] = result
+    # 7 Extract computed objective from aws table
+
+    for sample, measurement in zip(samples, measurements):
+        sample[objective_name] = measurement
+        new_observations.append(sample)
+        #
+    print('new observations : ', new_observations)
+    observations.extend(new_observations)
+    pickle.dump(observations, open(f'runs/gryf_{seed}.pkl', 'wb'))
+    evaluations += BATCH_SIZE
+    print('EVALUATIONS : ', evaluations)
+    # # # 10 go to #1

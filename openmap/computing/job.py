@@ -5,7 +5,7 @@ from pathlib import Path
 import os
 
 from openmap.configuration.resources import users, hosts, projects, allocations
-
+from openmap.computing.log import logger
 from openmap.computing import files
 from openmap.computing import client
 from openmap.analysis import parser
@@ -36,10 +36,12 @@ class JobManager(object):
         self.software = None
 
     # hf = h5py.File('data.h5', 'w')
+    @logger.catch
     def make_workdir(self):
         # os.makedirs(local_file_directory, exist_ok=True)
         Path(self.local_path).mkdir(parents=True, exist_ok=True)
 
+    @logger.catch
     def upload_files_to_remote(self, remote):
         """
         Upload files to remote via SCP.
@@ -47,28 +49,31 @@ class JobManager(object):
         local_files = files.fetch_local_files(self.local_path)
         remote.bulk_upload(local_files)
 
-    def upload_dir_to_remote(self, remote, job_list):
+    @logger.catch
+    def upload_dir_to_remote(self, remote, job):
         """
         Upload directory to remote via SCP.
         """
         self.make_dir_on_remote(remote)  # make remote dir if not exist
 
-        for job in job_list:
+        #for job in job_list:
 
-            if not os.path.isdir(os.path.join(self.local_path, job)):
-                print(f"The file {os.path.join(self.local_path, job)} does not exist")
-                continue
-            remote.dir_upload(os.path.join(self.local_path, job), remote_path=os.path.join(self.remote_path, job))
+        if not os.path.isdir(os.path.join(self.local_path, job)):
+            print(f"The file {os.path.join(self.local_path, job)} does not exist")
+            pass
+        remote.dir_upload(os.path.join(self.local_path, job), remote_path=os.path.join(self.remote_path, job))
 
-    def download_file_from_remote(self, remote, job_list):
+    @logger.catch
+    def download_file_from_remote(self, remote, job):
         """
         download directory  via SCP.
         """
-        for job in job_list:
-            copy_dir = os.path.join(self.remote_path, job, 'vasp_output.tar.gz')
-            dest_dir = os.path.join(self.local_path, job)
-            remote.download_file(copy_dir, local_directory=dest_dir)
+        #for job in job_list:
+        copy_dir = os.path.join(self.remote_path, job, 'vasp_output.tar.gz')
+        dest_dir = os.path.join(self.local_path, job)
+        remote.download_file(copy_dir, local_directory=dest_dir)
 
+    @logger.catch
     def make_dir_on_remote(self, remote):
         """
         Create a Directory on Remote,
@@ -76,24 +81,26 @@ class JobManager(object):
         """
         remote.mkdir_p(os.path.join(self.remote_path))
 
-    def run_job(self, remote, job_list):
+    @logger.catch
+    def run_job(self, remote, job):
         """
         Execute UNIX command on the remote host.
         """
         jobs =  {}
         job_ids = []
 
-        for jobb in job_list:
-            job_id = remote.sbatch(os.path.join(self.remote_path, jobb), job_file=jobb + '_vasp_job.sh')
-            job_ids.append(job_id)
-            jobs[jobb]={"id": job_id, "name": jobb, "remote_path": os.path.join(self.remote_path, jobb),
-                         "local_path": os.path.join(self.local_path, jobb)}
+        #for jobb in job_list:
+        job_id = remote.sbatch(os.path.join(self.remote_path, job), job_file=job + '_vasp_job.sh')
+        #job_ids.append(job_id)
+        jobs={"id": job_id, "name": job, "remote_path": os.path.join(self.remote_path, job),
+                     "local_path": os.path.join(self.local_path, job)}
 
         return jobs
 
     # def job_monitoring(self, remote, jobs):
     #     remote.monitor_batch(jobs)
 
+    @logger.catch
     def write_slurm_aws(self, script, input_path, checkWords, repWords):
 
         if not os.path.isdir(input_path):
@@ -112,6 +119,7 @@ class JobManager(object):
             ofile.write(line)
         ofile.close()
 
+    @logger.catch
     def save_dict_to_hdf5(self, dic, filename):
         """
         'a' Read/write if exists, create otherwise
@@ -121,20 +129,20 @@ class JobManager(object):
         with h5py.File(filename, 'a') as h5file:
             self._recursively_save_dict_contents_to_group(h5file, '/', dic)
 
-
-
+    @logger.catch
     def _recursively_save_dict_contents_to_group(self,h5file, path, dic):
         """
         ....
         """
         for key, item in dic.items():
-            if isinstance(item, (np.ndarray, np.int64, np.float64, str, bytes)):
+            if isinstance(item, (int, float, np.ndarray, np.int64, np.float64, np.int32, np.float32, str, bytes)):
                 h5file[path + key] = item
             elif isinstance(item, dict):
                 self._recursively_save_dict_contents_to_group(h5file, path + key + '/', item)
             else:
                 raise ValueError('Cannot save %s type'%type(item))
 
+    @logger.catch
     def load_dict_from_hdf5(self, filename):
         """
         ....
@@ -142,6 +150,7 @@ class JobManager(object):
         with h5py.File(filename, 'r') as h5file:
             return self._recursively_load_dict_contents_from_group(h5file, '/')
 
+    @logger.catch
     def _recursively_load_dict_contents_from_group(self,h5file, path):
         """
         ....

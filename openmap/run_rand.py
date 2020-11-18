@@ -14,7 +14,7 @@ from Calculations import utils
 
 NUM_TOTAL = 100
 BUDGET    = 50
-CONFIG_FILE = 'ChemOs_config.json'
+CONFIG_FILE = 'Optimizer_config.json'
 seed = int(sys.argv[1])
 #seed =0
 np.random.seed(seed)

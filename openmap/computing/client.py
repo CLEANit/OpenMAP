@@ -19,7 +19,7 @@ from scp import SCPClient, SCPException
 
 from .files import fetch_local_files
 from .log import logger
-
+import getpass
 
 def progress4(filename, size, sent, peername):
     sys.stdout.write("({}:{}) {}\'s progress: {:.2f}% \r".format(peername[0], peername[1],
@@ -56,7 +56,7 @@ class RemoteClient:
         self.scp = None
         self.sftp = None
         self.conn = None
-        self._upload_ssh_key()
+        #self._upload_ssh_key()
 
     @logger.catch
     def _get_ssh_key(self):
@@ -93,12 +93,24 @@ class RemoteClient:
                 # self.client.connect(hostname=ip, username=user, password=password, timeout=tout,\
                 #                     compress = True,look_for_keys=False, allow_agent=False)
 
-                if self.passphrase is None:
+                if self.passphrase is None and self.ssh_key_filepath is None:
+                    while self.conn is None:
+                        self.passphrase = getpass.getpass(prompt=f'{self.host} Password: ', stream=None)
+                        self.client.connect(
+                            self.host,
+                            username=self.user,
+                            #key_filename=self.ssh_key_filepath,
+                            #look_for_keys=True  # ,
+                            password=self.passphrase  # ,
+                            # timeout=5000
+                        )
+                elif self.passphrase is None:
+
                     self.client.connect(
                         self.host,
                         username=self.user,
-                        # key_filename=self.ssh_key_filepath,
-                        # look_for_keys=True  # ,
+                        key_filename=self.ssh_key_filepath,
+                        look_for_keys=True  # ,
                         # password=self.passphrase  # ,
                         # timeout=5000
                     )
@@ -175,6 +187,7 @@ class RemoteClient:
         uploads = [self._upload_single_file(file) for file in files]
         logger.info(f'All the {len(uploads)}  files  uploaded to {self.host} +++')
 
+    @logger.catch
     def _upload_single_file(self, file):
         """Upload a single file to a remote directory."""
         upload = None
@@ -230,6 +243,7 @@ class RemoteClient:
             for line in response:
                 logger.info(f'INPUT: {cmd} | OUTPUT: {line}')
 
+    @logger.catch
     def check_remote_dir(self, remote_directory):
         """
         check if remote dir exit (on server)"
@@ -243,6 +257,7 @@ class RemoteClient:
             status = False
         return status
 
+    @logger.catch
     def check_remote_file(self, remote_file):
         """
         check if remote file exit (on server)"
@@ -295,9 +310,10 @@ class RemoteClient:
         # response = stdout.readlines()
         # for line in response:
         # logger.info(f'INPUT: {command} | OUTPUT: {line}')
-        logger.info(f'execute_cmd: {command} ')
+        logger.info(f'{command} ')
         return stdout.read().decode(), stderr.read().decode()
 
+    @logger.catch
     def get_partition_info(self):
         """
         Get  partition name and max day
@@ -323,13 +339,14 @@ class RemoteClient:
 
     @logger.catch
     def sbatch(self, job_directory, job_file='vasp_job.sh'):
-        std_out, _ = self.execute_command(f'cd {job_directory}; sbatch {job_file}')
-        # print(std_out, _)
-        logger.info(f'{std_out}')
-        job_id = std_out.split(' ')[-1]
-        # print(job_id)
-
-        return int(job_id)
+        try:
+            std_out, _ = self.execute_command(f'cd {job_directory}; sbatch {job_file}')
+            logger.info(f'{std_out}')
+            job_id = std_out.split(' ')[-1]
+            return job_id
+        except Exception as err:
+            logger.error(f'{err}')
+            return None
 
     def sacct(self, job_id):
         """

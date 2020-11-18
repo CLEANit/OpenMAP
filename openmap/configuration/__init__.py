@@ -9,7 +9,7 @@ import pexpect, getpass
 
 loc = os.path.dirname(os.path.abspath(__file__))
 
-with open(os.path.join(loc, "ChemOs_config.json"), "r") as fr:
+with open(os.path.join(loc, "Optimizer_config.json"), "r") as fr:
     ChemOs_CONFIG = json.load(fr)
 
 with open(os.path.join(loc, "HPC_config.yml"), "r") as fr:
