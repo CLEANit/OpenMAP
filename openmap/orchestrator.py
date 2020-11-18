@@ -151,7 +151,7 @@ def featurizing_composition(data_df, formula='full_formula', threshold=0.0):
 # initialize descriptor
 df = featurizing_composition(data_df, formula='full_formula', threshold=0.0)
 
-to_drop = ['map_id', 'material_id',  'composition', 'full_formula']
+to_drop = ['map_id', 'material_id', 'composition', 'full_formula']
 
 features = [prop for prop in data_df.columns.tolist() if prop not in to_drop]
 
@@ -187,7 +187,6 @@ if Path(h5file).is_file():
     Path(h5file).unlink()
 while evaluations < BUDGET:
 
-
     # 1 take a sample
     samples = gryffin.recommend(observations=observations)
 
@@ -196,7 +195,7 @@ while evaluations < BUDGET:
 
     # 2 check the objective for each system in the sample
     measurements = [aws.get_value(DataBase_CONFIG['tablename'], objective_name, id_colm, idx) for idx in sample_id_list]
-    computing_idx = [i for i in range(len(measurements))if measurements[i] is None]
+    computing_idx = [i for i in range(len(measurements)) if measurements[i] is None]
 
     if len(computing_idx) == 0:
         for sample, measurement in zip(samples, measurements):
@@ -262,41 +261,38 @@ while evaluations < BUDGET:
                         sample)
 
             job_manager.write_slurm_aws(aws_hcp, job, checkWords, repWords)
-        # 4 upload input on HPC
+            # # 4 upload input on HPC
 
-        #     remote = client.RemoteClient(host=host['hostname'],
-        #                                  user=allocation['users'],
-        #                                  remote_path=host['sub_text'],
-        #                                  local_path=os.path.join(str(Path.home()), 'MAPS', campaign_name),
-        #                                  passphrase=allocation['passphrase'],
-        #                                  ssh_key_filepath=allocation['key'])
-        #
-        #     job_manager.upload_dir_to_remote(remote, sample_id_list)  # upload job dir
-        #
-        # # 5 submit job
-        #
-        #     jobs = job_manager.run_job(remote, computing_list)
-        #
-        #     job_manager.save_dict_to_hdf5(jobs, h5file)
-        #     #jobs_dict = job_manager.load_dict_from_hdf5(h5file)
-        # # hf = h5py.File('runs/job.h5', 'w')
-        #
-        # # remote.disconnect()
-        # # 6 check db (aws) if jobs  are completed
-        #     computing_results = aws.monitoring(computing_list, DataBase_CONFIG['tablename'],
-        #                                        campaign_name, id_colm, sleeptime=1200, dbcon=None)
-        #
-        #     for idx, result in zip(computing_idx, computing_results):
-        #         measurements[idx] = result
-        # # 7 Extract computed objective from aws table
-        #
-        #
-        #
-        #
-        #     for sample, measurement in zip(samples, measurements):
-        #         sample[objective_name] = measurement
-        #         new_observations.append(sample)
-        #     #
+            remote = client.RemoteClient(host=host['hostname'],
+                                         user=allocation['users'],
+                                         remote_path=host['sub_text'],
+                                         local_path=os.path.join(str(Path.home()), 'MAPS', campaign_name),
+                                         passphrase=allocation['passphrase'],
+                                         ssh_key_filepath=allocation['key'])
+
+            job_manager.upload_dir_to_remote(remote, sample_id_list)  # upload job dir
+
+            # 5 submit job
+
+            jobs = job_manager.run_job(remote, computing_list)
+
+            job_manager.save_dict_to_hdf5(jobs, h5file)
+            # jobs_dict = job_manager.load_dict_from_hdf5(h5file)
+            # hf = h5py.File('runs/job.h5', 'w')
+
+            # remote.disconnect()
+            # 6 check db (aws) if jobs  are completed
+            computing_results = aws.monitoring(computing_list, DataBase_CONFIG['tablename'],
+                                               campaign_name, id_colm, sleeptime=1200, dbcon=None)
+
+            for idx, result in zip(computing_idx, computing_results):
+                measurements[idx] = result
+            # 7 Extract computed objective from aws table
+
+            for sample, measurement in zip(samples, measurements):
+                sample[objective_name] = measurement
+                new_observations.append(sample)
+            #
             print('new observations : ', new_observations)
             observations.extend(new_observations)
             pickle.dump(observations, open(f'runs/gryf_{seed}.pkl', 'wb'))
