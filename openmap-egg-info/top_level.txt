@@ -1,1 +1,1 @@
-openmaps
+openmap

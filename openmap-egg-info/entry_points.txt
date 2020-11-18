@@ -1,5 +1,6 @@
 [console_scripts]
-openmaps_orchestrator= openmaps.orchestrator:main
+orchestrator= openmap.orchestrator:main
+campaign_objective= openmap.campaign_objective:main
 
 
 

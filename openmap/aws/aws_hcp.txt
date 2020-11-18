@@ -37,7 +37,7 @@ id_col="@id_col"
 struc_id="@struc_id"
 
 
-with open("objective.yml"), "r") as fr:
+with open("objective.yml", "r") as fr:
     objective = yaml.safe_load(fr)
 
 val = objective["@colname"]
@@ -47,10 +47,10 @@ val = objective["@colname"]
 def insert_value(tablename, colname, val, id_col, struc_id, dbcon=connection):
     try:
         self.cursor = dbcon.cursor()
-        sql = f'UPDATE   {tablename} SET  {colname}= {val} WHERE {id_col}={struc_id}'
+        sql = f"UPDATE   {tablename} SET  {colname}= {val} WHERE {id_col}='{struc_id}'"
         self.cursor.execute(sql)
     except Exception as ex:
-        logger.error(f"{ex}")
+        print(f"{ex}")
     finally:
         self.cursor.close()
 

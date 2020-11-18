@@ -103,3 +103,61 @@
 [96m11-17-2020 09:56:22[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m'RemoteDB' object has no attribute 'execute'[0m
 [96m11-17-2020 09:57:26[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m'RemoteDB' object has no attribute 'execute'[0m
 [96m11-17-2020 10:10:39[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1060 (42S21): Duplicate column name 'metal_oxyde'[0m
+[96m11-17-2020 18:37:53[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-17-2020 18:37:53[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-17-2020 18:39:57[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-17-2020 18:39:57[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-17-2020 18:39:58[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-17-2020 18:39:58[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-17-2020 18:39:58[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-17-2020 18:39:59[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-17-2020 18:40:00[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-17-2020 18:40:00[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-17-2020 18:40:01[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-17-2020 18:40:01[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-17-2020 18:40:01[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mvc' in 'where clause'[0m
+[96m11-17-2020 18:40:01[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mvc' in 'where clause'[0m
+[96m11-17-2020 18:40:02[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-17-2020 18:40:02[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-17-2020 18:40:03[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-17-2020 18:40:03[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-17-2020 18:40:04[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-17-2020 18:40:04[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-17-2020 18:40:05[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-17-2020 18:40:05[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-17-2020 18:40:06[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-17-2020 18:40:06[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-17-2020 18:40:06[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-17-2020 18:40:06[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-17-2020 18:40:07[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mvc' in 'where clause'[0m
+[96m11-17-2020 18:40:07[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-17-2020 18:40:08[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-17-2020 18:40:08[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-17-2020 18:40:09[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-17-2020 18:40:09[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-17-2020 18:40:09[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-17-2020 18:40:09[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-17-2020 18:47:08[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-17-2020 18:47:08[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-17-2020 18:47:09[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-17-2020 18:47:10[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-17-2020 18:47:11[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-17-2020 18:47:11[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-17-2020 18:52:49[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-17-2020 18:52:49[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-17-2020 19:01:55[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-17-2020 19:01:55[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-17-2020 19:03:20[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-17-2020 19:03:20[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-17-2020 19:06:41[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m -         [96m497[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-17-2020 19:06:41[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m -         [96m497[0m | 		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'metal_oxyde' in 'field list'[0m
+[96m11-17-2020 19:10:04[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-17-2020 19:10:04[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-17-2020 19:11:34[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-17-2020 19:11:34[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-18-2020 09:58:18[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mvc' in 'where clause'[0m
+[96m11-18-2020 09:58:18[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-18-2020 10:07:29[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-18-2020 10:07:29[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-18-2020 10:15:05[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-18-2020 10:15:05[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m

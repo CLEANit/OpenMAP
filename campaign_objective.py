@@ -75,7 +75,17 @@ if __name__=='__main__':
     loc = pathlib.Path().absolute() ## For the current working directory:
     prop_name = sys.argv[1]
     objective = {}
-    logger.info(f' Successfully evaluated the [{prop_name}]')
-    objective['prop_name'] = get_objective(prop_name, os.path.join(loc, 'vasp_output'))
-    with open('objective.yml', 'w') as outfile:
-        yaml.dump(objective, outfile, default_flow_style=False)
+    try:
+        objective[prop_name] = float(get_objective(prop_name, os.path.join(loc, 'vasp_output')))
+        logger.info(f' Successfully evaluated the [{prop_name}]')
+    except Exception as err:
+        objective[prop_name] = None
+        logger.error(f'{err}')
+
+
+    file = open('objective.yml', "w")
+    yaml.dump(objective, file, default_flow_style=False)
+    print(yaml.dump(objective))
+    file.close()
+    # with open('objective.yml', 'w') as outfile:
+    #     yaml.dump(objective, outfile, default_flow_style=False)
