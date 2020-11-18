@@ -1,4 +1,4 @@
-
+import pymysql
 import logging
 import sys
 import time
@@ -51,13 +51,19 @@ class RemoteDB:
         if self.conn is None:
             try:
                 logger.info("Opening connection to aws database")
-                self.conn = mysql.connector.connect(host=self.host,
-                                                    user=self.user,
-                                                    port=self.port,
-                                                    password=self.password,
-                                                    database=self.dbname)
+                # self.conn = mysql.connector.connect(host=self.host,
+                #                                     user=self.user,
+                #                                     port=self.port,
+                #                                     password=self.password,
+                #                                     database=self.dbname)
+                self.conn = pymysql.connect(host=self.host,
+                                       user=self.user,
+                                       port=self.port,
+                                       passwd=self.password,
+                                       db=self.dbname)
                 logger.info("Connection established to aws:    database  [{}]".format(self.dbname))
-            except mysql.connector.Error as error:
+            #except mysql.connector.Error as error:
+            except pymysql.Error as error:
                 logger.error("Authentication to  aws-MySQL table failed  : {}".format(error))
                 raise error
             except TimeoutError as e:
@@ -152,14 +158,14 @@ class RemoteDB:
         try:
             self.cursor.execute(
                 "CREATE DATABASE {} DEFAULT CHARACTER SET 'utf8'".format(DB_NAME))
-        except mysql.connector.Error as err:
+        except pymysql.Error as err:
             logger.info(" {}".format(err))
             #print(" {}".format(err))
             #exit(0)
 
         try:
             self.cursor.execute("USE {}".format(DB_NAME))
-        except mysql.connector.Error as err:
+        except pymysql.Error as err:
             logger.info("Database {} does not exists.".format(DB_NAME))
             #print("Database {} does not exists.".format(DB_NAME))
             if err.errno == errorcode.ER_BAD_DB_ERROR:
@@ -491,8 +497,8 @@ class RemoteDB:
             self.cursor = dbcon.cursor()
             sql_select_query = f"select {colname} from  {tablename} where {id_col} ='{rowname}' "
             self.cursor.execute(sql_select_query)
-            record = self.cursor.fetchall()
-            return record[0][0]
+            record = self.cursor.fetchone()
+            return record[0]
         except Exception as ex:
             logger.error(f"{ex}")
         finally:
@@ -565,6 +571,7 @@ class RemoteDB:
         except Exception as ex:
             logger.error(f"{ex}")
         finally:
+            dbcon.commit()
             self.cursor.close()
 
     @logger.catch
@@ -573,11 +580,14 @@ class RemoteDB:
         :param jobs: list of dictionary with job information
         :return:
         """
-
+        # if dbcon is None:
+        #     self.conn = self._connect()
+        #     dbcon = self.conn
+        # self.cursor = dbcon.cursor()
 
         status_list = [None for job in jobs]
         while not all(status is not None for status in status_list):
-
+            self.disconnect()
             status_list = [self.get_value(tablename, colname, id_col, idx) for idx in jobs]
             for idx, status in zip(jobs, status_list):
                 if status is not None:
