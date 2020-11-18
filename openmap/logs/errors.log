@@ -161,3 +161,110 @@
 [96m11-18-2020 10:07:29[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
 [96m11-18-2020 10:15:05[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
 [96m11-18-2020 10:15:05[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m1054 (42S22): Unknown column 'mp' in 'where clause'[0m
+[96m11-18-2020 14:20:13[0m |         [96mjob[0m -         [96mopenmap.computing.job[0m |  		[91mERROR[0m: 		[97mAn error has been caught in function 'run_job', process 'MainProcess' (1000358), thread 'MainThread' (139875019278144):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/home/ctetsass/OpenMaps/openmap/[0m[32m[1morchestrator.py[0m", line [33m277[0m, in [35m<module>[0m
+    [1mjobs[0m [35m[1m=[0m [1mjob_manager[0m[35m[1m.[0m[1mrun_job[0m[1m([0m[1mremote[0m[1m,[0m [1mcomputing_list[0m[1m)[0m
+    [36m       │           │       │       └ [0m[36m[1m['mp-1063268', 'mvc-2589'][0m
+    [36m       │           │       └ [0m[36m[1m<openmap.computing.client.RemoteClient object at 0x7f36db05fa90>[0m
+    [36m       │           └ [0m[36m[1m<function JobManager.run_job at 0x7f36db057a60>[0m
+    [36m       └ [0m[36m[1m<openmap.computing.job.JobManager object at 0x7f371cc60610>[0m
+
+> File "[32m/home/ctetsass/OpenMaps/openmap/computing/[0m[32m[1mjob.py[0m", line [33m87[0m, in [35mrun_job[0m
+    [1mjob_id[0m [35m[1m=[0m [1mremote[0m[35m[1m.[0m[1msbatch[0m[1m([0m[1mos[0m[35m[1m.[0m[1mpath[0m[35m[1m.[0m[1mjoin[0m[1m([0m[1mself[0m[35m[1m.[0m[1mremote_path[0m[1m,[0m [1mjobb[0m[1m)[0m[1m,[0m [1mjob_file[0m[35m[1m=[0m[1mjobb[0m [35m[1m+[0m [36m'_vasp_job.sh'[0m[1m)[0m
+    [36m         │      │      │  │    │    │    │            │               └ [0m[36m[1m'mvc-2589'[0m
+    [36m         │      │      │  │    │    │    │            └ [0m[36m[1m'mvc-2589'[0m
+    [36m         │      │      │  │    │    │    └ [0m[36m[1m'/home/ctetsass/scratch/MAPS/metal_oxyde'[0m
+    [36m         │      │      │  │    │    └ [0m[36m[1m<openmap.computing.job.JobManager object at 0x7f371cc60610>[0m
+    [36m         │      │      │  │    └ [0m[36m[1m<function join at 0x7f37306f28b0>[0m
+    [36m         │      │      │  └ [0m[36m[1m<module 'posixpath' from '/home/ctetsass/anaconda3/lib/python3.8/posixpath.py'>[0m
+    [36m         │      │      └ [0m[36m[1m<module 'os' from '/home/ctetsass/anaconda3/lib/python3.8/os.py'>[0m
+    [36m         │      └ [0m[36m[1m<function RemoteClient.sbatch at 0x7f36db0458b0>[0m
+    [36m         └ [0m[36m[1m<openmap.computing.client.RemoteClient object at 0x7f36db05fa90>[0m
+
+  File "[32m/home/ctetsass/OpenMaps/openmap/computing/[0m[32m[1mclient.py[0m", line [33m332[0m, in [35msbatch[0m
+    [35m[1mreturn[0m [1mint[0m[1m([0m[1mjob_id[0m[1m)[0m
+    [36m           └ [0m[36m[1m''[0m
+
+[31m[1mValueError[0m:[1m invalid literal for int() with base 10: ''[0m
+[96m11-18-2020 14:51:49[0m |         [96mjob[0m -         [96mopenmap.computing.job[0m |  		[91mERROR[0m: 		[97mAn error has been caught in function 'run_job', process 'MainProcess' (1004208), thread 'MainThread' (140420231808832):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/home/ctetsass/OpenMaps/openmap/[0m[32m[1morchestrator.py[0m", line [33m277[0m, in [35m<module>[0m
+    [1mjobs[0m [35m[1m=[0m [1mjob_manager[0m[35m[1m.[0m[1mrun_job[0m[1m([0m[1mremote[0m[1m,[0m [1mcomputing_list[0m[1m)[0m
+    [36m       │           │       │       └ [0m[36m[1m['mp-1205415', 'mp-1185276'][0m
+    [36m       │           │       └ [0m[36m[1m<openmap.computing.client.RemoteClient object at 0x7fb5c9ba3c10>[0m
+    [36m       │           └ [0m[36m[1m<function JobManager.run_job at 0x7fb5cc38aa60>[0m
+    [36m       └ [0m[36m[1m<openmap.computing.job.JobManager object at 0x7fb5cc32d220>[0m
+
+> File "[32m/home/ctetsass/OpenMaps/openmap/computing/[0m[32m[1mjob.py[0m", line [33m87[0m, in [35mrun_job[0m
+    [1mjob_id[0m [35m[1m=[0m [1mremote[0m[35m[1m.[0m[1msbatch[0m[1m([0m[1mos[0m[35m[1m.[0m[1mpath[0m[35m[1m.[0m[1mjoin[0m[1m([0m[1mself[0m[35m[1m.[0m[1mremote_path[0m[1m,[0m [1mjobb[0m[1m)[0m[1m,[0m [1mjob_file[0m[35m[1m=[0m[1mjobb[0m [35m[1m+[0m [36m'_vasp_job.sh'[0m[1m)[0m
+    [36m         │      │      │  │    │    │    │            │               └ [0m[36m[1m'mp-1185276'[0m
+    [36m         │      │      │  │    │    │    │            └ [0m[36m[1m'mp-1185276'[0m
+    [36m         │      │      │  │    │    │    └ [0m[36m[1m'/home/ctetsass/scratch/MAPS/metal_oxyde'[0m
+    [36m         │      │      │  │    │    └ [0m[36m[1m<openmap.computing.job.JobManager object at 0x7fb5cc32d220>[0m
+    [36m         │      │      │  │    └ [0m[36m[1m<function join at 0x7fb621a228b0>[0m
+    [36m         │      │      │  └ [0m[36m[1m<module 'posixpath' from '/home/ctetsass/anaconda3/lib/python3.8/posixpath.py'>[0m
+    [36m         │      │      └ [0m[36m[1m<module 'os' from '/home/ctetsass/anaconda3/lib/python3.8/os.py'>[0m
+    [36m         │      └ [0m[36m[1m<function RemoteClient.sbatch at 0x7fb5cc3798b0>[0m
+    [36m         └ [0m[36m[1m<openmap.computing.client.RemoteClient object at 0x7fb5c9ba3c10>[0m
+
+  File "[32m/home/ctetsass/OpenMaps/openmap/computing/[0m[32m[1mclient.py[0m", line [33m331[0m, in [35msbatch[0m
+    [35m[1mreturn[0m [1mint[0m[1m([0m[1mjob_id[0m[1m)[0m
+    [36m           └ [0m[36m[1m''[0m
+
+[31m[1mValueError[0m:[1m invalid literal for int() with base 10: ''[0m
+[96m11-18-2020 15:05:44[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
+[96m11-18-2020 15:05:44[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
+[96m11-18-2020 15:59:49[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
+[96m11-18-2020 15:59:49[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
+[96m11-18-2020 16:45:36[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
+[96m11-18-2020 16:45:36[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
+[96m11-18-2020 17:12:11[0m |         [96mjob[0m -         [96mopenmap.computing.job[0m |  		[91mERROR[0m: 		[97mAn error has been caught in function 'save_dict_to_hdf5', process 'MainProcess' (1018699), thread 'MainThread' (140708068001600):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/home/ctetsass/OpenMaps/openmap/[0m[32m[1morchestrator.py[0m", line [33m280[0m, in [35m<module>[0m
+    [1mjob_manager[0m[35m[1m.[0m[1msave_dict_to_hdf5[0m[1m([0m[1mjobs[0m[1m,[0m [1mh5file[0m[1m)[0m
+    [36m│           │                 │     └ [0m[36m[1m'runs/jobs.h5'[0m
+    [36m│           │                 └ [0m[36m[1m{'id': '55753666\n', 'name': 'mvc-2263', 'remote_path': '/home/ctetsass/scratch/MAPS/metal_oxyde/mvc-2263', 'local_path': '/h...[0m
+    [36m│           └ [0m[36m[1m<function JobManager.save_dict_to_hdf5 at 0x7ff8d091d8b0>[0m
+    [36m└ [0m[36m[1m<openmap.computing.job.JobManager object at 0x7ff8ca260e80>[0m
+
+> File "[32m/home/ctetsass/OpenMaps/openmap/computing/[0m[32m[1mjob.py[0m", line [33m130[0m, in [35msave_dict_to_hdf5[0m
+    [1mself[0m[35m[1m.[0m[1m_recursively_save_dict_contents_to_group[0m[1m([0m[1mh5file[0m[1m,[0m [36m'/'[0m[1m,[0m [1mdic[0m[1m)[0m
+    [36m│    │                                        │            └ [0m[36m[1m{'id': '55753666\n', 'name': 'mvc-2263', 'remote_path': '/home/ctetsass/scratch/MAPS/metal_oxyde/mvc-2263', 'local_path': '/h...[0m
+    [36m│    │                                        └ [0m[36m[1m<HDF5 file "jobs.h5" (mode r+)>[0m
+    [36m│    └ [0m[36m[1m<function JobManager._recursively_save_dict_contents_to_group at 0x7ff8d091dc10>[0m
+    [36m└ [0m[36m[1m<openmap.computing.job.JobManager object at 0x7ff8ca260e80>[0m
+
+  File "[32m/home/ctetsass/OpenMaps/openmap/computing/[0m[32m[1mjob.py[0m", line [33m139[0m, in [35m_recursively_save_dict_contents_to_group[0m
+    [1mh5file[0m[1m[[0m[1mpath[0m [35m[1m+[0m [1mkey[0m[1m][0m [35m[1m=[0m [1mitem[0m
+    [36m│      │      │      └ [0m[36m[1m'55753666\n'[0m
+    [36m│      │      └ [0m[36m[1m'id'[0m
+    [36m│      └ [0m[36m[1m'/'[0m
+    [36m└ [0m[36m[1m<HDF5 file "jobs.h5" (mode r+)>[0m
+
+  File "/home/ctetsass/anaconda3/lib/python3.8/site-packages/h5py/_hl/group.py", line 388, in __setitem__
+    h5o.link(ds.id, self.id, name, lcpl=lcpl)
+    │   │    │  │   │    │   │          └ <h5py.h5p.PropLCID object at 0x7ff8ca1c4540>
+    │   │    │  │   │    │   └ b'/id'
+    │   │    │  │   │    └ <property object at 0x7ff90e1ebbd0>
+    │   │    │  │   └ <HDF5 file "jobs.h5" (mode r+)>
+    │   │    │  └ <property object at 0x7ff90e1ebbd0>
+    │   │    └ <HDF5 dataset ("anonymous"): shape (), type "|O">
+    │   └ <cyfunction with_phil.<locals>.wrapper at 0x7ff90e08eba0>
+    └ <module 'h5py.h5o' from '/home/ctetsass/anaconda3/lib/python3.8/site-packages/h5py/h5o.cpython-38-x86_64-linux-gnu.so'>
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "h5py/h5o.pyx", line 202, in h5py.h5o.link
+
+[31m[1mOSError[0m:[1m Unable to create link (name already exists)[0m
+[96m11-18-2020 17:12:11[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
+[96m11-18-2020 17:12:11[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
+[96m11-18-2020 17:16:18[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
+[96m11-18-2020 17:16:18[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
+[96m11-18-2020 17:22:12[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
+[96m11-18-2020 17:22:12[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
+[96m11-18-2020 18:05:19[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
+[96m11-18-2020 18:05:19[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m

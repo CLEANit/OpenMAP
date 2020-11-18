@@ -11,7 +11,8 @@ from mysql.connector import errorcode
 from ase import Atoms
 
 from openmap.computing.log import logger
-#logger = logging.getLogger(__name__)
+
+# logger = logging.getLogger(__name__)
 
 __version__ = '0.1'
 __author__ = 'Conrard TETSASSI'
@@ -28,6 +29,7 @@ def countdown(sleeptime):
         time.sleep(1)
     sys.stdout.write("\n")
 
+
 class RemoteDB:
     """Client to interact with a sql data base on aws """
 
@@ -39,8 +41,6 @@ class RemoteDB:
         self.password = password  # getpass.getpass()
         self.conn = None
         self.cursor = None
-
-
 
     @logger.catch
     def _connect(self):
@@ -57,12 +57,12 @@ class RemoteDB:
                 #                                     password=self.password,
                 #                                     database=self.dbname)
                 self.conn = pymysql.connect(host=self.host,
-                                       user=self.user,
-                                       port=self.port,
-                                       passwd=self.password,
-                                       db=self.dbname)
+                                            user=self.user,
+                                            port=self.port,
+                                            passwd=self.password,
+                                            db=self.dbname)
                 logger.info("Connection established to aws:    database  [{}]".format(self.dbname))
-            #except mysql.connector.Error as error:
+            # except mysql.connector.Error as error:
             except pymysql.Error as error:
                 logger.error("Authentication to  aws-MySQL table failed  : {}".format(error))
                 raise error
@@ -73,6 +73,7 @@ class RemoteDB:
 
         # self.conn = self._connect()
 
+    @logger.catch
     def disconnect(self):
         """Close  connection to the database server"""
         if self.cursor:
@@ -80,7 +81,8 @@ class RemoteDB:
         if self.conn:
             self.conn.close()
 
-    def checkDbExists(self,  DB_NAME=None, dbcon=None):
+    @logger.catch
+    def checkDbExists(self, DB_NAME=None, dbcon=None):
         if dbcon is None:
             self.conn = self._connect()
             dbcon = self.conn
@@ -99,6 +101,7 @@ class RemoteDB:
         self.cursor.close()
         return False
 
+    @logger.catch
     def checkTableExists(self, tablename, DB_NAME=None, dbcon=None):
         """
         :param tablename:
@@ -113,22 +116,24 @@ class RemoteDB:
             dbcon = self.conn
         self.cursor = dbcon.cursor()
 
-        self.cursor.execute("SELECT COUNT(*) FROM information_schema.tables WHERE table_name = '{0}'".format(tablename.replace('\'', '\'\'')))
+        self.cursor.execute("SELECT COUNT(*) FROM information_schema.tables WHERE table_name = '{0}'".format(
+            tablename.replace('\'', '\'\'')))
         if self.cursor.fetchone()[0] == 1:
             self.cursor.close()
-            logger.info("Table [{}] found in the database [{}]".format(tablename,DB_NAME ))
+            logger.info("Table [{}] found in the database [{}]".format(tablename, DB_NAME))
             return True
 
         self.cursor.close()
         logger.info("Table [{}] not found in the database [{}]".format(tablename, DB_NAME))
         return False
-    def checkColumnExists(self, tablename, colname,  dbcon=None):
+
+    @logger.catch
+    def checkColumnExists(self, tablename, colname, dbcon=None):
         """
         :param tablename:
         :param dbcon:
         :return:
         """
-
 
         if dbcon is None:
             self.conn = self._connect()
@@ -145,8 +150,9 @@ class RemoteDB:
             return False
         except Exception as err:
             logger.error(f' {err}')
-            #exit(1)
+            # exit(1)
 
+    @logger.catch
     def create_database(self, DB_NAME=None, dbcon=None):
         if dbcon is None:
             self.conn = self._connect()
@@ -160,25 +166,26 @@ class RemoteDB:
                 "CREATE DATABASE {} DEFAULT CHARACTER SET 'utf8'".format(DB_NAME))
         except pymysql.Error as err:
             logger.info(" {}".format(err))
-            #print(" {}".format(err))
-            #exit(0)
+            # print(" {}".format(err))
+            # exit(0)
 
         try:
             self.cursor.execute("USE {}".format(DB_NAME))
         except pymysql.Error as err:
             logger.info("Database {} does not exists.".format(DB_NAME))
-            #print("Database {} does not exists.".format(DB_NAME))
+            # print("Database {} does not exists.".format(DB_NAME))
             if err.errno == errorcode.ER_BAD_DB_ERROR:
-                #create_database(self.cursor)
-                #print("Database {} created successfully.".format(DB_NAME))
+                # create_database(self.cursor)
+                # print("Database {} created successfully.".format(DB_NAME))
                 logger.info("Database {} created successfully.".format(DB_NAME))
                 dbcon.database = DB_NAME
             else:
                 logger.error(f' {err}')
-                #print(err)
-                #exit(1)
+                # print(err)
+                # exit(1)
 
-    def create_table(self, table_name, table_description,DB_NAME=None,  dbcon=None, drop=False):
+    @logger.catch
+    def create_table(self, table_name, table_description, DB_NAME=None, dbcon=None, drop=False):
         """
         :param table_name:
         :param table_description:
@@ -210,11 +217,9 @@ class RemoteDB:
             logger.info("Table  created ")
 
         self.cursor.close()
-            # dbcon.close()
+        # dbcon.close()
 
-
-
-
+    @logger.catch
     def df_to_sql(self, df, tablename, dbcon=None):
         """
         use the sqlalchemy package to upload a Dataframe
@@ -228,16 +233,16 @@ class RemoteDB:
             self.conn = self._connect()
             dbcon = self.conn
 
-        engine = sqlalchemy.create_engine("mysql+pymysql://{user}:{pw}@{host}/{db}".format(host=self.host, db=self.dbname,
-                                                                                           user=self.user, pw=self.password))
-
+        engine = sqlalchemy.create_engine(
+            "mysql+pymysql://{user}:{pw}@{host}/{db}".format(host=self.host, db=self.dbname,
+                                                             user=self.user, pw=self.password))
 
         try:
             logger.info(f"Writing  [{tablename}] table  to aws")
             df.to_sql(name=tablename,
                       con=engine,
                       if_exists='append',
-                      index=False, # It means index of DataFrame will save. Set False to ignore the index of DataFrame.
+                      index=False,  # It means index of DataFrame will save. Set False to ignore the index of DataFrame.
                       chunksize=1000)  # Just means chunksize. If DataFrame is big will need this param
 
         except ValueError as vx:
@@ -252,9 +257,8 @@ class RemoteDB:
         finally:
             self.cursor.close()
 
-
-
-    def insert_Dataframe_to_DB(self,df, tablename, dbcon=None):
+    @logger.catch
+    def insert_Dataframe_to_DB(self, df, tablename, dbcon=None):
         """ Insert a entire data frame into sql table"""
         if dbcon is None:
             self.conn = self._connect()
@@ -277,7 +281,8 @@ class RemoteDB:
         finally:
             self.cursor.close()
 
-    def df_to_sqltable(self,  df, tablename,DB_NAME=None,  dbcon=None, drop=False):
+    @logger.catch
+    def df_to_sqltable(self, df, tablename, DB_NAME=None, dbcon=None, drop=False):
         """
         :param df: DataFrame to upload
         :param tablename: name of the table
@@ -287,14 +292,14 @@ class RemoteDB:
         :return:
         """
 
-        colms = ['`'+i+'`' for i in df.columns.tolist()]
+        colms = ['`' + i + '`' for i in df.columns.tolist()]
         types = [str(df[col].dtypes) for col in df.columns.tolist()]
-        #if isinstance(row[prop], (np.ndarray, np.generic)):
+        # if isinstance(row[prop], (np.ndarray, np.generic)):
         for i, typ in enumerate(types):
             if typ == 'object':
                 types[i] = 'varchar(255)'
             elif typ == 'float64' or 'float32':
-                types[i] = 'FLOAT' # 'DECIMAL(12, 6)'
+                types[i] = 'FLOAT'  # 'DECIMAL(12, 6)'
             elif typ == 'int64' or 'int32':
                 types[i] = 'INT'
 
@@ -306,7 +311,7 @@ class RemoteDB:
         if DB_NAME is None:
             DB_NAME = self.dbname
 
-        description =  [" ".join([i,j]) for i, j in zip(colms, types)]
+        description = [" ".join([i, j]) for i, j in zip(colms, types)]
 
         description = ",".join([str(i) for i in description])
         sql = f"CREATE TABLE {tablename}  (" + description + ")"
@@ -331,7 +336,7 @@ class RemoteDB:
         except mysql.connector.Error as err:
             if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:
                 if drop:
-                    logger.info("Dropping table [{}]: ".format(table_name))
+                    logger.info("Dropping table [{}]: ".format(tablename))
                     self.cursor.execute("DROP TABLE IF EXISTS {}".format(tablename))
                     self.cursor.execute(f" CREATE TABLE {tablename}  (" + description + ")}")
 
@@ -353,11 +358,10 @@ class RemoteDB:
             else:
                 logger.error(f' {err.msg}')
 
-
         self.cursor.close()
-            # dbcon.close()
+        # dbcon.close()
 
-
+    @logger.catch
     def read_table_to_df(self, tablename, dbcon=None):
         if dbcon is None:
             self.conn = self._connect()
@@ -376,8 +380,9 @@ class RemoteDB:
 
         finally:
             self.cursor.close()
-        return   pandas_df
+        return pandas_df
 
+    @logger.catch
     def load_table_to_pandas(self, tablename, dbcon=None):
         """
         :param tablename: name of the table
@@ -388,7 +393,7 @@ class RemoteDB:
             self.conn = self._connect()
             dbcon = self.conn
 
-        pandas_df = pd.read_sql( "select * from {} ".format(tablename), dbcon)
+        pandas_df = pd.read_sql("select * from {} ".format(tablename), dbcon)
 
         for col in pandas_df.columns:
             try:
@@ -404,6 +409,7 @@ class RemoteDB:
 
         return pandas_df
 
+    @logger.catch
     def get_columns_name(self, table_name, dbcon=None):
         """
 
@@ -414,7 +420,7 @@ class RemoteDB:
         if dbcon is None:
             self.conn = self._connect()
             dbcon = self.conn
-        try :
+        try:
             self.cursor = dbcon.cursor()
             sql_select_query = "select * from  {}".format(table_name)
             self.cursor.execute(sql_select_query)
@@ -448,7 +454,6 @@ class RemoteDB:
     #         self.cursor.close()
     #     return myresult
 
-
     # def get_structrure(self, tablename, struc_id, dbcon=None):
     #     """
     #     :param tablename:
@@ -478,7 +483,7 @@ class RemoteDB:
     #         atms.append(atm)
     #     self.cursor.close()
     #     return atms
-
+    @logger.catch
     def get_value(self, tablename, colname, id_col, rowname, dbcon=None):
         """
         :param tablename: name of the table
@@ -492,7 +497,6 @@ class RemoteDB:
             self.conn = self._connect()
             dbcon = self.conn
 
-
         try:
             self.cursor = dbcon.cursor()
             sql_select_query = f"select {colname} from  {tablename} where {id_col} ='{rowname}' "
@@ -504,8 +508,8 @@ class RemoteDB:
         finally:
             self.cursor.close()
 
-
-    def add_column(self,tablename, colname, coltype, dbcon=None):
+    @logger.catch
+    def add_column(self, tablename, colname, coltype, dbcon=None):
         """
         add column in a table
         :param tablename:
@@ -528,7 +532,8 @@ class RemoteDB:
         finally:
             self.cursor.close()
 
-    def drop_column(self,tablename, colname, dbcon=None):
+    @logger.catch
+    def drop_column(self, tablename, colname, dbcon=None):
         """
         drop a column in a table
         :param tablename:
@@ -550,7 +555,8 @@ class RemoteDB:
         finally:
             self.cursor.close()
 
-    def insert_value(self,tablename, colname, val,id_col, struc_id, dbcon=None):
+    @logger.catch
+    def insert_value(self, tablename, colname, val, id_col, struc_id, dbcon=None):
         """
         :param tablename:
         :param colname:
@@ -575,7 +581,7 @@ class RemoteDB:
             self.cursor.close()
 
     @logger.catch
-    def monitoring(self, jobs, tablename, colname, id_col, sleeptime = 120, dbcon=None):
+    def monitoring(self, jobs, tablename, colname, id_col, sleeptime=120, dbcon=None):
         """
         :param jobs: list of dictionary with job information
         :return:
@@ -588,12 +594,12 @@ class RemoteDB:
         status_list = [None for job in jobs]
         while not all(status is not None for status in status_list):
             self.disconnect()
-            status_list = [self.get_value(tablename, colname, id_col, idx) for idx in jobs]
-            for idx, status in zip(jobs, status_list):
+            status_list = [self.get_value(tablename, colname, id_col, job) for job in jobs]
+            for job, status in zip(jobs, status_list):
                 if status is not None:
-                    logger.info(f'{idx}: COMPLETED')
+                    logger.info(f'{job}: COMPLETED')
                 else:
-                    logger.info(f'{idx}: PENDING')
+                    logger.info(f'{job}: PENDING')
             #
             if all(status is not None for status in status_list):
                 logger.info(f'All Jobs COMPLETED')
