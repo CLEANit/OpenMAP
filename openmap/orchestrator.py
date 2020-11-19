@@ -285,7 +285,7 @@ while evaluations < BUDGET:
 
             # 6 check db (aws) if jobs  are completed
         computing_results = aws.monitoring(computing_list, DataBase_CONFIG['tablename'],
-                                           objective_name, id_colm, sleeptime=300, dbcon=None)
+                                           objective_name, id_colm, sleeptime=120, dbcon=None)
 
 
     for idx, result in zip(computing_idx, computing_results):

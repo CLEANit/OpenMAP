@@ -79,12 +79,14 @@ class RemoteDB:
         try:
             self.cursor.close()
         except Exception as err:
-            logger(f'{err}')
+            logger.error(f'{err}')
 
         try:
-            self.self.conn.close()
+            self.conn.close()
+            self.conn = None
+            logger.warning(f'database disconnected')
         except Exception as err:
-            logger(f'{err}')
+            logger.error(f'{err}')
 
     @logger.catch
     def checkDbExists(self, DB_NAME=None, dbcon=None):
@@ -502,14 +504,15 @@ class RemoteDB:
             self.conn = self._connect()
             dbcon = self.conn
 
+        self.cursor = dbcon.cursor()
         try:
-            self.cursor = dbcon.cursor()
             sql_select_query = f"select {colname} from  {tablename} where {id_col} ='{rowname}' "
             self.cursor.execute(sql_select_query)
             record = self.cursor.fetchone()
             return record[0]
         except Exception as ex:
             logger.error(f"{ex}")
+            #raise Exception(f"{ex}")
         finally:
             self.cursor.close()
 
@@ -592,7 +595,7 @@ class RemoteDB:
         :return:
         """
         # if dbcon is None:
-
+        #     self.disconnect()
         #     self.conn = self._connect()
         #     dbcon = self.conn
         # self.cursor = dbcon.cursor()
