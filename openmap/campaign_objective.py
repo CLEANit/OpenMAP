@@ -1,5 +1,5 @@
+#!/usr/bin/env python
 import os
-import sys
 from openmap.analysis import parser
 from openmap.analysis.properties import Property
 from pymatgen.io.vasp.outputs import Vasprun
@@ -8,6 +8,8 @@ from pymatgen.io.vasp.outputs import Outcar
 import yaml
 import argparse
 import pathlib
+
+import sys
 from openmap.computing.log import logger
 #logger = logging.getLogger(__name__)
 __version__ = '0.1'
