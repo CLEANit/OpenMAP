@@ -3,8 +3,7 @@ from sys import stdout
 from loguru import logger as custom_logger
 import functools as func
 
-def wrapper(func):
-        name = func.__name__
+
 
 
 def create_logger():

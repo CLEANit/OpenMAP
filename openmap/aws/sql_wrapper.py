@@ -82,7 +82,7 @@ class RemoteDB:
             logger(f'{err}')
 
         try:
-            self.cursor.close()
+            self.self.conn.close()
         except Exception as err:
             logger(f'{err}')
 
@@ -592,6 +592,7 @@ class RemoteDB:
         :return:
         """
         # if dbcon is None:
+
         #     self.conn = self._connect()
         #     dbcon = self.conn
         # self.cursor = dbcon.cursor()
