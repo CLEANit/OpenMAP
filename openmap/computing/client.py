@@ -138,12 +138,14 @@ class RemoteClient:
                 # continue
         return self.client
 
+    @logger.catch
     def disconnect(self):
         """Close ssh connection."""
         if self.client:
             self.client.close()
         if self.scp:
             self.scp.close()
+        logger.warning(f'ssh connection disconnected')
 
     @logger.catch
     def dir_upload(self, dir, remote_path=None):

@@ -473,3 +473,223 @@
 [96m11-18-2020 18:40:21[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
 [96m11-18-2020 19:18:06[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(1054, "Unknown column 'metal_oxyde' in 'field list'")[0m
 [96m11-18-2020 19:18:06[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(1054, "Unknown column 'metal_oxyde' in 'field list'")[0m
+[96m11-18-2020 23:09:09[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97mAn error has been caught in function 'monitoring', process 'MainProcess' (1052466), thread 'MainThread' (140463336093504):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/home/ctetsass/OpenMaps/openmap/aws/[0m[32m[1msql_wrapper.py[0m", line [33m85[0m, in [35mdisconnect[0m
+    [1mself[0m[35m[1m.[0m[1mself[0m[35m[1m.[0m[1mconn[0m[35m[1m.[0m[1mclose[0m[1m([0m[1m)[0m
+    [36m└ [0m[36m[1m<openmap.aws.sql_wrapper.RemoteDB object at 0x7fbfd56a7520>[0m
+
+[31m[1mAttributeError[0m:[1m 'RemoteDB' object has no attribute 'self'[0m
+
+
+[1mDuring handling of the above exception, another exception occurred:[0m
+
+
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/home/ctetsass/OpenMaps/openmap/[0m[32m[1morchestrator.py[0m", line [33m287[0m, in [35m<module>[0m
+    [1mcomputing_results[0m [35m[1m=[0m [1maws[0m[35m[1m.[0m[1mmonitoring[0m[1m([0m[1mcomputing_list[0m[1m,[0m [1mDataBase_CONFIG[0m[1m[[0m[36m'tablename'[0m[1m][0m[1m,[0m
+    [36m                    │   │          │               └ [0m[36m[1m{'host': 'rds-mysql-alloys.c2jdmok5sewf.us-east-2.rds.amazonaws.com', 'port': 3306, 'dbname': 'Oxygen_Evolution_Catalysts', '...[0m
+    [36m                    │   │          └ [0m[36m[1m['mp-1283043', 'mp-1245099'][0m
+    [36m                    │   └ [0m[36m[1m<function RemoteDB.monitoring at 0x7fc01ade29d0>[0m
+    [36m                    └ [0m[36m[1m<openmap.aws.sql_wrapper.RemoteDB object at 0x7fbfd56a7520>[0m
+
+> File "[32m/home/ctetsass/OpenMaps/openmap/aws/[0m[32m[1msql_wrapper.py[0m", line [33m602[0m, in [35mmonitoring[0m
+    [1mself[0m[35m[1m.[0m[1mdisconnect[0m[1m([0m[1m)[0m
+    [36m│    └ [0m[36m[1m<function RemoteDB.disconnect at 0x7fc01add7310>[0m
+    [36m└ [0m[36m[1m<openmap.aws.sql_wrapper.RemoteDB object at 0x7fbfd56a7520>[0m
+
+  File "[32m/home/ctetsass/OpenMaps/openmap/aws/[0m[32m[1msql_wrapper.py[0m", line [33m87[0m, in [35mdisconnect[0m
+    [1mlogger[0m[1m([0m[36mf'{err}'[0m[1m)[0m
+    [36m└ [0m[36m[1m<loguru.logger handlers=[(id=1, level=20, sink=<stdout>), (id=2, level=30, sink=<stdout>), (id=3, level=40, sink='logs/errors...[0m
+
+[31m[1mTypeError[0m:[1m 'Logger' object is not callable[0m
+[96m11-18-2020 23:12:16[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
+[96m11-18-2020 23:12:16[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
+[96m11-18-2020 23:18:47[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97mAn error has been caught in function 'monitoring', process 'MainProcess' (1053411), thread 'MainThread' (139859531622208):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/home/ctetsass/OpenMaps/openmap/aws/[0m[32m[1msql_wrapper.py[0m", line [33m85[0m, in [35mdisconnect[0m
+    [1mself[0m[35m[1m.[0m[1mconn[0m[35m[1m.[0m[1mclose[0m[1m([0m[1m)[0m
+    [36m│    │    └ [0m[36m[1m<function Connection.close at 0x7f3384cb43a0>[0m
+    [36m│    └ [0m[36m[1m<pymysql.connections.Connection object at 0x7f333fdd6ee0>[0m
+    [36m└ [0m[36m[1m<openmap.aws.sql_wrapper.RemoteDB object at 0x7f333fdd6520>[0m
+
+  File "/home/ctetsass/anaconda3/lib/python3.8/site-packages/pymysql/connections.py", line 356, in close
+    raise err.Error("Already closed")
+          │   └ <class 'pymysql.err.Error'>
+          └ <module 'pymysql.err' from '/home/ctetsass/anaconda3/lib/python3.8/site-packages/pymysql/err.py'>
+
+[31m[1mpymysql.err.Error[0m:[1m Already closed[0m
+
+
+[1mDuring handling of the above exception, another exception occurred:[0m
+
+
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/home/ctetsass/OpenMaps/openmap/[0m[32m[1morchestrator.py[0m", line [33m287[0m, in [35m<module>[0m
+    [1mcomputing_results[0m [35m[1m=[0m [1maws[0m[35m[1m.[0m[1mmonitoring[0m[1m([0m[1mcomputing_list[0m[1m,[0m [1mDataBase_CONFIG[0m[1m[[0m[36m'tablename'[0m[1m][0m[1m,[0m
+    [36m                    │   │          │               └ [0m[36m[1m{'host': 'rds-mysql-alloys.c2jdmok5sewf.us-east-2.rds.amazonaws.com', 'port': 3306, 'dbname': 'Oxygen_Evolution_Catalysts', '...[0m
+    [36m                    │   │          └ [0m[36m[1m['mp-705563'][0m
+    [36m                    │   └ [0m[36m[1m<function RemoteDB.monitoring at 0x7f33855109d0>[0m
+    [36m                    └ [0m[36m[1m<openmap.aws.sql_wrapper.RemoteDB object at 0x7f333fdd6520>[0m
+
+> File "[32m/home/ctetsass/OpenMaps/openmap/aws/[0m[32m[1msql_wrapper.py[0m", line [33m602[0m, in [35mmonitoring[0m
+    [1mself[0m[35m[1m.[0m[1mdisconnect[0m[1m([0m[1m)[0m
+    [36m│    └ [0m[36m[1m<function RemoteDB.disconnect at 0x7f3385506310>[0m
+    [36m└ [0m[36m[1m<openmap.aws.sql_wrapper.RemoteDB object at 0x7f333fdd6520>[0m
+
+  File "[32m/home/ctetsass/OpenMaps/openmap/aws/[0m[32m[1msql_wrapper.py[0m", line [33m87[0m, in [35mdisconnect[0m
+    [1mlogger[0m[1m([0m[36mf'{err}'[0m[1m)[0m
+    [36m└ [0m[36m[1m<loguru.logger handlers=[(id=1, level=20, sink=<stdout>), (id=2, level=30, sink=<stdout>), (id=3, level=40, sink='logs/errors...[0m
+
+[31m[1mTypeError[0m:[1m 'Logger' object is not callable[0m
+[96m11-18-2020 23:18:47[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
+[96m11-18-2020 23:21:43[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97mAlready closed[0m
+[96m11-18-2020 23:21:43[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
+[96m11-18-2020 23:21:43[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
+[96m11-18-2020 23:29:45[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
+[96m11-18-2020 23:29:45[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
+[96m11-18-2020 23:41:06[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97mAn error has been caught in function '<listcomp>', process 'MainProcess' (1055557), thread 'MainThread' (140251669997376):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/home/ctetsass/OpenMaps/openmap/aws/[0m[32m[1msql_wrapper.py[0m", line [33m509[0m, in [35mget_value[0m
+    [1mself[0m[35m[1m.[0m[1mcursor[0m[35m[1m.[0m[1mexecute[0m[1m([0m[1msql_select_query[0m[1m)[0m
+    [36m│    │      │       └ [0m[36m[1m"select total_magnetization from  metal_oxyde where map_id ='mp-1103327' "[0m
+    [36m│    │      └ [0m[36m[1m<function Cursor.execute at 0x7f8ed20f45e0>[0m
+    [36m│    └ [0m[36m[1m<pymysql.cursors.Cursor object at 0x7f8e8d218280>[0m
+    [36m└ [0m[36m[1m<openmap.aws.sql_wrapper.RemoteDB object at 0x7f8e8d218400>[0m
+
+  File "/home/ctetsass/anaconda3/lib/python3.8/site-packages/pymysql/cursors.py", line 163, in execute
+    result = self._query(query)
+             │    │      └ "select total_magnetization from  metal_oxyde where map_id ='mp-1103327' "
+             │    └ <function Cursor._query at 0x7f8ed20f4a60>
+             └ <pymysql.cursors.Cursor object at 0x7f8e8d218280>
+  File "/home/ctetsass/anaconda3/lib/python3.8/site-packages/pymysql/cursors.py", line 321, in _query
+    conn.query(q)
+    │    │     └ "select total_magnetization from  metal_oxyde where map_id ='mp-1103327' "
+    │    └ <function Connection.query at 0x7f8ed20ffd30>
+    └ <pymysql.connections.Connection object at 0x7f8e8d2181f0>
+  File "/home/ctetsass/anaconda3/lib/python3.8/site-packages/pymysql/connections.py", line 504, in query
+    self._execute_command(COMMAND.COM_QUERY, sql)
+    │    │                │       │          └ b"select total_magnetization from  metal_oxyde where map_id ='mp-1103327' "
+    │    │                │       └ 3
+    │    │                └ <module 'pymysql.constants.COMMAND' from '/home/ctetsass/anaconda3/lib/python3.8/site-packages/pymysql/constants/COMMAND.py'>
+    │    └ <function Connection._execute_command at 0x7f8ed21064c0>
+    └ <pymysql.connections.Connection object at 0x7f8e8d2181f0>
+  File "/home/ctetsass/anaconda3/lib/python3.8/site-packages/pymysql/connections.py", line 742, in _execute_command
+    raise err.InterfaceError(0, '')
+          │   └ <class 'pymysql.err.InterfaceError'>
+          └ <module 'pymysql.err' from '/home/ctetsass/anaconda3/lib/python3.8/site-packages/pymysql/err.py'>
+
+[31m[1mpymysql.err.InterfaceError[0m:[1m (0, '')[0m
+
+
+[1mDuring handling of the above exception, another exception occurred:[0m
+
+
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/home/ctetsass/OpenMaps/openmap/[0m[32m[1morchestrator.py[0m", line [33m287[0m, in [35m<module>[0m
+    [1mcomputing_results[0m [35m[1m=[0m [1maws[0m[35m[1m.[0m[1mmonitoring[0m[1m([0m[1mcomputing_list[0m[1m,[0m [1mDataBase_CONFIG[0m[1m[[0m[36m'tablename'[0m[1m][0m[1m,[0m
+    [36m                    │   │          │               └ [0m[36m[1m{'host': 'rds-mysql-alloys.c2jdmok5sewf.us-east-2.rds.amazonaws.com', 'port': 3306, 'dbname': 'Oxygen_Evolution_Catalysts', '...[0m
+    [36m                    │   │          └ [0m[36m[1m['mp-1103327', 'mp-1097003'][0m
+    [36m                    │   └ [0m[36m[1m<function RemoteDB.monitoring at 0x7f8ed295d9d0>[0m
+    [36m                    └ [0m[36m[1m<openmap.aws.sql_wrapper.RemoteDB object at 0x7f8e8d218400>[0m
+
+  File "[32m/home/ctetsass/OpenMaps/openmap/aws/[0m[32m[1msql_wrapper.py[0m", line [33m605[0m, in [35mmonitoring[0m
+    [1mstatus_list[0m [35m[1m=[0m [1m[[0m[1mself[0m[35m[1m.[0m[1mget_value[0m[1m([0m[1mtablename[0m[1m,[0m [1mcolname[0m[1m,[0m [1mid_col[0m[1m,[0m [1mjob[0m[1m)[0m [35m[1mfor[0m [1mjob[0m [35m[1min[0m [1mjobs[0m[1m][0m
+    [36m               │    │         │          │        │                       └ [0m[36m[1m['mp-1103327', 'mp-1097003'][0m
+    [36m               │    │         │          │        └ [0m[36m[1m'map_id'[0m
+    [36m               │    │         │          └ [0m[36m[1m'total_magnetization'[0m
+    [36m               │    │         └ [0m[36m[1m'metal_oxyde'[0m
+    [36m               │    └ [0m[36m[1m<function RemoteDB.get_value at 0x7f8ed2957c10>[0m
+    [36m               └ [0m[36m[1m<openmap.aws.sql_wrapper.RemoteDB object at 0x7f8e8d218400>[0m
+
+> File "[32m/home/ctetsass/OpenMaps/openmap/aws/[0m[32m[1msql_wrapper.py[0m", line [33m605[0m, in [35m<listcomp>[0m
+    [1mstatus_list[0m [35m[1m=[0m [1m[[0m[1mself[0m[35m[1m.[0m[1mget_value[0m[1m([0m[1mtablename[0m[1m,[0m [1mcolname[0m[1m,[0m [1mid_col[0m[1m,[0m [1mjob[0m[1m)[0m [35m[1mfor[0m [1mjob[0m [35m[1min[0m [1mjobs[0m[1m][0m
+    [36m               │    │         │          │        │       │        └ [0m[36m[1m'mp-1103327'[0m
+    [36m               │    │         │          │        │       └ [0m[36m[1m'mp-1103327'[0m
+    [36m               │    │         │          │        └ [0m[36m[1m'map_id'[0m
+    [36m               │    │         │          └ [0m[36m[1m'total_magnetization'[0m
+    [36m               │    │         └ [0m[36m[1m'metal_oxyde'[0m
+    [36m               │    └ [0m[36m[1m<function RemoteDB.get_value at 0x7f8ed2957c10>[0m
+    [36m               └ [0m[36m[1m<openmap.aws.sql_wrapper.RemoteDB object at 0x7f8e8d218400>[0m
+
+  File "[32m/home/ctetsass/OpenMaps/openmap/aws/[0m[32m[1msql_wrapper.py[0m", line [33m514[0m, in [35mget_value[0m
+    [35m[1mraise[0m [1mException[0m[1m([0m[36mf"{ex}"[0m[1m)[0m
+
+[31m[1mException[0m:[1m (0, '')[0m
+[96m11-18-2020 23:41:06[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97mAn error has been caught in function '<listcomp>', process 'MainProcess' (1055557), thread 'MainThread' (140251669997376):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/home/ctetsass/OpenMaps/openmap/aws/[0m[32m[1msql_wrapper.py[0m", line [33m509[0m, in [35mget_value[0m
+    [1mself[0m[35m[1m.[0m[1mcursor[0m[35m[1m.[0m[1mexecute[0m[1m([0m[1msql_select_query[0m[1m)[0m
+    [36m│    │      │       └ [0m[36m[1m"select total_magnetization from  metal_oxyde where map_id ='mp-1097003' "[0m
+    [36m│    │      └ [0m[36m[1m<function Cursor.execute at 0x7f8ed20f45e0>[0m
+    [36m│    └ [0m[36m[1m<pymysql.cursors.Cursor object at 0x7f8e8d2103a0>[0m
+    [36m└ [0m[36m[1m<openmap.aws.sql_wrapper.RemoteDB object at 0x7f8e8d218400>[0m
+
+  File "/home/ctetsass/anaconda3/lib/python3.8/site-packages/pymysql/cursors.py", line 163, in execute
+    result = self._query(query)
+             │    │      └ "select total_magnetization from  metal_oxyde where map_id ='mp-1097003' "
+             │    └ <function Cursor._query at 0x7f8ed20f4a60>
+             └ <pymysql.cursors.Cursor object at 0x7f8e8d2103a0>
+  File "/home/ctetsass/anaconda3/lib/python3.8/site-packages/pymysql/cursors.py", line 321, in _query
+    conn.query(q)
+    │    │     └ "select total_magnetization from  metal_oxyde where map_id ='mp-1097003' "
+    │    └ <function Connection.query at 0x7f8ed20ffd30>
+    └ <pymysql.connections.Connection object at 0x7f8e8d2181f0>
+  File "/home/ctetsass/anaconda3/lib/python3.8/site-packages/pymysql/connections.py", line 504, in query
+    self._execute_command(COMMAND.COM_QUERY, sql)
+    │    │                │       │          └ b"select total_magnetization from  metal_oxyde where map_id ='mp-1097003' "
+    │    │                │       └ 3
+    │    │                └ <module 'pymysql.constants.COMMAND' from '/home/ctetsass/anaconda3/lib/python3.8/site-packages/pymysql/constants/COMMAND.py'>
+    │    └ <function Connection._execute_command at 0x7f8ed21064c0>
+    └ <pymysql.connections.Connection object at 0x7f8e8d2181f0>
+  File "/home/ctetsass/anaconda3/lib/python3.8/site-packages/pymysql/connections.py", line 742, in _execute_command
+    raise err.InterfaceError(0, '')
+          │   └ <class 'pymysql.err.InterfaceError'>
+          └ <module 'pymysql.err' from '/home/ctetsass/anaconda3/lib/python3.8/site-packages/pymysql/err.py'>
+
+[31m[1mpymysql.err.InterfaceError[0m:[1m (0, '')[0m
+
+
+[1mDuring handling of the above exception, another exception occurred:[0m
+
+
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/home/ctetsass/OpenMaps/openmap/[0m[32m[1morchestrator.py[0m", line [33m287[0m, in [35m<module>[0m
+    [1mcomputing_results[0m [35m[1m=[0m [1maws[0m[35m[1m.[0m[1mmonitoring[0m[1m([0m[1mcomputing_list[0m[1m,[0m [1mDataBase_CONFIG[0m[1m[[0m[36m'tablename'[0m[1m][0m[1m,[0m
+    [36m                    │   │          │               └ [0m[36m[1m{'host': 'rds-mysql-alloys.c2jdmok5sewf.us-east-2.rds.amazonaws.com', 'port': 3306, 'dbname': 'Oxygen_Evolution_Catalysts', '...[0m
+    [36m                    │   │          └ [0m[36m[1m['mp-1103327', 'mp-1097003'][0m
+    [36m                    │   └ [0m[36m[1m<function RemoteDB.monitoring at 0x7f8ed295d9d0>[0m
+    [36m                    └ [0m[36m[1m<openmap.aws.sql_wrapper.RemoteDB object at 0x7f8e8d218400>[0m
+
+  File "[32m/home/ctetsass/OpenMaps/openmap/aws/[0m[32m[1msql_wrapper.py[0m", line [33m605[0m, in [35mmonitoring[0m
+    [1mstatus_list[0m [35m[1m=[0m [1m[[0m[1mself[0m[35m[1m.[0m[1mget_value[0m[1m([0m[1mtablename[0m[1m,[0m [1mcolname[0m[1m,[0m [1mid_col[0m[1m,[0m [1mjob[0m[1m)[0m [35m[1mfor[0m [1mjob[0m [35m[1min[0m [1mjobs[0m[1m][0m
+    [36m               │    │         │          │        │                       └ [0m[36m[1m['mp-1103327', 'mp-1097003'][0m
+    [36m               │    │         │          │        └ [0m[36m[1m'map_id'[0m
+    [36m               │    │         │          └ [0m[36m[1m'total_magnetization'[0m
+    [36m               │    │         └ [0m[36m[1m'metal_oxyde'[0m
+    [36m               │    └ [0m[36m[1m<function RemoteDB.get_value at 0x7f8ed2957c10>[0m
+    [36m               └ [0m[36m[1m<openmap.aws.sql_wrapper.RemoteDB object at 0x7f8e8d218400>[0m
+
+> File "[32m/home/ctetsass/OpenMaps/openmap/aws/[0m[32m[1msql_wrapper.py[0m", line [33m605[0m, in [35m<listcomp>[0m
+    [1mstatus_list[0m [35m[1m=[0m [1m[[0m[1mself[0m[35m[1m.[0m[1mget_value[0m[1m([0m[1mtablename[0m[1m,[0m [1mcolname[0m[1m,[0m [1mid_col[0m[1m,[0m [1mjob[0m[1m)[0m [35m[1mfor[0m [1mjob[0m [35m[1min[0m [1mjobs[0m[1m][0m
+    [36m               │    │         │          │        │       │        └ [0m[36m[1m'mp-1097003'[0m
+    [36m               │    │         │          │        │       └ [0m[36m[1m'mp-1097003'[0m
+    [36m               │    │         │          │        └ [0m[36m[1m'map_id'[0m
+    [36m               │    │         │          └ [0m[36m[1m'total_magnetization'[0m
+    [36m               │    │         └ [0m[36m[1m'metal_oxyde'[0m
+    [36m               │    └ [0m[36m[1m<function RemoteDB.get_value at 0x7f8ed2957c10>[0m
+    [36m               └ [0m[36m[1m<openmap.aws.sql_wrapper.RemoteDB object at 0x7f8e8d218400>[0m
+
+  File "[32m/home/ctetsass/OpenMaps/openmap/aws/[0m[32m[1msql_wrapper.py[0m", line [33m514[0m, in [35mget_value[0m
+    [35m[1mraise[0m [1mException[0m[1m([0m[36mf"{ex}"[0m[1m)[0m
+
+[31m[1mException[0m:[1m (0, '')[0m
+[96m11-18-2020 23:48:52[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97mAlready closed[0m

@@ -3,7 +3,7 @@
 """
 openmap is a package for materials acceleration combining AI and Molecular modelling
 """
-import os, os.path
+import os
 import stat
 import sys
 import configparser
@@ -12,6 +12,7 @@ from openmap.computing.log import logger
 
 with open(os.path.join(os.path.dirname(__file__), "VERSION.txt")) as fr:
     __version__ = fr.read().strip()
+
 VERSION = __version__
 
 INSTALL_PATH = os.path.abspath(os.path.dirname(__file__))

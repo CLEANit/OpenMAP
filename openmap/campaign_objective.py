@@ -74,7 +74,7 @@ if __name__=='__main__':
         prop = get_objective(prop_name, os.path.join(loc, 'vasp_output'))
         if prop is not None:
             objective[prop_name] = float(prop)
-            logger.info(f' Successfully evaluated the [{prop_name}]')
+            logger.info(f'Successfully evaluated the [{prop_name}]')
         else:
             logger.error(f'Job not converged')
             objective[prop_name] = 5E-18
