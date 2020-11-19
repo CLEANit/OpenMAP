@@ -268,3 +268,208 @@
 [96m11-18-2020 17:22:12[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
 [96m11-18-2020 18:05:19[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
 [96m11-18-2020 18:05:19[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
+[96m11-18-2020 18:10:19[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97mAn error has been caught in function 'monitoring', process 'MainProcess' (1024378), thread 'MainThread' (140240905475904):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/home/ctetsass/OpenMaps/openmap/[0m[32m[1morchestrator.py[0m", line [33m287[0m, in [35m<module>[0m
+    [1mcomputing_results[0m [35m[1m=[0m [1maws[0m[35m[1m.[0m[1mmonitoring[0m[1m([0m[1mcomputing_list[0m[1m,[0m [1mDataBase_CONFIG[0m[1m[[0m[36m'tablename'[0m[1m][0m[1m,[0m
+    [36m                    │   │          │               └ [0m[36m[1m{'host': 'rds-mysql-alloys.c2jdmok5sewf.us-east-2.rds.amazonaws.com', 'port': 3306, 'dbname': 'Oxygen_Evolution_Catalysts', '...[0m
+    [36m                    │   │          └ [0m[36m[1m['mp-19079', 'mp-715275'][0m
+    [36m                    │   └ [0m[36m[1m<function RemoteDB.monitoring at 0x7f8c50f83b80>[0m
+    [36m                    └ [0m[36m[1m<openmap.aws.sql_wrapper.RemoteDB object at 0x7f8c0b849640>[0m
+
+> File "[32m/home/ctetsass/OpenMaps/openmap/aws/[0m[32m[1msql_wrapper.py[0m", line [33m596[0m, in [35mmonitoring[0m
+    [1mself[0m[35m[1m.[0m[1mdisconnect[0m[1m([0m[1m)[0m
+    [36m│    └ [0m[36m[1m<function RemoteDB.disconnect at 0x7f8c515af820>[0m
+    [36m└ [0m[36m[1m<openmap.aws.sql_wrapper.RemoteDB object at 0x7f8c0b849640>[0m
+
+  File "[32m/home/ctetsass/OpenMaps/openmap/aws/[0m[32m[1msql_wrapper.py[0m", line [33m82[0m, in [35mdisconnect[0m
+    [1mself[0m[35m[1m.[0m[1mconn[0m[35m[1m.[0m[1mclose[0m[1m([0m[1m)[0m
+    [36m│    │    └ [0m[36m[1m<function Connection.close at 0x7f8c50724ca0>[0m
+    [36m│    └ [0m[36m[1m<pymysql.connections.Connection object at 0x7f8c0b849fd0>[0m
+    [36m└ [0m[36m[1m<openmap.aws.sql_wrapper.RemoteDB object at 0x7f8c0b849640>[0m
+
+  File "/home/ctetsass/anaconda3/lib/python3.8/site-packages/pymysql/connections.py", line 356, in close
+    raise err.Error("Already closed")
+          │   └ <class 'pymysql.err.Error'>
+          └ <module 'pymysql.err' from '/home/ctetsass/anaconda3/lib/python3.8/site-packages/pymysql/err.py'>
+
+[31m[1mpymysql.err.Error[0m:[1m Already closed[0m
+[96m11-18-2020 18:10:19[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
+[96m11-18-2020 18:10:19[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
+[96m11-18-2020 18:15:19[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97mAn error has been caught in function 'monitoring', process 'MainProcess' (1024378), thread 'MainThread' (140240905475904):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/home/ctetsass/OpenMaps/openmap/[0m[32m[1morchestrator.py[0m", line [33m287[0m, in [35m<module>[0m
+    [1mcomputing_results[0m [35m[1m=[0m [1maws[0m[35m[1m.[0m[1mmonitoring[0m[1m([0m[1mcomputing_list[0m[1m,[0m [1mDataBase_CONFIG[0m[1m[[0m[36m'tablename'[0m[1m][0m[1m,[0m
+    [36m                    │   │          │               └ [0m[36m[1m{'host': 'rds-mysql-alloys.c2jdmok5sewf.us-east-2.rds.amazonaws.com', 'port': 3306, 'dbname': 'Oxygen_Evolution_Catalysts', '...[0m
+    [36m                    │   │          └ [0m[36m[1m['mp-19079', 'mp-715275'][0m
+    [36m                    │   └ [0m[36m[1m<function RemoteDB.monitoring at 0x7f8c50f83b80>[0m
+    [36m                    └ [0m[36m[1m<openmap.aws.sql_wrapper.RemoteDB object at 0x7f8c0b849640>[0m
+
+> File "[32m/home/ctetsass/OpenMaps/openmap/aws/[0m[32m[1msql_wrapper.py[0m", line [33m596[0m, in [35mmonitoring[0m
+    [1mself[0m[35m[1m.[0m[1mdisconnect[0m[1m([0m[1m)[0m
+    [36m│    └ [0m[36m[1m<function RemoteDB.disconnect at 0x7f8c515af820>[0m
+    [36m└ [0m[36m[1m<openmap.aws.sql_wrapper.RemoteDB object at 0x7f8c0b849640>[0m
+
+  File "[32m/home/ctetsass/OpenMaps/openmap/aws/[0m[32m[1msql_wrapper.py[0m", line [33m82[0m, in [35mdisconnect[0m
+    [1mself[0m[35m[1m.[0m[1mconn[0m[35m[1m.[0m[1mclose[0m[1m([0m[1m)[0m
+    [36m│    │    └ [0m[36m[1m<function Connection.close at 0x7f8c50724ca0>[0m
+    [36m│    └ [0m[36m[1m<pymysql.connections.Connection object at 0x7f8c0b849fd0>[0m
+    [36m└ [0m[36m[1m<openmap.aws.sql_wrapper.RemoteDB object at 0x7f8c0b849640>[0m
+
+  File "/home/ctetsass/anaconda3/lib/python3.8/site-packages/pymysql/connections.py", line 356, in close
+    raise err.Error("Already closed")
+          │   └ <class 'pymysql.err.Error'>
+          └ <module 'pymysql.err' from '/home/ctetsass/anaconda3/lib/python3.8/site-packages/pymysql/err.py'>
+
+[31m[1mpymysql.err.Error[0m:[1m Already closed[0m
+[96m11-18-2020 18:15:19[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
+[96m11-18-2020 18:15:19[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
+[96m11-18-2020 18:20:20[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97mAn error has been caught in function 'monitoring', process 'MainProcess' (1024378), thread 'MainThread' (140240905475904):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/home/ctetsass/OpenMaps/openmap/[0m[32m[1morchestrator.py[0m", line [33m287[0m, in [35m<module>[0m
+    [1mcomputing_results[0m [35m[1m=[0m [1maws[0m[35m[1m.[0m[1mmonitoring[0m[1m([0m[1mcomputing_list[0m[1m,[0m [1mDataBase_CONFIG[0m[1m[[0m[36m'tablename'[0m[1m][0m[1m,[0m
+    [36m                    │   │          │               └ [0m[36m[1m{'host': 'rds-mysql-alloys.c2jdmok5sewf.us-east-2.rds.amazonaws.com', 'port': 3306, 'dbname': 'Oxygen_Evolution_Catalysts', '...[0m
+    [36m                    │   │          └ [0m[36m[1m['mp-19079', 'mp-715275'][0m
+    [36m                    │   └ [0m[36m[1m<function RemoteDB.monitoring at 0x7f8c50f83b80>[0m
+    [36m                    └ [0m[36m[1m<openmap.aws.sql_wrapper.RemoteDB object at 0x7f8c0b849640>[0m
+
+> File "[32m/home/ctetsass/OpenMaps/openmap/aws/[0m[32m[1msql_wrapper.py[0m", line [33m596[0m, in [35mmonitoring[0m
+    [1mself[0m[35m[1m.[0m[1mdisconnect[0m[1m([0m[1m)[0m
+    [36m│    └ [0m[36m[1m<function RemoteDB.disconnect at 0x7f8c515af820>[0m
+    [36m└ [0m[36m[1m<openmap.aws.sql_wrapper.RemoteDB object at 0x7f8c0b849640>[0m
+
+  File "[32m/home/ctetsass/OpenMaps/openmap/aws/[0m[32m[1msql_wrapper.py[0m", line [33m82[0m, in [35mdisconnect[0m
+    [1mself[0m[35m[1m.[0m[1mconn[0m[35m[1m.[0m[1mclose[0m[1m([0m[1m)[0m
+    [36m│    │    └ [0m[36m[1m<function Connection.close at 0x7f8c50724ca0>[0m
+    [36m│    └ [0m[36m[1m<pymysql.connections.Connection object at 0x7f8c0b849fd0>[0m
+    [36m└ [0m[36m[1m<openmap.aws.sql_wrapper.RemoteDB object at 0x7f8c0b849640>[0m
+
+  File "/home/ctetsass/anaconda3/lib/python3.8/site-packages/pymysql/connections.py", line 356, in close
+    raise err.Error("Already closed")
+          │   └ <class 'pymysql.err.Error'>
+          └ <module 'pymysql.err' from '/home/ctetsass/anaconda3/lib/python3.8/site-packages/pymysql/err.py'>
+
+[31m[1mpymysql.err.Error[0m:[1m Already closed[0m
+[96m11-18-2020 18:20:20[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
+[96m11-18-2020 18:20:20[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
+[96m11-18-2020 18:25:20[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97mAn error has been caught in function 'monitoring', process 'MainProcess' (1024378), thread 'MainThread' (140240905475904):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/home/ctetsass/OpenMaps/openmap/[0m[32m[1morchestrator.py[0m", line [33m287[0m, in [35m<module>[0m
+    [1mcomputing_results[0m [35m[1m=[0m [1maws[0m[35m[1m.[0m[1mmonitoring[0m[1m([0m[1mcomputing_list[0m[1m,[0m [1mDataBase_CONFIG[0m[1m[[0m[36m'tablename'[0m[1m][0m[1m,[0m
+    [36m                    │   │          │               └ [0m[36m[1m{'host': 'rds-mysql-alloys.c2jdmok5sewf.us-east-2.rds.amazonaws.com', 'port': 3306, 'dbname': 'Oxygen_Evolution_Catalysts', '...[0m
+    [36m                    │   │          └ [0m[36m[1m['mp-19079', 'mp-715275'][0m
+    [36m                    │   └ [0m[36m[1m<function RemoteDB.monitoring at 0x7f8c50f83b80>[0m
+    [36m                    └ [0m[36m[1m<openmap.aws.sql_wrapper.RemoteDB object at 0x7f8c0b849640>[0m
+
+> File "[32m/home/ctetsass/OpenMaps/openmap/aws/[0m[32m[1msql_wrapper.py[0m", line [33m596[0m, in [35mmonitoring[0m
+    [1mself[0m[35m[1m.[0m[1mdisconnect[0m[1m([0m[1m)[0m
+    [36m│    └ [0m[36m[1m<function RemoteDB.disconnect at 0x7f8c515af820>[0m
+    [36m└ [0m[36m[1m<openmap.aws.sql_wrapper.RemoteDB object at 0x7f8c0b849640>[0m
+
+  File "[32m/home/ctetsass/OpenMaps/openmap/aws/[0m[32m[1msql_wrapper.py[0m", line [33m82[0m, in [35mdisconnect[0m
+    [1mself[0m[35m[1m.[0m[1mconn[0m[35m[1m.[0m[1mclose[0m[1m([0m[1m)[0m
+    [36m│    │    └ [0m[36m[1m<function Connection.close at 0x7f8c50724ca0>[0m
+    [36m│    └ [0m[36m[1m<pymysql.connections.Connection object at 0x7f8c0b849fd0>[0m
+    [36m└ [0m[36m[1m<openmap.aws.sql_wrapper.RemoteDB object at 0x7f8c0b849640>[0m
+
+  File "/home/ctetsass/anaconda3/lib/python3.8/site-packages/pymysql/connections.py", line 356, in close
+    raise err.Error("Already closed")
+          │   └ <class 'pymysql.err.Error'>
+          └ <module 'pymysql.err' from '/home/ctetsass/anaconda3/lib/python3.8/site-packages/pymysql/err.py'>
+
+[31m[1mpymysql.err.Error[0m:[1m Already closed[0m
+[96m11-18-2020 18:25:20[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
+[96m11-18-2020 18:25:20[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
+[96m11-18-2020 18:30:20[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97mAn error has been caught in function 'monitoring', process 'MainProcess' (1024378), thread 'MainThread' (140240905475904):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/home/ctetsass/OpenMaps/openmap/[0m[32m[1morchestrator.py[0m", line [33m287[0m, in [35m<module>[0m
+    [1mcomputing_results[0m [35m[1m=[0m [1maws[0m[35m[1m.[0m[1mmonitoring[0m[1m([0m[1mcomputing_list[0m[1m,[0m [1mDataBase_CONFIG[0m[1m[[0m[36m'tablename'[0m[1m][0m[1m,[0m
+    [36m                    │   │          │               └ [0m[36m[1m{'host': 'rds-mysql-alloys.c2jdmok5sewf.us-east-2.rds.amazonaws.com', 'port': 3306, 'dbname': 'Oxygen_Evolution_Catalysts', '...[0m
+    [36m                    │   │          └ [0m[36m[1m['mp-19079', 'mp-715275'][0m
+    [36m                    │   └ [0m[36m[1m<function RemoteDB.monitoring at 0x7f8c50f83b80>[0m
+    [36m                    └ [0m[36m[1m<openmap.aws.sql_wrapper.RemoteDB object at 0x7f8c0b849640>[0m
+
+> File "[32m/home/ctetsass/OpenMaps/openmap/aws/[0m[32m[1msql_wrapper.py[0m", line [33m596[0m, in [35mmonitoring[0m
+    [1mself[0m[35m[1m.[0m[1mdisconnect[0m[1m([0m[1m)[0m
+    [36m│    └ [0m[36m[1m<function RemoteDB.disconnect at 0x7f8c515af820>[0m
+    [36m└ [0m[36m[1m<openmap.aws.sql_wrapper.RemoteDB object at 0x7f8c0b849640>[0m
+
+  File "[32m/home/ctetsass/OpenMaps/openmap/aws/[0m[32m[1msql_wrapper.py[0m", line [33m82[0m, in [35mdisconnect[0m
+    [1mself[0m[35m[1m.[0m[1mconn[0m[35m[1m.[0m[1mclose[0m[1m([0m[1m)[0m
+    [36m│    │    └ [0m[36m[1m<function Connection.close at 0x7f8c50724ca0>[0m
+    [36m│    └ [0m[36m[1m<pymysql.connections.Connection object at 0x7f8c0b849fd0>[0m
+    [36m└ [0m[36m[1m<openmap.aws.sql_wrapper.RemoteDB object at 0x7f8c0b849640>[0m
+
+  File "/home/ctetsass/anaconda3/lib/python3.8/site-packages/pymysql/connections.py", line 356, in close
+    raise err.Error("Already closed")
+          │   └ <class 'pymysql.err.Error'>
+          └ <module 'pymysql.err' from '/home/ctetsass/anaconda3/lib/python3.8/site-packages/pymysql/err.py'>
+
+[31m[1mpymysql.err.Error[0m:[1m Already closed[0m
+[96m11-18-2020 18:30:20[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
+[96m11-18-2020 18:30:20[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
+[96m11-18-2020 18:35:21[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97mAn error has been caught in function 'monitoring', process 'MainProcess' (1024378), thread 'MainThread' (140240905475904):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/home/ctetsass/OpenMaps/openmap/[0m[32m[1morchestrator.py[0m", line [33m287[0m, in [35m<module>[0m
+    [1mcomputing_results[0m [35m[1m=[0m [1maws[0m[35m[1m.[0m[1mmonitoring[0m[1m([0m[1mcomputing_list[0m[1m,[0m [1mDataBase_CONFIG[0m[1m[[0m[36m'tablename'[0m[1m][0m[1m,[0m
+    [36m                    │   │          │               └ [0m[36m[1m{'host': 'rds-mysql-alloys.c2jdmok5sewf.us-east-2.rds.amazonaws.com', 'port': 3306, 'dbname': 'Oxygen_Evolution_Catalysts', '...[0m
+    [36m                    │   │          └ [0m[36m[1m['mp-19079', 'mp-715275'][0m
+    [36m                    │   └ [0m[36m[1m<function RemoteDB.monitoring at 0x7f8c50f83b80>[0m
+    [36m                    └ [0m[36m[1m<openmap.aws.sql_wrapper.RemoteDB object at 0x7f8c0b849640>[0m
+
+> File "[32m/home/ctetsass/OpenMaps/openmap/aws/[0m[32m[1msql_wrapper.py[0m", line [33m596[0m, in [35mmonitoring[0m
+    [1mself[0m[35m[1m.[0m[1mdisconnect[0m[1m([0m[1m)[0m
+    [36m│    └ [0m[36m[1m<function RemoteDB.disconnect at 0x7f8c515af820>[0m
+    [36m└ [0m[36m[1m<openmap.aws.sql_wrapper.RemoteDB object at 0x7f8c0b849640>[0m
+
+  File "[32m/home/ctetsass/OpenMaps/openmap/aws/[0m[32m[1msql_wrapper.py[0m", line [33m82[0m, in [35mdisconnect[0m
+    [1mself[0m[35m[1m.[0m[1mconn[0m[35m[1m.[0m[1mclose[0m[1m([0m[1m)[0m
+    [36m│    │    └ [0m[36m[1m<function Connection.close at 0x7f8c50724ca0>[0m
+    [36m│    └ [0m[36m[1m<pymysql.connections.Connection object at 0x7f8c0b849fd0>[0m
+    [36m└ [0m[36m[1m<openmap.aws.sql_wrapper.RemoteDB object at 0x7f8c0b849640>[0m
+
+  File "/home/ctetsass/anaconda3/lib/python3.8/site-packages/pymysql/connections.py", line 356, in close
+    raise err.Error("Already closed")
+          │   └ <class 'pymysql.err.Error'>
+          └ <module 'pymysql.err' from '/home/ctetsass/anaconda3/lib/python3.8/site-packages/pymysql/err.py'>
+
+[31m[1mpymysql.err.Error[0m:[1m Already closed[0m
+[96m11-18-2020 18:35:21[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
+[96m11-18-2020 18:35:21[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
+[96m11-18-2020 18:40:21[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97mAn error has been caught in function 'monitoring', process 'MainProcess' (1024378), thread 'MainThread' (140240905475904):[0m
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/home/ctetsass/OpenMaps/openmap/[0m[32m[1morchestrator.py[0m", line [33m287[0m, in [35m<module>[0m
+    [1mcomputing_results[0m [35m[1m=[0m [1maws[0m[35m[1m.[0m[1mmonitoring[0m[1m([0m[1mcomputing_list[0m[1m,[0m [1mDataBase_CONFIG[0m[1m[[0m[36m'tablename'[0m[1m][0m[1m,[0m
+    [36m                    │   │          │               └ [0m[36m[1m{'host': 'rds-mysql-alloys.c2jdmok5sewf.us-east-2.rds.amazonaws.com', 'port': 3306, 'dbname': 'Oxygen_Evolution_Catalysts', '...[0m
+    [36m                    │   │          └ [0m[36m[1m['mp-19079', 'mp-715275'][0m
+    [36m                    │   └ [0m[36m[1m<function RemoteDB.monitoring at 0x7f8c50f83b80>[0m
+    [36m                    └ [0m[36m[1m<openmap.aws.sql_wrapper.RemoteDB object at 0x7f8c0b849640>[0m
+
+> File "[32m/home/ctetsass/OpenMaps/openmap/aws/[0m[32m[1msql_wrapper.py[0m", line [33m596[0m, in [35mmonitoring[0m
+    [1mself[0m[35m[1m.[0m[1mdisconnect[0m[1m([0m[1m)[0m
+    [36m│    └ [0m[36m[1m<function RemoteDB.disconnect at 0x7f8c515af820>[0m
+    [36m└ [0m[36m[1m<openmap.aws.sql_wrapper.RemoteDB object at 0x7f8c0b849640>[0m
+
+  File "[32m/home/ctetsass/OpenMaps/openmap/aws/[0m[32m[1msql_wrapper.py[0m", line [33m82[0m, in [35mdisconnect[0m
+    [1mself[0m[35m[1m.[0m[1mconn[0m[35m[1m.[0m[1mclose[0m[1m([0m[1m)[0m
+    [36m│    │    └ [0m[36m[1m<function Connection.close at 0x7f8c50724ca0>[0m
+    [36m│    └ [0m[36m[1m<pymysql.connections.Connection object at 0x7f8c0b849fd0>[0m
+    [36m└ [0m[36m[1m<openmap.aws.sql_wrapper.RemoteDB object at 0x7f8c0b849640>[0m
+
+  File "/home/ctetsass/anaconda3/lib/python3.8/site-packages/pymysql/connections.py", line 356, in close
+    raise err.Error("Already closed")
+          │   └ <class 'pymysql.err.Error'>
+          └ <module 'pymysql.err' from '/home/ctetsass/anaconda3/lib/python3.8/site-packages/pymysql/err.py'>
+
+[31m[1mpymysql.err.Error[0m:[1m Already closed[0m
+[96m11-18-2020 18:40:21[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
+[96m11-18-2020 18:40:21[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(0, '')[0m
+[96m11-18-2020 19:18:06[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(1054, "Unknown column 'metal_oxyde' in 'field list'")[0m
+[96m11-18-2020 19:18:06[0m |         [96msql_wrapper[0m -         [96mopenmap.aws.sql_wrapper[0m |  		[91mERROR[0m: 		[97m(1054, "Unknown column 'metal_oxyde' in 'field list'")[0m

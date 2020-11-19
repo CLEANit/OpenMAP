@@ -141,7 +141,7 @@ def write_slurm_job(input_path, job_description, gpu=0):
     script += "rm -r $VASP_WORKDIR\n"
     script += "\n\n"
     script += "source ~/ENV_PYTHON/bin/activate\n"
-    script += "campaign_objective.py  {} \n".format(job_description["objective_name"])
+    script += "python ~/OpenMaps/campaign_objective.py  {} \n".format(job_description["objective_name"])
     script += "python  {}\n".format(aws_file)
 
     script += "\n\n"
