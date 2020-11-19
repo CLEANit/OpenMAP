@@ -10,7 +10,7 @@ import mysql.connector
 from mysql.connector import errorcode
 from ase import Atoms
 
-from openmap.computing.log import logger
+from computing.log import logger
 
 # logger = logging.getLogger(__name__)
 

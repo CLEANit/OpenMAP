@@ -1,25 +1,21 @@
 #!/usr/bin/env python
+import sys
 import os
-import json
-import yaml
 from openmap.aws import sql_wrapper, aws_hcp
 from openmap.category_writer import CategoryWriter
 from openmap.online_wrapper import FetchData
 import argparse
 import pickle
-import h5py
 from pymatgen import Composition
 from matminer.featurizers.composition import ElementFraction
 from pymatgen import MPRester
-from optimizer.phoenics_inc import gryffin as Gryffin
 
 from openmap.computing.input_generator import InputGenerator
 from openmap.computing.job import JobManager
 from openmap.computing import client
 from openmap.computing.slurm_vasp import qsub_vasp2
 from pathlib import Path
-import numpy as np
-
+from openmap.optimizer.phoenics_inc import gryffin as Gryffin
 __version__ = '0.1'
 __author__ = 'Conrard TETSASSI'
 __maintainer__ = 'Conrard TETSASSI'
@@ -27,14 +23,13 @@ __email__ = 'giresse.feugmo@gmail.com'
 __status__ = 'Developments'
 
 # ===============================================================================
-from tests import OpenMapsTestCase
 
 # TestCase =  OpenMapsTestCase()
 # TestCase.test_requirements()
 # ==============================================================================
 
-from openmap.configuration import HPC_CONFIG, ChemOs_CONFIG, DataBase_CONFIG, Query
-from openmap.configuration.resources import users, hosts, projects, allocations
+from openmap.configuration import ChemOs_CONFIG, DataBase_CONFIG, Query
+from openmap.configuration.resources import hosts, projects, allocations
 
 # ===============================================================================
 parser = argparse.ArgumentParser(description='Automated  Optimizer')
