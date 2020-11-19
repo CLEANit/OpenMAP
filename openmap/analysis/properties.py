@@ -53,8 +53,8 @@ class Property(object):
             logger.error("Property [{}] not recognized".format(name))
             return None
         try:
-            prop = eval("self.res.get_" + usname )
+            prop = eval("self.res.get_" + usname)
             return prop
-        except AttributeError:
-            logger.error("Property [{}] not implemented".format(usname))
+        except Exception as err:
+            logger.error(f"{err}")
             return None

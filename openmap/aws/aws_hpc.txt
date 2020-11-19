@@ -23,32 +23,11 @@ def insert_value(tablename, colname, val, id_col, struc_id, dbcon):
 
 if __name__=='__main__':
 
-
     host="@host"
     port=@port
     dbname="@dbname"
     user="@user"
     password="@password"
-
-    try:
-      connection = pymysql.connect(host=self.host,
-                                           user=self.user,
-                                           port=self.port,
-                                           passwd=self.password,
-                                           db=self.dbname)
-      print(" Connection established to the database [{}]".format(dbname))
-    except pymysql.Error as err:
-      if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-        print("Something is wrong with your user name or password")
-        pass
-      elif err.errno == errorcode.ER_BAD_DB_ERROR:
-        print("Database does not exist")
-        pass
-      else:
-        print(err)
-        pass
-
-
 
     tablename="@tablename"
     colname="@colname"
@@ -57,12 +36,34 @@ if __name__=='__main__':
     struc_id="@struc_id"
 
 
-    with open("objective.yml", "r") as fr:
+    try:
+      connection = pymysql.connect(host=host,
+                                           user=user,
+                                           port=port,
+                                           passwd=password,
+                                           db=dbname)
+      print(" Connection established to the database [{}]".format(dbname))
+
+      with open("objective.yml", "r") as fr:
         objective = yaml.safe_load(fr)
 
-    val = objective["@colname"]
+      val = objective["@colname"]
 
-    insert_value(tablename, colname, val, id_col, struc_id, dbcon)
+      insert_value(tablename, colname, val, id_col, struc_id, connection)
+    except pymysql.Error as err:
+      if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+        print("Something is wrong with your user name or password")
+      elif err.errno == errorcode.ER_BAD_DB_ERROR:
+        print("Database does not exist")
+      else:
+        print(err)
+
+
+
+
+
+
+
 
 
 

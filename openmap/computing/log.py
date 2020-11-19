@@ -17,7 +17,8 @@ def create_logger():
         colorize=True,
         level="INFO",
         format="<light-cyan>{time:MM-DD-YYYY HH:mm:ss}</light-cyan> | \
-        <light-cyan>{name}</light-cyan> | \
+        <light-cyan>{name}</light-cyan>  \
+        <light-cyan>{line}</light-cyan> | \
 		<light-green>{level}</light-green>: \
 		<light-white>{message}</light-white>"
     )

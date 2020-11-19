@@ -76,10 +76,15 @@ class RemoteDB:
     @logger.catch
     def disconnect(self):
         """Close  connection to the database server"""
-        if self.cursor:
+        try:
             self.cursor.close()
-        if self.conn:
-            self.conn.close()
+        except Exception as err:
+            logger(f'{err}')
+
+        try:
+            self.cursor.close()
+        except Exception as err:
+            logger(f'{err}')
 
     @logger.catch
     def checkDbExists(self, DB_NAME=None, dbcon=None):

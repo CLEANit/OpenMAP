@@ -31,19 +31,13 @@ __status__ = 'Development'
 
 
 
-def prepare_results(path):
-    """ get all of the results of the previous batch ready to be inserted into the DB
-        will return a list of dictionaries
-    """
+def job_converged(path):
 
-    vrun = Vasprun(filename=os.path.join(path, 'vasp_output/vasprun.xml'))
-    energy = vrun.final_energy
-    volume = vrun.final_structure.volume
-    abc = vrun.final_structure.lattice.abc
-    mol_dict = {'energy': energy, 'volume': volume, 'abc': abc}
-    mol_dict
-
-    return mol_dict
+    try:
+        vrun = Vasprun(filename=os.path.join(path, 'vasp_output/vasprun.xml'))
+        return vrun.converged
+    except:
+        return False
 
 
 def get_objective(prop_name, file_path):
@@ -75,13 +69,16 @@ if __name__=='__main__':
     loc = pathlib.Path().absolute() ## For the current working directory:
     prop_name = sys.argv[1]
     objective = {}
-    try:
-        objective[prop_name] = float(get_objective(prop_name, os.path.join(loc, 'vasp_output')))
-        logger.info(f' Successfully evaluated the [{prop_name}]')
-    except Exception as err:
-        objective[prop_name] = None
-        logger.error(f'{err}')
-
+    if job_converged(loc):
+        try:
+            objective[prop_name] = float(get_objective(prop_name, os.path.join(loc, 'vasp_output')))
+            logger.info(f' Successfully evaluated the [{prop_name}]')
+        except Exception as err:
+            objective[prop_name] = 5E-18
+            logger.error(f'{err}')
+    else:
+        objective[prop_name] = 5E-18
+        logger.error(f'Job not converged')
 
     file = open('objective.yml', "w")
     yaml.dump(objective, file, default_flow_style=False)
