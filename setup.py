@@ -3,7 +3,7 @@ from pip._internal.download import PipSession
 from pip.req import parse_requirements
 
 import openmap
-
+from setuptools import setup, find_packages
 pkgs = []
 dependency_links = []
 session = PipSession()

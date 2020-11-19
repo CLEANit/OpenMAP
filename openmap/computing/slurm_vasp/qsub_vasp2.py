@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 
 __version__ = '0.1'
 __author__ = 'Conrard TETSASSI'
@@ -135,13 +134,13 @@ def write_slurm_job(input_path, job_description, gpu=0):
     script += " mkdir -p vasp_output\n"
 
     script += "cp * vasp_output\n"
-    script += "cp -r vasp_output/  $SLURM_SUBMIT_D"
+    script += "cp -r vasp_output/  $SLURM_SUBMIT_DIR\n"
     script += "cd  $SLURM_SUBMIT_DIR\n"
     #script += "mv *.err *.out  vasp_output\n"
     script += "rm -r $VASP_WORKDIR\n"
     script += "\n\n"
     script += "source ~/ENV_PYTHON/bin/activate\n"
-    script += "python ~/OpenMaps/openmap/campaign_objective.py  {} \n".format(job_description["objective_name"])
+    script += "python ~/OpenMaps/campaign_objective.py  {} \n".format(job_description["objective_name"])
     script += "python  ./{}\n".format(aws_file)
 
     script += "\n\n"

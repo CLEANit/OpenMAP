@@ -10,8 +10,8 @@ from pymatgen.io.vasp.inputs import Incar
 
 import os
 from pathlib import Path
-from openmap.computing.log import logger
-from openmap.configuration.vasp_settings import POTENTIALS, VASP_SETTINGS
+from computing.log import logger
+from configuration.vasp_settings import POTENTIALS, VASP_SETTINGS
 import copy
 import shutil
 vasp_calculations = {"static": 'static',
