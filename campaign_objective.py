@@ -69,16 +69,21 @@ if __name__=='__main__':
     loc = pathlib.Path().absolute() ## For the current working directory:
     prop_name = sys.argv[1]
     objective = {}
-    if job_converged(loc):
-        try:
-            objective[prop_name] = float(get_objective(prop_name, os.path.join(loc, 'vasp_output')))
+    #if job_converged(loc):
+    try:
+        prop = get_objective(prop_name, os.path.join(loc, 'vasp_output'))
+        if prop is not None:
+            objective[prop_name] = float(prop)
             logger.info(f' Successfully evaluated the [{prop_name}]')
-        except Exception as err:
+        else:
+            logger.error(f'Job not converged')
             objective[prop_name] = 5E-18
-            logger.error(f'{err}')
-    else:
+    except Exception as err:
         objective[prop_name] = 5E-18
-        logger.error(f'Job not converged')
+        logger.error(f'{err}')
+    # else:
+    #     objective[prop_name] = 5E-18
+    #     logger.error(f'Job not converged')
 
     file = open('objective.yml', "w")
     yaml.dump(objective, file, default_flow_style=False)
