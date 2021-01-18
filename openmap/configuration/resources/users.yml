@@ -8,8 +8,13 @@
     # user2:
     #   hostname1: ...
     
-ctetsass:
+Tetsassic:
   cedar:
     run_path: /home/ctetsass/scratch
     username: ctetsass
-
+  graham:
+    run_path: /home/ctetsass/scratch
+    username: ctetsass
+  nigara:
+    run_path: /home/ctetsass/scratch
+    username: ctetsass

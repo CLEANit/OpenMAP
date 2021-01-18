@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/OpenMaps.iml" filepath="$PROJECT_DIR$/.idea/OpenMaps.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/OpenMAP.iml" filepath="$PROJECT_DIR$/.idea/OpenMAP.iml" />
     </modules>
   </component>
 </project>

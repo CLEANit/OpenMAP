@@ -1,26 +1,23 @@
 #!/usr/bin/env python
-import sys
-import os
-from openmap.aws import sql_wrapper, aws_hcp
-from openmap.category_writer import CategoryWriter
-from openmap.online_wrapper import FetchData
 import argparse
+import os
 import pickle
-from pymatgen import Composition
-from matminer.featurizers.composition import ElementFraction
-from pymatgen import MPRester
-
-from openmap.computing.input_generator import InputGenerator
-from openmap.computing.job import JobManager
-from openmap.computing import client
-from openmap.computing.slurm_vasp import qsub_vasp2
+import sys
 from pathlib import Path
-from openmap.optimizer.phoenics_inc import gryffin as Gryffin
-__version__ = '0.1'
-__author__ = 'Conrard TETSASSI'
-__maintainer__ = 'Conrard TETSASSI'
-__email__ = 'giresse.feugmo@gmail.com'
-__status__ = 'Developments'
+
+from matminer.featurizers.composition import ElementFraction
+from pymatgen import Composition, MPRester
+
+from aws import aws_hcp, sql_wrapper
+from category_writer import CategoryWriter
+from computing import client
+from computing.input_generator import InputGenerator
+from computing.job import JobManager
+from computing.slurm_vasp import qsub_vasp2
+from configuration import ChemOs_CONFIG, DataBase_CONFIG, Query
+from configuration.resources import allocations, hosts, projects
+from online_wrapper import FetchData
+from optimizer.phoenics_inc import gryffin as Gryffin
 
 # ===============================================================================
 
@@ -28,24 +25,23 @@ __status__ = 'Developments'
 # TestCase.test_requirements()
 # ==============================================================================
 
-from openmap.configuration import ChemOs_CONFIG, DataBase_CONFIG, Query
-from openmap.configuration.resources import hosts, projects, allocations
 
 # ===============================================================================
 parser = argparse.ArgumentParser(description='Automated  Optimizer')
 # parser.add_argument('integers', metavar='N', type=int, nargs='+',
 #                    help='an integer for the accumulator')
 
-parser.add_argument('--seed', metavar='N', action='store', dest='seed', type=int,
-                    help='seed value')
+parser.add_argument('--seed', metavar='N', action='store', dest='seed', type=int, help='seed value')
 
-parser.add_argument('--budget',
-                    dest='budget',
-                    type=int,
-                    default=4,
-                    action='store',
-                    # const='value-to-store',
-                    help='how many experiment you want to perform')
+parser.add_argument(
+    '--budget',
+    dest='budget',
+    type=int,
+    default=4,
+    action='store',
+    # const='value-to-store',
+    help='how many experiment you want to perform',
+)
 
 # parser.add_argument('--batch_size',
 #                     dest='batch_size',
@@ -55,13 +51,25 @@ parser.add_argument('--budget',
 #                     # const='value-to-store',
 #                     help='batch size')
 
-parser.add_argument('--project',
-                    dest='project',
-                    type=str,
-                    default='OER',
-                    action='store',
-                    # required=True,
-                    help='project name default:  Oxygen Evolution Reaction')
+parser.add_argument(
+    '--project',
+    dest='project',
+    type=str,
+    default='OER',
+    action='store',
+    # required=True,
+    help='project name default:  Oxygen Evolution Reaction',
+)
+
+parser.add_argument(
+    '--user',
+    dest='user',
+    type=str,
+    default='Tetsassic',
+    action='store',
+    # required=True,
+    help='OpenMAP User Name',
+)
 
 # parser.add_argument('-B', action='append_const', dest='const_collection',
 #                     const='value-2-to-append',
@@ -70,13 +78,21 @@ parser.add_argument('--version', action='version', version='%(prog)s 1.0')
 
 args = parser.parse_args()
 
-# ================================ HCP  details ================================
+# ================================ HCP  details ==========================
 try:
     OpenMap_project = projects[args.project]
 
-except:
+except BaseException:
     print(f' The project {args.project} does not exist would you like to create')
 
+
+# try:
+#     OpenMap_user = projects[args.user]
+#       if user not in .....
+#     print(f' The user {args.project} does not exist would you like to create')
+#
+# except:
+#     print(f' The user {args.project} does not exist would you like to create')
 # ===============================================================================
 
 
@@ -90,19 +106,21 @@ seed = args.seed
 
 BATCH_SIZE = ChemOs_CONFIG.get('general')['sampling_strategies']
 
-campaign_name = ChemOs_CONFIG.get('parameters')[0]["name"]
-objective_name = ChemOs_CONFIG.get("objectives")[0]['name']
+campaign_name = ChemOs_CONFIG.get('parameters')[0]['name']
+objective_name = ChemOs_CONFIG.get('objectives')[0]['name']
 
 id_colm = DataBase_CONFIG['id_colm']
 
 # download data from Aws
 
 print(DataBase_CONFIG['port'], type(DataBase_CONFIG['port']))
-aws = sql_wrapper.RemoteDB(DataBase_CONFIG['host'],
-                           DataBase_CONFIG['user'],
-                           DataBase_CONFIG['port'],
-                           DataBase_CONFIG['dbname'],
-                           DataBase_CONFIG['password'])
+aws = sql_wrapper.RemoteDB(
+    DataBase_CONFIG['host'],
+    DataBase_CONFIG['user'],
+    DataBase_CONFIG['port'],
+    DataBase_CONFIG['dbname'],
+    DataBase_CONFIG['password'],
+)
 
 # need a dictionnary with project and BD and Table
 
@@ -214,58 +232,68 @@ while evaluations < BUDGET:
 
         job_paths = inputgenerator.vasp_input_from_structure(computing_list, structures, objective_name)
 
-        account = OpenMap_project['allocations'][0]  # ['def-itamblyn-ac', 'def-mkarttu', 'rrg-mkarttu-ab']
+        # ['def-itamblyn-ac', 'def-mkarttu', 'rrg-mkarttu-ab']
+        account = OpenMap_project['allocations'][0]
         allocation = allocations[account]
 
         host = hosts[allocation['host']]
 
-        job_description = {'time': 1,
-                           'ntask': 2,
-                           'memory': 8000,
-                           'email': None,
-                           'gpu': 0,
-                           'account': account,
-                           'binary': host['binaries']['vasp_serial'],
-                           'objective_name': objective_name}
+        job_description = {
+            'time': 1,
+            'ntask': 2,
+            'memory': 8000,
+            'email': None,
+            'gpu': 0,
+            'account': account,
+            'binary': host['binaries']['vasp_serial'],
+            'objective_name': objective_name,
+        }
 
         job_manager = JobManager(campaign_name=campaign_name, local_path=workdir, remote_path=host['sub_text'])
 
-        # write submission file (slurm) and module to update result on aws (python)
+        # write submission file (slurm) and module to update result on aws
+        # (python)
 
         for path, sample in zip(job_paths, computing_list):
             qsub_vasp2.write_slurm_job(path, job_description)
             # aws.write_slurm_job(job, job_description)
 
-            checkWords = ("@host",
-                          "@port",
-                          "@dbname",
-                          "@user",
-                          "@password",
-                          "@tablename",
-                          "@colname",
-                          # "@val",
-                          "@id_col",
-                          "@struc_id")
-            repWords = (DataBase_CONFIG['host'],
-                        str(DataBase_CONFIG['port']),
-                        DataBase_CONFIG['dbname'],
-                        DataBase_CONFIG['user'],
-                        DataBase_CONFIG['password'],
-                        DataBase_CONFIG['tablename'],
-                        objective_name,
-                        # "@objective",
-                        id_colm,
-                        sample)
+            checkWords = (
+                "@host",
+                "@port",
+                "@dbname",
+                "@user",
+                "@password",
+                "@tablename",
+                "@colname",
+                # "@val",
+                "@id_col",
+                "@struc_id",
+            )
+            repWords = (
+                DataBase_CONFIG['host'],
+                str(DataBase_CONFIG['port']),
+                DataBase_CONFIG['dbname'],
+                DataBase_CONFIG['user'],
+                DataBase_CONFIG['password'],
+                DataBase_CONFIG['tablename'],
+                objective_name,
+                # "@objective",
+                id_colm,
+                sample,
+            )
 
             job_manager.write_slurm_aws(aws_hcp, path, checkWords, repWords)
             # # 4 upload input on HPC
 
-        remote = client.RemoteClient(host=host['hostname'],
-                                     user=allocation['users'],
-                                     remote_path=host['sub_text'],
-                                     local_path=os.path.join(str(Path.home()), 'MAPS', campaign_name),
-                                     passphrase=allocation['passphrase'],
-                                     ssh_key_filepath=allocation['key'])
+        remote = client.RemoteClient(
+            host=host['hostname'],
+            user=allocation['users'],
+            remote_path=host['sub_text'],
+            local_path=os.path.join(str(Path.home()), 'MAPS', campaign_name),
+            passphrase=allocation['passphrase'],
+            ssh_key_filepath=allocation['key'],
+        )
         # 5 submit job
         jobs = {}
         for path, sample in zip(job_paths, computing_list):
@@ -274,14 +302,13 @@ while evaluations < BUDGET:
 
         remote.disconnect()
         job_manager.save_dict_to_hdf5(jobs, h5file)
-            # jobs_dict = job_manager.load_dict_from_hdf5(h5file)
-            # hf = h5py.File('runs/job.h5', 'w')
+        # jobs_dict = job_manager.load_dict_from_hdf5(h5file)
+        # hf = h5py.File('runs/job.h5', 'w')
 
-
-            # 6 check db (aws) if jobs  are completed
-        computing_results = aws.monitoring(computing_list, DataBase_CONFIG['tablename'],
-                                           objective_name, id_colm, sleeptime=120, dbcon=None)
-
+        # 6 check db (aws) if jobs  are completed
+        computing_results = aws.monitoring(
+            computing_list, DataBase_CONFIG['tablename'], objective_name, id_colm, sleeptime=120, dbcon=None
+        )
 
     for idx, result in zip(computing_idx, computing_results):
         measurements[idx] = result

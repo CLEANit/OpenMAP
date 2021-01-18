@@ -1,36 +1,44 @@
-from setuptools import setup
-from pip._internal.download import PipSession
-from pip.req import parse_requirements
+import io
+import os
+import re
 
-import openmap
-from setuptools import setup, find_packages
-pkgs = []
-dependency_links = []
-session = PipSession()
-for pkg in parse_requirements('requirements.txt', session=session):
-    if pkg.req:
-        pkgs.append(str(pkg.req))
-        if pkg.link and pkg.link.url:
-            dependency_links.append(str(pkg.link.url))
+import hea
+from setuptools import find_packages, setup
+
+
+def read(filename):
+    filename = os.path.join(os.path.dirname(__file__), filename)
+    text_type = type('')
+    with open(filename, mode='r', encoding='utf-8') as fd:
+        return re.sub(text_type(r':[a-z]+`~?(.*?)`'), text_type(r'``\1``'), fd.read())
+
+
+requirements_txt = os.path.join(os.path.dirname(__file__), 'requirements.txt')
+
+with open(requirements_txt, encoding='utf-8') as fin:
+    requires = [line.strip() for line in fin if line and line.strip() and not line.strip().startswith('#')]
 
 setup(
-    name='openmap',
-    packages=['openmap', 'campaign_objective', 'openmap.analysis', 'openmap.computing', 'openmap.aws'],
-    version=openmap.__version__,
-    author=openmap.__author__,
-    author_email=openmap.__email__,
-    description=openmap.__doc__,
+    name='OpenMAP',
+    url='https://github.com/CLEANit/OpenMAP',
+    version=hea.__version__,
+    author=hea.__author__,
+    author_email=hea.__email__,
+    description=hea.__doc__,
+    long_description=read('README.rst'),
+    packages=find_packages(exclude=['docs', 'tests']),
+    install_requires=requires,
     classifiers=[
-        'Environment :: Scientific',
-        'Operating System :: OS Independent',
+        # How mature is this project? Common values are
+        #   3 - Alpha
+        #   4 - Beta
+        #   5 - Production/Stable
+        'Development Status :: 3 - Alpha' 'Environment :: Scientific',
+        'Operating System :: Os Independent',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 3'
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
     ],
-    install_requires=pkgs,
-    dependency_links=dependency_links,
-    python_requires='>=3',
-    test_suite='tests',
-    entry_points={
-        'console_scripts': openmap.make_console_scripts()
-    },
 )
