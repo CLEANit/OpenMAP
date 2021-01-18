@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import os
-from openmap.analysis import parser
-from openmap.analysis.properties import Property
+from analysis import parser
+from analysis.properties import Property
 from pymatgen.io.vasp.outputs import Vasprun
 from pymatgen.io.vasp.outputs import BSVasprun
 from pymatgen.io.vasp.outputs import Outcar

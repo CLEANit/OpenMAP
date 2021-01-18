@@ -4,12 +4,12 @@ import h5py
 from pathlib import Path
 import os
 
-from openmap.configuration.resources import users, hosts, projects, allocations
-from openmap.computing.log import logger
-from openmap.computing import files
-from openmap.computing import client
-from openmap.analysis import parser
-from openmap.analysis import properties
+from configuration.resources import users, hosts, projects, allocations
+from computing.log import logger
+from computing import files
+from computing import client
+from analysis import parser
+from analysis import properties
 __version__ = '0.1'
 __author__ = 'Conrard TETSASSI'
 __maintainer__ = 'Conrard TETSASSI'

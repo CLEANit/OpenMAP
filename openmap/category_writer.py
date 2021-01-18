@@ -5,7 +5,7 @@ import copy
 import json
 import pickle
 import numpy as np
-from openmap.computing.log import logger
+from computing.log import logger
 
 __version__ = '0.1'
 __author__ = 'Conrard TETSASSI'

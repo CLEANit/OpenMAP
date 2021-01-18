@@ -1,0 +1,10 @@
+ase
+coverage
+flake8
+nose
+pre-commit
+pyaml
+pyblack
+pytest
+sphinx
+tox
