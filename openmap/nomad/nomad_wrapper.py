@@ -11,13 +11,14 @@ class Nomad_query:
     def __init__(self,):
         self.query={'domain':'dft'}
         config.client.url = 'http://nomad-lab.eu/prod/rae/api'
-        
         pass
     
-    def search_params(self,atoms,crystal_system ='', dft_codeName='', compound_type=''):
+    def search_params(self,atoms, searchable_quantities = [], crystal_system ='', dft_codeName='',band_gap=[], compound_type=''):
         """
-        atoms: array of strings of elements ex: ['O', 'V']
-        
+        :param atoms: array of strings of elements ex: ['O', 'V']
+        :param crystal_system: string. "Compound type" on Nomad online search. One of 'binary', 'ternary', 
+                            'quaternary', 'quinary', 'sexinary', ...
+        :param 
         """
         self.query['atoms'] = atoms
         
@@ -28,10 +29,22 @@ class Nomad_query:
         if compound_type is not '':
             self.query['compound_type'] = compound_type
         
+        if band_gap is not []:
+            l = len(band_gap)
+            if l == 1:
+                self.query['encyclopedia.properties.band_gap'] = band_gap
+            #TODO band_gap range    
+            #elif l==2:
+
+        #if searchable_quantities is not []:
+        #    self.query['dft.searchable_quantities'] = searchable_quantities
+        
         return self
         
     def find_all_query(self,section_workflow=True, metadata='all', max_entries=23000):
-        
+        """
+        Gets all data 
+        """
         required={}
         if metadata is 'all':
             required['section_metadata']='*'
@@ -58,8 +71,11 @@ class Nomad_query:
                     }
                 }
             }
-        
-        print(self.query)
+        #TODO section_run stuff
+        if self.query.get('dft.searchable_quantities') is not None:
+            required['section_run'] = {}
+
+        print('query: ', self.query)
         query = ArchiveQuery(
             query=self.query,
             required = required,
@@ -72,7 +88,9 @@ class Nomad_query:
         
     
     def get_pd_df(self, section_workflow=True, metadata='all', max_entries=23000):
-        
+        """
+        Creates Pandas Dataframe from loaded data. 
+        """
         # get the query
         try:
             query = self.find_all_query(section_workflow, metadata, max_entries)
@@ -93,7 +111,7 @@ class Nomad_query:
         from ase import Atoms
         from ase.structure import molecule
         
-
+        #print(query)
         
         for entry in tqdm(range(number_queried)):
             try:
@@ -108,10 +126,20 @@ class Nomad_query:
 
                 entry_calc_id = query[entry].section_metadata.calc_id
                 
-            except AttributeError:
+                search = self.query.get('dft.searchable_quantities')
+                searchable_quantities = {}
+                if search is not None:
+                    if 'stress_tensor' in search:
+                        searchable_quantities['stress_tensor'] = query[entry].section_run[-1].section_single_configuration_calculation.stress_tensor
+                    #TODO implement other searchable quantities
+            except AttributeError as e:
+                print(f'AttributeError {e}.')
+                break
                 continue
-            
-            
+            except Exception as e:
+                print(f'Unhandled exception..\n\n{e}' )
+                continue
+
             n_atoms = len (elements)
 
             # The volume of the cell is obtained as scalar triple product of the three base vectors.
@@ -134,23 +162,25 @@ class Nomad_query:
             # estimate potential energy 
             #TODO implement energy with VASP
             pot_energy = Atoms(formula_red, calculator=EMT()).get_potential_energy()
-
-            df=df.append({
+            
+            
+            dict_append = {
                 'Space_group_number':int(space_group),
                 'Atomic_density':density,
                 'Formula':comp,
                 'Element_fractions':ef.featurize(comp),
                 'Calc_id':entry_calc_id,
                 'Pot Energy':pot_energy,
-            },ignore_index=True)
-
+            }
+            dict_append.update(searchable_quantities)
+            df=df.append(dict_append, ignore_index=True)
+            
         df[ef.feature_labels()] = pd.DataFrame(df['Element_fractions'].tolist(), index= df.index)
-        print(df)
         df = df.drop(columns = ['Element_fractions'])
         return df
 
-            
-            
+
+
 
     def get_all_data(self,calc_id):
         """
@@ -168,12 +198,61 @@ class Nomad_query:
             }
         )
         return query
+
+def get_structure(calc_id):
+    # query the calc id(s) for the filenames
+    query = ArchiveQuery(
+        query={
+            'domain':'dft',
+            'calc_id':calc_id#['jOot82SGvtp2-2_DXylc2K8PrvX8']
+        },
+        required={
+            'section_metadata':{
+                'files':'*',
+                'upload_id':'*',
+                'calc_id':'*'
+            }
+        }
+    )
+    all_structures = []
     
+    import requests as re
+    import io, os
+    from ase.io import read
+    for q in query:
+        upload_id = q.section_metadata.upload_id
+        calc_id = q.section_metadata.calc_id
+        
+        files = q.section_metadata.files
+        structure_file = [i for i in files if 'final_structure' in i]
+        
+        # get the file from nomad
+        url = f'http://nomad-lab.eu/prod/rae/api/raw/calc/{upload_id}/{calc_id}/final_structure.cif'
+        try:
+            file = re.get(url)
+            file.raise_for_status()
+        except FileNotFoundError:
+            print(f'Error finding structure for calc_id {calc_id}')
+            continue
+       # write as cif file and load using ase
+    
+        #TODO bypass the write then read
+        # maybe using io.BytesIo(file.content)
+        with open('__temp_io.cif', 'w') as f:
+            f.write(file.text)
+            
+        structure = read('__temp_io.cif')
+        
+        all_structures.append(structure)
+        
+    os.remove('__temp_io.cif')
+    return all_structures
+
 if __name__=='__main__':
-    
-    #nomad = Nomad_query().search_params(atoms=['O','H'])
-    #print(nomad.find_all_query())
     
     #print(Nomad_query().get_all_data('BZHXcQA0SaIVu7YDWlwsT2rI086j'))
    # print(Nomad_query().find_all_query())
-    print(Nomad_query().search_params(atoms=['Ag', 'Pd'], crystal_system='binary').get_pd_df(metadata=''))
+    print(Nomad_query().search_params(atoms=['Ag', 'Pd'],searchable_quantities=['stress_tensor'], crystal_system='binary').get_pd_df(metadata=''))
+
+    print(get_structure(['S0xHBMMVvsFsGJk8ybV0ImXuKVjx', 'UOOSveY9WFetIm7S8-j3y7WYum86']))
+
