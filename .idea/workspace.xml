@@ -1,32 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d4e64b3d-18e1-4e11-a933-25bec1b34b75" name="Default Changelist" comment="add tox.ini">
-      <change afterPath="$PROJECT_DIR$/.idea/OpenMAP.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/other.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.pre-commit-config.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/README.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openmap/databases/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openmap/databases/mp/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openmap/databases/oq/oq_wrapper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/OpenMaps.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openmap/aws/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/openmap/databases/aws/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openmap/aws/aws_hpc.txt" beforeDir="false" afterPath="$PROJECT_DIR$/openmap/databases/aws/aws_hpc.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openmap/aws/bucket_wrapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/openmap/databases/aws/bucket_wrapper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openmap/aws/file_transfert.py" beforeDir="false" afterPath="$PROJECT_DIR$/openmap/databases/aws/file_transfert.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openmap/aws/object_wrapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/openmap/databases/aws/object_wrapper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openmap/aws/sanum.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openmap/aws/sql_wrapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/openmap/databases/aws/sql_wrapper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openmap/logs/errors.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openmap/online_wrapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/openmap/databases/mp/mp_wrapper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openmap/orchestrator.py" beforeDir="false" afterPath="$PROJECT_DIR$/openmap/orchestrator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openmap/vasp_job.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/venv/lib/python3.6/site-packages/loguru-0.5.1.dist-info/REQUESTED" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.rst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/venv/lib/python3.6/site-packages/loguru/py.typed" beforeDir="false" />
-    </list>
+    <list default="true" id="d4e64b3d-18e1-4e11-a933-25bec1b34b75" name="Default Changelist" comment="add tox.ini" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -202,6 +177,7 @@
       <workItem from="1611085047843" duration="2383000" />
       <workItem from="1611171908140" duration="35266000" />
       <workItem from="1611691989270" duration="38000" />
+      <workItem from="1611866157753" duration="308000" />
     </task>
     <task id="LOCAL-00001" summary="add tox.ini">
       <created>1611000339648</created>
@@ -210,7 +186,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611000339648</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="add tox.ini">
+      <created>1611866327626</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1611866327626</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
