@@ -2,13 +2,12 @@
 import argparse
 import os
 import pickle
-import sys
 from pathlib import Path
 
 from matminer.featurizers.composition import ElementFraction
 from pymatgen import Composition, MPRester
 
-from aws import aws_hcp, sql_wrapper
+from openmap.databases.aws import aws_hcp, sql_wrapper
 from category_writer import CategoryWriter
 from computing import client
 from computing.input_generator import InputGenerator
@@ -16,7 +15,7 @@ from computing.job import JobManager
 from computing.slurm_vasp import qsub_vasp2
 from configuration import ChemOs_CONFIG, DataBase_CONFIG, Query
 from configuration.resources import allocations, hosts, projects
-from online_wrapper import FetchData
+from openmap.databases import mp
 from optimizer.phoenics_inc import gryffin as Gryffin
 
 # ===============================================================================
@@ -130,7 +129,7 @@ if not aws.checkDbExists(DB_NAME=DataBase_CONFIG['dbname']):
     aws.create_database(DB_NAME=DataBase_CONFIG['dbname'])
 
 if not aws.checkTableExists(DataBase_CONFIG['tablename']):
-    fetchdata = FetchData(Query['criteria'], Query['properties'])
+    fetchdata = mp.write.FetchData(Query['criteria'], Query['properties'])
     data_df = fetchdata.wrap_mp  # fetch data on Materials Project
     # data_df.rename(columns={'full_formula':'formula'})
 
