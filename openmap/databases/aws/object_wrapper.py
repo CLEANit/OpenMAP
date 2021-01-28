@@ -28,7 +28,7 @@ import uuid
 
 from botocore.exceptions import ClientError
 
-from openmap.aws import bucket_wrapper
+from openmap.databases.aws import bucket_wrapper
 
 logger = logging.getLogger(__name__)
 
