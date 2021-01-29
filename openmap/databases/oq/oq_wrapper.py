@@ -52,9 +52,23 @@ class OqWrapper(object):
         oqr = qr.QMPYRester()
         logger.info('Wrapping data on the Open Quantum Database')
         try:
-            data = oqr.get_optimade_structures(verbose=False, **query)
+            data = oqr.get_oqmd_phases(verbose=False, **query)
             df = pd.DataFrame.from_dict(data['data'])
             df = self._featurizing_composition(df)
             return df
         except Exception as e:
             raise Exception(e)
+
+
+if __name__ == '__main__':
+    qry = {
+        "element_set": "(Fe-Mn),O", # composition include (Fe OR Mn) AND O
+        "limit": 100
+
+    }
+
+    mpwrap = OqWrapper()
+
+    data_df = mpwrap.wrap_oq(qry)
+
+    print(data_df.head())
