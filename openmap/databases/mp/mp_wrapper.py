@@ -25,7 +25,7 @@ class MpWrapper(object):
 
         df = data_df.copy()
         ef = ElementFraction()
-        df['composition'] = df.apply(lambda x: Composition(x['composition']), axis=1)
+        df['composition'] = df.apply(lambda x: Composition(x['full_formula']), axis=1)
         df = ef.featurize_dataframe(df, "composition")
         # df = df.drop(df.std()[df.std() <= threshold].index.values, axis=1)
         return df
@@ -37,7 +37,7 @@ class MpWrapper(object):
         :return: dataframe
         """
         mpr = MPRester()
-        all_prop = mpr.supported_properties
+        all_prop = list(mpr.supported_properties)
         all_prop.append('full_formula')
         logger.info('Wrapping data on the Open Materials Project  Database')
         try:
@@ -47,3 +47,13 @@ class MpWrapper(object):
             return df
         except Exception as e:
             raise Exception(e)
+
+
+if __name__ == '__main__':
+    qry = '{Ni,Mn,Cu,Co}-O'
+
+    mpwrap = MpWrapper()
+
+    data_df = mpwrap.wrap_mp(qry)
+
+    print(data_df.head())
