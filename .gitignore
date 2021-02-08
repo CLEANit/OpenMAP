@@ -5,3 +5,6 @@ venv/
 .idea/
 .ipynb_checkpoints/
 .vscode/
+
+__pycache__/
+*.pyc
