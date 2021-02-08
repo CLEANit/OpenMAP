@@ -1,0 +1,7 @@
+.python-version
+.DS_Store
+venv/
+.idea
+.idea/
+.ipynb_checkpoints/
+.vscode/

@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d4e64b3d-18e1-4e11-a933-25bec1b34b75" name="Default Changelist" comment="add tox.ini" />
+    <list default="true" id="d4e64b3d-18e1-4e11-a933-25bec1b34b75" name="Default Changelist" comment="add tox.ini">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/OpenMAP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OpenMAP.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/openmap/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/openmap/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/openmap/databases/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/openmap/databases/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/openmap/databases/mp/mp_wrapper.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openmap/databases/oq/oq_wrapper.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openmap/nomad/nomad_wrapper.py" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,6 +27,17 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedIndex" value="1" />
+  </component>
   <component name="ProjectId" id="1nFfhNBjsvGFuTBSILYTWZjfxZb" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -28,8 +49,8 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/openmap" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -38,7 +59,7 @@
       <recent name="$PROJECT_DIR$/databases" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.oq_wrapper">
+  <component name="RunManager" selected="Python.search_db">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="OpenMAP" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -90,8 +111,8 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="$PROJECT_DIR$/../anaconda3/envs/py36-tensorflow-gpu/bin/python" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/.." />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
@@ -149,14 +170,38 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="search_db" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="OpenMAP" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="$PROJECT_DIR$/../anaconda3/envs/py36-tensorflow-gpu/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/.." />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/search_db.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Python.orchestrator" />
       <item itemvalue="Python.imap" />
       <item itemvalue="Python.oqmd_wrapper" />
       <item itemvalue="Python.oq_wrapper" />
+      <item itemvalue="Python.search_db" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.search_db" />
         <item itemvalue="Python.oq_wrapper" />
         <item itemvalue="Python.oqmd_wrapper" />
         <item itemvalue="Python.imap" />
@@ -178,6 +223,9 @@
       <workItem from="1611171908140" duration="35266000" />
       <workItem from="1611691989270" duration="38000" />
       <workItem from="1611866157753" duration="308000" />
+      <workItem from="1612293025950" duration="508000" />
+      <workItem from="1612293563472" duration="7556000" />
+      <workItem from="1612369299241" duration="2500000" />
     </task>
     <task id="LOCAL-00001" summary="add tox.ini">
       <created>1611000339648</created>
