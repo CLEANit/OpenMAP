@@ -31,6 +31,7 @@ __pycache__/
 # IntelliJ
 out/
 
+.vscode/
 
 
 # Editor-based Rest Client
