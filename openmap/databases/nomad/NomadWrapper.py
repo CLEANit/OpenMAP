@@ -175,14 +175,13 @@ class NomadWrapper(object):
             
             
             dict_append = {
-                'space_group':int(space_group),
+                'spacegroup':int(space_group),
                 'atomic_density':density,
                 'composition':comp,
                 # 'Element_fractions':ef.featurize(comp),
                 'id':entry_calc_id,
                 'pot_Energy':pot_energy,
                 'volume': cell_volume,
-                'spacegroup':space_group,
                 'source':'nomad'
             }
             dict_append.update(searchable_quantities)

@@ -4,7 +4,6 @@ import itertools
 # from openmap.databases.mp.MpWrapper import MpWrapper
 # from openmap.databases.oq.OqWrapper import OqWrapper
 
-
 from openmap.databases import MpWrapper
 from openmap.databases import OqWrapper
 from openmap.databases import NomadWrapper
