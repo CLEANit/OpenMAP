@@ -45,9 +45,10 @@ requirements = [
 setup(
     name='openmap',
     url='https://github.com/CLEANit/OpenMAP',
-    version='1.0',
-    author=['Conrad Tetsassi', 'Ian Benlolo'],
-    author_email='ian.benlolo@uottawa.ca',
+    version=openmap.__version__,
+    author=openmap.__author__,
+    author_email=openmap.__email__,
+    description=openmap.__doc__,
     packages=find_packages(exclude=['docs', 'tests']),
     install_requires=requirements,
     classifiers=[
