@@ -2,7 +2,7 @@ import io
 import os
 import re
 
-# import hea
+import openmap
 from setuptools import find_packages, setup
 
 
