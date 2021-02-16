@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d4e64b3d-18e1-4e11-a933-25bec1b34b75" name="Default Changelist" comment="Create wrapper mp and oq">
+    <list default="true" id="d4e64b3d-18e1-4e11-a933-25bec1b34b75" name="Default Changelist" comment="modified  mp and oq wrapper">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANIFEST.in" beforeDir="false" afterPath="$PROJECT_DIR$/MANIFEST.in" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/openmap/databases/mp/mp_wrapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/openmap/databases/mp/mp_wrapper.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/openmap/databases/oq/oq_wrapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/openmap/databases/oq/oq_wrapper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tox.ini" beforeDir="false" afterPath="$PROJECT_DIR$/tox.ini" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,6 +94,9 @@
       <module name="OpenMAP" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="$PROJECT_DIR$/../anaconda3/envs/py36-tensorflow-gpu/bin/python" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/.." />
       <option name="IS_MODULE_SDK" value="true" />
@@ -110,6 +116,9 @@
       <module name="OpenMAP" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="$PROJECT_DIR$/../anaconda3/envs/py36-tensorflow-gpu/bin/python" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/.." />
       <option name="IS_MODULE_SDK" value="true" />
@@ -200,7 +209,9 @@
       <workItem from="1611171908140" duration="35266000" />
       <workItem from="1611691989270" duration="38000" />
       <workItem from="1611866157753" duration="944000" />
-      <workItem from="1611944139143" duration="2115000" />
+      <workItem from="1611944139143" duration="3491000" />
+      <workItem from="1611951232696" duration="2269000" />
+      <workItem from="1613486791515" duration="4104000" />
     </task>
     <task id="LOCAL-00001" summary="add tox.ini">
       <created>1611000339648</created>
@@ -223,7 +234,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611866468394</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="modified  mp and oq wrapper">
+      <created>1611946284261</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1611946284261</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -244,7 +262,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add tox.ini" />
     <MESSAGE value="Create wrapper mp and oq" />
-    <option name="LAST_COMMIT_MESSAGE" value="Create wrapper mp and oq" />
+    <MESSAGE value="modified  mp and oq wrapper" />
+    <option name="LAST_COMMIT_MESSAGE" value="modified  mp and oq wrapper" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
