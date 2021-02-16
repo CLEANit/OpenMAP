@@ -30,9 +30,12 @@ config = configparser.ConfigParser()
 config.read(os.path.join(INSTALL_PATH, "configuration", "site.cfg"))
 
 
+__all__ = ['log', 'job', 'OqWrapper', 'MpWrapper','logger']
 
-
-
+from .computing import log
+from .computing.log import logger
+from .databases.mp import MpWrapper
+from .databases.oq import OqWrapper
 try:
     import ase
 

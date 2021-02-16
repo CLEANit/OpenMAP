@@ -8,3 +8,10 @@
 @Project : OpenMAP
 @Software: PyCharm
 """
+
+
+__all__ = ['OqWrapper', 'NomadWrapper', 'MpWrapper']
+
+from .mp.MpWrapper import MpWrapper
+from .nomad.NomadWrapper import NomadWrapper
+from .oq.OqWrapper import OqWrapper

@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-
 import qmpy_rester as qr
 import pandas as pd
 from matminer.featurizers.composition import ElementFraction
@@ -23,10 +22,14 @@ class OqWrapper(object):
     """
 
     def __init__(self):
-        x = None
+        pass
 
     @staticmethod
+<<<<<<< HEAD:openmap/databases/oq/OqWrapper.py
+    def _featurizing_composition(data_df):
+=======
     def _featurizing_composition(df, formula='name'):
+>>>>>>> master:openmap/databases/oq/oq_wrapper.py
         """
         Create pymatgen composition object from formula
         create feature with periodic table element
@@ -35,12 +38,26 @@ class OqWrapper(object):
         :return: date frame
         """
 
+<<<<<<< HEAD:openmap/databases/oq/OqWrapper.py
+        data_df['composition'] = data_df.apply(lambda x: Composition(x['name']), axis=1)
+        
+        # ef = ElementFraction()
+        # df = ef.featurize_dataframe(df, "composition")
+        data_df = data_df.rename(columns={'entry_id': 'id'})
+
+        data_df = data_df.drop(columns =['name','natoms','spacegroup','ntypes','composition_generic','formationenergy_id',
+                            'prototype','unit_cell','sites','stability','fit','calculation_label','duplicate_entry_id',
+                            'calculation_id', 'icsd_id'])
+
+
+=======
         ef = ElementFraction()
         df['composition'] = df.apply(lambda x: Composition(x[formula]), axis=1)
         df = ef.featurize_dataframe(df, "composition")
         df = df.rename(columns={'entry_id': 'material_id'})
+>>>>>>> master:openmap/databases/oq/oq_wrapper.py
         # df = df.drop(df.std()[df.std() <= threshold].index.values, axis=1)
-        return df
+        return data_df
 
     def wrap_oq(self, query):
         """
@@ -48,16 +65,39 @@ class OqWrapper(object):
         :param query:
         :return: dataframe
         """
-        oqr = qr.QMPYRester()
+        # oqr = qr.QMPYRester()
         logger.info('Wrapping data on the Open Quantum Database')
         try:
+<<<<<<< HEAD:openmap/databases/oq/OqWrapper.py
+            with qr.QMPYRester() as q:
+                data = q.get_oqmd_phases(verbose=False, **query)
+                df = pd.DataFrame.from_dict(data['data'])
+                df = self._featurizing_composition(df)
+
+                df = df.astype({'id':'string'})
+                df['source']='oq'
+                return df
+=======
             data = oqr.get_oqmd_phases(verbose=False, **query)
             df = pd.DataFrame.from_dict(data['data'])
             df = self._featurizing_composition(df)
             return df
+>>>>>>> master:openmap/databases/oq/oq_wrapper.py
         except Exception as e:
+            logger.info('Error in OqWrapper. ')
             raise Exception(e)
 
+<<<<<<< HEAD:openmap/databases/oq/OqWrapper.py
+if __name__=='__main__':
+    
+    qry = {
+        'element_set': '(Fe-Mn),O',                    # include element Fe and Mn
+        }
+    mpwrap = OqWrapper()
+    data_df = mpwrap.wrap_oq(qry)
+    # print(data_df.head())
+    # print(data_df.info(verbose=True))
+=======
 
 if __name__ == '__main__':
     qry = {
@@ -71,4 +111,5 @@ if __name__ == '__main__':
 
     data_df = mpwrap.wrap_oq(qry)
 
+>>>>>>> master:openmap/databases/oq/oq_wrapper.py
     print(data_df.head())
