@@ -2,7 +2,11 @@ import io
 import os
 import re
 
+<<<<<<< HEAD
 import openmap
+=======
+# import openmap
+>>>>>>> master
 from setuptools import find_packages, setup
 
 
@@ -45,10 +49,21 @@ requirements = [
 setup(
     name='openmap',
     url='https://github.com/CLEANit/OpenMAP',
+<<<<<<< HEAD
     version=openmap.__version__,
     author=openmap.__author__,
     author_email=openmap.__email__,
     description=openmap.__doc__,
+=======
+    # version=openmap.__version__,
+    # author=openmap.__author__,
+    # author_email=openmap.__email__,
+    # description=openmap.__doc__,
+    version='1.0',
+    author='Conrard TETSASSI',
+    author_email='giresse.feugmo@gmail.com',
+    long_description=read('README.rst'),
+>>>>>>> master
     packages=find_packages(exclude=['docs', 'tests']),
     install_requires=requirements,
     classifiers=[
