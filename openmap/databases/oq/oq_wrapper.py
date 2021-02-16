@@ -26,20 +26,19 @@ class OqWrapper(object):
         x = None
 
     @staticmethod
-    def _featurizing_composition(data_df, formula='name'):
+    def _featurizing_composition(df, formula='name'):
         """
         Create pymatgen composition object from formula
         create feature with periodic table element
-        :param data_df:
+        :param df:
         :param formula:  name of the column with formula
         :return: date frame
         """
 
-        df = data_df.copy()
         ef = ElementFraction()
-        df['composition'] = df.apply(lambda x: Composition(x['name']), axis=1)
+        df['composition'] = df.apply(lambda x: Composition(x[formula]), axis=1)
         df = ef.featurize_dataframe(df, "composition")
-        df.rename(columns={'entry_id': 'material_i'})
+        df = df.rename(columns={'entry_id': 'material_id'})
         # df = df.drop(df.std()[df.std() <= threshold].index.values, axis=1)
         return df
 
@@ -62,7 +61,8 @@ class OqWrapper(object):
 
 if __name__ == '__main__':
     qry = {
-        "element_set": "(Fe-Mn),O", # composition include (Fe OR Mn) AND O
+        "element_set": "(Fe-Mn),O", # composition include (Fe OR Mn) AND O,
+        "nelements": "<5",
         "limit": 100
 
     }

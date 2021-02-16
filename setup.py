@@ -2,7 +2,7 @@ import io
 import os
 import re
 
-import hea
+# import openmap
 from setuptools import find_packages, setup
 
 
@@ -21,10 +21,13 @@ with open(requirements_txt, encoding='utf-8') as fin:
 setup(
     name='OpenMAP',
     url='https://github.com/CLEANit/OpenMAP',
-    version=hea.__version__,
-    author=hea.__author__,
-    author_email=hea.__email__,
-    description=hea.__doc__,
+    # version=openmap.__version__,
+    # author=openmap.__author__,
+    # author_email=openmap.__email__,
+    # description=openmap.__doc__,
+    version='1.0',
+    author='Conrard TETSASSI',
+    author_email='giresse.feugmo@gmail.com',
     long_description=read('README.rst'),
     packages=find_packages(exclude=['docs', 'tests']),
     install_requires=requires,

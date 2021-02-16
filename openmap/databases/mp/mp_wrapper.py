@@ -14,18 +14,16 @@ class MpWrapper(object):
         x = None
 
     @staticmethod
-    def _featurizing_composition(data_df, formula='pretty_formula'):
+    def _featurizing_composition(df, formula='full_formula'):
         """
         Create pymatgen composition object from formula
         create feature with periodic table element
-        :param data_df:
+        :param df:
         :param formula:  name of the column with formula
         :return: date frame
         """
-
-        df = data_df.copy()
         ef = ElementFraction()
-        df['composition'] = df.apply(lambda x: Composition(x['full_formula']), axis=1)
+        df['composition'] = df.apply(lambda x: Composition(x[formula]), axis=1)
         df = ef.featurize_dataframe(df, "composition")
         # df = df.drop(df.std()[df.std() <= threshold].index.values, axis=1)
         return df
