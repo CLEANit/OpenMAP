@@ -182,7 +182,7 @@ class NomadWrapper(object):
                 'id':entry_calc_id,
                 'pot_Energy':pot_energy,
                 'volume': cell_volume,
-                'source':'nomad'
+                'source':'nom'
             }
             dict_append.update(searchable_quantities)
             df=df.append(dict_append, ignore_index=True)

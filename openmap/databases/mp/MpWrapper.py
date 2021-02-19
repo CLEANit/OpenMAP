@@ -25,9 +25,7 @@ class MpWrapper(object):
         :param formula:  name of the column with formula
         :return: date frame
         """
-<<<<<<< HEAD:openmap/databases/mp/MpWrapper.py
 
-        df = data_df.copy()
         df['composition'] = df.apply(lambda x: Composition(x['full_formula']), axis=1) 
         
         # ef = ElementFraction()
@@ -38,11 +36,6 @@ class MpWrapper(object):
                         'pretty_formula', 'icsd_ids', 'icsd_id', 'tags', 'cif',
                                'full_formula','is_hubbard',])
         df = df.rename(columns={'material_id': 'id'})
-=======
-        ef = ElementFraction()
-        df['composition'] = df.apply(lambda x: Composition(x[formula]), axis=1)
-        df = ef.featurize_dataframe(df, "composition")
->>>>>>> master:openmap/databases/mp/mp_wrapper.py
         # df = df.drop(df.std()[df.std() <= threshold].index.values, axis=1)
         return df
 
@@ -63,26 +56,13 @@ class MpWrapper(object):
             df['source']='mp'
             return df
         except Exception as e:
-            raise Exception(e)
+            raise e
 
 
 if __name__ == '__main__':
-<<<<<<< HEAD:openmap/databases/mp/MpWrapper.py
     mp = MpWrapper()
     q = '{Li,Na,K,Rb,Cs}-N'
 
     data = mp.wrap_mp(q)
     print(data.head())
     print(data.columns.values)
-
-
-    
-=======
-    qry = '{Ni,Mn,Cu,Co}-O'
-
-    mpwrap = MpWrapper()
-
-    data_df = mpwrap.wrap_mp(qry)
-
-    print(data_df.head())
->>>>>>> master:openmap/databases/mp/mp_wrapper.py
