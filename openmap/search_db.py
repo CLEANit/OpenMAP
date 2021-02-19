@@ -111,6 +111,39 @@ def get_all(el_set):
 
 
     return df
+class Controller:
+    def __init__(self,mdb_conf):
+        """
+        :param mdb_conf: path to mdd config file
+        """
+        self.mdb = mdbControl(mdb_conf)
+
+    def get_data(self, query):
+        """
+        "Smart" query. Will look in the database for query. If ~anything~ found, will return. 
+        If nothing found, will query other implemented databases and add them to mdb. 
+        """
+        try:
+            mdb_query = self.mdb.search(query)
+
+            if len(mdb_query)>0:
+                return mdb_query
+            else:
+                # search external dbs, and push those to ours before returning
+
+                external_query = get_all(query)
+
+                self.mdb.add_query(external_query)
+                return external_query
+
+        except Exception as e:
+            logging.log(f'Exception raised in Controller. info: {e}')
+            raise e
+            
+        
+
+
+
 
 
 
