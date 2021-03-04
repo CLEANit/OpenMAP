@@ -1,0 +1,42 @@
+# allocation1:
+    #   host: hostname
+    #   key: key needed for identifying allocation
+    #   users:
+    #       - user1
+    #       - user2
+    # allocation2: ...
+
+def-itamblyn-ac:
+  host: cedar
+  key:  "~/.ssh/id_rsa" # ('SSH_KEY')
+  passphrase: "Gastipard_Isaro"
+  users: ctetsass
+
+def-mkarttu:
+  host: cedar
+  key: ''
+  users: ctetsass
+
+rrg-mkarttu-ab:
+  host: cedar
+  key: ''
+  users: ctetsass
+
+
+
+graham:
+  host: graham
+  key: ''
+  users: []
+
+
+rrg-itamblyn-ab:
+  host: niagara
+  key: ''
+  users: []
+
+orca:
+  host: orca
+  key: ''
+  users: []
+

@@ -1,17 +1,16 @@
 #!/usr/bin/env python
+import argparse
 import os
+import pathlib
+import sys
+
+import yaml
 from analysis import parser
 from analysis.properties import Property
-from pymatgen.io.vasp.outputs import Vasprun
-from pymatgen.io.vasp.outputs import BSVasprun
-from pymatgen.io.vasp.outputs import Outcar
-import yaml
-import argparse
-import pathlib
-
-import sys
 from openmap.computing.log import logger
-#logger = logging.getLogger(__name__)
+from pymatgen.io.vasp.outputs import BSVasprun, Outcar, Vasprun
+
+# logger = logging.getLogger(__name__)
 __version__ = '0.1'
 __author__ = 'Conrard TETSASSI'
 __maintainer__ = 'Conrard TETSASSI'
@@ -31,46 +30,45 @@ __status__ = 'Development'
 # args = parser.parse_args()
 
 
-
 def job_converged(path):
 
     try:
         vrun = Vasprun(filename=os.path.join(path, 'vasp_output/vasprun.xml'))
         return vrun.converged
-    except:
+    except BaseException:
         return False
 
 
 def get_objective(prop_name, file_path):
     objectives = []
 
-
     try:
         file = parser.parse_file(file_path)
         prop = Property(file)
         objectiv = prop.get_property(prop_name)
     except OSError as err:
-        logger.error("OS error: {0}".format(err))
+        logger.error('OS error: {0}'.format(err))
         objectiv = None
     except Exception as err:
-        logger.error("Exception error: {0}".format(err))
+        logger.error('Exception error: {0}'.format(err))
         objectiv = None
-    except:
-        logger.error("Unable to read  {}".format(file_path))
+    except BaseException:
+        logger.error('Unable to read  {}'.format(file_path))
         objectiv = None
         pass
 
-
     return objectiv
 
-if __name__=='__main__':
+
+if __name__ == '__main__':
     # loc = os.path.dirname(os.path.abspath(__file__))
     # loc = os.path.abspath(os.getcwd())
-    # loc = pathlib.Path(__file__).parent.absolute() ## For the directory of the script being run:
-    loc = pathlib.Path().absolute() ## For the current working directory:
+    # loc = pathlib.Path(__file__).parent.absolute() ## For the directory of
+    # the script being run:
+    loc = pathlib.Path().absolute()  # For the current working directory:
     prop_name = sys.argv[1]
     objective = {}
-    #if job_converged(loc):
+    # if job_converged(loc):
     try:
         prop = get_objective(prop_name, os.path.join(loc, 'vasp_output'))
         if prop is not None:
@@ -78,15 +76,15 @@ if __name__=='__main__':
             logger.info(f'Successfully evaluated the [{prop_name}]')
         else:
             logger.error(f'Job not converged')
-            objective[prop_name] = 5E-18
+            objective[prop_name] = 5e-18
     except Exception as err:
-        objective[prop_name] = 5E-18
+        objective[prop_name] = 5e-18
         logger.error(f'{err}')
     # else:
     #     objective[prop_name] = 5E-18
     #     logger.error(f'Job not converged')
 
-    file = open('objective.yml', "w")
+    file = open('objective.yml', 'w')
     yaml.dump(objective, file, default_flow_style=False)
     print(yaml.dump(objective))
     file.close()

@@ -1,71 +1,42 @@
-import io
 import os
 import re
 
-<<<<<<< HEAD
-import openmap
-=======
-# import openmap
->>>>>>> master
 from setuptools import find_packages, setup
 
 
-# def read(filename):
-#     filename = os.path.join(os.path.dirname(__file__), filename)
-#     text_type = type('')
-#     with open(filename, mode='r', encoding='utf-8') as fd:
-#         return re.sub(text_type(r':[a-z]+`~?(.*?)`'), text_type(r'``\1``'), fd.read())
-# 
-# 
-# requirements_txt = os.path.join(os.path.dirname(__file__), 'requirements.txt')
-# 
-# with open(requirements_txt, encoding='utf-8') as fin:
-#     requires = [line.strip() for line in fin if line and line.strip() and not line.strip().startswith('#')]
+def read(filename):
+    filename = os.path.join(os.path.dirname(__file__), filename)
+    text_type = type('')
+    with open(filename, mode='r', encoding='utf-8') as fd:
+        return re.sub(text_type(r':[a-z]+`~?(.*?)`'), text_type(r'``\1``'), fd.read())
 
-requirements = [
-        'numpy>=1.19.2',
-        'sqlalchemy>=1.3.20',
-        'pandas>=1.1.3',
-        'ase',
-        'pymatgen>=2020.10.20',
-        'scipy>=1.5.2',
-        'h5py>=2.10.0',
-        'loguru>=0.5.3',
-        'pyyaml>=5.3.1',
-        'matminer>=0.6.4',
-        'uncertainties>=3.1.',
-        'pymysql>=0.10.1',
-        'mysql-connector-python>=8.0.22',
-        'matplotlib>=3.3.2',
-        'seaborn>=0.11.0',
-        'paramiko>=2.7.2',
-        'scp>=0.13.3',
-        'cython>=0.29.21',
-        'tensorflow>=2.2.0',
-#        'tensorflow-gpu>=2.2.0',
-        'pexpect>=4.8.0',
-        'nomad-lab==0.9.10',
-        ]
+
+def readfile(name):
+    with open(name) as f:
+        return f.read()
+
+
+README = readfile('README.rst')
+CHANGES = readfile('CHANGES.rst')
+
+VERSION = '1.0'
+
+requirements_txt = os.path.join(os.path.dirname(__file__), 'requirements.txt')
+
+with open(requirements_txt, encoding='utf-8') as fin:
+    requires = [line.strip() for line in fin if line and line.strip()
+                and not line.strip().startswith('#')]
+
 setup(
     name='openmap',
     url='https://github.com/CLEANit/OpenMAP',
-<<<<<<< HEAD
-    version=openmap.__version__,
-    author=openmap.__author__,
-    author_email=openmap.__email__,
-    description=openmap.__doc__,
-=======
-    # version=openmap.__version__,
-    # author=openmap.__author__,
-    # author_email=openmap.__email__,
-    # description=openmap.__doc__,
     version='1.0',
     author='Conrard TETSASSI',
     author_email='giresse.feugmo@gmail.com',
-    long_description=read('README.rst'),
->>>>>>> master
+    description='OpenMAP is an Automated Material Acceleration Platforms',
+    long_description=README + '\n\n' + CHANGES,
     packages=find_packages(exclude=['docs', 'tests']),
-    install_requires=requirements,
+    install_requires=requires,
     classifiers=[
         # How mature is this project? Common values are
         #   3 - Alpha
@@ -79,4 +50,14 @@ setup(
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
     ],
+    include_package_data=True,
+    package_data={
+        # If any package contains *.txt or *.rst files, include them:
+        '': ['*.txt', '*.rst'],
+        # And include any *.yml files found in the "data" subdirectory
+        # of the "tools" package, also:
+        'hea': ['*.yml'],
+    },
+    # ...but exclude README.txt from all packages
+    # exclude_package_data={"": ["README.txt"]},
 )

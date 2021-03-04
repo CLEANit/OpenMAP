@@ -1,14 +1,14 @@
 import numpy as np
-
-from pymatgen.io.vasp.outputs import Vasprun
-from pymatgen.io.vasp.outputs import BSVasprun
-from pymatgen.io.vasp.outputs import Outcar
 from openmap.computing.log import logger
-PROPERTIES = {"final_energy": 'final_energy',
-              "volume":"volume",
-             "energy_per_atom": "energy_per_atom",
-             "total_magnetization" : "total_magnetization",
-             "fermi_energy": "fermi_energy"}
+from pymatgen.io.vasp.outputs import BSVasprun, Outcar, Vasprun
+
+PROPERTIES = {
+    'final_energy': 'final_energy',
+    'volume': 'volume',
+    'energy_per_atom': 'energy_per_atom',
+    'total_magnetization': 'total_magnetization',
+    'fermi_energy': 'fermi_energy',
+}
 
 
 __version__ = '0.1'
@@ -18,11 +18,7 @@ __email__ = 'giresse.feugmo@gmail.com'
 __status__ = 'Development'
 
 
-
-
-
 class Property(object):
-
     def __init__(self, res):
         """
         Param res:file class ( PyVASP, PyQchem ...)
@@ -50,11 +46,11 @@ class Property(object):
 
         usname = self.get_property_names(name)
         if usname is None:  # invalid name
-            logger.error("Property [{}] not recognized".format(name))
+            logger.error('Property [{}] not recognized'.format(name))
             return None
         try:
-            prop = eval("self.res.get_" + usname)
+            prop = eval('self.res.get_' + usname)
             return prop
         except Exception as err:
-            logger.error(f"{err}")
+            logger.error(f'{err}')
             return None

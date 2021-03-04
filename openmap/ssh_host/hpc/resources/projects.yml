@@ -1,0 +1,22 @@
+# project1:
+    #   allocations:
+    #       - allocation1
+    #       - allocation2
+    #   priority: Base priority for the project. Lower numbers will be done soonest.
+    #   users:
+    #       - user1
+    #       - user2
+    # project2: ...
+
+OER:
+  allocations:
+    - def-itamblyn-ac
+    - def-mkarttu
+    - rrg-mkarttu-ab
+  priority: 1
+  users: []
+HEA:
+  allocations:
+  - rrg-itamblyn-ab
+  priority: 0
+  users: []

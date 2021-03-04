@@ -1,11 +1,13 @@
-import numpy as np
-from pymatgen.io.vasp.outputs import Vasprun
 import os
-import re
 import pathlib
+import re
 import sys
-from re import compile, M as moultline
+from re import M as moultline
+from re import compile
+
+import numpy as np
 from openmap.analysis import constants
+from pymatgen.io.vasp.outputs import Vasprun
 
 # from analysis import Constants
 
@@ -33,51 +35,58 @@ class ExtractVasp(object):
         # self.vrun = self.read_vasprun_xml()
 
     def __outcar__(self):
-        """ Returns path to OUTCAR file.
-            :raise IOError: if the OUTCAR file does not exist.
+        """Returns path to OUTCAR file.
+        :raise IOError: if the OUTCAR file does not exist.
         """
         from os.path import exists, join
-        path = join(self.file_path, 'OUTCAR')
-        #name = pathlib.PurePathsel(self.file_path).name
-        #path = self.file_path
-        if not exists(path):
-            raise IOError("Path {0} does not exist.\n".format(path))
-        return open(path, 'r')
 
+        path = join(self.file_path, 'OUTCAR')
+        # name = pathlib.PurePathsel(self.file_path).name
+        # path = self.file_path
+        if not exists(path):
+            raise IOError('Path {0} does not exist.\n'.format(path))
+        return open(path, 'r')
 
     def _search_OUTCAR(self, regex, flags=0):
         """ Looks for all matches. """
         regex = compile(regex, flags)
         with getattr(self, self.__outcar__.__name__)() as file:
             if moultline & flags:
-                for found in regex.finditer(file.read()): yield found
+                for found in regex.finditer(file.read()):
+                    yield found
             else:
                 for line in file:
                     found = regex.search(line)
-                    if found is not None: yield found
+                    if found is not None:
+                        yield found
 
     def _rsearch_OUTCAR(self, regex, flags=0):
         """ Looks for all matches starting from the end. """
-        from re import compile, M as moultline
+        from re import M as moultline
+        from re import compile
 
         regex = compile(regex)
         with getattr(self, self.__outcar__.__name__)() as file:
             lines = file.read() if moultline & flags else file.readlines()
         if moultline & flags:
-            for v in [u for u in regex.finditer(lines)][::-1]: yield v
+            for v in [u for u in regex.finditer(lines)][::-1]:
+                yield v
         else:
             for line in lines[::-1]:
                 found = regex.search(line)
-                if found is not None: yield found
+                if found is not None:
+                    yield found
 
     def _find_first_OUTCAR(self, regex, flags=0):
         """ Returns first result from a regex. """
-        for first in getattr(self, self._search_OUTCAR.__name__)(regex, flags): return first
+        for first in getattr(self, self._search_OUTCAR.__name__)(regex, flags):
+            return first
         return None
 
     def _find_last_OUTCAR(self, regex, flags=0):
         """ Returns first result from a regex. """
-        for last in getattr(self, self._rsearch_OUTCAR.__name__)(regex, flags): return last
+        for last in getattr(self, self._rsearch_OUTCAR.__name__)(regex, flags):
+            return last
         return None
 
     @property
@@ -92,21 +101,29 @@ class ExtractVasp(object):
         """ Returns the kind of algorithms. """
         # This could be gotten in OUTCAR: use the 1 occurance of:
         #   ALGO = Fast
-        return {68: 'Fast', 38: 'Normal', 48: 'Very Fast', 58: 'Conjugate',
-                53: 'Damped', 4: 'Subrot', 90: 'Exact', 2: 'Nothing'}[self.ialgo]
+        return {
+            68: 'Fast',
+            38: 'Normal',
+            48: 'Very Fast',
+            58: 'Conjugate',
+            53: 'Damped',
+            4: 'Subrot',
+            90: 'Exact',
+            2: 'Nothing',
+        }[self.ialgo]
 
     @property
     def is_dft(self):
         """ True if this is a DFT calculation, as opposed to GW. """
         try:
             return self.algo not in ['gw', 'gw0', 'chi', 'scgw', 'scgw0']
-        except:
+        except BaseException:
             return False
 
     def _read_vasprun_xml(self):
         try:
             return Vasprun(os.path.join(self.file_path, 'vasprun.xml'))
-        except:
+        except BaseException:
             print('Unable to read the file [vasprun.xlm]')
             return None
 
@@ -119,10 +136,10 @@ class ExtractVasp(object):
             if vrun.converged:
                 return vrun.final_energy
             else:
-                print("Calculation not  converged ")
+                print('Calculation not  converged ')
                 return None
-        except:
-            print("Unable to read final_energy ")
+        except BaseException:
+            print('Unable to read final_energy ')
             return None
 
     def get_volume(self):
@@ -135,7 +152,7 @@ class ExtractVasp(object):
         try:
             composition = vrun.final_structure.composition
             return composition.volume
-        except:
+        except BaseException:
             return None
 
     def get_energy_per_atom(self):
@@ -308,22 +325,24 @@ class ExtractVasp(object):
     @property
     def get_total_energy(self):
         """ Greps total energy from OUTCAR."""
-        if not self.is_dft: raise AttributeError('not a DFT calculation.')
-        regex = """energy\s+without\s+entropy=\s*(\S+)\s+energy\(sigma->0\)\s+=\s+(\S+)"""
+        if not self.is_dft:
+            raise AttributeError('not a DFT calculation.')
+        regex = """energy\\s+without\\s+entropy=\\s*(\\S+)\\s+energy\\(sigma->0\\)\\s+=\\s+(\\S+)"""
         result = self._find_last_OUTCAR(regex)
         if result is None:
-            print("Could not find energy in OUTCAR")
+            print('Could not find energy in OUTCAR')
         return float(result.group(1))  # energy in  eV
 
     @property
     def get_fermi_energy(self):
         """ Greps fermi energy from OUTCAR. """
-        if not self.is_dft: raise AttributeError('not a DFT calculation.')
+        if not self.is_dft:
+            raise AttributeError('not a DFT calculation.')
         regex = r"""E-fermi\s*:\s*(\S+)"""
         result = self._find_last_OUTCAR(regex)
         if result is None:
             # raise Exception("Could not find fermi energy in OUTCAR")
-            print("Could not find fermi energy in OUTCAR")
+            print('Could not find fermi energy in OUTCAR')
         return float(result.group(1))  # energy in  eV
 
     @property
@@ -339,33 +358,31 @@ class ExtractVasp(object):
         regex = r"""^\s*number\s+of\s+electron\s+(\S+)\s+magnetization\s+(\S+)\s*$"""
         result = self._find_last_OUTCAR(regex)
         if result is None:
-            print("Could not find magnetic moment in OUTCAR")
+            print('Could not find magnetic moment in OUTCAR')
         return float(result.group(2))
 
-
-
     def _partial_charges_impl(self, grep):
-        """ Greps partial charges from OUTCAR.
-            This is a numpy array where the first dimension is the ion (eg one row
-            per ion), and the second the partial charges for each angular momentum.
-            The total is not included. Implementation also used for magnetization.
-            The OUTCAR looks like the following, although in some
-            cases there may be an extra column for the f shell,
-            or the d shell may be missing.
-             total charge
-            # of ion     s       p       d       tot
-            ----------------------------------------
-              1        0.288   0.363   6.223   6.874
-              2        1.771   4.143   0.000   5.914
-            ------------------------------------------------
-            tot        2.059   4.506   6.223  12.788
-             magnetization (x)
-            # of ion     s       p       d       tot
-            ----------------------------------------
-              1       -0.017  -0.008  -1.935  -1.960
-              2       -0.005  -0.006   0.000  -0.011
-            ------------------------------------------------
-            tot       -0.022  -0.014  -1.935  -1.970
+        """Greps partial charges from OUTCAR.
+        This is a numpy array where the first dimension is the ion (eg one row
+        per ion), and the second the partial charges for each angular momentum.
+        The total is not included. Implementation also used for magnetization.
+        The OUTCAR looks like the following, although in some
+        cases there may be an extra column for the f shell,
+        or the d shell may be missing.
+         total charge
+        # of ion     s       p       d       tot
+        ----------------------------------------
+          1        0.288   0.363   6.223   6.874
+          2        1.771   4.143   0.000   5.914
+        ------------------------------------------------
+        tot        2.059   4.506   6.223  12.788
+         magnetization (x)
+        # of ion     s       p       d       tot
+        ----------------------------------------
+          1       -0.017  -0.008  -1.935  -1.960
+          2       -0.005  -0.006   0.000  -0.011
+        ------------------------------------------------
+        tot       -0.022  -0.014  -1.935  -1.970
         """
 
         result = []
@@ -373,27 +390,31 @@ class ExtractVasp(object):
             lines = file.readlines()
         found = re.compile(grep)
         for index in range(1, len(lines) + 1):
-            if found.search(lines[-index]) is not None: break
-        if index == len(lines): return None
+            if found.search(lines[-index]) is not None:
+                break
+        if index == len(lines):
+            return None
         index -= 4
         line_re = re.compile(r"""^\s*\d+((\s+\S+)+)\s*$""")
         for i in range(0, index):
             match = line_re.match(lines[-index + i])
-            if match is None: break
+            if match is None:
+                break
             stgs = match.group(1).split()
             stgs = stgs[:-1]  # omit the last column, "tot"
             vals = [float(stg) for stg in stgs]
             result.append(vals)
-        return np.array(result, dtype="float64")
+        return np.array(result, dtype='float64')
 
     @property
     def get_magnetization(self):
-        """ Greps partial charges from OUTCAR.
-            This is a numpy array where the first dimension is the ion (eg one row
-            per ion), and the second the partial charges for each angular momentum.
-            The total is not included.
+        """Greps partial charges from OUTCAR.
+        This is a numpy array where the first dimension is the ion (eg one row
+        per ion), and the second the partial charges for each angular momentum.
+        The total is not included.
         """
-        if not self.is_dft: raise AttributeError('not a DFT calculation.')
+        if not self.is_dft:
+            raise AttributeError('not a DFT calculation.')
         return self._partial_charges_impl(r"""^\s*magnetization\s*\(x\)\s*$""")
 
     @property
