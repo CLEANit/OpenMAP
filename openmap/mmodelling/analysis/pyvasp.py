@@ -1,12 +1,9 @@
 import os
-import pathlib
 import re
-import sys
 from re import M as moultline
 from re import compile
 
 import numpy as np
-from openmap.analysis import constants
 from pymatgen.io.vasp.outputs import Vasprun
 
 # from analysis import Constants
