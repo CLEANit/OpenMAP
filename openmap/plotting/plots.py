@@ -1,24 +1,28 @@
 #!/usr/bin/env python
 
-import os, sys
+import glob
+import os
+import pickle
+import sys
+
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import pickle
-import matplotlib.pyplot as plt
-import seaborn as sns; sns.set()
-import glob
+import seaborn as sns
 
-#===============================================================================
+sns.set()
+
+# ===============================================================================
 
 # directory which stores the runs
 dir = '../runs'
 
 # choose from traces, percent_space
-#kind = sys.argv[1]
+# kind = sys.argv[1]
 kind = 'traces'
 
-#prop = 'energy'
-#===============================================================================
+# prop = 'energy'
+# ===============================================================================
 
 box_plot = {'x': [], 'kind': [], 'energy': []}
 
@@ -51,10 +55,11 @@ if kind == 'traces':
     all_results = []
     for file in filenames:
         results = pickle.load(open(file, 'rb'))
-        #all_results.append(results)
-        exp = {'eval': [], 'energy': [], 'max_energy': []} #results['observations_exp']
+        # all_results.append(results)
+        # results['observations_exp']
+        exp = {'eval': [], 'energy': [], 'max_energy': []}
         for _, obs in enumerate(results):
-            exp['eval'].append(_+1)
+            exp['eval'].append(_ + 1)
             exp['energy'].append(obs['energy'])
             box_plot['energy'].append(obs['energy'])
             box_plot['kind'].append('naive Gryffin')
@@ -69,21 +74,22 @@ if kind == 'traces':
         all_results.append(exp)
 
     dfs = [pd.DataFrame(res) for res in all_results]
-    df_gryf  = pd.concat(dfs)
+    df_gryf = pd.concat(dfs)
 
+    fig = plt.figure(figsize=(8, 8))
+    sns.lineplot(x='eval', y='max_energy', data=df_rand,
+                 label='random sampling', linewidth=4)
+    sns.lineplot(x='eval', y='max_energy', data=df_gryf,
+                 label='naive Gryffin', linewidth=4)
 
-    fig = plt.figure(figsize = (8, 8))
-    sns.lineplot(x = 'eval', y = 'max_energy', data = df_rand, label = 'random sampling', linewidth=4)
-    sns.lineplot(x = 'eval', y = 'max_energy', data = df_gryf, label = 'naive Gryffin',   linewidth=4)
-
-    plt.xlabel('# evaluations', fontsize = 15)
-    plt.ylabel('maximum energy value found [au]', fontsize = 15)
-    #plt.hlines(41.0518, 1, 10, ls = '--', linewidth=2, alpha = 0.5, label = 'global maximum')
-    plt.legend(fontsize = 12,  loc='lower right')
+    plt.xlabel('# evaluations', fontsize=15)
+    plt.ylabel('maximum energy value found [au]', fontsize=15)
+    # plt.hlines(41.0518, 1, 10, ls = '--', linewidth=2, alpha = 0.5, label = 'global maximum')
+    plt.legend(fontsize=12, loc='lower right')
     plt.savefig('traces.png', dpi=600)
     plt.show()
 
-#===============================================================================
+# ===============================================================================
 
 if kind == 'percent_eval':
 
@@ -94,7 +100,7 @@ if kind == 'percent_eval':
         res = pickle.load(open(file, 'rb'))
         obj = np.array([m['obj'] for m in res])
         arg = np.argmin(obj)
-        percent_eval = 100*(arg/len(obj))
+        percent_eval = 100 * (arg / len(obj))
         results['x'].append('x')
         results['kind'].append('rand')
         results['percent_eval'].append(percent_eval)
@@ -104,7 +110,7 @@ if kind == 'percent_eval':
         res = pickle.load(open(file, 'rb'))
         obj = np.array([m['obj'] for m in res])
         arg = np.argmin(obj)
-        percent_eval = 100*(arg/len(obj))
+        percent_eval = 100 * (arg / len(obj))
         results['x'].append('x')
         results['kind'].append('gryf_naive')
         results['percent_eval'].append(percent_eval)
@@ -114,16 +120,16 @@ if kind == 'percent_eval':
         res = pickle.load(open(file, 'rb'))
         obj = np.array([m['obj'] for m in res])
         arg = np.argmin(obj)
-        percent_eval = 100*(arg/len(obj))
+        percent_eval = 100 * (arg / len(obj))
         results['x'].append('x')
         results['kind'].append('gryf_static')
         results['percent_eval'].append(percent_eval)
 
-    fig = plt.figure(figsize = (8, 8))
+    fig = plt.figure(figsize=(8, 8))
     df = pd.DataFrame(results)
-    #sns.violinplot(x = 'x', y = 'percent_eval', hue = 'kind', data = df)
-    sns.swarmplot(x = 'x', y = 'percent_eval', hue = 'kind', data = df)
-    sns.boxplot(x = 'x', y = 'percent_eval', hue = 'kind', data = df)
+    # sns.violinplot(x = 'x', y = 'percent_eval', hue = 'kind', data = df)
+    sns.swarmplot(x='x', y='percent_eval', hue='kind', data=df)
+    sns.boxplot(x='x', y='percent_eval', hue='kind', data=df)
     plt.legend()
     plt.show()
     plt.savefig('violin.png')

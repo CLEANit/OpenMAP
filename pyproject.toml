@@ -1,9 +1,27 @@
+[tool.poetry]
+name = "toxicworkenvironment"
+version = "0.1.0"
+description = ""
+authors = ["Conrard Tetsassi <giresse.feugmo@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.1.2"
+tox = "^3.20.1"
+
 [build-system]
-requires = ["setuptools", "wheel"]
-build-backend = "setuptools.build_meta"
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.openmap.api"
+
+#[build-system]
+#requires = ["setuptools", "wheel"]
+#build-backend = "setuptools.build_meta"
+
 
 [tool.pytest]
-python_files=["tests/test_*.py"]
+python_files = ["tests/test_*.py"]
 
 [tool.black]
 line-length = 120
@@ -34,7 +52,7 @@ multi_line_output = 3
 src_paths = ["tests"]
 skip_glob = ["docs/*"]
 include_trailing_comma = true
-skip = [".tox", ".venv" ]
+skip = [".tox", ".venv"]
 
 [tool.flake8]
 show-source = true
@@ -44,10 +62,10 @@ show-source = true
 # F401 skipped (imported but unused) after verifying current usage is valid
 # W503 skipped line break before binary operator
 # C901 skipped: 'MLaunchTool.init' is too complex
-ignore = ["E123","E125","N802","N806","F401","W503","C901"]
-select = ["B","C","E","F","W","T4","B9"]
+ignore = ["E123", "E125", "N802", "N806", "F401", "W503", "C901", "F401"]
+select = ["B", "C", "E", "F", "W", "T4", "B9"]
 skip_install = true
-builtins =[" _"]
+builtins = [" _"]
 exclude = '''
 /(
     \.git
@@ -65,3 +83,5 @@ count = true
 statistics = true
 max-line-length = 120
 max-complexity = 18
+
+[tool.doc8]

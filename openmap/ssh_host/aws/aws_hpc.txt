@@ -1,0 +1,58 @@
+#!/usr/bin/env python
+import os
+
+import pymysql
+
+#import mysql.connector
+#from mysql.connector import errorcode
+import yaml
+
+
+def insert_value(tablename, colname, val, id_col, struc_id, dbcon):
+    try:
+        cursor = dbcon.cursor()
+        sql = f"UPDATE   {tablename} SET  {colname}= {val} WHERE {id_col}='{struc_id}'"
+        cursor.execute(sql)
+        print("value inserted to the table [{}]".format(tablename))
+    except Exception as ex:
+        print(f"{ex}")
+    finally:
+        dbcon.commit()
+        cursor.close()
+
+
+if __name__ == '__main__':
+
+    host = "@host"
+    port = @port
+    dbname = "@dbname"
+    user = "@user"
+    password = "@password"
+
+    tablename = "@tablename"
+    colname = "@colname"
+    val = None
+    id_col = "@id_col"
+    struc_id = "@struc_id"
+
+    try:
+        connection = pymysql.connect(host=host,
+                                     user=user,
+                                     port=port,
+                                     passwd=password,
+                                     db=dbname)
+        print(" Connection established to the database [{}]".format(dbname))
+
+        with open("objective.yml", "r") as fr:
+            objective = yaml.safe_load(fr)
+
+        val = objective["@colname"]
+
+        insert_value(tablename, colname, val, id_col, struc_id, connection)
+    except pymysql.Error as err:
+        if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+            print("Something is wrong with your user name or password")
+        elif err.errno == errorcode.ER_BAD_DB_ERROR:
+            print("Database does not exist")
+        else:
+            print(err)
