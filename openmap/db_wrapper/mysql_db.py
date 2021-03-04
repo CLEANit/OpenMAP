@@ -31,7 +31,7 @@ def countdown(sleeptime):
 
 
 class RemoteDB:
-    """Client to interact with a sql data base on aws """
+    """Client to interact with a sql data base """
 
     def __init__(self, host, user, port, dbname, password=None):
         self.host = host
@@ -51,7 +51,7 @@ class RemoteDB:
 
         if self.conn is None:
             try:
-                logger.info('Opening connection to aws database')
+                logger.info('Opening connection to sql database')
                 # self.conn = mysql.connector.connect(host=self.host,
                 #                                     user=self.user,
                 #                                     port=self.port,
@@ -61,11 +61,11 @@ class RemoteDB:
                     host=self.host, user=self.user, port=self.port, passwd=self.password, db=self.dbname
                 )
                 logger.info(
-                    'Connection established to aws:    database  [{}]'.format(self.dbname))
+                    'Connection established to server:    database  [{}]'.format(self.dbname))
             # except mysql.connector.Error as error:
             except pymysql.Error as error:
                 logger.error(
-                    'Authentication to  aws-MySQL table failed  : {}'.format(error))
+                    'Authentication to  MySQL table failed  : {}'.format(error))
                 raise error
             except TimeoutError as e:
                 logger.error(f'Timeout.. trying again.')

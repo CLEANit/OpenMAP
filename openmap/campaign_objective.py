@@ -1,14 +1,13 @@
 #!/usr/bin/env python
-import argparse
 import os
 import pathlib
 import sys
 
 import yaml
-from analysis import parser
-from analysis.properties import Property
+from openmap.mmodelling.analysis import parser
+from openmap.mmodelling.analysis import Property
 from openmap.computing.log import logger
-from pymatgen.io.vasp.outputs import BSVasprun, Outcar, Vasprun
+from pymatgen.io.vasp.outputs import Vasprun
 
 # logger = logging.getLogger(__name__)
 __version__ = '0.1'

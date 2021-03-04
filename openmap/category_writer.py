@@ -5,7 +5,7 @@ import pickle
 
 import numpy as np
 
-from computing.log import logger
+from openmap.log import logger
 
 
 # =================================================================
