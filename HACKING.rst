@@ -1,5 +1,5 @@
 Hacking on OpenMap
-== == == == == == == == ==
+===================
 
 Here are some guidelines for hacking on OpenMap.
 
