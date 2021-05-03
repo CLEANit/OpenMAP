@@ -8,8 +8,8 @@
 
 def-itamblyn-ac:
   host: cedar
-  key:  "~/.ssh/id_rsa" # ('SSH_KEY')
-  passphrase: "Gastipard_Isaro"
+  key:
+  passphrase:
   users: ctetsass
 
 def-mkarttu:

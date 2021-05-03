@@ -20,3 +20,11 @@ HEA:
   - rrg-itamblyn-ab
   priority: 0
   users: []
+
+TEST:
+  allocations:
+    - def-itamblyn-ac
+    - def-mkarttu
+    - rrg-mkarttu-ab
+  priority: 1
+  users: []

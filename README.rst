@@ -1,7 +1,7 @@
-OpenMAP
+OpenMap
 =======
 
-OpenMAP is an Automated Material Acceleration Platforms
+OpenMap is an Automated Material Acceleration Platforms
 
 
 Support and Documentation
@@ -20,6 +20,7 @@ documentation when developing in or contributing to OpenMap.
 
 Authors
 -------
-OpenMap is made available by `National Research Council Canada <https://nrc.canada.ca/en>`_
-and a team of `contributors
-<https://github.com/CLEANit/OpenMAP/blob/master/CONTRIBUTORS.txt>`_.
+OpenMap is made available by  the `National Research Council Canada <https://nrc.canada.ca/en>`_
+
+See  `CONTRIBUTORS.txt <https://github.com/CLEANit/OpenMAP/blob/master/CONTRIBUTORS.txt>`_
+

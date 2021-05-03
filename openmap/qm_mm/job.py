@@ -4,17 +4,11 @@ from pathlib import Path
 
 import h5py
 import numpy as np
-from openmap.mmodelling.analysis import parser, properties
-from openmap.ssh_host import client
+
 from openmap.util import files
 from openmap.util.log import logger
-from openmap.ssh_host.hpc_resources import hosts, projects, allocations
 
-__version__ = '0.1'
-__author__ = 'Conrard TETSASSI'
-__maintainer__ = 'Conrard TETSASSI'
-__email__ = 'giresse.feugmo@gmail.com'
-__status__ = 'Development'
+__all__ = ["JobManager", "JobProfile"]
 
 
 class JobProfile(object):
@@ -107,7 +101,15 @@ class JobManager(object):
     #     remote.monitor_batch(jobs)
 
     @logger.catch
-    def write_slurm_aws(self, script, input_path, checkWords, repWords):
+    def write_slurm_vm(self, script, input_path, checkWords, repWords):
+        """
+        write python file to upload results on the virtual machine
+        :param script: template
+        :param input_path:
+        :param checkWords:
+        :param repWords:
+        :return:
+        """
 
         if not os.path.isdir(input_path):
             raise Exception(
@@ -115,7 +117,7 @@ class JobManager(object):
 
         basename = os.path.basename(os.path.normpath(input_path))
 
-        outputfile = os.path.join(input_path, basename + '_aws.py')
+        outputfile = os.path.join(input_path, basename + '_vm.py')
 
         jobname = basename
         ofile = open(outputfile, 'w')

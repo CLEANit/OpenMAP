@@ -3,7 +3,7 @@ from matminer.featurizers.composition import ElementFraction
 from pymatgen import Composition
 import numpy as np
 import pandas as pd
-from openmap.db_wrapper import MpWrapper, OqWrapper, NomadWrapper
+from openmap.data_wrapper import MpWrapper, OqWrapper, NomadWrapper
 from openmap.util.log import logger
 
 todrop = {'mp': ['full_formula',

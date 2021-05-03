@@ -5,8 +5,8 @@ import sys
 
 import yaml
 from openmap.qm_mm.analysis import parser
-from openmap.qm_mm.analysis import Property
-from openmap.computing.log import logger
+from openmap.qm_mm.analysis.properties import Property
+from openmap.util.log import logger
 from pymatgen.io.vasp.outputs import Vasprun
 
 # logger = logging.getLogger(__name__)

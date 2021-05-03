@@ -1,11 +1,5 @@
 #!/usr/bin/env python
 
-__version__ = '0.1'
-__author__ = 'Conrard TETSASSI'
-__maintainer__ = 'Conrard TETSASSI'
-__email__ = 'ConrardGiresse.TetsassiFeugmo@nrc-cnrc.gc.ca'
-__status__ = 'Development'
-
 """Client to handle connections and actions executed against a remote host."""
 import getpass
 import os
@@ -18,8 +12,8 @@ from paramiko import AutoAddPolicy, RSAKey, SSHClient
 from paramiko.auth_handler import AuthenticationException, SSHException
 from scp import SCPClient, SCPException
 
-from .files import fetch_local_files
-from openmap.utilities.log import logger
+from openmap.util.files import fetch_local_files
+from openmap.util.log import logger
 
 
 def progress4(filename, size, sent, peername):
@@ -100,8 +94,11 @@ class RemoteClient:
 
                 if self.passphrase is None and self.ssh_key_filepath is None:
                     while self.conn is None:
-                        self.passphrase = getpass.getpass(
-                            prompt=f'{self.host} Password: ', stream=None)
+                        try:
+                            self.passphrase = getpass.getpass(
+                                prompt=f' enter {self.user} {self.host} account password: ', stream=None)
+                        except Exception as error:
+                            logger.error('ERROR', error)
                         self.client.connect(
                             self.host,
                             username=self.user,
@@ -314,7 +311,7 @@ class RemoteClient:
         # response = stdout.readlines()
         # for line in response:
         # logger.info(f'INPUT: {command} | OUTPUT: {line}')
-        logger.info(f'{command} ')
+        logger.info(f'{str(command)} ')
         return stdout.read().decode(), stderr.read().decode()
 
     @logger.catch
@@ -355,21 +352,26 @@ class RemoteClient:
 
     def sacct(self, job_id):
         """
-
-               JobID      State ExitCode
-        ------------ ---------- --------
-        54071355        PENDING      0:0
+        status = re.sub(' +', ' ', std_out[2]).split(' ')
+        status = ['def-itamb+', 'ctetsass', '67006703', '2021-04-17T06:18:41', 'Unknown', '2', '00:00:09',
+        'billing=3,cpu=2, mem=16000M,no+', '00:00:18', 'cdr[599,622]', '0:0', 'RUNNING', '']
 
         :param job_id:
         :return:
         """
-        std_out, _ = self.execute_command(f'sacct -j {job_id} -b')
+        std_out, _ = self.execute_command('sacct -j {} -b'.format(job_id))
         std_out = std_out.split('\n')
         status = re.sub(' +', ' ', std_out[2]).split(' ')
-        if len(status) <= 1:
-            return 'PENDING'
-        return status[1]
 
+        # if len(status) <= 1:
+        #     return 'PENDING'
+        # return status[1]
+        # TODO when statut == 'TIMEOUT' or CANCELLED
+
+        if status[-2] != 'PENDING':
+            return  'COMPLETED'
+        else:
+            return status[-2]
     def monitor(self, job_id):
         status = None
         while status not in ['COMPLETED']:
@@ -379,23 +381,24 @@ class RemoteClient:
         return None
 
     @logger.catch
-    def monitor_batch(self, jobs):
+    def monitor_batch(self, jobs, sleeptime = 300):
         """
-        :param jobs: list of dictionary with job information
+        :param jobs: dictionary of dictionary with job information
         :return:
         """
-        status_list = [None for job in jobs]
+        jobs_names = jobs.keys()
+        status_list = [None for name in jobs_names]
+        job_ids = [jobs[name]['id'] for name in jobs_names]
         while not all(status == 'COMPLETED' for status in status_list):
-            status_list = [self.sacct(job['id']) for job in jobs]
-            job_ids = [job['id'] for job in jobs]
-            for id, status in zip(job_ids, status_list):
-                logger.info(f' {id}:  {status}')
+            status_list = [self.sacct(job_id) for job_id in job_ids]
+
+            for name, status in zip(jobs_names, status_list):
+                logger.info(f'{name}: {str(status)}')
             #
             if all(status == 'COMPLETED' for status in status_list):
                 logger.info(f'All Jobs COMPLETED')
                 continue
             else:
-                sleeptime = 120
                 countdown(sleeptime)
         for job in jobs:
             if not self.check_remote_dir(job['remote_path']):

@@ -4,19 +4,34 @@ import shutil
 from pathlib import Path
 
 from openmap.util.log import logger
-from openmap.mmodelling.vasp.settings import POTENTIALS, VASP_SETTINGS, vasp_calculations
+from openmap.qm_mm.vasp.settings import POTENTIALS, VASP_SETTINGS, vasp_calculations
 from pymatgen.io.vasp.inputs import Incar, Kpoints, Poscar, Potcar
+
+__all__ = ['InputGenerator', "Software"]
+
+Software = ['vasp', 'lammps']
 
 
 class InputGenerator(object):
-    def __init__(self, local_path, software='vasp'):
+    def __init__(self, local_path):
         """
         :param local_path:
         :param software:
         """
-        self.software = software
         self.local_path = local_path
         self.make_workdir()
+
+    def get_software_name(self, name):
+        """
+        param:name:name of softare
+        return:
+        """
+        if name in Software:
+            usname = name
+
+        else:
+            usname = None
+        return usname
 
     def make_workdir(self):
 
@@ -32,10 +47,19 @@ class InputGenerator(object):
                 f'Working directory [{self.local_path}] created successfully')
         #
 
+    def input_from_structure(self, job_names, structures, properties, software='vasp'):
+
+        name = self.get_software_name(software)
+
+        assert name is not None, f'[{name}] is not implemented'
+
+        if name == 'vasp':
+            return self.vasp_input_from_structure(job_names, structures, properties)
+
     @logger.catch
     def vasp_input_from_structure(self, job_names, structures, properties):
         setting_file = None
-        vasp_input = self.software + '_input'
+        vasp_input = 'vasp_input'
         try:
             setting_file = vasp_calculations[properties]
         except KeyError:

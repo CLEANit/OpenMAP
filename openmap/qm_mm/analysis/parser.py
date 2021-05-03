@@ -1,6 +1,6 @@
 import pathlib
 
-from openmap.mmodelling.analysis import pyvasp
+from openmap.qm_mm.analysis import pyvasp
 from openmap.util.log import logger
 
 

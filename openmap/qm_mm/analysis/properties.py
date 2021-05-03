@@ -8,6 +8,17 @@ PROPERTIES = {
     'energy_per_atom': 'energy_per_atom',
     'total_magnetization': 'total_magnetization',
     'fermi_energy': 'fermi_energy',
+    'Lattice constant': 'abc',
+    'bulk modulus': 'B',
+    'elastic constants': 'E',
+    'Vacancy formation energy': 'V_energy',
+    'Interstitial formation energy': 'Interstitial_energy',  # Both octahedral and tetrahedral
+    'Stacking fault energies': 'Stacking_fault_energies',  # Extrinsic and intrinsic stacking fault energies
+    'Surface formation energies': 'Surface_energies',
+    'E-V plot': 'E-V plot',
+    'GSF plot': 'GSF plot',
+    'Nudged Elastic Band': 'Nudged Elastic Band'
+
 }
 
 
