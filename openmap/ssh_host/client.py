@@ -19,7 +19,7 @@ from paramiko.auth_handler import AuthenticationException, SSHException
 from scp import SCPClient, SCPException
 
 from .files import fetch_local_files
-from openmap.log import logger
+from openmap.utilities.log import logger
 
 
 def progress4(filename, size, sent, peername):
