@@ -11,82 +11,122 @@ Normal installation
 To install the latest version of OpenMAP:
 
 
-.. code-block:: bash
+- Install poetry (https://github.com/python-poetry/poetry)
 
-  $ pip3 install --user --upgrade pip
+    + osx / linux / bashonwindows install instructions
+        .. sourcecode:: bash
+
+            $ pip install poetry
+
+    + windows powershell install instructions
+        .. sourcecode:: bash
+
+            $ pip install poetry
+
+- Once Poetry is installed you can execute the following:
+
+.. sourcecode:: bash
+
+    $ poetry --version
+
+    $ poetry self update
+
+- Clone the repo
+
+.. sourcecode:: bash
+
+    $ git clone  https://github.com/CLEANit/OpenMAP
+
+    $ cd openmap
+
+- install the packages
+.. sourcecode:: bash
+
+    $openmap peotry install
+
+    $openmap peotry check
+
+    $openmap poetry run pytest
+
+    $openmap poetry build
 
 
--  git clone
++ Listing the current configuration
 
-.. code-block:: bash
+    .. sourcecode:: bash
 
-    $ git clone https://github.com/CLEANit/OpenMAP
+        $openmap poetry config --list
 
-- Add OpenMAP in your path
+    which will give you something similar to this
 
-.. code-block:: bash
+    .. sourcecode:: bash
 
-  $ echo 'export PATH=$HOME/.local/bin:$PATH' >>~/.bash_profile
+        cache-dir = "/path/to/cache/directory"
+        virtualenvs.create = true
+        virtualenvs.in-project = null
+        virtualenvs.path = "{cache-dir}/virtualenvs"  # /path/to/cache/directory/virtualenvs
 
-- Install (dev) dependencies : ``pip install requirements.txt``.
-- Install  the packages: ``pip install -e .``
-
-
-On the other hand, you can install it in a *virtualenv*
 
 Installation for contributors
 =============================
-You will have to create a development environment to hack OpenMap, using a
-OpenMap checkout. We use `tox` to run tests, run test coverage, and build
-documentation.
+- Install poetry (https://github.com/python-poetry/poetry)
 
-tox docs: https://tox.readthedocs.io/en/latest/
+    + osx / linux / bashonwindows install instructions
+        .. sourcecode:: bash
 
-tox on PyPI: https://pypi.org/project/tox/
+            $ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python -
+            or
+            $ pip install poetry
 
-- Create a new directory somewhere and `cd` to it:
+    + windows powershell install instructions
+        .. sourcecode:: bash
 
-.. code-block:: bash
+            $ (Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py -UseBasicParsing).Content | python -
+            or
+            $ pip install poetry
 
-     $ mkdir ~/hack-on-OpenMap
-     $ cd ~/hack-on-OpenMap
+- Once Poetry is installed you can execute the following:
 
-- Check out a read-only copy of the OPenMap source:
+.. sourcecode:: bash
 
-    + Clone it: ``git clone https://github.com/CLEANit/OpenMAP``
-    + if necessary Create virtualenv and activate it:
+    $ poetry --version
 
-    .. code-block:: bash
+    $ poetry self update
 
-         $ virtualenv venv --python=python3
-        # activate virtualenv (you need to do that every time)
-         $ source venv/bin/activate
+- Clone the repo
 
-    + Install (dev) dependencies : ``pip requirements-dev.txt``.
-    + Finally, “install”  packages: ``pip install -e .``
+.. sourcecode:: bash
 
-Alternatively, create a writeable fork on GitHub and clone it to implement your changes (see `[How to Contribute] <https://github.com/CLEANit/OpenMAP/blob/master/docs/source/contributing.rst>`_)
+    $ git clone  https://github.com/CLEANit/OpenMAP
 
+    $ cd openmap
 
+- install the packages
+.. sourcecode:: bash
 
-- Make sure that `tox` is installed, either in your path, or locally. Examples
-  below assume that `tox` was installed with:
+    $openmap peotry install
 
-.. code-block:: bash
+    $openmap peotry check
 
-     $ pip3 install --user tox
-    # $ export TOX=$(python3 -c 'import site; print(site.USER_BASE + "/bin")')/tox
+    $openmap poetry run pytest
+
+    $openmap poetry build
 
 
++ Listing the current configuration
 
-Before you file a pull request, we recommend that you run your proposed
-change through `tox`. `tox` will fully validate that all tests work, all
-supported formats of documentation will build and their doctests pass, and
-test coverage is 100%, across all supported versions of Python. `tox` will
-only run builds for Python versions that you have installed and made
-available to `tox`. Setting up that environment is outside the scope of this
-document.
+    .. sourcecode:: bash
 
+        $openmap poetry config --list
+
+    which will give you something similar to this
+
+    .. sourcecode:: bash
+
+        cache-dir = "/path/to/cache/directory"
+        virtualenvs.create = true
+        virtualenvs.in-project = null
+        virtualenvs.path = "{cache-dir}/virtualenvs"  # /path/to/cache/directory/virtualenvs
 
 Pre-commit
 ----------
@@ -170,6 +210,7 @@ Test Coverage
  .. code-block:: bash
 
         $ tox -e py36
+
 
 
 Documentation Coverage and Building HTML Documentation

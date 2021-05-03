@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "openmap"
-version = "0.1.0"
+version = "0.1.1"
 description = "OpenMap is an Automated Material Acceleration Platforms"
 authors = ["Feugmo <giresse.feugmo@gmail.com>"]
 readme ="README.rst"
@@ -48,6 +48,15 @@ flake8 = "^3.9.0"
 #flake8-bandit = "^2.1"
 #flake8-docstrings = "^1.5"
 #sphinx = { version = "^2.2", optional = true }
+Sphinx = "^3.5.4"
+coverage = "^5.5"
+doc8 = "^0.8.1"
+pytest-cov = "^2.11.1"
+pytest-mock = "^3.6.0"
+httpretty = "^1.0.5"
+autopep8 = "^1.5.7"
+urllib3 = "^1.26.4"
+pre-commit = "^2.12.1"
 #sphinx_rtd_theme = { version = "^0.4.3", optional = true  }
 
 [tool.poetry.extras]
@@ -77,12 +86,7 @@ exclude = '''
   | dist
   | build
   | docs
-  | hea/tests/tests_files/*
-  | hea/training_data/
-  | hea/tools/heatofmixing.py
-  | hea/tools/miedema.py
-  | hea/tools/properties.py
-  | hea/pyhea.py
+  | optimizer
 )/
 '''
 
@@ -92,7 +96,7 @@ multi_line_output = 3
 src_paths = ["tests"]
 skip_glob = ["docs/*"]
 include_trailing_comma = true
-skip = [".tox", ".venv"]
+skip = [".tox", ".venv", "optimizer/"]
 
 [tool.flake8]
 show-source = true
@@ -116,6 +120,7 @@ exclude = '''
   | dist
   | build
   | docs
+  | optimizer
 )/
 '''
 # venv,.venv,.git,.tox,dist,*lib/python*,*egg,*figures/*,__init__.py,build/*,setup.py,hea/util/*,hea/tests/test_*
@@ -126,3 +131,12 @@ max-complexity = 18
 
 [tool.doc8]
 max-line-length = 120
+
+[tool.autopep8]
+max_line_length = 120
+ignore = ['E501']
+exclude = ''' optimizer/ | .pre-commit-config.yaml '''
+
+[tool.pre-commit]
+pre-commit= "pre-commit"
+
