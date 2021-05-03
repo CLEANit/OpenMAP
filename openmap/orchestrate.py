@@ -1,70 +1,91 @@
+import argparse
+import json
 import os
-import random
-
-# import sys
 
 # path = str(Path(Path(__file__).parent.absolute().parent.absolute()))
 # sys.path.insert(0, path)
 import pickle
-import json
-import yaml
-import numpy as np
-import argparse
+import random
+import sys
 from pathlib import Path
-from pymatgen import MPRester
+
+import numpy as np
+import yaml
 from openmap import __version__
-from openmap.util.category_writer import CategoryWriter
 from openmap.data_wrapper import search_db
-from optimizer.phoenics_inc import gryffin as Gryffin
-from openmap.util.log import logger
 from openmap.qm_mm.input_generator import InputGenerator
 from openmap.qm_mm.job import JobManager
-from openmap.ssh_host.hpc_resources import hosts, projects, allocations
 from openmap.qm_mm.vasp.slurm import qsub_vasp2
 from openmap.ssh_host import client
+from openmap.ssh_host.hpc_resources import allocations, hosts, projects
+from openmap.util.category_writer import CategoryWriter
+
+# from openmap.util.log import logger
+from optimizer.phoenics_inc import gryffin as Gryffin
+from pymatgen import MPRester
 
 # ============================ Configuration =====================================
 
 # ===============================================================================
 parser = argparse.ArgumentParser(description='Automated  Optimizer')
-parser.add_argument('--seed', metavar='N', action='store', dest='seed', type=int,
-                    help='seed value')
+parser.add_argument(
+    'config_options',
+    metavar='OPTIONS',
+    nargs='+',
+    help='configuration options, the path to  dir whit configuration file',
+)
 
-parser.add_argument('--budget',
-                    dest='budget',
-                    type=int,
-                    default=4,
-                    action='store',
-                    # const='value-to-store',
-                    help='how many experiment you want to perform')
+parser.add_argument(
+    '--seed',
+    metavar='N',
+    action='store',
+    dest='seed',
+    type=int,
+    help='seed value',
+)
 
-parser.add_argument('--project',
-                    dest='project',
-                    type=str,
-                    default='TEST',
-                    action='store',
-                    # required=True,
-                    help='project name')
+parser.add_argument(
+    '--budget',
+    dest='budget',
+    type=int,
+    default=4,
+    action='store',
+    # const='value-to-store',
+    help='how many experiment you want to perform',
+)
 
-parser.add_argument('--user',
-                    dest='user',
-                    type=str,
-                    default='Tetsassic',
-                    action='store',
-                    # required=True,
-                    help='OpenMAP User Name')
+parser.add_argument(
+    '--project',
+    dest='project',
+    type=str,
+    default='TEST',
+    action='store',
+    # required=True,
+    help='project name',
+)
+
+parser.add_argument(
+    '--user',
+    dest='user',
+    type=str,
+    default=None,
+    action='store',
+    # required=True,
+    help='OpenMAP User Name',
+)
 
 parser.add_argument('--version', action='version', version=__version__)
 
-args = parser.parse_args()
+# args = parser.parse_args()
+args = parser.parse_args(sys.argv[1:])
 
 # ================================ HCP  details ================================
 
-
+# TODO
 try:
     OpenMap_project = projects[args.project]
 
-except:
+except BaseException:
     print(f' The project {args.project} does not exist would you like to create')
 
 # TODO
@@ -75,30 +96,35 @@ except:
 # except:
 #     print(f' The user {args.project} does not exist would you like to create')
 # ===============================================================================
-workdir = '/home/ctetsass/Work/OpenMap'
 
-with open(os.path.join(workdir, 'configuration/Optimizer_config.json'), 'r') as fr:
+workdir = args.config_options[0]
+
+with open(os.path.join(workdir, 'configuration/Optimizer_config.json')) as fr:
     Gryffin_CONFIG = json.load(fr)
 
-with open(os.path.join(workdir, 'configuration/HPC_config.yml'), 'r') as fr:
+with open(os.path.join(workdir, 'configuration/HPC_config.yml')) as fr:
     HPC_CONFIG = yaml.safe_load(fr)
 
-with open(os.path.join(workdir, 'configuration/DataBase_config.yml'), 'r') as fr:
+with open(os.path.join(workdir, 'configuration/DataBase_config.yml')) as fr:
     DataBase_CONFIG = yaml.safe_load(fr)
 
-with open(os.path.join(workdir, 'configuration/Query.yml'), 'r') as fr:
+with open(os.path.join(workdir, 'configuration/Query.yml')) as fr:
     Query = yaml.safe_load(fr)
 
 # ============================ Create Chemical space =====================================
-#
-# 1- wrap data online  material project, open quantum, nomad
+
+# TODO
+# 1-  Query the madness data base
+# TODO
+# 2- wrap data online  material project, open quantum, nomad
 
 data = search_db.get_pd_db(Query['criteria'], 'mp')
 
-#   2- update openmap database
+# TODO
+# 3 - update  madness database
 #
 
-#   3- create the chemical space
+# 4- create the chemical space
 
 data_df = data.copy(deep=True)
 
@@ -186,8 +212,11 @@ while evaluations < BUDGET:
 
     # 2 check the objective for each system in the sample
 
-    to_be_measured = [idx for idx in sample_id_list if
-                      data_df.loc[data_df['material_id'] == idx, objective_name].isnull().values.any()]
+    to_be_measured = [
+        idx
+        for idx in sample_id_list
+        if data_df.loc[data_df['material_id'] == idx, objective_name].isnull().values.any()
+    ]
     # computing_idx = [i for i in range(len(measurements)) if measurements[i] =='None']
 
     if len(to_be_measured) == 0:
@@ -214,14 +243,16 @@ while evaluations < BUDGET:
 
         host = hosts[allocation['host']]
 
-        job_description = {'time': 1,
-                           'ntask': 2,
-                           'memory': 8000,
-                           'email': None,
-                           'gpu': 0,
-                           'account': account,
-                           'binary': host['binaries']['vasp_serial'],
-                           'objective_name': objective_name}
+        job_description = {
+            'time': 1,
+            'ntask': 2,
+            'memory': 8000,
+            'email': None,
+            'gpu': 0,
+            'account': account,
+            'binary': host['binaries']['vasp_serial'],
+            'objective_name': objective_name,
+        }
 
         job_manager = JobManager(campaign_name=campaign_name, local_path=run_dir, remote_path=host['sub_text'])
 
@@ -239,7 +270,7 @@ while evaluations < BUDGET:
             remote_path=host['sub_text'],
             local_path=os.path.join(str(Path.home()), 'MAPS', campaign_name),
             passphrase=HPC_CONFIG['passphrase'],
-            ssh_key_filepath=HPC_CONFIG['ssh_key_filepath']
+            ssh_key_filepath=HPC_CONFIG['ssh_key_filepath'],
         )
         # 6 upload and submit job
         jobs = {}
@@ -257,8 +288,9 @@ while evaluations < BUDGET:
             remote.kill(jobs[sample]['id'])
 
         # 8 TODO  Extract computed objective
-        measurements = [data_df.loc[data_df['material_id'] == idx, 'energy_per_atom'].values[0] for idx in
-                        sample_id_list]
+        measurements = [
+            data_df.loc[data_df['material_id'] == idx, 'energy_per_atom'].values[0] for idx in sample_id_list
+        ]
 
         for sample, measurement in zip(samples, measurements):
             sample[objective_name] = measurement
@@ -270,5 +302,3 @@ while evaluations < BUDGET:
     evaluations += BATCH_SIZE
     print('EVALUATIONS : ', evaluations)
     # # # 10 go to #1
-
-

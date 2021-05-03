@@ -7,133 +7,59 @@ Here are some guidelines for hacking on OpenMap.
 Using a Development Checkout
 ----------------------------
 You will have to create a development environment to hack OpenMap, using a
-OpenMap checkout. We use `tox` to run tests, run test coverage, and build
+OpenMap checkout. We use  `Poetry <https://python-poetry.org/docs/basic-usage/>`_  to run tests, run test coverage, and build
 documentation.
 
-tox docs: https: // tox.readthedocs.io / en / latest/
+1- create a writeable fork on GitHub and clone it to implement your changes
 
-tox on PyPI: https: // pypi.org / project / tox/
+2- before_install:
 
-- Create a new directory somewhere and `cd` to it:
+.. sourcecode:: bash
 
-.. code-block: : bash
+    $pip install poetry
 
-     $ mkdir ~ / hack - on - OpenMap
-     $ cd ~ / hack - on - OpenMap
+3-  install
 
-- Check out a read - only copy of the OPenMap source:
+.. sourcecode:: bash
 
-    + Clone it: ``git clone https: // github.com / CLEANit / OpenMAP``
-    + if necessary Create virtualenv and activate it:
+    $cd my_package
+    $my_package poetry install
 
-    .. code-block: : bash
+4-  script:
 
-         $ virtualenv venv - -python = python3
-        # activate virtualenv (you need to do that every time)
-         $ source venv / bin / activate
+.. sourcecode:: bash
 
-    + Install(dev) dependencies: ``pip install - dependencies - dev``.
-    + Finally, “install” the pakage: ``pip install - e .``
+    $my_package poetry run pre-commit install
+    $my_package poetry run pre-commit
+    $my_package poetry run  my_package pytest
+    $my_package poetry run ... #coverage run --source=my_package -m unittest discover -b
 
-Alternatively, create a writeable fork on GitHub and clone it to implement your changes(see `[How to Contribute] < https: // github.com / CLEANit / OpenMAP / blob / master / docs / source / contributing.rst >`_)
+5- Building HTML Documentation
 
+.. sourcecode:: bash
 
-- Make sure that `tox` is installed, either in your path, or locally. Examples
-  below assume that `tox` was installed with:
+    $ cd  docs
+    $my_package/docs  poetry run sphinx-apidoc  -f -o source/ ../openmap
+    $my_package  poetry run doc8
 
-.. code-block: : bash
+6 - Commit your changes and push
 
-     $ pip3 install - -user tox
-    # $ export TOX=$(python3 -c 'import site; print(site.USER_BASE + "/bin")')/tox
-
-
-Before you file a pull request, we recommend that you run your proposed
-change through `tox`. `tox` will fully validate that all tests work, all
+The command **$poetry run pre-commit install$ has created**  ".git/hooks" to  store all the
+the hooks edited in the file **.pre-commit-config.yaml**. So  **$git commit -m ""**  will fully validate that all tests work, all
 supported formats of documentation will build and their doctests pass, and
-test coverage is 100 %, across all supported versions of Python. `tox` will
-only run builds for Python versions that you have installed and made
-available to `tox`. Setting up that environment is outside the scope of this
-document.
+test coverage is 100 %, across all supported versions of Python.
 
+.. sourcecode:: bash
 
-Coding Style
-------------
-
-- OpenMap uses Black(https: // pypi.org / project / black /) and isort(https: // pypi.org / project / isort /) for code formatting style.
-  To run formatters:
-
-.. code-block: : bash
-
-    $ tox - e format
-
-
-Running Tests
--------------
-
-- The `tox.ini` uses `pytest` and `coverage`. As such `tox` may be used
-  to run groups of tests or only a specific version of Python. For example, the
-  following command will run tests on the same version of Python that `tox` is
-  installed with:
-
-.. code-block: : bash
-
-    $ tox - e py
-
-
-  To run `tox` for Python 3.6 explicitly, you may use:
-
-.. code-block:: bash
-
-    $ tox -e py36
-
-
-- To run individual tests (i.e., during development), you can use `pytest`
-  syntax as follows, where `$VENV` is an environment variable set to the path
-  to your virtual environment:
-
-    + run a single test
-
-    .. code-block:: bash
-
-        $ tox -e py -- tests/test_httpexceptions.py::TestHTTPMethodNotAllowed::test_it_with_default_body_tmpl
-
-    + run all tests in a class
-
-    .. code-block:: bash
-
-        $ tox -e py -- tests/test_httpexceptions.py::TestHTTPMethodNotAllowed
-
-- For more information on how to use pytest, please refer to the pytest
-  documentation for selecting tests:
-  https://docs.pytest.org/en/latest/usage.html#specifying-tests-selecting-tests
-
-
-
-Test Coverage
--------------
-
-- The codebase *must* have 100% test statement coverage after each commit. You
-  can test coverage via `tox -e py36`.
-
-
-Documentation Coverage and Building HTML Documentation
-------------------------------------------------------
-
-If you fix a bug, and the bug requires an API or behavior modification, all
-documentation in this package which references that API or behavior must be
-changed to reflect the bug fix, ideally in the same commit that fixes the bug
-or adds the feature. To build and review docs, use the following steps.
-
-
-1. In the main OpenMap checkout directory, run `tox -e docs`:
-
-    .. code-block:: bash
-
-     $ tox -e docs
-
-2. Open the `.tox/docs/html/index.html` file to see the resulting HTML
-   rendering.
-
+    $my_package  git commit -m ""
+        Requirements.............................................................Passed
+        isort....................................................................Passed
+        Black....................................................................Passed
+        MyPy.....................................................................Passed
+        Pylint...................................................................Passed
+        [master 8e9e6e6]
+        1 file changed, 1 insertion(+), 1 deletion(-)
+    $my_package git push
 
 Change Log
 ----------

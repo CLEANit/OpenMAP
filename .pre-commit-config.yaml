@@ -1,37 +1,81 @@
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.3.0
+    rev: v3.4.0
     hooks:
     - id: check-yaml
     #-   id: end-of-file-fixer
     - id: check-merge-conflict
     - id: trailing-whitespace
+      exclude: |
+            (?x)(
+              ^tests/.*
+            | ^optimizer)
     - id: check-docstring-first
     - id: check-json
     - id: check-added-large-files
     - id: check-yaml
     - id: debug-statements
     #- id: name-tests-test
-    - id: double-quote-string-fixer
-    - id: requirements-txt-fixer
--   repo: https://github.com/psf/black
-    rev: 19.3b0
+#    - id: double-quote-string-fixer
+    #- id: requirements-txt-fixer
+#    - id: end-of-file-fixer
+#      exclude: ^tests/.*
+
+#-   repo: https://github.com/asottile/reorder_python_imports
+#    rev: v2.3.6
+#    hooks:
+#    -   id: reorder-python-imports
+#        args: [--py3-plus]
+-   repo: https://github.com/asottile/pyupgrade
+    rev: v2.7.4
     hooks:
-    -   id: black
-        language_version: python3 # Should be a command that runs python3.6+
--   repo: https://gitlab.com/pycqa/flake8
-    rev: 3.8.4
+    -   id: pyupgrade
+        args: [--py36-plus]
+-   repo: https://github.com/asottile/add-trailing-comma
+    rev: v2.0.2
     hooks:
-    -   id: flake8
-        additional_dependencies: [flake8-typing-imports==1.7.0]
+    -   id: add-trailing-comma
+        args: [--py36-plus]
 -   repo: https://github.com/pre-commit/mirrors-autopep8
     rev: v1.5.4
     hooks:
     -   id: autopep8
+        exclude: ^optimizer/, ^.pre-commit-config.yaml
+        args: [--in-place, --recursive, --aggressive, --aggressive]
+-   repo: https://github.com/psf/black
+    rev: 20.8b1
+    hooks:
+    -   id: black
+        args: [--line-length=120]
+-   repo: https://github.com/timothycrosley/isort
+    rev: 5.7.0
+    hooks:
+      - id: isort
+        args: [--recursive]
+        additional_dependencies: [toml]
+        exclude: optimizer, ^.*/?setup\.py$
+
+#-   repo: https://github.com/pre-commit/mirrors-pylint
+#    rev: '36ae6523465f8ba6936f6b63c3df94ab237eda00'  # Use the sha / tag you want to point at
+#    hooks:
+#    - id: pylint
+
+
+-   repo: https://gitlab.com/pycqa/flake8
+    rev: 3.8.4
+    hooks:
+    -   id: flake8
+        exclude: ^optimizer/
+        additional_dependencies: [flake8-typing-imports==1.7.0]
+        args: [--max-line-length=120]
+
+
+
 -   repo: local
     hooks:
         - &pytest-check
             id: pytest-check
+            exclude: ^optimizer/
             name: pytest-check
             entry: pytest
             language: system
@@ -40,21 +84,7 @@ repos:
 
 
 
-#-   repo: https://github.com/asottile/reorder_python_imports
-#    rev: v2.3.6
-#    hooks:
-#    -   id: reorder-python-imports
-#        args: [--py3-plus]
-#-   repo: https://github.com/asottile/pyupgrade
-#    rev: v2.7.4
-#    hooks:
-#    -   id: pyupgrade
-#        args: [--py36-plus]
-#-   repo: https://github.com/asottile/add-trailing-comma
-#    rev: v2.0.2
-#    hooks:
-#    -   id: add-trailing-comma
-#        args: [--py36-plus]
+
 #-   repo: https://github.com/asottile/setup-cfg-fmt
 #    rev: v1.16.0
 #    hooks:
@@ -63,3 +93,4 @@ repos:
 #    rev: v0.790
 #    hooks:
 #    -   id: mypy
+

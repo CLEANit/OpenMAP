@@ -1,11 +1,10 @@
+# from openmap.data_wrapper.MpWrapper import MpWrapper
 
-from openmap.databases.MpWrapper import MpWrapper
+# from openmap.data_wrapper.NomadWrapper import NomadWrapper
+# from openmap.data_wrapper.OqWrapper import OqWrapper
 
-# from openmap.databases.nomad.NomadWrapper  import NomadWrapper
-from openmap.databases.OqWrapper import OqWrapper
-
-mp = MpWrapper()
-oq = OqWrapper()
+# mp = MpWrapper()
+# oq = OqWrapper()
 # nomad = NomadWrapper()
 
 
@@ -17,9 +16,12 @@ oq = OqWrapper()
 #         wrap = True
 #
 #     except (RuntimeError, TypeError, NameError, ValueError):
+#         wrap = True
+#     else:
 #         wrap = False
-#
 #     assert wrap
+
+
 #
 #
 # def test_OqWrapper():
@@ -38,11 +40,8 @@ oq = OqWrapper()
 #     assert wrap
 
 
-# def test_NomadWrapper():
-#     """ """
-#     try:
-#         _ = nomad.search_params(atoms=['Ag', 'Pd'], searchable_quantities=['stress_tensor'], crystal_system='binary').get_pd_df(metadata='')
-#         wrap = True
+# def test_NomadWrapper(): """ """ try: _ = nomad.search_params(atoms=['Ag', 'Pd'], searchable_quantities=[
+# 'stress_tensor'], crystal_system='binary').get_pd_df(metadata='') wrap = True
 #
 #     except (RuntimeError, TypeError, NameError, ValueError):
 #         wrap = False
