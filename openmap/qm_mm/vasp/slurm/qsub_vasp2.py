@@ -58,7 +58,7 @@ def write_slurm_job(input_path, job_description, gpu=0):
 
     outputfile = os.path.join(input_path, basename + '_vasp_job.sh')
 
-    aws_file = os.path.join(basename + '_aws.py')
+    vm_file = os.path.join(basename + '_vm.py')
 
     jobname = basename
 
@@ -141,10 +141,10 @@ def write_slurm_job(input_path, job_description, gpu=0):
     # script += "mv *.err *.out  vasp_output\n"
     script += 'rm -r $VASP_WORKDIR\n'
     script += '\n\n'
-    script += 'source ~/ENV_PYTHON/bin/activate\n'
-    script += 'python ~/OpenMAP/campaign_objective.py  {} \n'.format(
-        job_description['objective_name'])
-    script += 'python  ./{}\n'.format(aws_file)
+    # script += 'source ~/ENV_PYTHON/bin/activate\n'
+    # script += 'python ~/OpenMAP/objective.py  {} \n'.format(
+    #     job_description['objective_name'])
+    # script += 'python  ./{}\n'.format(vm_file)
 
     script += '\n\n'
     script += 'echo exit 0'

@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 # **********************************************************
+# https://www.nsc.liu.se/~pla/vasptools/
 #  File: vaspcheck[.py]
 #  Description: a tool to warn about common errors in vasp
 #               calculations
