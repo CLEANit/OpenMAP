@@ -1,0 +1,7 @@
+host: "cedar" # ('REMOTE_HOST')
+user: "ctetsass" # ('REMOTE_USERNAME') getpass.getuser()
+account: "def-itamb"
+ssh_key_filepath:  # ('SSH_KEY')
+remote_path: "$SCRATCH"
+passphrase:  # getpass.getpass()
+
