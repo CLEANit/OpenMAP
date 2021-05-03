@@ -1,0 +1,15 @@
+{
+	"general": {
+		"auto_desc_gen": "False",
+		"parallel":      "True",
+		"boosted":       "False",
+		"sampling_strategies": 2,
+		"random_seed": 0
+	},
+	"parameters": [
+			{"name": "alkali_chlorides", "type": "categorical", "size": 1, "category_details": "CatDetails/cat_details_alkali_chlorides.pkl"}
+	],
+	"objectives": [
+			{"name": "melting_points", "goal": "maximize"}
+		]
+}
