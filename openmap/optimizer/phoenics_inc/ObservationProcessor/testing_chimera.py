@@ -1,5 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/env python 
 
-import matplotlib.pyplot as plt
-import numpy as np
+import numpy as np 
+import matplotlib.pyplot as plt 
+
+
 from chimera import Chimera
+
